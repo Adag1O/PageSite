@@ -1,9 +1,9 @@
 ---
-const { imgUrl, ContactoUrl, Name } = Astro.props;
+const { imgUrl, ContactoUrl } = Astro.props;
 ---
 
-<nav id="navbar" class="flex justify-between w-[80%] my-10 z-20  text-black  transition-all duration-500 ease-in-out px-2 py-2">
-    <h1 class="text-4xl font-medium">{Name}</h1>
+<nav id="navbar" class="flex justify-between items-center w-[80%] my-10 z-20  text-black  transition-all duration-500 ease-in-out px-2 py-2">
+    <h1  class="text-3xl poppins-semibold"><span id="name1" class="text-[#123472]">Adag</span><span id="name2" class="text-[#ff0040]">IO</span></h1>
 
     <a id="contacto" href={ContactoUrl} class="text-white bg-black px-4 py-2.5 rounded-lg text-xs font-medium">Contacto</a>
 </nav>
@@ -11,25 +11,33 @@ const { imgUrl, ContactoUrl, Name } = Astro.props;
 <script>
     const nav = document.getElementById("navbar");
     const contacto = document.getElementById("contacto");
+    const name1 = document.querySelector("#name1");
+    const name2 = document.querySelector("#name2");
 
     window.addEventListener("scroll", () => {
-        if (nav && contacto) {
+        if (nav && contacto && name1 && name2) {
             if (window.scrollY > 10) {
 
                 nav.classList.add(
-                    "w-[20%]",
+                    "w-[40%]",
+                    "md:w-[10%]",
+                    "lg:w-[13%]",
                     "rounded-md",
                     "sticky",
                     "top-4",
                     "px-2",
                     "py-2",
                     "text-white",
-                    "backdrop-blur-sm",
-                    "bg-gray-500/20"
+                    "backdrop-blur-xs",
+                    "bg-gray-900/20"
                 );
                 nav.classList.remove("w-[80%]", "text-black");
                 contacto.classList.remove("text-white","bg-black");
                 contacto.classList.add("text-black","bg-white");
+                name1.classList.remove("text-[#123472]");
+                name2.classList.remove("text-[#ff0040]");
+                name1.classList.add("text-white");
+                name2.classList.add("text-white");
 
             } else {
 
@@ -37,15 +45,21 @@ const { imgUrl, ContactoUrl, Name } = Astro.props;
                 contacto.classList.add("text-white","bg-black");
                 nav.classList.add("w-[80%]", "text-black");
                 nav.classList.remove(
-                    "w-[20%]",
+                    "w-[40%]",
+                    "md:w-[10%]",
+                    "lg:w-[13%]",
                     "rounded-md",
                     "sticky",
                     "top-4",
                     "px-2",
                     "py-2",
-                    "backdrop-blur-sm",
-                    "bg-gray-500/20"           
+                    "backdrop-blur-xs",
+                    "bg-gray-900/20"           
                 );
+                name1.classList.remove("text-white");
+                name2.classList.remove("text-white");
+                name1.classList.add("text-[#123472]");
+                name2.classList.add("text-[#ff0040]");
             }
         }
     });

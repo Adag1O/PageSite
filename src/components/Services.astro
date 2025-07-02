@@ -1,23 +1,40 @@
 ---
 import scrollReveal from "scrollreveal";
 ---
-
-<div class=" flex w-[70%] h-[600px] gap-6 my-20">
+<div class="flex flex-col md:flex-row w-[80%] md:w-[55%] md:h-[500px] gap-6 my-50">
     <!-- Columna 1 -->
-    <div class="flex flex-col gap-6 w-1/3">
-      <div class="services h-[100%] bg-gray-200 rounded-2xl flex-1"></div>
+    <div class="flex flex-col gap-6 md:w-1/3 w-full ">
+      <div class="services bg-gray-200 rounded-2xl h-[300px] md:h-full ">
+            <h1 class="text-base font-medium ml-10 mt-5">Dispositivos Electrónicos</h1>
+            <p class="text-xs font-normal text-gray-600 ml-10 mt-5 max-w-[75%]">
+                Desarrollamos dispositivos electrónicos con alta conectividad, modularidad y seguridad, 
+                ideales para negocios que buscan facilitar su trabajo diario. </p>
+      </div>
     </div>
   
     <!-- Columna 2 -->
-    <div class="flex flex-col gap-6 w-1/3">
-     <div class="services h-[30%] bg-green-100 rounded-2xl flex-[3]"></div>
-      <div class="services h-[70%] bg-rose-100 rounded-2xl flex-[7]"></div>
+    <div class="flex flex-col gap-6 md:w-1/3 w-full">
+      <div class="services bg-green-100 rounded-2xl h-[300px] md:h-0 flex md:flex-col justify-center md:flex-[4]">
+        <h1 class="text-base font-medium ml-6 mt-5"> Rediseño de Contenido Web</h1>
+        <p class="text-xs font-normal text-gray-600 ml-6 mt-5 max-w-[80%]">Mejoramos el diseño, rendimiento y usabilidad de tu sitio web para ofrecer una experiencia atractiva y eficiente que atraiga más clientes.</p>
+      </div>
+      <div class="services bg-rose-100 rounded-2xl h-[300px] md:h-0 md:flex-[6]">
+        <h1 class="text-base font-medium ml-6 mt-5"> Desarrollo de Aplicaciones</h1>
+        <p class="text-xs font-normal text-gray-600 ml-6 mt-5 max-w-[80%]"> Creamos aplicaciones que te permiten controlar tus sitios y dispositivos de forma remota, impulsando la conectividad de tu negocio. </p>
+      </div>
     </div>
   
     <!-- Columna 3 -->
-    <div class="flex flex-col gap-6 w-1/3">
-      <div class="services h-[70%] bg-amber-100 rounded-2xl flex-[7]">1</div>
-      <div class="services h-[30%] bg-sky-100 rounded-2xl flex-[3]">2</div>
+    <div class="flex flex-col gap-6 md:w-1/3 w-full">
+      <div class="services bg-amber-100 rounded-2xl h-[300px] md:h-0 md:flex-[6]">
+        <h1 class="text-base font-medium ml-6 mt-8">E-commerce <br> Plataformas de Servicios</h1>
+        <p class="text-xs font-normal text-gray-600 ml-6 mt-5 max-w-[80%]">Diseñamos tiendas en línea para potenciar tus ventas, brindando una excelente experiencia de usuario e integración con métodos de pago personalizados. </p>
+      </div>
+      <div class="services bg-sky-100 rounded-2xl h-[300px] flex gap-4 justify-center md:h-0 md:flex-[4] flex-col ">
+        <h1 class="text-base font-medium ml-6 ">¿Tienes en mente una idea y quieres plasmarla? <br>
+            <span class="text-sky-500 font-medium">La desarrollamos para ti</span></h1>
+        <p class="text-xs font-normal text-gray-600 ml-6 max-w-[80%]">Te ayudamos a convertir tu idea en realidad, con el respaldo de un equipo profesional, alta calidad y atención personalizada.</p>
+      </div>
     </div>
   </div>
   
@@ -26,12 +43,12 @@ import scrollReveal from "scrollreveal";
     import ScrollReveal from "scrollreveal";
   
     const slideUp = {
-      distance: '50px',
+      distance: '100px',
       origin: 'bottom',
       opacity: 0,
       duration: 600,
       easing: 'ease-in-out',
-      interval: 300
+      interval: 16,reset: true
     };
   
     ScrollReveal().reveal('.services', slideUp);

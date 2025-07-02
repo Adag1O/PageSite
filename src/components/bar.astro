@@ -1,0 +1,52 @@
+---
+const { imgUrl, ContactoUrl, Name } = Astro.props;
+---
+
+<nav id="navbar" class="flex justify-between w-[80%] my-10 z-20  text-black  transition-all duration-500 ease-in-out px-2 py-2">
+    <h1 class="text-4xl font-medium">{Name}</h1>
+
+    <a id="contacto" href={ContactoUrl} class="text-white bg-black px-4 py-2.5 rounded-lg text-xs font-medium">Contacto</a>
+</nav>
+
+<script>
+    const nav = document.getElementById("navbar");
+    const contacto = document.getElementById("contacto");
+
+    window.addEventListener("scroll", () => {
+        if (nav && contacto) {
+            if (window.scrollY > 10) {
+
+                nav.classList.add(
+                    "w-[20%]",
+                    "rounded-md",
+                    "sticky",
+                    "top-4",
+                    "px-2",
+                    "py-2",
+                    "text-white",
+                    "backdrop-blur-sm",
+                    "bg-gray-500/20"
+                );
+                nav.classList.remove("w-[80%]", "text-black");
+                contacto.classList.remove("text-white","bg-black");
+                contacto.classList.add("text-black","bg-white");
+
+            } else {
+
+                contacto.classList.remove("text-black","bg-white");
+                contacto.classList.add("text-white","bg-black");
+                nav.classList.add("w-[80%]", "text-black");
+                nav.classList.remove(
+                    "w-[20%]",
+                    "rounded-md",
+                    "sticky",
+                    "top-4",
+                    "px-2",
+                    "py-2",
+                    "backdrop-blur-sm",
+                    "bg-gray-500/20"           
+                );
+            }
+        }
+    });
+</script>

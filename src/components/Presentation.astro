@@ -1,0 +1,14 @@
+---
+import Bar from './bar.astro';
+import { IoArrowForwardOutline } from 'react-icons/io5';
+---
+
+<div class="flex items-center w-[100%] flex-col gap-20 ">
+    <div class="w-[80%] h-[400px] relative flex items-start justify-evenly flex-col bg-[#171717] rounded-4xl text-sky-50 mb-32">
+        <img src="/logo.png" alt="Presentation" class=" absolute top-0 left-0 w-full h-full rounded-4xl object-cover border-black border"/>
+        <h1 class="ml-20 text-6xl font-medium">AdagIO</h1>
+        <h2 class="ml-20 text-md max-w-[60%] font-medium">Desarrolla twew we wef we fwe fwef efwefwefwef wefwefwefwe fwefwefu wrfwfwe wef we f we fw efnegocio con tecnología</h2>
+        <button class="ml-20 flex gap-5 items-center hover:cursor-pointer bg-gray-50/5 z-4 hover:bg-gray-100/10 backdrop-blur-md py-4 px-4 rounded-lg">Contactame <IoArrowForwardOutline client:idle size={25} /> </button>
+    </div> 
+
+</div>

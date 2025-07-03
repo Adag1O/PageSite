@@ -1,4 +1,4 @@
-<div class="bg-white w-full flex flex-col items-center ">
+<div id="ContactoForm" class="bg-white w-full flex flex-col items-center py-26 ">
 
     <div class="flex items-start justify-center gap-10 h-[500px]  w-[80%]">
         <div class="flex flex-col gap-3  w-1/2">
@@ -9,16 +9,16 @@
         <form name="Contact" method="POST" class="flex flex-col gap-4  w-1/2" data-netlify="true" action="/">
             <div class="flex flex-col gap-2 w-[100%] ">
                 <label for="Nombre" class="text-lg font-medium">Nombre</label>
-                <input  required type="text" id="Nombre" placeholder="Nombre Completo" name="Nombre" value="Contacto" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
+                <input  required type="text" id="Nombre" placeholder="Nombre Completo" name="Nombre" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
             </div>
             <div class="flex flex-col gap-3 w-[100%]">
                 <label for="CorreoElectronico" class="text-lg font-medium">Email</label>
-                <input required type="email" id="CorreoElectronico" placeholder="Correo Electronico" name="CorreoElectronico" value="Contacto" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
+                <input required type="email" id="CorreoElectronico" placeholder="Correo Electronico" name="CorreoElectronico"  class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
 
             </div>
             <div class="flex flex-col gap-3 w-[100%]">        
                 <label for="Mensaje" class="text-lg font-medium">Mensaje</label>
-                <textarea required id="Mensaje" placeholder="Escribe tu mensaje" name="Mensaje" value="Contacto" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
+                <textarea required id="Mensaje" placeholder="Escribe tu mensaje" name="Mensaje" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
             </div>
             <button type="submit" class="bg-gray-900 text-white rounded-md p-2 w-[90%] mt-3 font-medium">Enviar</button>
         </form>

@@ -9,16 +9,16 @@
         <form name="Contacto" method="POST" class="flex flex-col gap-4  w-1/2" netlify action="/">
             <div class="flex flex-col gap-2 w-[100%] ">
                 <label for="Nombre" class="text-lg font-medium">Nombre</label>
-                <input type="text" id="Nombre" placeholder="Nombre Completo" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
+                <input  required type="text" id="Nombre" placeholder="Nombre Completo" value="Contacto" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
             </div>
             <div class="flex flex-col gap-3 w-[100%]">
                 <label for="CorreoElectronico" class="text-lg font-medium">Email</label>
-                <input type="email" id="CorreoElectronico" placeholder="Correo Electronico" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
+                <input required type="email" id="CorreoElectronico" placeholder="Correo Electronico" value="Contacto" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
 
             </div>
             <div class="flex flex-col gap-3 w-[100%]">        
                 <label for="Mensaje" class="text-lg font-medium">Mensaje</label>
-                <textarea id="Mensaje" placeholder="Escribe tu mensaje" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
+                <textarea required id="Mensaje" placeholder="Escribe tu mensaje" value="Contacto" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
             </div>
             <button type="submit" class="bg-gray-900 text-white rounded-md p-2 w-[90%] mt-3 font-medium">Enviar</button>
         </form>

@@ -6,25 +6,21 @@
             <h1 class="text-2xl font-medium ml-10 mt-8">Ponte en contacto con nosotros hoy mismo</h1>
             <p class="ml-10 w-[60%] text-sm font-normal text-gray-600">Si tienes alguna pregunta o necesitas ayuda con algo, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
         </div>
-        <form name="Contacto" method="POST" data-netlify="true">
-            <p>
-                <label>Your Name: <input type="text" name="name" /></label>
-              </p>
-              <p>
-                <label>Your Email: <input type="email" name="email" /></label>
-              </p>
-              <p>
-                <label>Your Role: <select name="role[]" multiple>
-                  <option value="leader">Leader</option>
-                  <option value="follower">Follower</option>
-                </select></label>
-              </p>
-              <p>
-                <label>Message: <textarea name="message"></textarea></label>
-              </p>
-              <p>
-                <button type="submit">Send</button>
-              </p>
+        <form name="contact" method="POST" class="flex flex-col gap-4  w-1/2" data-netlify="true" action="/">
+            <div class="flex flex-col gap-2 w-[100%] ">
+                <label for="Nombre" class="text-lg font-medium">Nombre</label>
+                <input  required type="text" id="Nombre" placeholder="Nombre Completo" name="Nombre" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
+            </div>
+            <div class="flex flex-col gap-3 w-[100%]">
+                <label for="CorreoElectronico" class="text-lg font-medium">Email</label>
+                <input required type="email" id="CorreoElectronico" placeholder="Correo Electronico" name="CorreoElectronico" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
+
+            </div>
+            <div class="flex flex-col gap-3 w-[100%]">        
+                <label for="Mensaje" class="text-lg font-medium">Mensaje</label>
+                <textarea required id="Mensaje" placeholder="Escribe tu mensaje" name="Mensaje" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
+            </div>
+            <button type="submit" class="bg-gray-900 text-white rounded-md p-2 w-[90%] mt-3 font-medium">Enviar</button>
         </form>
     </div>
 </div>

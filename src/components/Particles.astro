@@ -1,0 +1,21 @@
+---
+const { style } = Astro.props;
+---
+
+<canvas id="idParticles" class={style}></canvas>
+
+<script >
+  import Particles from "particlesjs";
+
+  window.onload = () => {
+    Particles.init({
+      selector: '#idParticles',
+      maxParticles: 100,
+      speed: .6,
+      color: "#ffffff",
+      minDistance: 70,
+      connectParticles: true
+    });
+  };
+</script>
+

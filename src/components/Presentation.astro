@@ -1,34 +1,63 @@
 ---
-import Bar from './bar.astro';
-import { IoArrowForwardOutline } from 'react-icons/io5';
+import { IoArrowForwardOutline } from "react-icons/io5";
+import Particles from "./Particles.astro";
 ---
 
-<div class="flex items-center w-[100%] flex-col gap-20 ">
-    <div class="w-[80%] h-[450px] relative flex items-start justify-evenly flex-col bg-[#1a1919] rounded-4xl text-sky-50 mb-32">
-        <img src=""  class=" absolute top-0 left-0 w-full h-full rounded-4xl object-cover border-black border"/>
-        <h1 class="ml-20 text-6xl font-medium poppins-semibold">
-            <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span></h1>
-        <h2 class="ml-20 text-md max-w-[60%] font-medium">Desarrolla twew we wef we fwe fwef efwefwefwef wefwefwefwe fwefwefu wrfwfwe wef we f we fw efnegocio con tecnología</h2>
-       
-        <button
-        class="cursor-pointer group relative ml-20 bg-transparent text-zinc-100 border border-zinc-100 hover:bg-zinc-300 hover:text-black font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ease-in-out shadow hover:shadow-lg w-40 h-12"
-      >
-        <div class="relative flex items-center justify-center gap-2">
-          <span class="relative inline-block overflow-hidden">
-            <span
-              class="block transition-transform duration-300 group-hover:-translate-y-full"
-            >
-              Contacto
-            </span>
-            <span
-              class="absolute inset-0 transition-transform duration-300 translate-y-full group-hover:translate-y-0"
-            >
-              Contacto
-            </span>
-          </span>
-      
-         <IoArrowForwardOutline client:idle size={20} />
-        </div>
-      </button>    </div> 
+<div class="flex items-center w-[100%] flex-col gap-20">
+  <div
+    class="w-[80%] h-[450px] relative flex items-start justify-evenly flex-col bg-[#1a1919] rounded-4xl text-sky-50 mb-32"
+  >
+  <!--   <img src="/public/bg.png" class="absolute top-0 left-0 w-full h-full rounded-4xl object-cover border-black border">
+ -->
 
+   <div  class="absolute top-0 left-0 w-full h-full bg-zinc-900/70 z-4 rounded-4xl backdrop-blur-none "  >
+    <Particles class="absolute top-0 left-0 w-full h-full rounded-4xl bg-black z-13" />
+  </div>
+
+    <h1 class="ml-20 text-6xl font-medium poppins-semibold z-20">
+      <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]"
+        >IO</span
+      >
+    </h1>
+    <h2 class="ml-20 text-md max-w-[60%] font-medium z-20">
+      Desarrolla twew we wef we fwe fwef efwefwefwef wefwefwefwe fwefwefu <br>
+      wrfwfwe wef we f we fw efnegocio con tecnología
+    </h2>
+
+    <button
+      class="cursor-pointer group z-20 relative ml-20 bg-transparent text-zinc-100 border border-zinc-100 hover:bg-zinc-300 hover:text-black font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ease-in-out shadow hover:shadow-lg w-40 h-12"
+    >
+      <div class="relative flex items-center justify-center gap-2">
+        <span class="relative inline-block overflow-hidden">
+          <span
+            class="block transition-transform duration-300 group-hover:-translate-y-full"
+          >
+            Contacto
+          </span>
+          <span
+            class="absolute inset-0 transition-transform duration-300 translate-y-full group-hover:translate-y-0"
+          >
+            Contacto
+          </span>
+        </span>
+        <span class="relative inline-block overflow-hidden">
+          <span
+            class="block transition-transform duration-300 group-hover:-translate-y-full"
+          >
+          <IoArrowForwardOutline client:idle size={20} />
+          </span>
+          <span
+            class="absolute inset-0 transition-transform duration-300 translate-y-full group-hover:translate-y-0"
+          >
+          <IoArrowForwardOutline client:idle size={20} />
+          </span>
+        </span>
+      </div>
+    </button>
+  </div>
 </div>
+
+
+<script >
+
+</script>

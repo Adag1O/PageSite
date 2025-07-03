@@ -1,0 +1,16 @@
+---
+import Figma from "../icons/figma";
+import Facebook from "../icons/Facebook";
+import Instagram from "../icons/Instagram";
+import Github from "../icons/Github";
+---
+
+<footer class="w-full h-[120px] flex items-end justify-between bg-[#121212]">
+    <a href="#" class=" text-white ml-16 mb-8 poppins-regular text-4xl"> AdagIO <span class="text-lg">&copy; {new Date().getFullYear()}</span></a>
+    <div class="flex items-center gap-4 mr-16 mb-8">
+       <a href="#"> <Facebook className="w-6 h-6" client:idle/> </a>
+       <a href="#"> <Instagram className="w-6 h-6" client:idle/> </a>
+       <a href="#"> <Figma className="w-6 h-6" client:idle/> </a>
+       <a href="#"> <Github className="w-6 h-6" client:idle/> </a>
+    </div>
+</footer>

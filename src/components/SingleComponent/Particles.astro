@@ -5,7 +5,8 @@ const { style } = Astro.props;
 <canvas id="idParticles" class={style}></canvas>
 
 <script >
-  import Particles from "particlesjs";
+  // @ts-ignore
+  import Particles from "particlesjs" ;
 
   window.onload = () => {
     Particles.init({

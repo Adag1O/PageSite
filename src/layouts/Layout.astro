@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import EndPage from "../components/SingleComponent/EndPage.astro";
 ---
 <!doctype html>
 <html lang="en">
@@ -12,12 +13,12 @@ import "../styles/global.css";
 	</head>
 	<body >
 		<slot />
+		<EndPage/>
 	</body>
 </html>
 
 <style>
 	html{
 		background-color: #f5f4f6;
-		//background-color: #f3f3ff;
 	}
 </style>

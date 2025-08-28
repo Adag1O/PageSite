@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:main": "ASTRO_SITE=https://adagi0.com astro build",
+    "build:demos": "ASTRO_SITE=https://demos.adagi0.com astro build",
+    "build:all": "npm run build:main && npm run build:demos"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",

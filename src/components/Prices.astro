@@ -1,85 +1,514 @@
-<div class="w-full bg-white flex items-center justify-center"> 
-    <div class="w-[80%] flex flex-col gap-16 py-26 items-center ">
-        <h1 class="text-5xl font-medium text-center mb-10">
-            Servicios Y Productos a <br /> precios accesibles
-        </h1>
+<div class="w-full bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center py-16"> 
+    <div class="w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-20 flex flex-col gap-16 items-center">
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <div class="inline-block mb-4">
+                <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent text-sm font-semibold uppercase tracking-wider">
+                    Precios Transparentes
+                </span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    Servicios y Productos
+                </span>
+                <br />
+                <span class="text-gray-900">a precios accesibles</span>
+            </h1>
+            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Ofrecemos soluciones tecnológicas de calidad profesional con precios justos y transparentes
+            </p>
+        </div>
     
-        <div
-            class="flex py-1 px-1 items-center rounded-md justify-center border w-[350px] border-gray-400/20"
-            id="TabGrl"
-        >
-            <div class="flex w-[350px] h-[40px] rounded-md relative" id="Tab1">
-                <div
-                    class="absolute top-0 h-full bg-black rounded-md w-1/3 transition-all duration-300 left-0 z-0"
-                    id="Indicator"
-                >
+        <!-- Tab Navigation -->
+        <div class="relative mb-12">
+            <div class="flex p-1 items-center rounded-lg justify-center bg-gray-100" id="TabGrl" style="min-width: 420px;">
+                <div class="flex w-full h-10 rounded-md relative overflow-hidden" id="Tab1">
+                    <div class="absolute top-0 h-full bg-black rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0" id="Indicator"></div>
+                    <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-white text-sm font-medium rounded-md flex items-center justify-center">
+                        <span>Dispositivos</span>
+                    </button>
+                    <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-gray-600 text-sm font-medium rounded-md flex items-center justify-center">
+                        <span>Aplicaciones</span>
+                    </button>
+                    <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-gray-600 text-sm font-medium rounded-md flex items-center justify-center">
+                        <span>Sitios Web</span>
+                    </button>
                 </div>
-                <button
-                    class="w-1/3 relative z-10 transition-colors text-white cursor-pointer"
-                    ><span>Dispositivos</span></button
-                >
-                <button
-                    class="w-1/3 relative z-10 transition-colors text-black cursor-pointer"
-                    ><span>Aplicaciones</span></button
-                >
-                <button
-                    class="w-1/3 relative z-10 transition-colors text-black cursor-pointer"
-                    ><span>Sitios Web</span></button
-                >
             </div>
         </div>
     
-        <div class="relative w-full overflow-hidden">
-            <div
-                id="carousel"
-                class="flex transition-transform duration-500 ease-in-out w-full h-[480px]"
-            >
-                <div
-                    class="min-w-full  p-5 flex flex-col md:flex-row justify-center items-start gap-6"
-                >
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+        <!-- Pricing Cards Container -->
+        <div class="relative w-full overflow-hidden pt-4">
+            <div id="carousel" class="flex transition-transform duration-500 ease-in-out w-full">
+                <!-- Dispositivos Pricing -->
+                <div class="min-w-full p-2 flex flex-col lg:flex-row justify-center items-stretch gap-6">
+                    <!-- Basic Device Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Básico</h3>
+                                <p class="text-gray-600 text-sm mb-4">Ideal para prototipos y pruebas de concepto</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$2,500</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Sensor básico</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Microcontrolador incluido</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Código fuente</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">1 mes de soporte</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
-    
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                    <!-- Professional Device Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border-2 border-black rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">Más Popular</span>
+                        </div>
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-black rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Profesional</h3>
+                                <p class="text-gray-600 text-sm mb-4">Para implementaciones comerciales</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$8,500</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Múltiples sensores</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Conectividad Wi-Fi/Bluetooth</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Dashboard web incluido</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">6 meses de soporte</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                    <!-- Enterprise Device Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Empresarial</h3>
+                                <p class="text-gray-600 text-sm mb-4">Soluciones industriales completas</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$15,000</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Sistema completo IoT</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Análisis de datos con IA</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">App móvil personalizada</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Soporte 24/7 por 1 año</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
                 </div>
-                <div
-                    class="min-w-full  p-5 flex flex-col md:flex-row justify-center items-start gap-6"
-                >
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+                <!-- Aplicaciones Pricing -->
+                <div class="min-w-full p-2 flex flex-col lg:flex-row justify-center items-stretch gap-6">
+                    <!-- Basic App Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">App Básica</h3>
+                                <p class="text-gray-600 text-sm mb-4">Aplicación móvil sencilla</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$12,000</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Android & iOS</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">5 pantallas incluidas</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Diseño personalizado</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">3 meses de soporte</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
-    
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                    <!-- Professional App Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border-2 border-black rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">Más Popular</span>
+                        </div>
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-black rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">App Premium</h3>
+                                <p class="text-gray-600 text-sm mb-4">Aplicación completa con funciones avanzadas</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$25,000</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Android, iOS & Web</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Pantallas ilimitadas</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Base de datos incluida</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">6 meses de soporte</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                    <!-- Enterprise App Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">App Empresarial</h3>
+                                <p class="text-gray-600 text-sm mb-4">Solución completa con IA y analytics</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$45,000</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Multiplataforma completa</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">IA y Machine Learning</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">API personalizada</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Soporte 24/7 por 1 año</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
                 </div>
-                <div
-                    class="min-w-full  p-5 flex flex-col md:flex-row justify-center items-start gap-6"
-                >
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                <!-- Sitios Web Pricing -->
+                <div class="min-w-full p-2 flex flex-col lg:flex-row justify-center items-stretch gap-6">
+                    <!-- Basic Website Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Landing Page</h3>
+                                <p class="text-gray-600 text-sm mb-4">Sitio web profesional de una página</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$5,500</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Diseño responsive</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Hosting por 1 año</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Dominio incluido</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">SSL certificado</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
-    
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                    <!-- Professional Website Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border-2 border-black rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">Más Popular</span>
+                        </div>
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-black rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">Sitio Corporativo</h3>
+                                <p class="text-gray-600 text-sm mb-4">Sitio web completo con CMS</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$18,000</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Hasta 10 páginas</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">CMS para contenido</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">SEO optimizado</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Google Analytics</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
-                    <div class="w-full md:w-1/3 h-full bg-[#0000000c] rounded-3xl p-5 flex flex-col justify-center items-start gap-6">
-                       
+
+                    <!-- E-commerce Website Plan -->
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                        <div>
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">E-commerce</h3>
+                                <p class="text-gray-600 text-sm mb-4">Tienda online completa</p>
+                                <div class="mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">$35,000</span>
+                                    <span class="text-gray-600 text-sm ml-2">MXN</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Catálogo ilimitado</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Pagos en línea</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Panel de administración</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-gray-700 text-sm">Soporte premium 6 meses</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-medium">
+                            Seleccionar Plan
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 
@@ -88,25 +517,36 @@
     const indicator = document.getElementById("Indicator");
     const carousel = document.getElementById("carousel");
 
-    if (tab && indicator) {
+    if (tab && indicator && carousel) {
         const buttons = tab.querySelectorAll("button");
 
         buttons.forEach((button, index) => {
             button.addEventListener("click", () => moveIndicator(index));
         });
 
-        function moveIndicator(index) {
+        function moveIndicator(index: number) {
             // Mover indicador
-            indicator.style.left = `${index * 33.3333}%`;
+            if (indicator) {
+                indicator.style.left = `${index * 33.3333}%`;
+            }
 
             // Cambiar colores de texto
             buttons.forEach((btn, i) => {
                 const isActive = i === index;
                 btn.classList.toggle("text-white", isActive);
-                btn.classList.toggle("text-black", !isActive);
+                btn.classList.toggle("text-gray-600", !isActive);
             });
 
-            carousel.style.transform = `translateX(-${index * 100}%)`;
+            // Mover carousel
+            if (carousel) {
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+            }
         }
     }
 </script>
+
+<style>
+    .tab-btn {
+        transition: color 0.2s ease;
+    }
+</style>

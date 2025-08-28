@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="LinkTree - AdagIO">
+  <main class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
+    <div class="max-w-md mx-auto">
+      <div class="text-center mb-8">
+        <img 
+          src="/profile-image.jpg" 
+          alt="Profile" 
+          class="w-32 h-32 rounded-full mx-auto mb-4"
+          onerror="this.src='https://via.placeholder.com/128'"
+        >
+        <h1 class="text-2xl font-bold">@AdagIO</h1>
+        <p class="text-gray-400">Digital Agency & Web Development</p>
+      </div>
+
+      <div class="space-y-4">
+        <a 
+          href="https://adagi0.com" 
+          class="block w-full p-4 text-center bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+          target="_blank"
+        >
+          🌐 Website
+        </a>
+        
+        <a 
+          href="https://github.com/Adag1O" 
+          class="block w-full p-4 text-center bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+          target="_blank"
+        >
+          👨‍💻 GitHub
+        </a>
+
+        <a 
+          href="#" 
+          class="block w-full p-4 text-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition-colors"
+          target="_blank"
+        >
+          📸 Instagram
+        </a>
+
+        <a 
+          href="#" 
+          class="block w-full p-4 text-center bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors"
+          target="_blank"
+        >
+          💼 LinkedIn
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  a {
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  
+  a:hover {
+    transform: scale(1.02);
+  }
+</style>

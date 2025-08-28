@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import EndPage from "../components/SingleComponent/EndPage.astro";
+import TagDemo from "../components/SingleComponent/TagDemo.astro";
 ---
 <!doctype html>
 <html lang="en">
@@ -11,8 +12,8 @@ import EndPage from "../components/SingleComponent/EndPage.astro";
 		<meta name="generator" content={Astro.generator} />
 		<title>AdagIO</title>
 	</head>
-	<body class="flex flex-col min-h-screen">
-		
+	<body class="flex flex-col min-h-screen relative">
+		<TagDemo  Color="#fff" Position="TL" />
 		<slot />
 		<EndPage/>
 	</body>

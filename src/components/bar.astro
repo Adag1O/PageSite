@@ -2,65 +2,84 @@
 const { imgUrl, ContactoUrl } = Astro.props;
 ---
 
-<nav id="navbar" class="flex justify-between items-center w-[80%] my-10 z-20  text-black  transition-all duration-500 ease-in-out px-2 py-2">
-    <h1  class="text-3xl poppins-semibold"><span id="name1" class="text-[#123472]">Adag</span><span id="name2" class="text-[#ff0040]">IO</span></h1>
-
-    <a id="contacto" href={ContactoUrl} class="text-white bg-black px-4 py-2.5 rounded-lg text-xs font-medium">Contacto</a>
+<nav
+  id="navbar"
+  class="flex items-center justify-between z-20 flex-nowrap w-[80%] mx-auto my-10 text-black transition-all duration-500 ease-in-out px-4 py-3 gap-4"
+>
+  <h1 id="navbar-title" class="text-3xl poppins-semibold transition-all duration-500">
+    <span id="name1" class="text-[#123472]">Adag</span
+    ><span id="name2" class="text-[#ff0040]">IO</span>
+  </h1>
+  <a
+    id="contacto"
+    href={ContactoUrl}
+    class="text-white bg-black px-4 py-2.5 rounded-lg text-xs font-medium transition-colors duration-500 whitespace-nowrap"
+    >Contacto</a
+  >
 </nav>
 
 <script>
-    const nav = document.getElementById("navbar");
-    const contacto = document.getElementById("contacto");
-    const name1 = document.querySelector("#name1");
-    const name2 = document.querySelector("#name2");
+import type { HtmlHTMLAttributes } from "react";
 
-    window.addEventListener("scroll", () => {
-        if (nav && contacto && name1 && name2) {
-            if (window.scrollY > 10) {
+const nav = document.getElementById("navbar") as HTMLHtmlElement;
+const contacto = document.getElementById("contacto") as HTMLHtmlElement;
+const title = document.getElementById("navbar-title") as HTMLHtmlElement;
+const name1 = document.getElementById("name1") as HTMLHtmlElement;
+const name2 = document.getElementById("name2")as HTMLHtmlElement;
 
-                nav.classList.add(
-                    "w-[40%]",
-                    "md:w-[10%]",
-                    "lg:w-[20%]",
-                    "rounded-lg",
-                    "sticky",
-                    "top-4",
-                    "px-2",
-                    "py-2",
-                    "text-white",
-                    "backdrop-blur-md",
-                    "bg-gray-900/40"
-                );
-                nav.classList.remove("w-[80%]", "text-black");
-                contacto.classList.remove("text-white","bg-black");
-                contacto.classList.add("text-black","bg-white");
-                name1.classList.remove("text-[#123472]");
-                name2.classList.remove("text-[#ff0040]");
-                name1.classList.add("text-white");
-                name2.classList.add("text-white");
+const MIN_WIDTH = 210; // ancho mínimo en px al hacer scroll
+const MAX_WIDTH = 240; // ancho máximo cuando scroll
 
-            } else {
+window.addEventListener("scroll", () => {
+  const isScrolled = window.scrollY > 10;
+  const viewportWidth = window.innerWidth;
+  console.log("ScrollY:", window.scrollY, "isScrolled:", isScrolled, "viewport:", viewportWidth);
 
-                contacto.classList.remove("text-black","bg-white");
-                contacto.classList.add("text-white","bg-black");
-                nav.classList.add("w-[80%]", "text-black");
-                nav.classList.remove(
-                    "w-[40%]",
-                    "md:w-[10%]",
-                    "lg:w-[20%]",
-                    "rounded-lg",
-                    "sticky",
-                    "top-4",
-                    "px-2",
-                    "py-2",
-                    "backdrop-blur-md",
-                    "bg-gray-900/40"           
-                );
-                name1.classList.remove("text-white");
-                name2.classList.remove("text-white");
-                name1.classList.add("text-[#123472]");
-                name2.classList.add("text-[#ff0040]");
-            }
-        }
-    });
+  // Limpiar clases de ancho
+  nav.classList.remove("w-[80%]", "w-[25%]", "sm:w-[50%]", "md:w-[40%]", "lg:w-[25%]");
+
+  if (isScrolled) {
+    // Calcular ancho fijo limitado
+    let newWidth = viewportWidth * 0.25; // 25% por defecto
+    if (newWidth < MIN_WIDTH) newWidth = MIN_WIDTH;
+    if (newWidth > MAX_WIDTH) newWidth = MAX_WIDTH;
+    nav.style.width = `${newWidth}px`;
+    console.log("Scroll ON: ancho fijo limitado", newWidth);
+  } else {
+    nav.style.width = ""; // vuelve al 80% definido en Tailwind
+    nav.classList.add("w-[80%]");
+    console.log("Scroll OFF: ancho 80%");
+  }
+
+  // Otros estilos
+  nav.classList.toggle("rounded-lg", isScrolled);
+  nav.classList.toggle("sticky", isScrolled);
+  nav.classList.toggle("top-4", isScrolled);
+  nav.classList.toggle("bg-gray-900/40", isScrolled);
+  nav.classList.toggle("backdrop-blur-xs", isScrolled);
+  nav.classList.toggle("text-white", isScrolled);
+  nav.classList.toggle("text-black", !isScrolled);
+
+  contacto.classList.toggle("text-black", isScrolled);
+  contacto.classList.toggle("bg-white", isScrolled);
+  contacto.classList.toggle("text-white", !isScrolled);
+  contacto.classList.toggle("bg-black", !isScrolled);
+
+  name1.classList.toggle("text-white", isScrolled);
+  name2.classList.toggle("text-white", isScrolled);
+  name1.classList.toggle("text-[#123472]", !isScrolled);
+  name2.classList.toggle("text-[#ff0040]", !isScrolled);
+
+  // Reducir padding y tamaño del texto al hacer scroll
+  nav.classList.toggle("py-1", isScrolled);
+  nav.classList.toggle("px-3", isScrolled);
+  nav.classList.toggle("py-3", !isScrolled);
+  nav.classList.toggle("px-4", !isScrolled);
+
+  title.classList.toggle("text-2xl", isScrolled);
+  title.classList.toggle("text-3xl", !isScrolled);
+
+  console.log("Clases navbar:", nav.className);
+  console.log("Clases contacto:", contacto.className);
+});
 </script>

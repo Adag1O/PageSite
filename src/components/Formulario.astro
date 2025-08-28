@@ -1,26 +1,26 @@
-<div id="ContactoForm" class="bg-white w-full flex flex-col items-center py-26 ">
+<div id="ContactoForm" class="bg-white w-full flex flex-col items-center py-26  ">
 
-    <div class="flex items-start justify-center gap-10 h-[500px]  w-[80%]">
-        <div class="flex flex-col gap-3  w-1/2">
-            <h1 class="text-5xl font-medium ml-10 mt-4">🚀</h1>
-            <h1 class="text-2xl font-medium ml-10 mt-8">Ponte en contacto con nosotros hoy mismo</h1>
-            <p class="ml-10 w-[60%] text-sm font-normal text-gray-600">Si tienes alguna pregunta o necesitas ayuda con algo, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
+    <div class="flex items-start flex-col md:flex-row justify-center gap-10  w-full md:w-[80%]">
+        <div class="flex flex-col gap-3 w-full md:w-1/2 items-center">
+            <h1 class="text-5xl font-medium md:ml-10 mt-4">🚀</h1>
+            <h1 class="text-2xl font-medium md:ml-10 mt-8 text-center md:text-left">Ponte en contacto con nosotros hoy mismo</h1>
+            <p class="md:ml-10 md:w-[60%] mt-4 w-[90%] text-medium md:text-base font-normal text-gray-600 text-justify">Si tienes alguna pregunta o necesitas ayuda con algo, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
         </div>
-        <form name="Contact" method="POST" class="flex flex-col gap-4  w-1/2" data-netlify="true" action="/">
-            <div class="flex flex-col gap-2 w-[100%] ">
+        <form name="Contact" method="POST" class="flex flex-col gap-4 items-center justify-center w-full md:w-1/2" data-netlify="true" action="/">
+            <div class="flex flex-col gap-2 md:w-[100%] w-[85%]  ">
                 <label for="Nombre" class="text-lg font-medium">Nombre</label>
                 <input  required type="text" id="Nombre" placeholder="Nombre Completo" name="Nombre" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
             </div>
-            <div class="flex flex-col gap-3 w-[100%]">
+            <div class="flex flex-col gap-3 md:w-[100%] w-[85%]">
                 <label for="CorreoElectronico" class="text-lg font-medium">Email</label>
                 <input required type="email" id="CorreoElectronico" placeholder="Correo Electronico" name="CorreoElectronico"  class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
 
             </div>
-            <div class="flex flex-col gap-3 w-[100%]">        
+            <div class="flex flex-col gap-3 md:w-[100%] w-[85%]">        
                 <label for="Mensaje" class="text-lg font-medium">Mensaje</label>
                 <textarea required id="Mensaje" placeholder="Escribe tu mensaje" name="Mensaje" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
             </div>
-            <button type="submit" class="bg-gray-900 text-white rounded-md p-2 w-[90%] mt-3 font-medium">Enviar</button>
+            <button type="submit" class="bg-gray-900 text-white rounded-md p-2 md:w-[70%] w-[85%] mt-3 font-medium">Enviar</button>
         </form>
     </div>
 </div>

@@ -3,8 +3,8 @@ import { IoArrowForwardOutline } from "react-icons/io5";
 import scrollReveal from "scrollreveal";
 ---
 
-<div class="w-full flex flex-col items-center justify-center p-20 bg-white">
-    <div class="flex flex-col items-center justify-center gap-16 mb-12">
+<div class="w-full flex flex-col items-center justify-center md:p-20 px-5 bg-white">
+    <div class="flex flex-col items-center justify-center gap-16 mb-12 mt-10">
         <h1 class="text-6xl font-medium">Portafolio</h1>
         <p class="text-lg font-normal text-center">
             Una muestra de los dispositivos, aplicaciones <br />y sitios web que
@@ -15,7 +15,7 @@ import scrollReveal from "scrollreveal";
         class="flex py-1 px-1 items-center rounded-md justify-center border border-gray-300/40 mb-16"
         id="TabGrl"
     >
-        <div class="flex w-[400px] h-[40px] rounded-md relative" id="Tab">
+        <div class="flex w-[350px] h-[40px] rounded-md relative" id="Tab">
             <div
                 class="absolute top-[0%] h-[100%] bg-[#121212] rounded-md w-1/3 transition-all duration-300 left-0 z-0"
             >
@@ -38,47 +38,47 @@ import scrollReveal from "scrollreveal";
         </div>
     </div>
 
-    <div id="Dispositivos" class="flex flex-wrap gap-x-8 gap-y-9 w-[80%]">
-        <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+    <div id="Dispositivos" class="flex md:flex-wrap md:gap-x-8 md:gap-y-9 w-[95%] md:w-[80%] flex-col gap-5">
+        <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
           Dispositivo 1
         </a>
-        <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+        <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
           Dispositivo 2
         </a>
-        <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center ">
+        <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center ">
           Dispositivo 3
         </a>
-        <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+        <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
           Dispositivo 4
         </a>
       </div>
       
     
-    <div id="PaginasWeb" class="hidden flex-wrap gap-x-8 gap-y-9 w-[80%]">
-        <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+    <div id="PaginasWeb" class="hidden md:flex-wrap md:gap-x-8 md:gap-y-9 w-[95%] md:w-[80%] flex-col gap-5">
+        <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
             Pagina Web 1
           </a>
-          <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+          <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
             Pagina Web 2
           </a>
-          <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center ">
+          <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center ">
             Dispositivo 3
           </a>
-          <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+          <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
             Dispositivo 4
           </a>
     </div>
-    <div id="Aplicaciones" class="hidden flex-wrap gap-x-8 gap-y-9 w-[80%]">
-        <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+    <div id="Aplicaciones" class="hidden md:flex-wrap md:gap-x-8 md:gap-y-9 w-[95%] md:w-[80%] flex-col gap-5">
+        <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
             Aplicacion 1
           </a>
-          <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+          <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
             Aplicacion 2
           </a>
-          <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center ">
+          <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center ">
             Dispositivo 3
           </a>
-          <a href="#" class="flex-1 basis-[calc(50%-1rem)] h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
+          <a href="#" class="md:flex-1 md:basis-[calc(50%-1rem)] w-full h-[450px] bg-stone-300/50 text-white text-xs font-medium rounded-3xl text-center">
             Dispositivo 4
           </a>
     </div>

@@ -1,0 +1,28 @@
+---
+const { Position, Color, Background = "oklch(62.7% 0.194 149.214)", } = Astro.props;
+
+const Location = Position === "TL" ? "top-5 left-0 rounded-r-full" : Position === "TR" ? "top-5 right-0 rounded-l-full" : Position === "BL" ? "bottom-5 left-0 rounded-r-full" : "bottom-5 right-0 rounded-l-full";
+
+---
+
+<h1
+  id="DemoTag"
+  class={`fixed z-50 ${Location} text-xl py-1.5 px-6  text-center opacity-0 transition-opacity duration-300`}
+  data-position={Position}
+  style={`background-color: ${Background}; color: ${Color};`}
+>
+  Demo
+</h1>
+
+<script>
+  const tag = document.getElementById("DemoTag") as HTMLElement;
+  let scrollTimeout: NodeJS.Timeout;
+
+  window.addEventListener("scroll", () => {
+    tag.style.opacity = "1";
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      tag.style.opacity = "0.4";
+    }, 200);
+  });
+</script>

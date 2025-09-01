@@ -7,13 +7,13 @@
   NODE_VERSION = "20"
 
 [[redirects]]
-  from = "https://demos.adagi0.com/*"
+  from = "https://demo.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
 
 [[redirects]]
-  from = "https://demos.adagi0.com"
+  from = "https://demo.adagi0.com"
   to = "https://adagi0.com/Demos/"
   status = 200
   force = true

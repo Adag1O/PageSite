@@ -1,0 +1,32 @@
+[build]
+  command = "npm run build"
+  functions = "netlify/functions"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "https://demo.yourdomain.com/*"
+  to = "https://yourdomain.com/Demos/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://demo.yourdomain.com"
+  to = "https://yourdomain.com/Demos/"
+  status = 200
+  force = true
+
+# Handle subdomain routing at edge level
+[[edge_functions]]
+  function = "subdomain-handler"
+  path = "/*"
+
+# Headers for CORS and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

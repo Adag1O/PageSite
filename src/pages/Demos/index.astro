@@ -1,0 +1,165 @@
+---
+import DemoLayout from "../../layouts/DemoLayout.astro";
+
+// Get subdomain info
+const { subdomain, isDemoSubdomain } = Astro.locals;
+const isOnDemoSubdomain = isDemoSubdomain || subdomain === 'demo' || subdomain === 'Demo';
+
+// Demo routes configuration
+const demoRoutes = [
+    {
+        name: "LinkTree Demo",
+        path: "/LinkTree",
+        description: "Interactive LinkTree style page demo",
+        category: "Social"
+    },
+    // Add more demo routes as needed
+];
+---
+
+<DemoLayout>
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-block mb-4">
+                    <span class="bg-gradient-to-r from-[#123472] to-[#ff0040] bg-clip-text text-transparent text-sm font-semibold uppercase tracking-wider">
+                        {isOnDemoSubdomain ? 'Demo Subdomain' : 'Demo Gallery'}
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                    <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span>
+                    <span class="block text-3xl sm:text-4xl lg:text-5xl mt-2 text-gray-700">
+                        Live Demos
+                    </span>
+                </h1>
+                
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Explore our interactive demonstrations and prototypes. Each demo showcases different technologies and design approaches.
+                </p>
+                
+                {isOnDemoSubdomain && (
+                    <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg max-w-md mx-auto">
+                        <p class="text-sm text-blue-800">
+                            <strong>🌐 Subdomain Active:</strong> You're viewing from the demo subdomain
+                        </p>
+                    </div>
+                )}
+            </div>
+
+            <!-- Demo Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {demoRoutes.map((demo) => (
+                    <div class="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                        <div class="mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-[#123472] to-[#ff0040] rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#123472] transition-colors duration-300">
+                                {demo.name}
+                            </h3>
+                            
+                            <p class="text-gray-600 text-sm mb-4">
+                                {demo.description}
+                            </p>
+                            
+                            <div class="flex items-center justify-between">
+                                <span class="inline-block px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
+                                    {demo.category}
+                                </span>
+                                
+                                <a 
+                                    href={isOnDemoSubdomain ? demo.path : `/Demos${demo.path}`}
+                                    class="inline-flex items-center text-sm font-medium text-[#123472] hover:text-[#ff0040] transition-colors duration-200"
+                                >
+                                    View Demo
+                                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+                
+                <!-- Coming Soon Card -->
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border-2 border-dashed border-gray-300 p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
+                    <div class="w-12 h-12 bg-gray-300 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">
+                        More Demos Coming Soon
+                    </h3>
+                    
+                    <p class="text-gray-500 text-sm">
+                        We're constantly building new demonstrations to showcase our capabilities.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="mt-16 bg-white rounded-2xl border border-gray-200 p-8">
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        About These Demos
+                    </h2>
+                    
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">
+                        Each demo is a fully functional prototype that demonstrates specific technologies, design patterns, or user interaction concepts. They're built using modern web technologies and best practices.
+                    </p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                            Astro
+                        </span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                            React
+                        </span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                            Tailwind CSS
+                        </span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                            TypeScript
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</DemoLayout>
+
+<script>
+    // Add some interactive behavior
+    document.addEventListener('DOMContentLoaded', () => {
+        // Animate demo cards on scroll
+        const cards = document.querySelectorAll('.group') as NodeListOf<HTMLElement>;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const target = entry.target as HTMLElement;
+                    target.style.opacity = '1';
+                    target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    });
+</script>

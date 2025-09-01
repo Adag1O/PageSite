@@ -2,6 +2,10 @@
 import "../styles/global.css";
 import EndPage from "../components/SingleComponent/EndPage.astro";
 import TagDemo from "../components/SingleComponent/TagDemo.astro";
+
+// Get subdomain information from middleware
+const { subdomain, isDemoSubdomain } = Astro.locals;
+const pageTitle = isDemoSubdomain ? "Demo - AdagIO" : "AdagIO Demos";
 ---
 <!doctype html>
 <html lang="en">
@@ -10,7 +14,7 @@ import TagDemo from "../components/SingleComponent/TagDemo.astro";
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>AdagIO</title>
+		<title>{pageTitle}</title>
 	</head>
 	<body class="flex flex-col min-h-screen relative">
 		<TagDemo  Color="#fff" Position="TL" />

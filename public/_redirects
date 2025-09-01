@@ -1,0 +1,18 @@
+# Netlify _redirects file for subdomain routing
+# This file handles client-side redirects for subdomain routing
+
+# Subdomain redirects for demo.adagi0.com
+https://demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
+https://demo.adagi0.com       https://adagi0.com/Demos/           200!
+
+# Subdomain redirects for demos.adagi0.com  
+https://demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!
+https://demos.adagi0.com      https://adagi0.com/Demos/           200!
+
+# Fallback redirects
+/Demos/LinkTree               /Demos/LinkTree.html               200
+/Demos/Wedding                /Demos/Wedding.html                200
+/Demos/                       /Demos/index.html                  200
+
+# SPA fallback for any unmatched routes in Demos
+/Demos/*                      /Demos/index.html                  200

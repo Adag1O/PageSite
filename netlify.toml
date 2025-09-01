@@ -7,13 +7,13 @@
   NODE_VERSION = "20"
 
 [[redirects]]
-  from = "https://demo.adagi0.com/*"
+  from = "https://demos.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
 
 [[redirects]]
-  from = "https://demo.adagi0.com"
+  from = "https://demos.adagi0.com"
   to = "https://adagi0.com/Demos/"
   status = 200
   force = true
@@ -29,6 +29,17 @@
   to = "https://adagi0.com/Demos/"
   status = 200
   force = true
+
+# Backup function-based redirects
+[[redirects]]
+  from = "https://demo.adagi0.com/.netlify/functions/subdomain-redirect"
+  to = "/.netlify/functions/subdomain-redirect"
+  status = 200
+
+[[redirects]]  
+  from = "https://demos.adagi0.com/.netlify/functions/subdomain-redirect"
+  to = "/.netlify/functions/subdomain-redirect"
+  status = 200
 
 # Handle subdomain routing at edge level
 [[edge_functions]]

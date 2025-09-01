@@ -2,12 +2,16 @@
 # This file handles client-side redirects for subdomain routing
 
 # Subdomain redirects for demo.adagi0.com
-https://demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
-https://demo.adagi0.com       https://adagi0.com/Demos/           200!
+https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
+https://demo.adagi0.com           https://adagi0.com/Demos/           200!
+https://www.demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
+https://www.demo.adagi0.com       https://adagi0.com/Demos/           200!
 
 # Subdomain redirects for demos.adagi0.com  
-https://demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!
-https://demos.adagi0.com      https://adagi0.com/Demos/           200!
+https://demos.adagi0.com/*        https://adagi0.com/Demos/:splat     200!
+https://demos.adagi0.com          https://adagi0.com/Demos/           200!
+https://www.demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!
+https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
 
 # Fallback redirects
 /Demos/LinkTree               /Demos/LinkTree.html               200

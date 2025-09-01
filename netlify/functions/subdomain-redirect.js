@@ -7,8 +7,18 @@ exports.handler = async (event, context) => {
   
   console.log(`[Netlify Function] Host: ${host}, Path: ${path}`);
   
-  // Check if it's a subdomain request
-  const subdomain = host.split('.')[0];
+  // Check if it's a subdomain request, handling www as well
+  const parts = host.split('.');
+  let subdomain = null;
+  
+  if (parts.length > 2) {
+    // Si tiene www, tomar el segundo elemento
+    if (parts[0] === 'www' && parts.length > 3) {
+      subdomain = parts[1];
+    } else if (parts[0] !== 'www') {
+      subdomain = parts[0];
+    }
+  }
   
   if (subdomain === 'demo' || subdomain === 'demos') {
     // Redirect to main domain with /Demos/ prefix

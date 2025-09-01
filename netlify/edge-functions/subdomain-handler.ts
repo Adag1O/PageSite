@@ -4,9 +4,18 @@ export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const hostname = url.hostname;
   
-  // Detectar subdominio
+  // Detectar subdominio, manejando www también
   const parts = hostname.split('.');
-  const subdomain = parts.length > 2 ? parts[0] : null;
+  let subdomain = null;
+  
+  if (parts.length > 2) {
+    // Si tiene www, tomar el segundo elemento
+    if (parts[0] === 'www' && parts.length > 3) {
+      subdomain = parts[1];
+    } else if (parts[0] !== 'www') {
+      subdomain = parts[0];
+    }
+  }
   
   console.log(`[Edge Function] Hostname: ${hostname}, Subdomain: ${subdomain}, Path: ${url.pathname}`);
   

@@ -22,7 +22,19 @@ exports.handler = async (event, context) => {
   
   if (subdomain === 'demo' || subdomain === 'demos') {
     // Redirect to main domain with /Demos/ prefix
-    const targetPath = path === '/' ? '/Demos/' : `/Demos${path}`;
+    // Evitar duplicar /Demos/ si ya está en el path
+    let targetPath;
+    if (path.startsWith('/Demos/')) {
+      // Ya tiene /Demos/, usar el path tal como está
+      targetPath = path;
+    } else if (path === '/') {
+      // Es la raíz, agregar /Demos/
+      targetPath = '/Demos/';
+    } else {
+      // Es una ruta específica, agregar /Demos antes
+      targetPath = `/Demos${path}`;
+    }
+    
     const targetUrl = `https://adagi0.com${targetPath}`;
     
     console.log(`[Netlify Function] Redirecting to: ${targetUrl}`);

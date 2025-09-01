@@ -21,7 +21,12 @@ export default async (request: Request, context: Context) => {
   
   // Si es subdominio demo o demos y no está en /Demos/
   if ((subdomain === 'demo' || subdomain === 'demos') && !url.pathname.startsWith('/Demos/')) {
-    const targetPath = url.pathname === '/' ? '/Demos/' : `/Demos${url.pathname}`;
+    let targetPath;
+    if (url.pathname === '/') {
+      targetPath = '/Demos/';
+    } else {
+      targetPath = `/Demos${url.pathname}`;
+    }
     
     // Reescribir la URL internamente
     const newUrl = new URL(targetPath, url.origin);

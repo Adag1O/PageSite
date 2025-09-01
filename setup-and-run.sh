@@ -3,13 +3,20 @@
 echo "🔧 CONFIGURANDO HOSTS PARA SUBDOMINIOS"
 echo "======================================"
 
-# Verificar si ya existe la entrada
-if grep -q "demo.localhost" /etc/hosts; then
-    echo "✅ demo.localhost ya está configurado en /etc/hosts"
+# Configurar hosts para desarrollo con subdominios
+echo "Configurando hosts para desarrollo..."
+if ! grep -q "demo.localhost" /etc/hosts; then
+    sudo bash -c 'echo "127.0.0.1 demo.localhost" >> /etc/hosts'
+    echo "✓ Agregado demo.localhost a /etc/hosts"
 else
-    echo "📝 Agregando demo.localhost a /etc/hosts..."
-    echo "127.0.0.1 demo.localhost" | sudo tee -a /etc/hosts
-    echo "✅ demo.localhost agregado exitosamente"
+    echo "✓ demo.localhost ya está en /etc/hosts"
+fi
+
+if ! grep -q "demos.localhost" /etc/hosts; then
+    sudo bash -c 'echo "127.0.0.1 demos.localhost" >> /etc/hosts'
+    echo "✓ Agregado demos.localhost a /etc/hosts"
+else
+    echo "✓ demos.localhost ya está en /etc/hosts"
 fi
 
 echo ""

@@ -5,11 +5,14 @@ import { defineMiddleware } from 'astro:middleware';
  * 
  * DESARROLLO:
  * - demo.localhost:4321/            → /src/pages/Demos/index.astro
+ * - demos.localhost:4321/           → /src/pages/Demos/index.astro
  * - demo.localhost:4321/LinkTree    → /src/pages/Demos/LinkTree.astro
+ * - demos.localhost:4321/LinkTree   → /src/pages/Demos/LinkTree.astro
  * 
  * PRODUCCIÓN:
- * - demo.yourdomain.com/            → /src/pages/Demos/index.astro
- * - demo.yourdomain.com/LinkTree    → /src/pages/Demos/LinkTree.astro
+ * - demo.adagi0.com/                → /src/pages/Demos/index.astro
+ * - demos.adagi0.com/               → /src/pages/Demos/index.astro
+ * - demos.adagi0.com/LinkTree       → /src/pages/Demos/LinkTree.astro
  */
 
 export const onRequest = defineMiddleware((context, next) => {
@@ -27,10 +30,11 @@ export const onRequest = defineMiddleware((context, next) => {
   
   console.log(`[Middleware] Subdomain detected: ${subdomain}`);
   
-  // Verificar si es subdominio demo
-  const isDemoSubdomain = subdomain === 'demo';
+  // Verificar si es subdominio de demos (demo, demos, Demo, Demos)
+  const isDemoSubdomain = subdomain === 'demo' || subdomain === 'demos' || 
+                          subdomain === 'Demo' || subdomain === 'Demos';
   
-  // Solo procesar si es subdominio demo y no estamos ya en /Demos/
+  // Solo procesar si es subdominio demo/demos y no estamos ya en /Demos/
   if (isDemoSubdomain && !url.pathname.startsWith('/Demos/')) {
     const demoPath = url.pathname === '/' ? '/Demos/' : `/Demos${url.pathname}`;
     

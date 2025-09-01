@@ -10,7 +10,13 @@ if grep -q "demo.localhost" /etc/hosts 2>/dev/null; then
 else
     echo "   ❌ demo.localhost NO configurado"
     echo "   💡 Ejecuta: echo '127.0.0.1 demo.localhost' | sudo tee -a /etc/hosts"
-    exit 1
+fi
+
+if grep -q "demos.localhost" /etc/hosts 2>/dev/null; then
+    echo "   ✅ demos.localhost configurado correctamente"
+else
+    echo "   ❌ demos.localhost NO configurado"
+    echo "   💡 Ejecuta: echo '127.0.0.1 demos.localhost' | sudo tee -a /etc/hosts"
 fi
 
 # Verificar si el servidor está corriendo
@@ -24,9 +30,9 @@ else
     exit 1
 fi
 
-# Probar subdomain
+# Probar subdomain demo
 echo ""
-echo "3. Probando subdominio..."
+echo "3. Probando subdominio demo..."
 RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "http://demo.localhost:4321/")
 if [ "$RESPONSE" = "200" ]; then
     echo "   ✅ demo.localhost:4321/ funciona correctamente"
@@ -34,14 +40,31 @@ else
     echo "   ❌ demo.localhost:4321/ devuelve código: $RESPONSE"
 fi
 
-# Probar demo específico
+# Probar subdomain demos
 echo ""
-echo "4. Probando demo específico..."
+echo "4. Probando subdominio demos..."
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "http://demos.localhost:4321/")
+if [ "$RESPONSE" = "200" ]; then
+    echo "   ✅ demos.localhost:4321/ funciona correctamente"
+else
+    echo "   ❌ demos.localhost:4321/ devuelve código: $RESPONSE"
+fi
+
+# Probar demo específico (LinkTree)
+echo ""
+echo "5. Probando demos específicos..."
 RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "http://demo.localhost:4321/LinkTree")
 if [ "$RESPONSE" = "200" ]; then
     echo "   ✅ demo.localhost:4321/LinkTree funciona correctamente"
 else
     echo "   ❌ demo.localhost:4321/LinkTree devuelve código: $RESPONSE"
+fi
+
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "http://demos.localhost:4321/LinkTree")
+if [ "$RESPONSE" = "200" ]; then
+    echo "   ✅ demos.localhost:4321/LinkTree funciona correctamente"
+else
+    echo "   ❌ demos.localhost:4321/LinkTree devuelve código: $RESPONSE"
 fi
 
 echo ""
@@ -52,3 +75,5 @@ echo "   → http://localhost:4321/"
 echo "   → http://localhost:4321/Demos/"
 echo "   → http://demo.localhost:4321/"
 echo "   → http://demo.localhost:4321/LinkTree"
+echo "   → http://demos.localhost:4321/"
+echo "   → http://demos.localhost:4321/LinkTree"

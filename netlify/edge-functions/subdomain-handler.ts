@@ -1,30 +1,29 @@
-export default async (request: Request, context: any) => {
+import { Context } from "https://edge.netlify.com/";
+
+export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const hostname = url.hostname;
   
-  // Extract subdomain
+  // Detectar subdominio
   const parts = hostname.split('.');
   const subdomain = parts.length > 2 ? parts[0] : null;
   
-  // Handle demo subdomain
-  if (subdomain === 'demo' || subdomain === 'Demo') {
-    // Rewrite URL to point to /Demos/ folder
-    const newPath = url.pathname === '/' ? '/Demos/' : `/Demos${url.pathname}`;
-    const newUrl = new URL(newPath, url.origin);
+  console.log(`[Edge Function] Hostname: ${hostname}, Subdomain: ${subdomain}, Path: ${url.pathname}`);
+  
+  // Si es subdominio demo o demos y no está en /Demos/
+  if ((subdomain === 'demo' || subdomain === 'demos') && !url.pathname.startsWith('/Demos/')) {
+    const targetPath = url.pathname === '/' ? '/Demos/' : `/Demos${url.pathname}`;
+    
+    // Reescribir la URL internamente
+    const newUrl = new URL(targetPath, url.origin);
     newUrl.search = url.search;
-    newUrl.hash = url.hash;
     
-    // Create a new request with the rewritten URL
-    const newRequest = new Request(newUrl.toString(), {
-      method: request.method,
-      headers: request.headers,
-      body: request.body,
-    });
+    console.log(`[Edge Function] Rewriting to: ${newUrl.pathname}`);
     
-    // Forward to the main site with rewritten path
-    return context.next(newRequest);
+    // Hacer fetch interno al path correcto
+    return await context.rewrite(newUrl);
   }
   
-  // For main domain, continue normally
-  return context.next();
+  // Continuar normalmente si no es subdominio demo/demos
+  return;
 };

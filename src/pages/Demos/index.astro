@@ -3,7 +3,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
 
 // Get subdomain info
 const { subdomain, isDemoSubdomain } = Astro.locals;
-const isOnDemoSubdomain = isDemoSubdomain || subdomain === 'demo' || subdomain === 'Demo';
+const isOnDemoSubdomain = isDemoSubdomain || subdomain === 'demo' || subdomain === 'demos' || subdomain === 'Demo' || subdomain === 'Demos';
 
 // Demo routes configuration
 const demoRoutes = [
@@ -12,6 +12,12 @@ const demoRoutes = [
         path: "/LinkTree",
         description: "Interactive LinkTree style page demo",
         category: "Social"
+    },
+    {
+        name: "Wedding Demo",
+        path: "/Wedding", 
+        description: "Special events link collection page",
+        category: "Events"
     },
     // Add more demo routes as needed
 ];

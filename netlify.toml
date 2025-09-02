@@ -96,6 +96,13 @@
 
 # Headers for CORS and security
 [[headers]]
+  for = "/demos-static/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # X-Frame-Options removed to allow iframe embedding for demos
+
+[[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"

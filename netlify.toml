@@ -7,6 +7,12 @@
   NODE_VERSION = "20"
 
 [[redirects]]
+  from = "https://demo.adagi0.com/demos-static/*"
+  to = "/demos-static/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "https://demo.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
@@ -15,6 +21,12 @@
 [[redirects]]
   from = "https://demo.adagi0.com"
   to = "https://adagi0.com/Demos/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://www.demo.adagi0.com/demos-static/*"
+  to = "/demos-static/:splat"
   status = 200
   force = true
 
@@ -31,6 +43,12 @@
   force = true
 
 [[redirects]]
+  from = "https://demos.adagi0.com/demos-static/*"
+  to = "/demos-static/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "https://demos.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
@@ -39,6 +57,12 @@
 [[redirects]]
   from = "https://demos.adagi0.com"
   to = "https://adagi0.com/Demos/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://www.demos.adagi0.com/demos-static/*"
+  to = "/demos-static/:splat"
   status = 200
   force = true
 

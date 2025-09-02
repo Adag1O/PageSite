@@ -7,14 +7,6 @@
   NODE_VERSION = "20"
 
 [[redirects]]
-  from = "https://demo.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
-  status = 200
-  force = true
-  headers = {X-Frame-Options = "SAMEORIGIN"}
-
-
-[[redirects]]
   from = "https://demo.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
@@ -24,13 +16,6 @@
   from = "https://demo.adagi0.com"
   to = "https://adagi0.com/Demos/"
   status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.demo.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
-  status = 200
-  headers = {X-Frame-Options = "SAMEORIGIN"}
   force = true
 
 [[redirects]]
@@ -46,34 +31,6 @@
   force = true
 
 [[redirects]]
-  from = "https://demo.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
-  status = 200
-  force = true
-  headers = {X-Frame-Options = "SAMEORIGIN"}
-
-[[redirects]]
-  from = "https://www.demo.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
-  status = 200
-  force = true
-  headers = {X-Frame-Options = "SAMEORIGIN"}
-
-[[redirects]]
-  from = "https://demos.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
-  status = 200
-  force = true
-  headers = {X-Frame-Options = "SAMEORIGIN"}
-
-[[redirects]]
-  from = "https://www.demos.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
-  status = 200
-  force = true
-  headers = {X-Frame-Options = "SAMEORIGIN"}
-
-[[redirects]]
   from = "https://demos.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
@@ -82,12 +39,6 @@
 [[redirects]]
   from = "https://demos.adagi0.com"
   to = "https://adagi0.com/Demos/"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.demos.adagi0.com/demos-static/*"
-  to = "/demos-static/:splat"
   status = 200
   force = true
 
@@ -119,14 +70,14 @@
   function = "subdomain-handler"
   path = "/*"
 
-# Headers for CORS and security - specific rules first
+# Headers for CORS and security
 [[headers]]
-  for = "/demos-static/*"
+  for = "/Demos/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
-    # Allow iframe embedding for demos
+    # Allow iframe embedding for demo pages
 
 [[headers]]
   for = "/*"

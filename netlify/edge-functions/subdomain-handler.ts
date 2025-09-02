@@ -1,4 +1,5 @@
-import { Context } from "https://edge.netlify.com/";
+// If running locally, use the npm package:
+import type { Context } from "@netlify/edge-functions";
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);

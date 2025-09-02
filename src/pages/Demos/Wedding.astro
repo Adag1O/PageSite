@@ -1,45 +1,194 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+// Standalone Wedding demo for iframe compatibility
 ---
 
-<Layout title="LinkTree - AdagIO">
-  <main class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
-    <div class="max-w-md mx-auto">
-      <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold">Wedding
-        </h1>
-        <p class="text-gray-400">Digital Agency & Web Development</p>
-      </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Dreams - María & Carlos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+      }
+      
+      .elegant-script {
+        font-family: 'Brush Script MT', cursive;
+      }
 
-      <div class="space-y-4">
-        <a 
-          href="https://adagi0.com" 
-          class="block w-full p-4 text-center bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
-          target="_blank"
-        >
-          🌐 Website
-        </a>
-        
-        <a 
-          href="https://github.com/Adag1O" 
-          class="block w-full p-4 text-center bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-          target="_blank"
-        >
-          👨‍💻 GitHub
-        </a>
+      .wedding-bg {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        min-height: 100vh;
+      }
 
-      </div>
-    </div>
-  </main>
-</Layout>
+      .card-elegant {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
 
-<style>
-  a {
-    text-decoration: none;
-    transition: transform 0.2s ease;
-  }
-  
-  a:hover {
-    transform: scale(1.02);
-  }
-</style>
+      .divider {
+        background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        height: 2px;
+      }
+
+      .countdown-item {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+      }
+
+      .heart-animation {
+        animation: heartbeat 2s ease-in-out infinite;
+      }
+
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
+
+      .fade-in {
+        animation: fadeIn 1s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wedding-bg text-gray-800">
+      <!-- Hero Section -->
+      <section class="min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-4xl w-full mx-auto text-center">
+          <div class="card-elegant rounded-2xl p-8 md:p-12 fade-in">
+            <!-- Date -->
+            <div class="mb-6">
+              <p class="text-lg text-gray-600 tracking-wider">SÁBADO</p>
+              <p class="text-3xl md:text-4xl font-bold text-gray-700">15 DE JUNIO, 2025</p>
+            </div>
+
+            <!-- Names -->
+            <div class="mb-8">
+              <h1 class="elegant-script text-5xl md:text-7xl text-rose-600 mb-4">María & Carlos</h1>
+              <div class="divider w-32 mx-auto mb-4"></div>
+              <p class="text-xl text-gray-600">¡Nos casamos!</p>
+            </div>
+
+            <!-- Heart -->
+            <div class="mb-8">
+              <span class="heart-animation text-4xl">💖</span>
+            </div>
+
+            <!-- Invitation -->
+            <div class="mb-8">
+              <p class="text-lg leading-relaxed text-gray-700">
+                Con gran alegría, invitamos a nuestros familiares y amigos a acompañarnos en este día tan especial. 
+                Celebremos juntos el inicio de nuestra nueva aventura.
+              </p>
+            </div>
+
+            <!-- Location & Time -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+              <div class="countdown-item p-6 rounded-xl border border-rose-200">
+                <h3 class="text-xl font-bold text-rose-600 mb-2">📍 Ceremonia</h3>
+                <p class="text-gray-700">Iglesia San José</p>
+                <p class="text-gray-600">4:00 PM</p>
+                <p class="text-sm text-gray-500">Av. Principal 123</p>
+              </div>
+              <div class="countdown-item p-6 rounded-xl border border-rose-200">
+                <h3 class="text-xl font-bold text-rose-600 mb-2">🎉 Recepción</h3>
+                <p class="text-gray-700">Jardín Bella Vista</p>
+                <p class="text-gray-600">6:00 PM</p>
+                <p class="text-sm text-gray-500">Salón de Eventos</p>
+              </div>
+            </div>
+
+            <!-- Countdown -->
+            <div class="mb-8">
+              <h3 class="text-2xl font-bold text-rose-600 mb-4">Faltan</h3>
+              <div class="grid grid-cols-4 gap-4">
+                <div class="countdown-item p-4 rounded-lg text-center">
+                  <div class="text-2xl font-bold text-rose-600" id="days">180</div>
+                  <div class="text-sm text-gray-600">Días</div>
+                </div>
+                <div class="countdown-item p-4 rounded-lg text-center">
+                  <div class="text-2xl font-bold text-rose-600" id="hours">12</div>
+                  <div class="text-sm text-gray-600">Horas</div>
+                </div>
+                <div class="countdown-item p-4 rounded-lg text-center">
+                  <div class="text-2xl font-bold text-rose-600" id="minutes">30</div>
+                  <div class="text-sm text-gray-600">Minutos</div>
+                </div>
+                <div class="countdown-item p-4 rounded-lg text-center">
+                  <div class="text-2xl font-bold text-rose-600" id="seconds">45</div>
+                  <div class="text-sm text-gray-600">Segundos</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RSVP Button -->
+            <div class="mb-6">
+              <button class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                Confirmar Asistencia
+              </button>
+            </div>
+
+            <!-- Message -->
+            <div class="border-t border-rose-200 pt-6">
+              <p class="italic text-gray-600">
+                "El amor no se mira, se siente, y aún más cuando ella está junto a ti."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional Info -->
+      <section class="py-12 px-6">
+        <div class="max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="card-elegant p-6 rounded-xl text-center">
+              <h3 class="text-xl font-bold text-rose-600 mb-3">🎁 Regalos</h3>
+              <p class="text-gray-700">Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, tenemos una mesa de regalos.</p>
+            </div>
+            <div class="card-elegant p-6 rounded-xl text-center">
+              <h3 class="text-xl font-bold text-rose-600 mb-3">👗 Código de Vestimenta</h3>
+              <p class="text-gray-700">Formal/Elegante. Sugerimos colores pasteles y evitar el color blanco.</p>
+            </div>
+            <div class="card-elegant p-6 rounded-xl text-center">
+              <h3 class="text-xl font-bold text-rose-600 mb-3">📞 Contacto</h3>
+              <p class="text-gray-700">Para cualquier duda, contacta a los novios o a los padrinos de la boda.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Simple countdown timer
+      function updateCountdown() {
+        const weddingDate = new Date('2025-06-15T16:00:00');
+        const now = new Date();
+        const diff = weddingDate - now;
+
+        if (diff > 0) {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          document.getElementById('days').textContent = days;
+          document.getElementById('hours').textContent = hours;
+          document.getElementById('minutes').textContent = minutes;
+          document.getElementById('seconds').textContent = seconds;
+        }
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>

@@ -1,59 +1,148 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+// Standalone LinkTree demo for iframe compatibility
 ---
 
-<Layout title="LinkTree - AdagIO">
-  <main class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
-    <div class="max-w-md mx-auto">
-      <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold">@AdagIO</h1>
-        <p class="text-gray-400">Digital Agency & Web Development</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LinkTree - AdagIO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      
+      .link-button {
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+      
+      .link-button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .profile-card {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: .5;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="gradient-bg text-white p-6 flex items-center justify-center">
+      <div class="max-w-md w-full mx-auto">
+        <!-- Profile Section -->
+        <div class="text-center mb-8 profile-card rounded-2xl p-6">
+          <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-2xl font-bold animate-pulse">
+            A
+          </div>
+          <h1 class="text-2xl font-bold mb-2">@AdagIO</h1>
+          <p class="text-gray-200 text-sm mb-4">Digital Agency & Web Development</p>
+          <div class="flex justify-center gap-4 text-sm text-gray-300">
+            <span>🚀 Innovating</span>
+            <span>💻 Creating</span>
+            <span>🎯 Delivering</span>
+          </div>
+        </div>
+
+        <!-- Links Section -->
+        <div class="space-y-3">
+          <a 
+            href="https://adagi0.com" 
+            class="link-button block w-full p-4 text-center bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl border border-white/30 font-medium"
+            target="_blank"
+          >
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-lg">🌐</span>
+              <span>Official Website</span>
+              <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+          
+          <a 
+            href="https://github.com/Adag1O" 
+            class="link-button block w-full p-4 text-center bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/60 rounded-xl border border-gray-600/50 font-medium"
+            target="_blank"
+          >
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-lg">👨‍💻</span>
+              <span>GitHub Projects</span>
+              <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+
+          <a 
+            href="#" 
+            class="link-button block w-full p-4 text-center bg-gradient-to-r from-purple-500/60 to-pink-500/60 backdrop-blur-sm hover:from-purple-500/80 hover:to-pink-500/80 rounded-xl border border-purple-400/30 font-medium"
+            target="_blank"
+          >
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-lg">📸</span>
+              <span>Instagram</span>
+              <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+
+          <a 
+            href="#" 
+            class="link-button block w-full p-4 text-center bg-blue-600/60 backdrop-blur-sm hover:bg-blue-500/80 rounded-xl border border-blue-400/30 font-medium"
+            target="_blank"
+          >
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-lg">💼</span>
+              <span>LinkedIn</span>
+              <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+
+          <a 
+            href="mailto:contact@adagi0.com" 
+            class="link-button block w-full p-4 text-center bg-emerald-600/60 backdrop-blur-sm hover:bg-emerald-500/80 rounded-xl border border-emerald-400/30 font-medium"
+          >
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-lg">📧</span>
+              <span>Get In Touch</span>
+              <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-gray-300 text-sm">
+          <p>© 2025 AdagIO - Digital Solutions</p>
+        </div>
       </div>
-
-      <div class="space-y-4">
-        <a 
-          href="https://adagi0.com" 
-          class="block w-full p-4 text-center bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
-          target="_blank"
-        >
-          🌐 Website
-        </a>
-        
-        <a 
-          href="https://github.com/Adag1O" 
-          class="block w-full p-4 text-center bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-          target="_blank"
-        >
-          👨‍💻 GitHub
-        </a>
-
-        <a 
-          href="#" 
-          class="block w-full p-4 text-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition-colors"
-          target="_blank"
-        >
-          📸 Instagram
-        </a>
-
-        <a 
-          href="#" 
-          class="block w-full p-4 text-center bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors"
-          target="_blank"
-        >
-          💼 LinkedIn
-        </a>
-      </div>
-    </div>
-  </main>
-</Layout>
-
-<style>
-  a {
-    text-decoration: none;
-    transition: transform 0.2s ease;
-  }
-  
-  a:hover {
-    transform: scale(1.02);
-  }
-</style>
+    </main>
+  </body>
+</html>

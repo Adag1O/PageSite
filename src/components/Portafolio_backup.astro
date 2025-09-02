@@ -1,0 +1,630 @@
+---
+import { IoArrowForwardOutline } from "react-icons/io5";
+import scrollReveal from "scrollreveal";
+---
+
+<div class="w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-20 py-16 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <!-- Header Section -->
+    <div class="flex flex-col items-center justify-center gap-6 mb-16 text-center">
+        <div class="inline-block mb-2">
+            <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent text-sm font-semibold uppercase tracking-wider">
+                Nuestro Trabajo
+            </span>
+        </div>
+        <h1 class="portfolio-title text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+            <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Portafolio
+            </span>
+        </h1>
+        <p class="portfolio-subtitle text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl leading-relaxed">
+            Una muestra de los dispositivos, aplicaciones y sitios web innovadores que hemos creado para impulsar el éxito de nuestros clientes
+        </p>
+    </div>
+
+    <!-- Minimalistic Tab Navigation -->
+    <div class="portfolio-tabs relative mb-16">
+        <div class="flex p-1 items-center rounded-lg justify-center bg-gray-100" id="TabGrl" style="min-width: 420px;">
+            <div class="flex w-full h-10 rounded-md relative overflow-hidden" id="Tab">
+                <div class="absolute top-0 h-full bg-black rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0"></div>
+                <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-white text-sm font-medium rounded-md flex items-center justify-center">
+                    <span>Dispositivos</span>
+                </button>
+                <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-gray-600 text-sm font-medium rounded-md flex items-center justify-center">
+                    <span>Aplicaciones</span>
+                </button>
+                <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-gray-600 text-sm font-medium rounded-md flex items-center justify-center">
+                    <span>Sitios Web</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dispositivos Tab Content -->
+    <div id="Dispositivos" class="portfolio-grid flex flex-wrap gap-4 w-full max-w-6xl justify-center transition-all duration-300 opacity-100">
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Sistema IoT Inteligente</h3>
+                <p class="text-sm text-gray-600 mb-4">Dispositivo de monitoreo y control automatizado para optimización de procesos industriales</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Electrónica</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Controlador de Energía</h3>
+                <p class="text-sm text-gray-600 mb-4">Sistema inteligente de gestión energética para reducción de costos y optimización del consumo</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Smart Grid</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Sistema de Seguridad</h3>
+                <p class="text-sm text-gray-600 mb-4">Dispositivo de seguridad avanzado con reconocimiento facial y alertas en tiempo real</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Seguridad</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Router Mesh Avanzado</h3>
+                <p class="text-sm text-gray-600 mb-4">Sistema de red mesh con IA para optimización automática de conexiones y rendimiento</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Redes</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Control Domótico</h3>
+                <p class="text-sm text-gray-600 mb-4">Sistema de automatización inteligente para el hogar con control por voz y móvil</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Domótica</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Procesador Embebido</h3>
+                <p class="text-sm text-gray-600 mb-4">Unidad de procesamiento especializada para aplicaciones de tiempo real críticas</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Hardware</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aplicaciones Tab Content -->
+    <div id="Aplicaciones" class="portfolio-grid hidden flex-wrap gap-4 w-full max-w-6xl justify-center transition-all duration-300 opacity-0">
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">App de Gestión Empresarial</h3>
+                <p class="text-sm text-gray-600 mb-4">Aplicación móvil completa para gestión de proyectos, equipos y recursos empresariales</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Productividad</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">App de Salud y Bienestar</h3>
+                <p class="text-sm text-gray-600 mb-4">Aplicación integral para monitoreo de salud, ejercicio y bienestar personal con IA</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Salud</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">FinTech Banking App</h3>
+                <p class="text-sm text-gray-600 mb-4">Aplicación bancaria moderna con funciones avanzadas de gestión financiera personal</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">FinTech</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">App Educativa AR</h3>
+                <p class="text-sm text-gray-600 mb-4">Plataforma educativa con realidad aumentada para aprendizaje inmersivo e interactivo</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Educación</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">App de Streaming</h3>
+                <p class="text-sm text-gray-600 mb-4">Plataforma de streaming multimedia con recomendaciones personalizadas por IA</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Media</span>
+            </div>
+        </div>
+
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">App de Delivery</h3>
+                <p class="text-sm text-gray-600 mb-4">Aplicación de entrega con seguimiento en tiempo real y optimización de rutas</p>
+                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Logística</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sitios Web Tab Content -->
+    <div id="PaginasWeb" class="portfolio-grid hidden flex-wrap gap-4 w-full max-w-6xl justify-center transition-all duration-300 opacity-0">
+        <!-- Live Website Preview Card - jesusvelez.xyz -->
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-0 flex flex-col overflow-hidden">
+          <div class="relative w-full h-56 rounded-t-lg overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50">
+            <iframe 
+              src="https://www.jesusvelez.xyz" 
+              title="jesusvelez.xyz preview"
+              class="w-full h-full border-0 transform transition-transform group-hover:scale-105"
+              loading="lazy"
+              style="background: #f8fafc;"
+            ></iframe>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-gray-700 shadow-lg border">
+              <span class="flex items-center gap-1">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                En Vivo
+              </span>
+            </div>
+            <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm rounded-lg px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="text-white text-xs font-medium">Portfolio Personal</span>
+            </div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="text-lg font-bold text-gray-900">jesusvelez.xyz</h3>
+              <span class="text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-full font-medium">Personal</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4 flex-1">Sitio web personal moderno con portafolio interactivo, blog de tecnología y sistema de contacto profesional.</p>
+            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+              <div class="flex gap-2 text-xs text-gray-500">
+                <span class="bg-gray-100 px-2 py-1 rounded">React</span>
+                <span class="bg-gray-100 px-2 py-1 rounded">Next.js</span>
+              </div>
+              <a 
+                href="https://www.jesusvelez.xyz" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-indigo-600 hover:text-purple-600 text-sm font-semibold transition-all duration-200 hover:gap-2"
+              >
+                Visitar
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Website Preview Card - LinkTree Demo -->
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-0 flex flex-col overflow-hidden">
+          <div class="relative w-full h-56 rounded-t-lg overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50">
+            <iframe 
+              src="https://www.demo.adagi0.com/LinkTree" 
+              title="LinkTree Demo preview"
+              class="w-full h-full border-0 transform transition-transform group-hover:scale-105"
+              loading="lazy"
+              style="background: #f8fafc;"
+            ></iframe>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-gray-700 shadow-lg border">
+              <span class="flex items-center gap-1">
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                Demo
+              </span>
+            </div>
+            <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm rounded-lg px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="text-white text-xs font-medium">LinkTree Clone</span>
+            </div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="text-lg font-bold text-gray-900">LinkTree Pro</h3>
+              <span class="text-xs text-purple-600 bg-purple-50 border border-purple-200 px-2 py-1 rounded-full font-medium">Social</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4 flex-1">Plataforma de enlaces personalizada con analytics avanzados, temas dinámicos y integración social.</p>
+            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+              <div class="flex gap-2 text-xs text-gray-500">
+                <span class="bg-gray-100 px-2 py-1 rounded">Astro</span>
+                <span class="bg-gray-100 px-2 py-1 rounded">CSS</span>
+              </div>
+              <a 
+                href="/demos-static/linktree.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-indigo-600 hover:text-purple-600 text-sm font-semibold transition-all duration-200 hover:gap-2"
+              >
+                Ver Demo
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wedding Demo -->
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-0 flex flex-col overflow-hidden">
+          <div class="relative w-full h-56 rounded-t-lg overflow-hidden bg-gradient-to-br from-rose-50 to-pink-50">
+            <iframe 
+              src="/demos-static/wedding.html" 
+              title="Wedding Demo preview"
+              class="w-full h-full border-0 transform transition-transform group-hover:scale-105"
+              loading="lazy"
+              style="background: #f8fafc;"
+            ></iframe>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-gray-700 shadow-lg border">
+              <span class="flex items-center gap-1">
+                <div class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></div>
+                Demo
+              </span>
+            </div>
+            <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm rounded-lg px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="text-white text-xs font-medium">Wedding Template</span>
+            </div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="text-lg font-bold text-gray-900">Wedding Dreams</h3>
+              <span class="text-xs text-rose-600 bg-rose-50 border border-rose-200 px-2 py-1 rounded-full font-medium">Eventos</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4 flex-1">Sitio web elegante para bodas con galería de fotos, cronograma del evento y formulario de confirmación de asistencia.</p>
+            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+              <div class="flex gap-2 text-xs text-gray-500">
+                <span class="bg-gray-100 px-2 py-1 rounded">Astro</span>
+                <span class="bg-gray-100 px-2 py-1 rounded">Tailwind</span>
+              </div>
+              <a 
+                href="/demos-static/wedding.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-indigo-600 hover:text-purple-600 text-sm font-semibold transition-all duration-200 hover:gap-2"
+              >
+                Ver Demo
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5M7 13l-1.1 5m0 0a1.5 1.5 0 102.1 2.1m-2.1-2.1h12a1.5 1.5 0 012.1 2.1m-12 0a1.5 1.5 0 11-3 0"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">TechStore Pro</h3>
+                <p class="text-sm text-gray-600 mb-4">Plataforma e-commerce completa con carrito inteligente, pagos seguros y gestión de inventario en tiempo real</p>
+                <div class="flex flex-wrap gap-2 justify-center mb-4">
+                    <span class="text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-full font-medium">E-commerce</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Next.js</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Stripe</span>
+                </div>
+                <div class="flex items-center justify-center text-gray-400">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <span class="text-xs">Proyecto Privado</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SaaS Dashboard -->
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Analytics Pro</h3>
+                <p class="text-sm text-gray-600 mb-4">Dashboard empresarial avanzado con visualización de datos en tiempo real, reportes automatizados y métricas predictivas</p>
+                <div class="flex flex-wrap gap-2 justify-center mb-4">
+                    <span class="text-xs text-blue-600 bg-blue-50 border border-blue-200 px-2 py-1 rounded-full font-medium">SaaS</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Vue.js</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">D3.js</span>
+                </div>
+                <div class="flex items-center justify-center text-gray-400">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                    </svg>
+                    <span class="text-xs">En Desarrollo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creative Agency Website -->
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Creative Studio</h3>
+                <p class="text-sm text-gray-600 mb-4">Sitio web para agencia creativa con portfolio interactivo, animaciones WebGL y experiencia inmersiva 3D</p>
+                <div class="flex flex-wrap gap-2 justify-center mb-4">
+                    <span class="text-xs text-purple-600 bg-purple-50 border border-purple-200 px-2 py-1 rounded-full font-medium">Creativo</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Three.js</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">GSAP</span>
+                </div>
+                <div class="flex items-center justify-center text-gray-400">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    <span class="text-xs">Próximamente</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurant Website -->
+        <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Bella Vista Restaurant</h3>
+                <p class="text-sm text-gray-600 mb-4">Sitio web gastronómico con menú interactivo, reservaciones online y galería visual de platos gourmet</p>
+                <div class="flex flex-wrap gap-2 justify-center mb-4">
+                    <span class="text-xs text-orange-600 bg-orange-50 border border-orange-200 px-2 py-1 rounded-full font-medium">Restaurante</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">WordPress</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">PHP</span>
+                </div>
+                <div class="flex items-center justify-center text-emerald-500">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span class="text-xs font-medium">Completado</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import ScrollReveal from "scrollreveal";
+
+    const tab = document.getElementById("Tab");
+    const TabView = [
+        document.getElementById("Dispositivos") as HTMLElement,
+        document.getElementById("Aplicaciones") as HTMLElement,
+        document.getElementById("PaginasWeb") as HTMLElement,
+    ];
+
+    if (tab && TabView) {
+        const indicator = tab.querySelector(":scope > div") as HTMLElement;
+        const buttons = tab.querySelectorAll("button");
+
+        buttons.forEach((button, index) => {
+            button.addEventListener("click", () =>
+                moveIndicator(index, button),
+            );
+        });
+
+        function moveIndicator(index: number, activeButton: HTMLElement) {
+            if (!indicator) return;
+
+            // Move indicator with smooth animation
+            indicator.style.left = `${index * 33.3333}%`;
+
+            // Update button styles with minimalistic transitions
+            buttons.forEach((btn) => {
+                const isActive = btn === activeButton;
+                btn.classList.toggle("text-white", isActive);
+                btn.classList.toggle("text-gray-600", !isActive);
+            });
+            
+            // Simple tab content transitions
+            TabView.forEach((view, i) => {
+                if (i === index) {
+                    // Show active tab
+                    view.classList.remove("hidden");
+                    view.classList.add("flex");
+                    
+                    setTimeout(() => {
+                        view.classList.add("opacity-100");
+                        view.classList.remove("opacity-0");
+                        
+                        // Animate items when tab becomes visible
+                        const items = view.querySelectorAll('.portfolio-item');
+                        ScrollReveal().reveal(items, { 
+                            distance: "20px",
+                            origin: "bottom",
+                            opacity: 0,
+                            duration: 500,
+                            interval: 100,
+                            reset: false
+                        });
+                    }, 50);
+                } else {
+                    // Hide inactive tabs
+                    view.classList.add("opacity-0");
+                    view.classList.remove("opacity-100");
+                    
+                    setTimeout(() => {
+                        view.classList.add("hidden");
+                        view.classList.remove("flex");
+                    }, 200);
+                }
+            });
+        }
+    }
+    
+    // Simple ScrollReveal animations
+    ScrollReveal().reveal('.portfolio-title', { 
+        distance: "30px",
+        origin: "bottom",
+        opacity: 0,
+        duration: 600,
+        delay: 100
+    });
+    
+    ScrollReveal().reveal('.portfolio-subtitle', { 
+        distance: "30px",
+        origin: "bottom",
+        opacity: 0,
+        duration: 600,
+        delay: 200
+    });
+    
+    ScrollReveal().reveal('.portfolio-tabs', { 
+        distance: "30px",
+        origin: "bottom",
+        opacity: 0,
+        duration: 600,
+        delay: 300
+    });
+    
+    // Animate initial portfolio items
+    const initialItems = document.querySelectorAll('#Dispositivos .portfolio-item');
+    ScrollReveal().reveal(initialItems, { 
+        distance: "20px",
+        origin: "bottom",
+        opacity: 0,
+        duration: 500,
+        interval: 100
+    });
+</script>
+
+<style>
+    .tab-btn {
+        transition: color 0.2s ease;
+    }
+    
+    .portfolio-item {
+        transition: all 0.3s ease;
+    }
+    
+    .portfolio-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    .portfolio-grid {
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    /* Enhanced iframe hover effects */
+    .portfolio-item iframe {
+        transition: transform 0.3s ease;
+    }
+
+    .portfolio-item:hover iframe {
+        transform: scale(1.02);
+    }
+
+    /* Smooth gradient backgrounds for preview cards */
+    .portfolio-item .rounded-t-lg {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .portfolio-item .rounded-t-lg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+    }
+
+    .portfolio-item:hover .rounded-t-lg::before {
+        opacity: 1;
+    }
+
+    /* Enhanced status indicators */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Improved card shadows */
+    .portfolio-item {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    .portfolio-item:hover {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Smooth link transitions */
+    .portfolio-item a {
+        transition: all 0.2s ease;
+    }
+
+    .portfolio-item a:hover {
+        transform: translateX(2px);
+    }
+</style>

@@ -11,6 +11,8 @@
   to = "/demos-static/:splat"
   status = 200
   force = true
+  headers = {X-Frame-Options = "SAMEORIGIN"}
+
 
 [[redirects]]
   from = "https://demo.adagi0.com/*"
@@ -28,6 +30,7 @@
   from = "https://www.demo.adagi0.com/demos-static/*"
   to = "/demos-static/:splat"
   status = 200
+  headers = {X-Frame-Options = "SAMEORIGIN"}
   force = true
 
 [[redirects]]

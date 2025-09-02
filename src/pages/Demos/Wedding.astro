@@ -2,59 +2,131 @@
 import DemoLayout from '../../layouts/DemoLayout.astro';
 ---
 
-<DemoLayout title="LinkTree - AdagIO">
-  <main class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
-    <div class="max-w-md mx-auto">
-      <div class="text-center mb-8">
-       
-        <h1 class="text-2xl font-bold">@AdagIO</h1>
-        <p class="text-gray-400">Digital Agency & Web Development</p>
+<DemoLayout title="Wedding Dreams - María & Carlos">
+  <main class="min-h-screen bg-gradient-to-br from-rose-100 via-pink-50 to-orange-100 text-gray-800">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center p-6">
+      <div class="max-w-4xl w-full mx-auto text-center">
+        <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-xl border border-white/50">
+          <!-- Date -->
+          <div class="mb-6">
+            <p class="text-lg text-gray-600 tracking-wider">SÁBADO</p>
+            <p class="text-3xl md:text-4xl font-bold text-gray-700">15 DE JUNIO, 2025</p>
+          </div>
+
+          <!-- Names -->
+          <div class="mb-8">
+            <h1 class="font-serif text-5xl md:text-7xl text-rose-600 mb-4">María & Carlos</h1>
+            <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-rose-400 to-transparent mx-auto mb-4"></div>
+            <p class="text-xl text-gray-600">¡Nos casamos!</p>
+          </div>
+
+          <!-- Heart -->
+          <div class="mb-8">
+            <span class="text-4xl animate-pulse">💖</span>
+          </div>
+
+          <!-- Invitation -->
+          <div class="mb-8">
+            <p class="text-lg leading-relaxed text-gray-700">
+              Con gran alegría, invitamos a nuestros familiares y amigos a acompañarnos en este día tan especial. 
+              Celebremos juntos el inicio de nuestra nueva aventura.
+            </p>
+          </div>
+
+          <!-- Location & Time -->
+          <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-rose-50/80 p-6 rounded-xl border border-rose-200">
+              <h3 class="text-xl font-bold text-rose-600 mb-2">📍 Ceremonia</h3>
+              <p class="text-gray-700">Iglesia San José</p>
+              <p class="text-gray-600">4:00 PM</p>
+              <p class="text-sm text-gray-500">Av. Principal 123</p>
+            </div>
+            <div class="bg-rose-50/80 p-6 rounded-xl border border-rose-200">
+              <h3 class="text-xl font-bold text-rose-600 mb-2">🎉 Recepción</h3>
+              <p class="text-gray-700">Jardín Bella Vista</p>
+              <p class="text-gray-600">6:00 PM</p>
+              <p class="text-sm text-gray-500">Salón de Eventos</p>
+            </div>
+          </div>
+
+          <!-- Countdown -->
+          <div class="mb-8">
+            <h3 class="text-2xl font-bold text-rose-600 mb-4">Faltan</h3>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="bg-white/60 p-4 rounded-lg text-center">
+                <div class="text-2xl font-bold text-rose-600">180</div>
+                <div class="text-sm text-gray-600">Días</div>
+              </div>
+              <div class="bg-white/60 p-4 rounded-lg text-center">
+                <div class="text-2xl font-bold text-rose-600">12</div>
+                <div class="text-sm text-gray-600">Horas</div>
+              </div>
+              <div class="bg-white/60 p-4 rounded-lg text-center">
+                <div class="text-2xl font-bold text-rose-600">30</div>
+                <div class="text-sm text-gray-600">Minutos</div>
+              </div>
+              <div class="bg-white/60 p-4 rounded-lg text-center">
+                <div class="text-2xl font-bold text-rose-600">45</div>
+                <div class="text-sm text-gray-600">Segundos</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RSVP Button -->
+          <div class="mb-6">
+            <button class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+              Confirmar Asistencia
+            </button>
+          </div>
+
+          <!-- Message -->
+          <div class="border-t border-rose-200 pt-6">
+            <p class="italic text-gray-600">
+              "El amor no se mira, se siente, y aún más cuando ella está junto a ti."
+            </p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="space-y-4">
-        <a 
-          href="https://adagi0.com" 
-          class="block w-full p-4 text-center bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
-          target="_blank"
-        >
-          🌐 Website
-        </a>
-        
-        <a 
-          href="https://github.com/Adag1O" 
-          class="block w-full p-4 text-center bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-          target="_blank"
-        >
-          👨‍💻 GitHub
-        </a>
-
-        <a 
-          href="#" 
-          class="block w-full p-4 text-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition-colors"
-          target="_blank"
-        >
-          📸 Instagram
-        </a>
-
-        <a 
-          href="#" 
-          class="block w-full p-4 text-center bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors"
-          target="_blank"
-        >
-          💼 LinkedIn
-        </a>
+    <!-- Additional Info -->
+    <section class="py-12 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl text-center shadow-lg">
+            <h3 class="text-xl font-bold text-rose-600 mb-3">🎁 Regalos</h3>
+            <p class="text-gray-700">Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, tenemos una mesa de regalos.</p>
+          </div>
+          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl text-center shadow-lg">
+            <h3 class="text-xl font-bold text-rose-600 mb-3">👗 Código de Vestimenta</h3>
+            <p class="text-gray-700">Formal/Elegante. Sugerimos colores pasteles y evitar el color blanco.</p>
+          </div>
+          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl text-center shadow-lg">
+            <h3 class="text-xl font-bold text-rose-600 mb-3">📞 Contacto</h3>
+            <p class="text-gray-700">Para cualquier duda, contacta a los novios o a los padrinos de la boda.</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
-</Layout>
+</DemoLayout>
 
 <style>
-  a {
-    text-decoration: none;
-    transition: transform 0.2s ease;
+  .font-serif {
+    font-family: 'Georgia', 'Times New Roman', serif;
   }
-  
-  a:hover {
-    transform: scale(1.02);
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 </style>

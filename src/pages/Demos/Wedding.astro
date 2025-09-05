@@ -5,7 +5,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
 <DemoLayout title="Wedding Dreams - María & Carlos">
   <div class="flex flex-col md:flex-row min-h-screen bg-gradient-to-br from-rose-50 to-pink-100">
     <!-- Photo Carousel Section -->
-    <div class="relative md:w-[60%] h-[50vh] md:h-screen overflow-hidden" id="PhotoSection">
+    <div class="relative w-full h-screen md:w-[60%] md:h-screen overflow-hidden order-1 md:order-1" id="PhotoSection">
       <!-- Horizontal Photo Carousel -->
       <div class="flex h-full transition-transform duration-700 ease-out" id="PhotoCarousel">
         <!-- Photo 1 -->
@@ -80,7 +80,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
       </div>
       
       <!-- Photo Navigation Dots -->
-      <div class="absolute bottom-4 right-6 flex gap-2">
+      <div class="absolute bottom-4 right-6 gap-2 hidden md:flex">
         <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300 active" data-index="0"></button>
         <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-index="1"></button>
         <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-index="2"></button>
@@ -90,7 +90,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
     </div>
 
     <!-- Info Carousel Section -->
-    <div class="relative md:w-[40%] h-[50vh] md:h-screen bg-white shadow-2xl scroll-section" id="InfoSection">
+    <div class="relative w-full h-auto md:w-[40%] md:h-screen bg-white shadow-2xl scroll-section order-2 md:order-2" id="InfoSection">
       <!-- Scroll Indicator -->
       <div class="scroll-indicator absolute top-4 right-4 z-10 flex flex-col items-center text-gray-400 animate-bounce">
         <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,60 +100,60 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
       </div>
       
       <!-- Vertical Info Carousel -->
-      <div class="h-full overflow-hidden relative">
-        <div class="flex flex-col h-full transition-transform duration-700 ease-out" id="InfoCarousel">
+      <div class="h-full md:overflow-hidden overflow-y-auto relative">
+        <div class="flex flex-col md:h-full transition-transform duration-700 ease-out" id="InfoCarousel">
           <!-- Info Section 1 - Ceremony Details -->
-          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
-            <div class="text-center mb-8">
-              <div class="inline-block mb-4">
-                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+          <section class="flex-shrink-0 md:h-full h-auto flex flex-col justify-center px-4 sm:px-8 md:px-12 py-8 sm:py-12">
+            <div class="text-center mb-6 sm:mb-8">
+              <div class="inline-block mb-3 sm:mb-4">
+                <svg class="w-8 h-8 sm:w-12 sm:h-12 text-rose-400 mx-auto" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
               </div>
-              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">María & Carlos</h2>
-              <p class="text-lg text-gray-600 font-light">Unidos en amor</p>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-800 mb-2">María & Carlos</h2>
+              <p class="text-base sm:text-lg text-gray-600 font-light">Unidos en amor</p>
             </div>
             
-            <div class="space-y-6 text-center">
-              <div class="bg-rose-50 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">La Ceremonia</h3>
-                <p class="text-gray-600 mb-3">Sábado, 15 de Septiembre 2025</p>
-                <p class="text-gray-600 mb-3">4:00 PM</p>
-                <p class="text-sm text-gray-500">Iglesia San Miguel Arcángel<br/>Av. Principal 123, Centro Histórico</p>
+            <div class="space-y-4 sm:space-y-6 text-center">
+              <div class="bg-rose-50 rounded-lg p-4 sm:p-6">
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">La Ceremonia</h3>
+                <p class="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3">Sábado, 15 de Septiembre 2025</p>
+                <p class="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3">4:00 PM</p>
+                <p class="text-xs sm:text-sm text-gray-500">Iglesia San Miguel Arcángel<br/>Av. Principal 123, Centro Histórico</p>
               </div>
               
-              <button class="w-full bg-rose-400 hover:bg-rose-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+              <button class="w-full bg-rose-400 hover:bg-rose-500 text-white font-medium py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors duration-200 text-sm sm:text-base">
                 Ver Ubicación
               </button>
             </div>
           </section>
 
           <!-- Info Section 2 - Reception Details -->
-          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
-            <div class="text-center mb-8">
-              <div class="inline-block mb-4">
-                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <section class="flex-shrink-0 md:h-full h-auto flex flex-col justify-center px-4 sm:px-8 md:px-12 py-8 sm:py-12">
+            <div class="text-center mb-6 sm:mb-8">
+              <div class="inline-block mb-3 sm:mb-4">
+                <svg class="w-8 h-8 sm:w-12 sm:h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7z"/>
                 </svg>
               </div>
-              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">La Celebración</h2>
-              <p class="text-lg text-gray-600 font-light">Fiesta y alegría</p>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-800 mb-2">La Celebración</h2>
+              <p class="text-base sm:text-lg text-gray-600 font-light">Fiesta y alegría</p>
             </div>
             
-            <div class="space-y-6 text-center">
-              <div class="bg-pink-50 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">La Recepción</h3>
-                <p class="text-gray-600 mb-3">Sábado, 15 de Septiembre 2025</p>
-                <p class="text-gray-600 mb-3">7:00 PM - 2:00 AM</p>
-                <p class="text-sm text-gray-500">Salón de Eventos "El Jardín"<br/>Carretera al Lago Km 5, Zona Residencial</p>
+            <div class="space-y-4 sm:space-y-6 text-center">
+              <div class="bg-pink-50 rounded-lg p-4 sm:p-6">
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">La Recepción</h3>
+                <p class="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3">Sábado, 15 de Septiembre 2025</p>
+                <p class="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3">7:00 PM - 2:00 AM</p>
+                <p class="text-xs sm:text-sm text-gray-500">Salón de Eventos "El Jardín"<br/>Carretera al Lago Km 5, Zona Residencial</p>
               </div>
               
-              <div class="grid grid-cols-2 gap-4 text-sm">
-                <div class="bg-white rounded-lg p-4 border border-gray-200">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
+                <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200">
                   <p class="font-medium text-gray-800">Cena</p>
                   <p class="text-gray-600">8:00 PM</p>
                 </div>
-                <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200">
                   <p class="font-medium text-gray-800">Baile</p>
                   <p class="text-gray-600">10:00 PM</p>
                 </div>
@@ -162,30 +162,30 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
           </section>
 
           <!-- Info Section 3 - RSVP -->
-          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
-            <div class="text-center mb-8">
-              <div class="inline-block mb-4">
-                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <section class="flex-shrink-0 md:h-full h-auto flex flex-col justify-center px-4 sm:px-8 md:px-12 py-8 sm:py-12">
+            <div class="text-center mb-6 sm:mb-8">
+              <div class="inline-block mb-3 sm:mb-4">
+                <svg class="w-8 h-8 sm:w-12 sm:h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
               </div>
-              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">Confirma tu Asistencia</h2>
-              <p class="text-lg text-gray-600 font-light">Tu presencia es nuestro regalo</p>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-800 mb-2">Confirma tu Asistencia</h2>
+              <p class="text-base sm:text-lg text-gray-600 font-light">Tu presencia es nuestro regalo</p>
             </div>
             
-            <div class="space-y-6">
-              <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-lg p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">RSVP antes del 1 de Septiembre</h3>
+            <div class="space-y-4 sm:space-y-6">
+              <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-lg p-4 sm:p-6">
+                <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4 text-center">RSVP antes del 1 de Septiembre</h3>
                 
-                <div class="space-y-4">
+                <div class="space-y-3 sm:space-y-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
-                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:border-transparent" placeholder="Tu nombre">
+                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nombre Completo</label>
+                    <input type="text" class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:border-transparent text-sm sm:text-base" placeholder="Tu nombre">
                   </div>
                   
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Número de Invitados</label>
-                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:border-transparent">
+                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Número de Invitados</label>
+                    <select class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:border-transparent text-sm sm:text-base">
                       <option>1 persona</option>
                       <option>2 personas</option>
                       <option>3 personas</option>
@@ -193,7 +193,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
                     </select>
                   </div>
                   
-                  <button class="w-full bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+                  <button class="w-full bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white font-medium py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-200 transform hover:scale-105 text-sm sm:text-base">
                     Confirmar Asistencia
                   </button>
                 </div>
@@ -202,72 +202,72 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
           </section>
 
           <!-- Info Section 4 - Photography -->
-          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
-            <div class="text-center mb-8">
-              <div class="inline-block mb-4">
-                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <section class="flex-shrink-0 md:h-full h-auto flex flex-col justify-center px-4 sm:px-8 md:px-12 py-8 sm:py-12">
+            <div class="text-center mb-6 sm:mb-8">
+              <div class="inline-block mb-3 sm:mb-4">
+                <svg class="w-8 h-8 sm:w-12 sm:h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
               </div>
-              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">Fotografía</h2>
-              <p class="text-lg text-gray-600 font-light">Capturando cada momento especial</p>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-800 mb-2">Fotografía</h2>
+              <p class="text-base sm:text-lg text-gray-600 font-light">Capturando cada momento especial</p>
             </div>
             
-            <div class="space-y-6 text-center">
-              <div class="bg-purple-50 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Sesión Fotográfica</h3>
-                <p class="text-gray-600 mb-3">Fotografías profesionales durante toda la celebración</p>
-                <p class="text-sm text-gray-500 mb-4">• Ceremonia religiosa<br/>• Sesión de retratos<br/>• Recepción y fiesta</p>
-                <div class="bg-white rounded-lg p-4 border border-gray-200 mb-4">
-                  <p class="font-medium text-gray-800">Entrega Digital</p>
-                  <p class="text-gray-600 text-sm">Galería online disponible en 48 horas</p>
+            <div class="space-y-4 sm:space-y-6 text-center">
+              <div class="bg-purple-50 rounded-lg p-4 sm:p-6">
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Sesión Fotográfica</h3>
+                <p class="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3">Fotografías profesionales durante toda la celebración</p>
+                <p class="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">• Ceremonia religiosa<br/>• Sesión de retratos<br/>• Recepción y fiesta</p>
+                <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200 mb-3 sm:mb-4">
+                  <p class="font-medium text-gray-800 text-sm sm:text-base">Entrega Digital</p>
+                  <p class="text-gray-600 text-xs sm:text-sm">Galería online disponible en 48 horas</p>
                 </div>
               </div>
               
-              <button class="w-full bg-purple-400 hover:bg-purple-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+              <button class="w-full bg-purple-400 hover:bg-purple-500 text-white font-medium py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors duration-200 text-sm sm:text-base">
                 Ver Portafolio
               </button>
             </div>
           </section>
 
           <!-- Info Section 5 - Special Moments -->
-          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
-            <div class="text-center mb-8">
-              <div class="inline-block mb-4">
-                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <section class="flex-shrink-0 md:h-full h-auto flex flex-col justify-center px-4 sm:px-8 md:px-12 py-8 sm:py-12">
+            <div class="text-center mb-6 sm:mb-8">
+              <div class="inline-block mb-3 sm:mb-4">
+                <svg class="w-8 h-8 sm:w-12 sm:h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                 </svg>
               </div>
-              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">Momentos Especiales</h2>
-              <p class="text-lg text-gray-600 font-light">Tradiciones y sorpresas</p>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-800 mb-2">Momentos Especiales</h2>
+              <p class="text-base sm:text-lg text-gray-600 font-light">Tradiciones y sorpresas</p>
             </div>
             
-            <div class="space-y-6 text-center">
-              <div class="bg-yellow-50 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Cronograma Especial</h3>
-                <div class="space-y-3">
-                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
-                    <span class="font-medium text-gray-800">Intercambio de votos</span>
-                    <span class="text-gray-600 text-sm">4:30 PM</span>
+            <div class="space-y-4 sm:space-y-6 text-center">
+              <div class="bg-yellow-50 rounded-lg p-4 sm:p-6">
+                <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">Cronograma Especial</h3>
+                <div class="space-y-2 sm:space-y-3">
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white rounded-lg p-2 sm:p-3 border border-gray-200 text-left">
+                    <span class="font-medium text-gray-800 text-sm sm:text-base">Intercambio de votos</span>
+                    <span class="text-gray-600 text-xs sm:text-sm">4:30 PM</span>
                   </div>
-                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
-                    <span class="font-medium text-gray-800">Primer baile</span>
-                    <span class="text-gray-600 text-sm">9:00 PM</span>
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white rounded-lg p-2 sm:p-3 border border-gray-200 text-left">
+                    <span class="font-medium text-gray-800 text-sm sm:text-base">Primer baile</span>
+                    <span class="text-gray-600 text-xs sm:text-sm">9:00 PM</span>
                   </div>
-                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
-                    <span class="font-medium text-gray-800">Corte del pastel</span>
-                    <span class="text-gray-600 text-sm">10:30 PM</span>
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white rounded-lg p-2 sm:p-3 border border-gray-200 text-left">
+                    <span class="font-medium text-gray-800 text-sm sm:text-base">Corte del pastel</span>
+                    <span class="text-gray-600 text-xs sm:text-sm">10:30 PM</span>
                   </div>
-                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
-                    <span class="font-medium text-gray-800">Lanzamiento del ramo</span>
-                    <span class="text-gray-600 text-sm">11:30 PM</span>
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white rounded-lg p-2 sm:p-3 border border-gray-200 text-left">
+                    <span class="font-medium text-gray-800 text-sm sm:text-base">Lanzamiento del ramo</span>
+                    <span class="text-gray-600 text-xs sm:text-sm">11:30 PM</span>
                   </div>
                 </div>
               </div>
               
-              <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-4">
-                <p class="text-sm text-gray-600 italic">"El amor es la fuerza más humilde, pero la más poderosa de que dispone el mundo."</p>
+              <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-3 sm:p-4">
+                <p class="text-xs sm:text-sm text-gray-600 italic">"El amor es la fuerza más humilde, pero la más poderosa de que dispone el mundo."</p>
                 <p class="text-xs text-gray-500 mt-2">- Mahatma Gandhi</p>
               </div>
             </div>
@@ -290,9 +290,13 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
       }
       
       init() {
-        // Photo dots navigation
+        // Photo dots navigation - only on desktop
         this.photoDots.forEach((dot, index) => {
-          dot.addEventListener('click', () => this.goToSlide(index));
+          dot.addEventListener('click', () => {
+            if (window.innerWidth > 768) { // Only allow on desktop
+              this.goToSlide(index);
+            }
+          });
         });
         
         // Touch and scroll support
@@ -300,6 +304,11 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
         
         // Initialize first slide
         this.updateCarousels();
+        
+        // Listen for window resize to handle mobile/desktop switching
+        window.addEventListener('resize', () => {
+          this.updateCarousels();
+        });
       }
       
       goToSlide(index) {
@@ -324,24 +333,43 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
       updateCarousels() {
         console.log('updateCarousels called with index:', this.currentIndex);
         
-        // Update photo carousel (horizontal)
-        const photoTransform = `translateX(-${this.currentIndex * 100}%)`;
-        if (this.photoCarousel) {
-          this.photoCarousel.style.transform = photoTransform;
+        const isMobile = () => window.innerWidth <= 768;
+        
+        // Update photo carousel (horizontal) - only on desktop
+        if (!isMobile()) {
+          const photoTransform = `translateX(-${this.currentIndex * 100}%)`;
+          if (this.photoCarousel) {
+            this.photoCarousel.style.transform = photoTransform;
+          }
+          console.log('Photo transform applied:', photoTransform);
+        } else {
+          // Keep photo carousel at first image on mobile
+          if (this.photoCarousel) {
+            this.photoCarousel.style.transform = 'translateX(0%)';
+          }
+          console.log('Photo carousel fixed at first image (mobile)');
         }
         
-        // Update info carousel (vertical)
-        const infoTransform = `translateY(-${this.currentIndex * 100}%)`;
-        if (this.infoCarousel) {
-          this.infoCarousel.style.transform = infoTransform;
+        // Update info carousel (vertical) - only on desktop
+        if (!isMobile()) {
+          const infoTransform = `translateY(-${this.currentIndex * 100}%)`;
+          if (this.infoCarousel) {
+            this.infoCarousel.style.transform = infoTransform;
+          }
+          console.log('Info transform applied:', infoTransform);
         }
         
-        // Update photo dots
-        this.photoDots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === this.currentIndex);
-        });
-        
-        console.log('Transforms applied - photo:', photoTransform, 'info:', infoTransform);
+        // Update photo dots - only on desktop
+        if (!isMobile()) {
+          this.photoDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentIndex);
+          });
+        } else {
+          // Ensure first dot is always active on mobile
+          this.photoDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === 0);
+          });
+        }
       }
       
       addInteractionSupport() {
@@ -360,14 +388,18 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
           }
         };
         
+        const isMobile = () => window.innerWidth <= 768;
+        
         if (infoSection) {
-          // Touch support for mobile
+          // Touch support for mobile (only for photo navigation)
           infoSection.addEventListener('touchstart', (e) => {
+            if (isMobile()) return; // Skip carousel on mobile
             startY = e.touches[0].clientY;
             startX = e.touches[0].clientX;
           });
           
           infoSection.addEventListener('touchend', (e) => {
+            if (isMobile()) return; // Skip carousel on mobile
             const endY = e.changedTouches[0].clientY;
             const endX = e.changedTouches[0].clientX;
             const diffY = startY - endY;
@@ -384,9 +416,11 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
             }
           });
           
-          // Scroll support for desktop and mobile
+          // Scroll support for desktop only
           let isScrolling = false;
           infoSection.addEventListener('wheel', (e) => {
+            if (isMobile()) return; // Skip carousel on mobile
+            
             e.preventDefault(); // Prevent default scrolling
             
             if (isScrolling) return; // Prevent multiple rapid scroll events
@@ -481,8 +515,38 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      #PhotoSection, #InfoSection {
-        height: 50vh;
+      /* Full screen photo section for mobile */
+      #PhotoSection {
+        height: 100vh !important;
+        width: 100% !important;
+      }
+      
+      /* Keep photo carousel fixed at first image on mobile */
+      #PhotoCarousel {
+        transform: translateX(0%) !important;
+      }
+      
+      /* Auto height info section for mobile - allows normal scrolling */
+      #InfoSection {
+        height: auto !important;
+        width: 100% !important;
+        overflow-y: visible !important;
+      }
+      
+      /* Disable carousel transform on mobile */
+      #InfoCarousel {
+        transform: none !important;
+      }
+      
+      /* Show all sections normally on mobile */
+      #InfoCarousel section {
+        height: auto !important;
+        min-height: auto !important;
+      }
+      
+      /* Ensure main container allows content flow */
+      .flex.flex-col.md\\:flex-row {
+        min-height: auto;
       }
       
       .photo-dot {
@@ -490,9 +554,177 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
         height: 12px;
       }
       
-      /* Make scroll indicator more visible on mobile */
-      .scroll-section .animate-bounce {
-        animation-duration: 1.5s;
+      /* Hide scroll indicator on mobile since we use normal scrolling */
+      .scroll-indicator {
+        display: none !important;
+      }
+    }
+    
+    /* Extra small devices (width < 300px) */
+    @media (max-width: 299px) {
+      /* Adjust main container for very small screens */
+      .flex.flex-col.md\\:flex-row {
+        flex-direction: column !important;
+        min-height: auto !important;
+      }
+      
+      /* Photo section adjustments - full screen */
+      #PhotoSection {
+        height: 100vh !important;
+        width: 100% !important;
+      }
+      
+      /* Keep photo carousel fixed at first image on small screens */
+      #PhotoCarousel {
+        transform: translateX(0%) !important;
+      }
+      
+      /* Info section adjustments - auto height for normal scrolling */
+      #InfoSection {
+        height: auto !important;
+        width: 100% !important;
+        overflow-y: visible !important;
+      }
+      
+      /* Disable carousel on small screens */
+      #InfoCarousel {
+        transform: none !important;
+      }
+      
+      #InfoCarousel section {
+        height: auto !important;
+        min-height: auto !important;
+      }
+      
+      /* Reduce padding in sections */
+      section {
+        padding: 1rem 0.75rem !important;
+      }
+      
+      /* Smaller text sizes */
+      h2 {
+        font-size: 1.5rem !important;
+        line-height: 1.3 !important;
+      }
+      
+      h3 {
+        font-size: 1rem !important;
+        line-height: 1.2 !important;
+      }
+      
+      p {
+        font-size: 0.875rem !important;
+        line-height: 1.3 !important;
+      }
+      
+      /* Smaller icons */
+      svg {
+        width: 2rem !important;
+        height: 2rem !important;
+      }
+      
+      /* Adjust card spacing */
+      .bg-rose-50, .bg-pink-50, .bg-purple-50, .bg-yellow-50,
+      .bg-gradient-to-br {
+        padding: 0.75rem !important;
+        margin-bottom: 1rem !important;
+      }
+      
+      /* Smaller buttons */
+      button {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+      }
+      
+      /* Smaller form elements */
+      input, select {
+        padding: 0.5rem !important;
+        font-size: 0.875rem !important;
+      }
+      
+      /* Smaller photo dots */
+      .photo-dot {
+        width: 8px !important;
+        height: 8px !important;
+      }
+      
+      /* Adjust grid for small screens */
+      .grid.grid-cols-2 {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+      }
+      
+      /* Smaller spacing between elements */
+      .space-y-6 > * + * {
+        margin-top: 1rem !important;
+      }
+      
+      .space-y-4 > * + * {
+        margin-top: 0.75rem !important;
+      }
+      
+      .space-y-3 > * + * {
+        margin-top: 0.5rem !important;
+      }
+      
+      /* Adjust photo overlay text */
+      .absolute.bottom-6.left-6 {
+        bottom: 1rem !important;
+        left: 1rem !important;
+      }
+      
+      .absolute.bottom-6.left-6 h3 {
+        font-size: 1.25rem !important;
+      }
+      
+      .absolute.bottom-6.left-6 p {
+        font-size: 0.75rem !important;
+      }
+      
+      /* Adjust navigation dots position */
+      .absolute.bottom-4.right-6 {
+        bottom: 1rem !important;
+        right: 1rem !important;
+        gap: 0.25rem !important;
+      }
+      
+      /* Adjust scroll indicator */
+      .scroll-indicator {
+        top: 0.5rem !important;
+        right: 0.5rem !important;
+      }
+      
+      .scroll-indicator svg {
+        width: 1rem !important;
+        height: 1rem !important;
+      }
+      
+      .scroll-indicator span {
+        font-size: 0.625rem !important;
+      }
+      
+      /* Timeline items for Special Moments section */
+      .flex.justify-between.items-center {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        gap: 0.25rem !important;
+      }
+      
+      /* Labels and form elements */
+      label {
+        font-size: 0.75rem !important;
+        margin-bottom: 0.25rem !important;
+      }
+      
+      /* Quote styling */
+      .text-sm.text-gray-600.italic {
+        font-size: 0.75rem !important;
+        line-height: 1.2 !important;
+      }
+      
+      .text-xs.text-gray-500 {
+        font-size: 0.625rem !important;
       }
     }
     

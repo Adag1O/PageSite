@@ -39,36 +39,28 @@ export const onRequest = defineMiddleware((context, next) => {
     return next();
   }
   
-  // Solo procesar si es subdominio demo/demos y no estamos ya en /Demos/
-  if (isDemoSubdomain && !url.pathname.startsWith('/Demos/')) {
+  // Solo procesar en desarrollo y si es subdominio demo/demos
+  if (process.env.NODE_ENV !== 'production' && isDemoSubdomain && !url.pathname.startsWith('/Demos/')) {
     const demoPath = url.pathname === '/' ? '/Demos/' : `/Demos${url.pathname}`;
     
-    console.log(`[Middleware] Redirecting to: ${demoPath}`);
+    console.log(`[Middleware] Dev rewrite to: ${demoPath}`);
     
-    // En desarrollo estático, usar rewrite interno en lugar de redirect
-    if (process.env.NODE_ENV !== 'production') {
-      // Crear nueva URL con el path corregido
-      const newUrl = new URL(demoPath, url.origin);
-      newUrl.search = url.search;
-      
-      // Crear nuevo request con la URL reescrita
-      const newRequest = new Request(newUrl, {
-        method: request.method,
-        headers: request.headers,
-        body: request.body
-      });
-      
-      context.locals.subdomain = subdomain;
-      context.locals.isDemoSubdomain = true;
-      
-      // Continuar con el request reescrito
-      return context.rewrite(newRequest);
-    } else {
-      // En producción, usar redirect normal
-      const newUrl = new URL(demoPath, url.origin);
-      newUrl.search = url.search;
-      return Response.redirect(newUrl.toString(), 302);
-    }
+    // Crear nueva URL con el path corregido
+    const newUrl = new URL(demoPath, url.origin);
+    newUrl.search = url.search;
+    
+    // Crear nuevo request con la URL reescrita
+    const newRequest = new Request(newUrl, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body
+    });
+    
+    context.locals.subdomain = subdomain;
+    context.locals.isDemoSubdomain = true;
+    
+    // Continuar con el request reescrito
+    return context.rewrite(newRequest);
   }
   
   // Agregar información del subdominio a locals

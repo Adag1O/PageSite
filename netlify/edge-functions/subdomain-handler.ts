@@ -31,16 +31,18 @@ export default async (request: Request, context: Context) => {
     if (url.pathname === '/') {
       targetPath = '/Demos/';
     } else {
-      targetPath = `/Demos${url.pathname}`;
+      // Eliminar cualquier slash inicial para evitar duplicación
+      const cleanPath = url.pathname.startsWith('/') ? url.pathname.substring(1) : url.pathname;
+      targetPath = `/Demos/${cleanPath}`;
     }
     
-    // Reescribir la URL internamente
-    const newUrl = new URL(targetPath, url.origin);
+    // Crear nueva URL apuntando al dominio principal
+    const newUrl = new URL(targetPath, 'https://adagi0.com');
     newUrl.search = url.search;
     
-    console.log(`[Edge Function] Rewriting to: ${newUrl.pathname}`);
+    console.log(`[Edge Function] Rewriting from ${url.href} to: ${newUrl.href}`);
     
-    // Hacer fetch interno al path correcto
+    // Hacer fetch interno al path correcto en el dominio principal
     return await context.rewrite(newUrl);
   }
   

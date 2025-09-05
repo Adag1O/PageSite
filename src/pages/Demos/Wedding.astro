@@ -1,132 +1,514 @@
 ---
-import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoLayout from "../../layouts/DemoLayout.astro";
 ---
 
 <DemoLayout title="Wedding Dreams - María & Carlos">
-  <main class="min-h-screen bg-gradient-to-br from-rose-100 via-pink-50 to-orange-100 text-gray-800">
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center p-6">
-      <div class="max-w-4xl w-full mx-auto text-center">
-        <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-xl border border-white/50">
-          <!-- Date -->
-          <div class="mb-6">
-            <p class="text-lg text-gray-600 tracking-wider">SÁBADO</p>
-            <p class="text-3xl md:text-4xl font-bold text-gray-700">15 DE JUNIO, 2025</p>
+  <div class="flex flex-col md:flex-row min-h-screen bg-gradient-to-br from-rose-50 to-pink-100">
+    <!-- Photo Carousel Section -->
+    <div class="relative md:w-[60%] h-[50vh] md:h-screen overflow-hidden" id="PhotoSection">
+      <!-- Horizontal Photo Carousel -->
+      <div class="flex h-full transition-transform duration-700 ease-out" id="PhotoCarousel">
+        <!-- Photo 1 -->
+        <div class="flex-shrink-0 w-full h-full relative">
+          <img 
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=800&fit=crop&crop=center" 
+            alt="Wedding Ceremony" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-2xl font-serif font-light">The Ceremony</h3>
+            <p class="text-sm opacity-90">Where love becomes eternal</p>
           </div>
-
-          <!-- Names -->
-          <div class="mb-8">
-            <h1 class="font-serif text-5xl md:text-7xl text-rose-600 mb-4">María & Carlos</h1>
-            <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-rose-400 to-transparent mx-auto mb-4"></div>
-            <p class="text-xl text-gray-600">¡Nos casamos!</p>
+        </div>
+        
+        <!-- Photo 2 -->
+        <div class="flex-shrink-0 w-full h-full relative">
+          <img 
+            src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=800&h=800&fit=crop&crop=center" 
+            alt="Wedding Reception" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-2xl font-serif font-light">The Reception</h3>
+            <p class="text-sm opacity-90">Celebrate with us</p>
           </div>
-
-          <!-- Heart -->
-          <div class="mb-8">
-            <span class="text-4xl animate-pulse">💖</span>
+        </div>
+        
+        <!-- Photo 3 -->
+        <div class="flex-shrink-0 w-full h-full relative">
+          <img 
+            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=800&fit=crop&crop=center" 
+            alt="Wedding Details" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-2xl font-serif font-light">The Details</h3>
+            <p class="text-sm opacity-90">Every moment matters</p>
           </div>
-
-          <!-- Invitation -->
-          <div class="mb-8">
-            <p class="text-lg leading-relaxed text-gray-700">
-              Con gran alegría, invitamos a nuestros familiares y amigos a acompañarnos en este día tan especial. 
-              Celebremos juntos el inicio de nuestra nueva aventura.
-            </p>
+        </div>
+        
+        <!-- Photo 4 -->
+        <div class="flex-shrink-0 w-full h-full relative">
+          <img 
+            src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&h=800&fit=crop&crop=center" 
+            alt="Wedding Photography" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-2xl font-serif font-light">The Memories</h3>
+            <p class="text-sm opacity-90">Captured forever</p>
           </div>
-
-          <!-- Location & Time -->
-          <div class="grid md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-rose-50/80 p-6 rounded-xl border border-rose-200">
-              <h3 class="text-xl font-bold text-rose-600 mb-2">📍 Ceremonia</h3>
-              <p class="text-gray-700">Iglesia San José</p>
-              <p class="text-gray-600">4:00 PM</p>
-              <p class="text-sm text-gray-500">Av. Principal 123</p>
-            </div>
-            <div class="bg-rose-50/80 p-6 rounded-xl border border-rose-200">
-              <h3 class="text-xl font-bold text-rose-600 mb-2">🎉 Recepción</h3>
-              <p class="text-gray-700">Jardín Bella Vista</p>
-              <p class="text-gray-600">6:00 PM</p>
-              <p class="text-sm text-gray-500">Salón de Eventos</p>
-            </div>
-          </div>
-
-          <!-- Countdown -->
-          <div class="mb-8">
-            <h3 class="text-2xl font-bold text-rose-600 mb-4">Faltan</h3>
-            <div class="grid grid-cols-4 gap-4">
-              <div class="bg-white/60 p-4 rounded-lg text-center">
-                <div class="text-2xl font-bold text-rose-600">180</div>
-                <div class="text-sm text-gray-600">Días</div>
-              </div>
-              <div class="bg-white/60 p-4 rounded-lg text-center">
-                <div class="text-2xl font-bold text-rose-600">12</div>
-                <div class="text-sm text-gray-600">Horas</div>
-              </div>
-              <div class="bg-white/60 p-4 rounded-lg text-center">
-                <div class="text-2xl font-bold text-rose-600">30</div>
-                <div class="text-sm text-gray-600">Minutos</div>
-              </div>
-              <div class="bg-white/60 p-4 rounded-lg text-center">
-                <div class="text-2xl font-bold text-rose-600">45</div>
-                <div class="text-sm text-gray-600">Segundos</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RSVP Button -->
-          <div class="mb-6">
-            <button class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Confirmar Asistencia
-            </button>
-          </div>
-
-          <!-- Message -->
-          <div class="border-t border-rose-200 pt-6">
-            <p class="italic text-gray-600">
-              "El amor no se mira, se siente, y aún más cuando ella está junto a ti."
-            </p>
+        </div>
+        
+        <!-- Photo 5 -->
+        <div class="flex-shrink-0 w-full h-full relative">
+          <img 
+            src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&h=800&fit=crop&crop=center" 
+            alt="Wedding Cake" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-2xl font-serif font-light">The Celebration</h3>
+            <p class="text-sm opacity-90">Sweet moments</p>
           </div>
         </div>
       </div>
-    </section>
+      
+      <!-- Photo Navigation Dots -->
+      <div class="absolute bottom-4 right-6 flex gap-2">
+        <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300 active" data-index="0"></button>
+        <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-index="1"></button>
+        <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-index="2"></button>
+        <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-index="3"></button>
+        <button class="photo-dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-index="4"></button>
+      </div>
+    </div>
 
-    <!-- Additional Info -->
-    <section class="py-12 px-6">
-      <div class="max-w-4xl mx-auto">
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl text-center shadow-lg">
-            <h3 class="text-xl font-bold text-rose-600 mb-3">🎁 Regalos</h3>
-            <p class="text-gray-700">Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, tenemos una mesa de regalos.</p>
-          </div>
-          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl text-center shadow-lg">
-            <h3 class="text-xl font-bold text-rose-600 mb-3">👗 Código de Vestimenta</h3>
-            <p class="text-gray-700">Formal/Elegante. Sugerimos colores pasteles y evitar el color blanco.</p>
-          </div>
-          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl text-center shadow-lg">
-            <h3 class="text-xl font-bold text-rose-600 mb-3">📞 Contacto</h3>
-            <p class="text-gray-700">Para cualquier duda, contacta a los novios o a los padrinos de la boda.</p>
-          </div>
+    <!-- Info Carousel Section -->
+    <div class="relative md:w-[40%] h-[50vh] md:h-screen bg-white shadow-2xl scroll-section" id="InfoSection">
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator absolute top-4 right-4 z-10 flex flex-col items-center text-gray-400 animate-bounce">
+        <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+        <span class="text-xs font-medium">Scroll</span>
+      </div>
+      
+      <!-- Vertical Info Carousel -->
+      <div class="h-full overflow-hidden relative">
+        <div class="flex flex-col h-full transition-transform duration-700 ease-out" id="InfoCarousel">
+          <!-- Info Section 1 - Ceremony Details -->
+          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
+            <div class="text-center mb-8">
+              <div class="inline-block mb-4">
+                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">María & Carlos</h2>
+              <p class="text-lg text-gray-600 font-light">Unidos en amor</p>
+            </div>
+            
+            <div class="space-y-6 text-center">
+              <div class="bg-rose-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">La Ceremonia</h3>
+                <p class="text-gray-600 mb-3">Sábado, 15 de Septiembre 2025</p>
+                <p class="text-gray-600 mb-3">4:00 PM</p>
+                <p class="text-sm text-gray-500">Iglesia San Miguel Arcángel<br/>Av. Principal 123, Centro Histórico</p>
+              </div>
+              
+              <button class="w-full bg-rose-400 hover:bg-rose-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                Ver Ubicación
+              </button>
+            </div>
+          </section>
+
+          <!-- Info Section 2 - Reception Details -->
+          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
+            <div class="text-center mb-8">
+              <div class="inline-block mb-4">
+                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">La Celebración</h2>
+              <p class="text-lg text-gray-600 font-light">Fiesta y alegría</p>
+            </div>
+            
+            <div class="space-y-6 text-center">
+              <div class="bg-pink-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">La Recepción</h3>
+                <p class="text-gray-600 mb-3">Sábado, 15 de Septiembre 2025</p>
+                <p class="text-gray-600 mb-3">7:00 PM - 2:00 AM</p>
+                <p class="text-sm text-gray-500">Salón de Eventos "El Jardín"<br/>Carretera al Lago Km 5, Zona Residencial</p>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div class="bg-white rounded-lg p-4 border border-gray-200">
+                  <p class="font-medium text-gray-800">Cena</p>
+                  <p class="text-gray-600">8:00 PM</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 border border-gray-200">
+                  <p class="font-medium text-gray-800">Baile</p>
+                  <p class="text-gray-600">10:00 PM</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Info Section 3 - RSVP -->
+          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
+            <div class="text-center mb-8">
+              <div class="inline-block mb-4">
+                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">Confirma tu Asistencia</h2>
+              <p class="text-lg text-gray-600 font-light">Tu presencia es nuestro regalo</p>
+            </div>
+            
+            <div class="space-y-6">
+              <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">RSVP antes del 1 de Septiembre</h3>
+                
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
+                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:border-transparent" placeholder="Tu nombre">
+                  </div>
+                  
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Número de Invitados</label>
+                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-400 focus:border-transparent">
+                      <option>1 persona</option>
+                      <option>2 personas</option>
+                      <option>3 personas</option>
+                      <option>4 personas</option>
+                    </select>
+                  </div>
+                  
+                  <button class="w-full bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+                    Confirmar Asistencia
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Info Section 4 - Photography -->
+          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
+            <div class="text-center mb-8">
+              <div class="inline-block mb-4">
+                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">Fotografía</h2>
+              <p class="text-lg text-gray-600 font-light">Capturando cada momento especial</p>
+            </div>
+            
+            <div class="space-y-6 text-center">
+              <div class="bg-purple-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Sesión Fotográfica</h3>
+                <p class="text-gray-600 mb-3">Fotografías profesionales durante toda la celebración</p>
+                <p class="text-sm text-gray-500 mb-4">• Ceremonia religiosa<br/>• Sesión de retratos<br/>• Recepción y fiesta</p>
+                <div class="bg-white rounded-lg p-4 border border-gray-200 mb-4">
+                  <p class="font-medium text-gray-800">Entrega Digital</p>
+                  <p class="text-gray-600 text-sm">Galería online disponible en 48 horas</p>
+                </div>
+              </div>
+              
+              <button class="w-full bg-purple-400 hover:bg-purple-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                Ver Portafolio
+              </button>
+            </div>
+          </section>
+
+          <!-- Info Section 5 - Special Moments -->
+          <section class="flex-shrink-0 h-full flex flex-col justify-center px-8 md:px-12 py-12">
+            <div class="text-center mb-8">
+              <div class="inline-block mb-4">
+                <svg class="w-12 h-12 text-rose-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+              </div>
+              <h2 class="text-3xl md:text-4xl font-serif text-gray-800 mb-2">Momentos Especiales</h2>
+              <p class="text-lg text-gray-600 font-light">Tradiciones y sorpresas</p>
+            </div>
+            
+            <div class="space-y-6 text-center">
+              <div class="bg-yellow-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Cronograma Especial</h3>
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
+                    <span class="font-medium text-gray-800">Intercambio de votos</span>
+                    <span class="text-gray-600 text-sm">4:30 PM</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
+                    <span class="font-medium text-gray-800">Primer baile</span>
+                    <span class="text-gray-600 text-sm">9:00 PM</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
+                    <span class="font-medium text-gray-800">Corte del pastel</span>
+                    <span class="text-gray-600 text-sm">10:30 PM</span>
+                  </div>
+                  <div class="flex justify-between items-center bg-white rounded-lg p-3 border border-gray-200">
+                    <span class="font-medium text-gray-800">Lanzamiento del ramo</span>
+                    <span class="text-gray-600 text-sm">11:30 PM</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-4">
+                <p class="text-sm text-gray-600 italic">"El amor es la fuerza más humilde, pero la más poderosa de que dispone el mundo."</p>
+                <p class="text-xs text-gray-500 mt-2">- Mahatma Gandhi</p>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+
+  <script>
+    class WeddingCarousel {
+      currentIndex = 0;
+      photoCarousel = document.getElementById('PhotoCarousel');
+      infoCarousel = document.getElementById('InfoCarousel');
+      photoDots = document.querySelectorAll('.photo-dot');
+      totalSlides = 5;
+      
+      constructor() {
+        this.init();
+      }
+      
+      init() {
+        // Photo dots navigation
+        this.photoDots.forEach((dot, index) => {
+          dot.addEventListener('click', () => this.goToSlide(index));
+        });
+        
+        // Touch and scroll support
+        this.addInteractionSupport();
+        
+        // Initialize first slide
+        this.updateCarousels();
+      }
+      
+      goToSlide(index) {
+        this.currentIndex = index;
+        this.updateCarousels();
+      }
+      
+      nextSlide() {
+        console.log('nextSlide called, current index:', this.currentIndex);
+        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+        console.log('nextSlide new index:', this.currentIndex);
+        this.updateCarousels();
+      }
+      
+      previousSlide() {
+        console.log('previousSlide called, current index:', this.currentIndex);
+        this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+        console.log('previousSlide new index:', this.currentIndex);
+        this.updateCarousels();
+      }
+      
+      updateCarousels() {
+        console.log('updateCarousels called with index:', this.currentIndex);
+        
+        // Update photo carousel (horizontal)
+        const photoTransform = `translateX(-${this.currentIndex * 100}%)`;
+        if (this.photoCarousel) {
+          this.photoCarousel.style.transform = photoTransform;
+        }
+        
+        // Update info carousel (vertical)
+        const infoTransform = `translateY(-${this.currentIndex * 100}%)`;
+        if (this.infoCarousel) {
+          this.infoCarousel.style.transform = infoTransform;
+        }
+        
+        // Update photo dots
+        this.photoDots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === this.currentIndex);
+        });
+        
+        console.log('Transforms applied - photo:', photoTransform, 'info:', infoTransform);
+      }
+      
+      addInteractionSupport() {
+        let startY = 0;
+        let startX = 0;
+        let hasInteracted = false;
+        
+        const infoSection = document.getElementById('InfoSection');
+        
+        const markAsInteracted = () => {
+          if (!hasInteracted) {
+            hasInteracted = true;
+            if (infoSection) {
+              infoSection.classList.add('interacted');
+            }
+          }
+        };
+        
+        if (infoSection) {
+          // Touch support for mobile
+          infoSection.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+          });
+          
+          infoSection.addEventListener('touchend', (e) => {
+            const endY = e.changedTouches[0].clientY;
+            const endX = e.changedTouches[0].clientX;
+            const diffY = startY - endY;
+            const diffX = Math.abs(startX - endX);
+            
+            // Only trigger if vertical swipe is more significant than horizontal
+            if (Math.abs(diffY) > 50 && Math.abs(diffY) > diffX) {
+              markAsInteracted();
+              if (diffY > 0) {
+                this.nextSlide();
+              } else {
+                this.previousSlide();
+              }
+            }
+          });
+          
+          // Scroll support for desktop and mobile
+          let isScrolling = false;
+          infoSection.addEventListener('wheel', (e) => {
+            e.preventDefault(); // Prevent default scrolling
+            
+            if (isScrolling) return; // Prevent multiple rapid scroll events
+            
+            console.log('Wheel event - deltaY:', e.deltaY, 'current index:', this.currentIndex);
+            
+            isScrolling = true;
+            markAsInteracted();
+            
+            // Determine scroll direction
+            if (e.deltaY > 0) {
+              // Scrolling down - next slide (forward)
+              console.log('Scrolling DOWN - calling nextSlide()');
+              this.nextSlide();
+            } else if (e.deltaY < 0) {
+              // Scrolling up - previous slide (backward)
+              console.log('Scrolling UP - calling previousSlide()');
+              this.previousSlide();
+            }
+            
+            // Debounce scroll events
+            setTimeout(() => {
+              isScrolling = false;
+            }, 1000); // Increase debounce time to prevent rapid scrolling
+          }, { passive: false });
+        }
+      }
+    }
+    
+    // Initialize carousel when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      new WeddingCarousel();
+    });
+  </script>
+
+  <style>
+    /* Active dot styling */
+    .photo-dot.active {
+      background-color: rgba(255, 255, 255, 0.9);
+      transform: scale(1.2);
+    }
+    
+    /* Smooth transitions */
+    #PhotoCarousel, #InfoCarousel {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Scroll section styling */
+    .scroll-section {
+      cursor: grab;
+    }
+    
+    .scroll-section:active {
+      cursor: grabbing;
+    }
+    
+    /* Prevent text selection during interactions */
+    #InfoSection {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* Form focus styles */
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.1);
+    }
+    
+    /* Button hover animations */
+    button {
+      transition: all 0.2s ease;
+    }
+    
+    /* Scroll indicator animation */
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    
+    .scroll-indicator {
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+    
+    /* Hide scroll indicator after first interaction */
+    .scroll-section.interacted .scroll-indicator {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #PhotoSection, #InfoSection {
+        height: 50vh;
+      }
+      
+      .photo-dot {
+        width: 12px;
+        height: 12px;
+      }
+      
+      /* Make scroll indicator more visible on mobile */
+      .scroll-section .animate-bounce {
+        animation-duration: 1.5s;
+      }
+    }
+    
+    /* Smooth scrolling behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Custom scrollbar for webkit browsers (hidden since we control scroll) */
+    .scroll-section::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .scroll-section {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </DemoLayout>
-
-<style>
-  .font-serif {
-    font-family: 'Georgia', 'Times New Roman', serif;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
-
-  .animate-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-</style>

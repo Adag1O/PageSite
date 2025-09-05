@@ -7,17 +7,17 @@ https://www.demo.adagi0.com/favicon.ico  https://adagi0.com/favicon.svg         
 https://demos.adagi0.com/favicon.ico     https://adagi0.com/favicon.svg         301!
 https://www.demos.adagi0.com/favicon.ico https://adagi0.com/favicon.svg         301!
 
-# demo.adagi0.com redirects
-https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     301!
-https://demo.adagi0.com           https://adagi0.com/Demos/           301!
-https://www.demo.adagi0.com/*     https://adagi0.com/Demos/:splat     301!
-https://www.demo.adagi0.com       https://adagi0.com/Demos/           301!
+# demo.adagi0.com redirects (proxy - mantiene subdominio visible)
+https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
+https://demo.adagi0.com           https://adagi0.com/Demos/           200!
+https://www.demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
+https://www.demo.adagi0.com       https://adagi0.com/Demos/           200!
 
-# demos.adagi0.com redirects
-https://demos.adagi0.com/*        https://adagi0.com/Demos/:splat     301!
-https://demos.adagi0.com          https://adagi0.com/Demos/           301!
-https://www.demos.adagi0.com/*    https://adagi0.com/Demos/:splat     301!
-https://www.demos.adagi0.com      https://adagi0.com/Demos/           301!
+# demos.adagi0.com redirects (proxy - mantiene subdominio visible)
+https://demos.adagi0.com/*        https://adagi0.com/Demos/:splat     200!
+https://demos.adagi0.com          https://adagi0.com/Demos/           200!
+https://www.demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!
+https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
 
 # Fallback redirects for specific demo routes
 /Demos/LinkTree               /Demos/LinkTree                      200

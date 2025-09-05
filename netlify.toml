@@ -6,53 +6,53 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Subdomain redirects - simple approach
+# Subdomain redirects - proxy mode (maintains subdomain URL)
 [[redirects]]
   from = "https://demo.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://demo.adagi0.com"
   to = "https://adagi0.com/Demos/"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://www.demo.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://www.demo.adagi0.com"
   to = "https://adagi0.com/Demos/"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://demos.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://demos.adagi0.com"
   to = "https://adagi0.com/Demos/"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://www.demos.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   from = "https://www.demos.adagi0.com"
   to = "https://adagi0.com/Demos/"
-  status = 301
+  status = 200
   force = true
 
 # Backup function-based redirects

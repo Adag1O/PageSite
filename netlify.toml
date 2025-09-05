@@ -6,11 +6,38 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Asset paths should NOT be redirected
+[[redirects]]
+  from = "https://demo.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://www.demo.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://demos.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://www.demos.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+# Subdomain redirects for pages only
 [[redirects]]
   from = "https://demo.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/_astro/*,!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://demo.adagi0.com"
@@ -23,6 +50,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/_astro/*,!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://www.demo.adagi0.com"
@@ -35,6 +63,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/_astro/*,!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://demos.adagi0.com"
@@ -47,6 +76,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/_astro/*,!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://www.demos.adagi0.com"
@@ -65,10 +95,10 @@
   to = "/.netlify/functions/subdomain-redirect"
   status = 200
 
-# Handle subdomain routing at edge level (DISABLED to prevent conflicts)
-# [[edge_functions]]
-#   function = "subdomain-handler"
-#   path = "/*"
+# Handle subdomain routing at edge level
+[[edge_functions]]
+  function = "subdomain-handler"
+  path = "/*"
 
 # Headers for CORS and security
 [[headers]]

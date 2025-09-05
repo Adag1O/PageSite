@@ -1,13 +1,25 @@
 # Netlify _redirects file for subdomain routing
 # This file handles client-side redirects for subdomain routing
 
-# Subdomain redirects for demo.adagi0.com
+# Asset redirects - these should be served directly from main domain
+https://demo.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat      200!
+https://www.demo.adagi0.com/_astro/*  https://adagi0.com/_astro/:splat      200!
+https://demos.adagi0.com/_astro/*     https://adagi0.com/_astro/:splat      200!
+https://www.demos.adagi0.com/_astro/* https://adagi0.com/_astro/:splat      200!
+
+# Static assets
+https://demo.adagi0.com/favicon.svg   https://adagi0.com/favicon.svg        200!
+https://www.demo.adagi0.com/favicon.svg https://adagi0.com/favicon.svg      200!
+https://demos.adagi0.com/favicon.svg  https://adagi0.com/favicon.svg        200!
+https://www.demos.adagi0.com/favicon.svg https://adagi0.com/favicon.svg     200!
+
+# Subdomain redirects for demo.adagi0.com (only pages, not assets)
 https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
 https://demo.adagi0.com           https://adagi0.com/Demos/           200!
 https://www.demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
 https://www.demo.adagi0.com       https://adagi0.com/Demos/           200!
 
-# Subdomain redirects for demos.adagi0.com
+# Subdomain redirects for demos.adagi0.com (only pages, not assets)
 https://demos.adagi0.com/*        https://adagi0.com/Demos/:splat     200!
 https://demos.adagi0.com          https://adagi0.com/Demos/           200!
 https://www.demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!

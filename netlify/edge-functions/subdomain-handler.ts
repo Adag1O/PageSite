@@ -5,8 +5,11 @@ export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const hostname = url.hostname;
   
-  // No procesar assets estáticos (CSS, JS, imágenes, etc.)
-  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
+  // No procesar assets estáticos (CSS, JS, imágenes, etc.) - incluyendo _astro
+  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/) || 
+      url.pathname.startsWith('/_astro/') ||
+      url.pathname.startsWith('/favicon')) {
+    console.log(`[Edge Function] Skipping asset: ${url.pathname}`);
     return;
   }
   

@@ -34,8 +34,11 @@ export const onRequest = defineMiddleware((context, next) => {
   const isDemoSubdomain = subdomain === 'demo' || subdomain === 'demos' || 
                           subdomain === 'Demo' || subdomain === 'Demos';
   
-  // No procesar assets estáticos (CSS, JS, imágenes, etc.)
-  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
+  // No procesar assets estáticos (CSS, JS, imágenes, etc.) - incluyendo _astro
+  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/) || 
+      url.pathname.startsWith('/_astro/') ||
+      url.pathname.startsWith('/favicon')) {
+    console.log(`[Middleware] Skipping asset: ${url.pathname}`);
     return next();
   }
   

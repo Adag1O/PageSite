@@ -5,6 +5,11 @@ export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const hostname = url.hostname;
   
+  // No procesar assets estáticos (CSS, JS, imágenes, etc.)
+  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
+    return;
+  }
+  
   // Detectar subdominio, manejando www también
   const parts = hostname.split('.');
   let subdomain = null;

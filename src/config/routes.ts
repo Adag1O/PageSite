@@ -25,6 +25,16 @@ export const ROUTES_CONFIG = {
       category: 'Social',
       tags: ['Social', 'Links', 'Profile'],
       image: '/demo-linktree.png'
+    },
+    {
+      id: 'wedding',
+      name: 'Wedding Dreams',
+      path: '/Wedding',
+      fullPath: '/Demos/Wedding',
+      description: 'Beautiful wedding website template with carousel',
+      category: 'Event',
+      tags: ['Wedding', 'Event', 'Template'],
+      image: '/demo-wedding.png'
     }
     // Agregar más demos aquí
   ],

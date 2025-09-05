@@ -1,17 +1,31 @@
 # Netlify _redirects file for subdomain routing
 # This file handles client-side redirects for subdomain routing
 
-# Subdomain redirects for demo.adagi0.com
+# Subdomain redirects for demo.adagi0.com (excluding assets)
 https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
 https://demo.adagi0.com           https://adagi0.com/Demos/           200!
 https://www.demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
 https://www.demo.adagi0.com       https://adagi0.com/Demos/           200!
 
-# Subdomain redirects for demos.adagi0.com  
+# Subdomain redirects for demos.adagi0.com (excluding assets)
 https://demos.adagi0.com/*        https://adagi0.com/Demos/:splat     200!
 https://demos.adagi0.com          https://adagi0.com/Demos/           200!
 https://www.demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!
 https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
+
+# Assets should be served directly without redirects
+/*.css                            /*.css                               200
+/*.js                             /*.js                                200
+/*.png                            /*.png                               200
+/*.jpg                            /*.jpg                               200
+/*.jpeg                           /*.jpeg                              200
+/*.gif                            /*.gif                               200
+/*.svg                            /*.svg                               200
+/*.ico                            /*.ico                               200
+/*.woff                           /*.woff                              200
+/*.woff2                          /*.woff2                             200
+/*.ttf                            /*.ttf                               200
+/*.eot                            /*.eot                               200
 
 # Fallback redirects
 /Demos/LinkTree               /Demos/LinkTree.html               200

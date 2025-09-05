@@ -34,6 +34,11 @@ export const onRequest = defineMiddleware((context, next) => {
   const isDemoSubdomain = subdomain === 'demo' || subdomain === 'demos' || 
                           subdomain === 'Demo' || subdomain === 'Demos';
   
+  // No procesar assets estáticos (CSS, JS, imágenes, etc.)
+  if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
+    return next();
+  }
+  
   // Solo procesar si es subdominio demo/demos y no estamos ya en /Demos/
   if (isDemoSubdomain && !url.pathname.startsWith('/Demos/')) {
     const demoPath = url.pathname === '/' ? '/Demos/' : `/Demos${url.pathname}`;

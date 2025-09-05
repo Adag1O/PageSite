@@ -11,6 +11,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://demo.adagi0.com"
@@ -23,6 +24,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://www.demo.adagi0.com"
@@ -35,6 +37,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://demos.adagi0.com"
@@ -47,6 +50,7 @@
   to = "https://adagi0.com/Demos/:splat"
   status = 200
   force = true
+  conditions = {Path = "!/*.css,!/*.js,!/*.png,!/*.jpg,!/*.jpeg,!/*.gif,!/*.svg,!/*.ico,!/*.woff,!/*.woff2,!/*.ttf,!/*.eot"}
 
 [[redirects]]
   from = "https://www.demos.adagi0.com"

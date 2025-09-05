@@ -6,23 +6,15 @@ export interface Props {
 }
 
 const { title = "AdagIO Demo" } = Astro.props;
-
-// Usar dominio principal para assets cuando es subdominio
-const isSubdomain = Astro.url.hostname.includes('demo');
-const assetBase = isSubdomain ? 'https://adagi0.com' : '';
 ---
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href={`${assetBase}/favicon.svg`} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<!-- Forzar que los assets se carguen desde el dominio principal -->
-		{isSubdomain && (
-			<base href="https://adagi0.com/" />
-		)}
 	</head>
 	<body>
 		<!-- Demo tag -->

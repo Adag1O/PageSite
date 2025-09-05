@@ -6,6 +6,31 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Assets redirects - MUST come before page redirects
+[[redirects]]
+  from = "https://demo.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://www.demo.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://demos.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://www.demos.adagi0.com/_astro/*"
+  to = "https://adagi0.com/_astro/:splat"
+  status = 200
+  force = true
+
 # Subdomain redirects - proxy mode (maintains subdomain URL)
 [[redirects]]
   from = "https://demo.adagi0.com/*"

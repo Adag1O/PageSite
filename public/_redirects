@@ -1,11 +1,22 @@
 # Netlify _redirects file for subdomain routing
 # Simple redirects from subdomains to main domain
 
+# Assets redirects - MUST come before page redirects
+https://demo.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat        200!
+https://www.demo.adagi0.com/_astro/*  https://adagi0.com/_astro/:splat        200!
+https://demos.adagi0.com/_astro/*     https://adagi0.com/_astro/:splat        200!
+https://www.demos.adagi0.com/_astro/* https://adagi0.com/_astro/:splat        200!
+
 # Favicon redirects
 https://demo.adagi0.com/favicon.ico      https://adagi0.com/favicon.svg         301!
 https://www.demo.adagi0.com/favicon.ico  https://adagi0.com/favicon.svg         301!
 https://demos.adagi0.com/favicon.ico     https://adagi0.com/favicon.svg         301!
 https://www.demos.adagi0.com/favicon.ico https://adagi0.com/favicon.svg         301!
+
+https://demo.adagi0.com/favicon.svg      https://adagi0.com/favicon.svg         200!
+https://www.demo.adagi0.com/favicon.svg  https://adagi0.com/favicon.svg         200!
+https://demos.adagi0.com/favicon.svg     https://adagi0.com/favicon.svg         200!
+https://www.demos.adagi0.com/favicon.svg https://adagi0.com/favicon.svg         200!
 
 # demo.adagi0.com redirects (proxy - mantiene subdominio visible)
 https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!

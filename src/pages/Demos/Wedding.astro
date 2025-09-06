@@ -311,7 +311,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
         });
       }
       
-      goToSlide(index) {
+      goToSlide(index: number) {
         this.currentIndex = index;
         this.updateCarousels();
       }

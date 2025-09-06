@@ -80,17 +80,6 @@
   status = 200
   force = true
 
-# Backup function-based redirects
-[[redirects]]
-  from = "https://demo.adagi0.com/.netlify/functions/subdomain-redirect"
-  to = "/.netlify/functions/subdomain-redirect"
-  status = 200
-
-[[redirects]]  
-  from = "https://demos.adagi0.com/.netlify/functions/subdomain-redirect"
-  to = "/.netlify/functions/subdomain-redirect"
-  status = 200
-
 # Edge functions completely disabled
 
 # Headers for CORS and security

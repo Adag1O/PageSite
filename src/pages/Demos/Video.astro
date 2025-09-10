@@ -119,8 +119,8 @@ const galleryImages = [
     const totalFrames = 278; // Based on your available images (000-278)
     let lastFrameNumber = -1;
 
-    // Preload first 10 frames for smoother experience
-    for (let i = 0; i < 10; i++) {
+    // Preload all frames for smoother experience
+    for (let i = 0; i <= totalFrames; i++) {
       const preloadImg = new window.Image();
       preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.jpg`;
     }

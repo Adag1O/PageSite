@@ -1,0 +1,371 @@
+---
+import DemoLayout from "../../layouts/DemoLayout.astro";
+const galleryImages = [
+  { src: "/background/13938017-hd_1920_1080_25fps_050.jpg", alt: "Gallery image 1" },
+  { src: "/background/13938017-hd_1920_1080_25fps_100.jpg", alt: "Gallery image 2" },
+  { src: "/background/13938017-hd_1920_1080_25fps_150.jpg", alt: "Gallery image 3" },
+  { src: "/background/13938017-hd_1920_1080_25fps_200.jpg", alt: "Gallery image 4" }
+];
+---
+
+<DemoLayout>
+  <!-- Navbar - always visible, background changes based on video visibility -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full h-16 z-40 transition-all duration-500 ease-out">
+    <div class="container mx-auto px-4 h-full flex items-center justify-between">
+      <div class="flex items-center">
+        <h1 class="text-xl font-bold transition-colors duration-500">Scroll Video Demo</h1>
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="#gallery" class="hover:opacity-80 transition-all duration-300">Gallery</a>
+        <a href="#about" class="hover:opacity-80 transition-all duration-300">About</a>
+        <a href="/" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Video scroll section -->
+  <div class="scroll-container relative">
+    <!-- Create a long scrollable container for the scroll trigger -->
+    <div class="spacer" style="height: 500vh;"></div>
+    
+    <!-- Fixed position image that changes based on scroll -->
+    <img 
+      id="Background" 
+      class="fixed top-0 left-0 w-full h-full object-cover z-10"
+      src="/background/13938017-hd_1920_1080_25fps_000.jpg"
+      alt="Scrolling video frames"
+    />
+    
+    <!-- Overlay content -->
+    <div id="overlay" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
+      <div class="text-white text-center bg-transparent bg-opacity-50 p-8 rounded-lg ">
+        <h1 class="text-4xl font-bold mb-4">Scroll Video</h1>
+        <p class="text-lg">Scroll to see the animation</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content after video scroll -->
+  <div id="content-after-video" class="relative z-30 bg-white min-h-screen pt-16">
+    <div class="container mx-auto px-4 py-16">
+      <h2 id="gallery" class="text-4xl font-bold text-center mb-12 text-gray-900">Gallery</h2>
+      
+      <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {galleryImages.map((img, idx) => (
+          <div class="bg-gray-100 aspect-square rounded-lg overflow-hidden cursor-pointer" onclick={`openModal(${idx})`}>
+            <img src={img.src} alt={img.alt} class="w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+
+      <!-- Modal for gallery images -->
+      <div id="galleryModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="relative bg-white rounded-lg shadow-lg max-w-xl w-full p-4 flex flex-col items-center">
+          <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+          <img id="modalImg" src="" alt="Gallery modal" class="w-full h-auto max-h-[70vh] rounded mb-4" />
+          <div class="flex justify-between w-full">
+            <button id="prevImgBtn" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Prev</button>
+            <button id="nextImgBtn" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional content -->
+      <div id="about" class="mt-16 text-center">
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">About This Animation</h3>
+        <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          This scroll-triggered video demonstrates advanced web animation techniques using GSAP and ScrollTrigger. 
+          The sequence contains 278 individual frames that create a smooth cinematic experience.
+        </p>
+      </div>
+
+      <!-- More content sections -->
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-6 bg-gray-50 rounded-lg">
+          <h4 class="text-lg font-semibold mb-2 text-gray-900">Technology</h4>
+          <p class="text-gray-600">Built with GSAP ScrollTrigger for smooth scroll animations</p>
+        </div>
+        <div class="text-center p-6 bg-gray-50 rounded-lg">
+          <h4 class="text-lg font-semibold mb-2 text-gray-900">Performance</h4>
+          <p class="text-gray-600">Optimized loading and frame sequencing for best experience</p>
+        </div>
+        <div class="text-center p-6 bg-gray-50 rounded-lg">
+          <h4 class="text-lg font-semibold mb-2 text-gray-900">Design</h4>
+          <p class="text-gray-600">Cinematic storytelling through interactive scroll</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DemoLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Make galleryImages available in window for modal logic
+  (window as typeof window & { galleryImages: typeof galleryImages }).galleryImages = [
+    { src: "/background/13938017-hd_1920_1080_25fps_050.jpg", alt: "Gallery image 1" },
+    { src: "/background/13938017-hd_1920_1080_25fps_100.jpg", alt: "Gallery image 2" },
+    { src: "/background/13938017-hd_1920_1080_25fps_150.jpg", alt: "Gallery image 3" },
+    { src: "/background/13938017-hd_1920_1080_25fps_200.jpg", alt: "Gallery image 4" }
+  ];
+
+  // Wait for DOM to be ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const imgElement = document.getElementById('Background') as HTMLImageElement;
+    const overlayElement = document.getElementById('overlay') as HTMLElement;
+    const navbarElement = document.getElementById('navbar') as HTMLElement;
+    const totalFrames = 278; // Based on your available images (000-278)
+    
+    if (imgElement && overlayElement && navbarElement) {
+      // Set initial state for overlay - invisible and small
+      gsap.set(overlayElement, { opacity: 0 });
+      gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
+      
+      // Initialize navbar with transparent background for video section
+      gsap.set(navbarElement, { 
+        backgroundColor: "rgba(255, 255, 255, 0)"
+      });
+      
+      // Set initial text colors for transparent state
+      const navTitle = navbarElement.querySelector('h1');
+      const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
+      
+      gsap.set(navTitle, { color: "white" });
+      gsap.set(navLinks, { color: "rgba(255, 255, 255, 0.9)" });
+
+      // Create a timeline for the image sequence AND overlay control
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".scroll-container",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1, // Smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+          onUpdate: (self) => {
+            // Calculate which frame to show based on scroll progress
+            const frame = Math.floor(self.progress * totalFrames);
+            const frameNumber = Math.min(frame, totalFrames);
+            const paddedFrame = String(frameNumber).padStart(3, "0");
+            
+            // Update the image source
+            imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.jpg`;
+            
+            // Control overlay visibility based on scroll progress
+            const progress = self.progress;
+            
+            // Overlay appears between 40% and 60% of scroll progress
+            let overlayOpacity = 0;
+            let overlayScale = 0.3;
+            
+            if (progress >= 0.4 && progress <= 0.6) {
+              // Calculate local progress within the 40%-60% range
+              const localProgress = (progress - 0.4) / 0.2; // 0 to 1
+              overlayOpacity = localProgress;
+              overlayScale = 0.3 + (localProgress * 0.7); // 0.3 to 1.0
+            } else if (progress > 0.6) {
+              // Keep visible after 60%
+              overlayOpacity = 1;
+              overlayScale = 1;
+            }
+            
+            // Apply overlay transformations
+            gsap.set(overlayElement, { opacity: overlayOpacity });
+            gsap.set(overlayElement.querySelector('div'), { scale: overlayScale });
+          },
+          onLeave: () => {
+            // Hide video elements when scroll section ends
+            gsap.to([imgElement, overlayElement], {
+              opacity: 0,
+              duration: 0.5,
+              ease: "power2.inOut"
+            });
+            // Change navbar to solid background when video section ends
+            gsap.to(navbarElement, {
+              backgroundColor: "rgba(255, 255, 255, 1)",
+              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              backdropFilter: "none",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            // Change text colors to dark for solid background
+            const navTitle = navbarElement.querySelector('h1');
+            const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
+            gsap.to(navTitle, { 
+              color: "#111827", // text-gray-900
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            gsap.to(navLinks, { 
+              color: "#4B5563", // text-gray-600
+              duration: 0.6,
+              ease: "power2.out"
+            });
+          },
+          onEnterBack: () => {
+            // Show video elements when scrolling back into section
+            gsap.to(imgElement, {
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.inOut"
+            });
+            // Change navbar back to fully transparent when in video section (no blur)
+            gsap.to(navbarElement, {
+              backgroundColor: "rgba(255, 255, 255, 0)",
+              boxShadow: "none",
+              backdropFilter: "none",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            // Change text colors back to light for transparent background
+            const navTitle = navbarElement.querySelector('h1');
+            const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
+            gsap.to(navTitle, { 
+              color: "white",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            gsap.to(navLinks, { 
+              color: "rgba(255, 255, 255, 0.9)",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            // Don't force overlay to visible - let onUpdate handle it
+          },
+          onLeaveBack: () => {
+            // Ensure overlay is hidden when going back to beginning
+            gsap.set(overlayElement, { opacity: 0 });
+            gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
+            // Keep navbar transparent when leaving video section backwards
+            gsap.to(navbarElement, {
+              backgroundColor: "rgba(255, 255, 255, 0)",
+              boxShadow: "none",
+              backdropFilter: "none",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            // Keep text colors light
+            const navTitle = navbarElement.querySelector('h1');
+            const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
+            gsap.to(navTitle, { 
+              color: "white",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+            gsap.to(navLinks, { 
+              color: "rgba(255, 255, 255, 0.9)",
+              duration: 0.6,
+              ease: "power2.out"
+            });
+          }
+        }
+      });
+
+      // Optional: Add some scale animation for extra effect
+      tl.fromTo(imgElement, 
+        { scale: 1 }, 
+        { scale: 1.1, duration: 1, ease: "none" }
+      );
+    }
+
+    // Smooth scroll for navbar links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        const target = href ? document.querySelector(href) : null;
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Animate gallery items when they come into view
+    const galleryItems = document.querySelectorAll('#gallery > div');
+    galleryItems.forEach((item, index) => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          },
+          delay: index * 0.1 // Stagger animation
+        }
+      );
+    });
+
+    // Gallery modal logic
+    let currentImgIdx = 0;
+    const galleryModal = document.getElementById('galleryModal') as HTMLElement;
+    const modalImg = document.getElementById('modalImg') as HTMLImageElement;
+    const closeModalBtn = document.getElementById('closeModalBtn') as HTMLButtonElement; 
+    const prevImgBtn = document.getElementById('prevImgBtn') as HTMLButtonElement;
+    const nextImgBtn = document.getElementById('nextImgBtn') as HTMLButtonElement;
+    const galleryThumbs = document.querySelectorAll('#gallery > div') as NodeListOf<HTMLElement>;
+
+    function openModal(idx: number) {
+      currentImgIdx = idx;
+      if (modalImg && window.galleryImages) {
+        modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
+        modalImg.setAttribute('alt', window.galleryImages[currentImgIdx].alt);
+      }
+      if (galleryModal) {
+        galleryModal.style.opacity = '1';
+        galleryModal.style.pointerEvents = 'auto';
+      }
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      if (galleryModal) {
+        galleryModal.style.opacity = '0';
+        galleryModal.style.pointerEvents = 'none';
+      }
+      document.body.style.overflow = '';
+    }
+
+    function showImg(idx) {
+      currentImgIdx = idx;
+      if (modalImg && window.galleryImages) {
+        modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
+        modalImg.setAttribute('alt', window.galleryImages[currentImgIdx].alt);
+      }
+    }
+
+    if (closeModalBtn) closeModalBtn.onclick = closeModal;
+    if (prevImgBtn) prevImgBtn.onclick = function() {
+      showImg((currentImgIdx - 1 + window.galleryImages.length) % window.galleryImages.length);
+    };
+    if (nextImgBtn) nextImgBtn.onclick = function() {
+      showImg((currentImgIdx + 1) % window.galleryImages.length);
+    };
+    if (galleryModal) galleryModal.onclick = function(e) {
+      if (e.target === galleryModal) closeModal();
+    };
+    // Add click listeners to gallery images
+    galleryThumbs.forEach((thumb, idx) => {
+      thumb.addEventListener('click', () => openModal(idx));
+    });
+  });
+</script>
+
+<style>
+#galleryModal {
+  opacity: 0;
+  pointer-events: none;
+}
+#galleryModal[style*="opacity: 1"] {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+</style>

@@ -2,6 +2,8 @@
 # Simple redirects from subdomains to main domain
 
 # Assets redirects - MUST come before page redirects
+/background/*      /background/:splat        200
+
 https://demo.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat        200!
 https://www.demo.adagi0.com/_astro/*  https://adagi0.com/_astro/:splat        200!
 https://demos.adagi0.com/_astro/*     https://adagi0.com/_astro/:splat        200!
@@ -17,11 +19,6 @@ https://demo.adagi0.com/favicon.svg      https://adagi0.com/favicon.svg         
 https://www.demo.adagi0.com/favicon.svg  https://adagi0.com/favicon.svg         200!
 https://demos.adagi0.com/favicon.svg     https://adagi0.com/favicon.svg         200!
 https://www.demos.adagi0.com/favicon.svg https://adagi0.com/favicon.svg         200!
-
-https://demo.adagi0.com/background/*      https://adagi0.com/background/:splat        200!
-https://www.demo.adagi0.com/background/*  https://adagi0.com/background/:splat        200!
-https://demos.adagi0.com/background/*     https://adagi0.com/background/:splat        200!
-https://www.demos.adagi0.com/background/* https://adagi0.com/background/:splat        200!
 
 # demo.adagi0.com redirects (proxy - mantiene subdominio visible)
 https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!

@@ -141,7 +141,7 @@ const galleryImages = [
           trigger: ".scroll-container",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1, // Smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+          scrub: 0.2, // Faster response to scroll
           onUpdate: (self) => {
             // Calculate which frame to show based on scroll progress
             const frame = Math.floor(self.progress * totalFrames);

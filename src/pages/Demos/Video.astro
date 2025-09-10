@@ -8,20 +8,33 @@ const galleryImages = [
 ];
 ---
 
+<!-- Add meta viewport for mobile-first -->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+
 <DemoLayout>
   <!-- Navbar - always visible, background changes based on video visibility -->
-  <nav id="navbar" class="fixed top-0 left-0 w-full h-16 z-40 transition-all duration-500 ease-out">
-    <div class="container mx-auto px-4 h-full flex items-center justify-between">
+  <nav id="navbar" class="fixed top-0 left-0 w-full h-14 sm:h-16 z-40 transition-all duration-500 ease-out px-2 sm:px-0">
+    <div class="container mx-auto px-2 sm:px-4 h-full flex items-center justify-between">
       <div class="flex items-center">
-        <h1 class="text-xl font-bold transition-colors duration-500">Scroll Video Demo</h1>
+        <h1 class="text-base sm:text-xl font-bold transition-colors duration-500">Scroll Video Demo</h1>
       </div>
-      <div class="flex items-center space-x-6">
-        <a href="#gallery" class="hover:opacity-80 transition-all duration-300">Gallery</a>
-        <a href="#about" class="hover:opacity-80 transition-all duration-300">About</a>
-        <a href="/" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">Home</a>
+      <button id="menuBtn" aria-label="Open menu" class="block sm:hidden ml-2 p-2 rounded focus:outline-none bg-transparent" style="font-size: 24px;">
+        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-700 transition-transform duration-300">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+      <div id="navbarLinks" class="hidden sm:flex items-center space-x-2 sm:space-x-6">
+        <a href="#gallery" class="text-xs sm:text-base hover:opacity-80 transition-all duration-300">Gallery</a>
+        <a href="#about" class="text-xs sm:text-base hover:opacity-80 transition-all duration-300">About</a>
+        <a href="/" class="bg-indigo-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-indigo-700 transition-colors text-xs sm:text-base">Home</a>
       </div>
     </div>
   </nav>
+  <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 transition-opacity duration-300 opacity-0 pointer-events-none"></div>
 
   <!-- Video scroll section -->
   <div class="scroll-container relative">
@@ -31,67 +44,68 @@ const galleryImages = [
     <!-- Fixed position image that changes based on scroll -->
     <img 
       id="Background" 
-      class="fixed top-0 left-0 w-full h-full object-cover z-10"
-      src="/background/13938017-hd_1920_1080_25fps_000.webp"
-      alt="Scrolling video frames"
+      class="fixed top-0 left-0 w-full h-full object-cover z-10" 
+      style="min-width: 100vw; min-height: 100vh;" 
+      src="/background/13938017-hd_1920_1080_25fps_000.webp" 
+      alt="Scrolling video frames" 
     />
     
     <!-- Overlay content -->
     <div id="overlay" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
-      <div class="text-white text-center bg-transparent bg-opacity-50 p-8 rounded-lg ">
-        <h1 class="text-4xl font-bold mb-4">Scroll Video</h1>
-        <p class="text-lg">Scroll to see the animation</p>
+      <div class="text-white text-center bg-transparent bg-opacity-50 p-2 sm:p-8 rounded-lg ">
+        <h1 class="text-lg sm:text-4xl font-bold mb-2 sm:mb-4">Scroll Video</h1>
+        <p class="text-xs sm:text-lg">Scroll to see the animation</p>
       </div>
     </div>
   </div>
 
   <!-- Content after video scroll -->
-  <div id="content-after-video" class="relative z-30 bg-white min-h-screen pt-16">
-    <div class="container mx-auto px-4 py-16">
-      <h2 id="gallery" class="text-4xl font-bold text-center mb-12 text-gray-900">Gallery</h2>
+  <div id="content-after-video" class="relative z-30 bg-white min-h-screen pt-14 sm:pt-16">
+    <div class="container mx-auto px-2 sm:px-4 py-8 sm:py-16">
+      <h2 id="gallery" class="text-lg sm:text-4xl font-bold text-center mb-6 sm:mb-12 text-gray-900">Gallery</h2>
       
-      <div id="gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div id="gallery" class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-6">
         {galleryImages.map((img, idx) => (
-          <div class="bg-gray-100 aspect-square rounded-lg overflow-hidden cursor-pointer" onclick={`openModal(${idx})`}>
-            <img src={img.src} alt={img.alt} class="w-full h-full object-cover" />
+          <div class="bg-gray-100 aspect-square rounded-lg overflow-hidden cursor-pointer" style="min-width: 80px; min-height: 80px;" onclick={`openModal(${idx})`}>
+            <img src={img.src} alt={img.alt} class="w-full h-full object-cover" style="min-width: 80px; min-height: 80px;" />
           </div>
         ))}
       </div>
 
       <!-- Modal for gallery images -->
-      <div id="galleryModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none">
-        <div class="relative bg-white rounded-lg shadow-lg max-w-xl w-full p-4 flex flex-col items-center">
-          <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
-          <img id="modalImg" src="" alt="Gallery modal" class="w-full h-auto max-h-[70vh] rounded mb-4" />
+      <div id="galleryModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none px-2">
+        <div class="relative bg-white rounded-lg shadow-lg max-w-xs sm:max-w-xl w-full p-2 sm:p-4 flex flex-col items-center">
+          <button id="closeModalBtn" class="absolute top-1 right-1 sm:top-2 sm:right-2 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold">&times;</button>
+          <img id="modalImg" src="" alt="Gallery modal" class="w-full h-auto max-h-[40vh] sm:max-h-[70vh] rounded mb-2 sm:mb-4" />
           <div class="flex justify-between w-full">
-            <button id="prevImgBtn" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Prev</button>
-            <button id="nextImgBtn" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Next</button>
+            <button id="prevImgBtn" class="px-2 py-1 sm:px-4 sm:py-2 bg-gray-200 rounded hover:bg-gray-300 text-xs sm:text-base">Prev</button>
+            <button id="nextImgBtn" class="px-2 py-1 sm:px-4 sm:py-2 bg-gray-200 rounded hover:bg-gray-300 text-xs sm:text-base">Next</button>
           </div>
         </div>
       </div>
 
       <!-- Additional content -->
-      <div id="about" class="mt-16 text-center">
-        <h3 class="text-2xl font-bold mb-4 text-gray-900">About This Animation</h3>
-        <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+      <div id="about" class="mt-8 sm:mt-16 text-center">
+        <h3 class="text-base sm:text-2xl font-bold mb-2 sm:mb-4 text-gray-900">About This Animation</h3>
+        <p class="text-xs sm:text-gray-600 max-w-xs sm:max-w-2xl mx-auto leading-relaxed">
           This scroll-triggered video demonstrates advanced web animation techniques using GSAP and ScrollTrigger. 
           The sequence contains 278 individual frames that create a smooth cinematic experience.
         </p>
       </div>
 
       <!-- More content sections -->
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <h4 class="text-lg font-semibold mb-2 text-gray-900">Technology</h4>
-          <p class="text-gray-600">Built with GSAP ScrollTrigger for smooth scroll animations</p>
+      <div class="mt-8 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
+        <div class="text-center p-2 sm:p-6 bg-gray-50 rounded-lg">
+          <h4 class="text-xs sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-900">Technology</h4>
+          <p class="text-xs sm:text-gray-600">Built with GSAP ScrollTrigger for smooth scroll animations</p>
         </div>
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <h4 class="text-lg font-semibold mb-2 text-gray-900">Performance</h4>
-          <p class="text-gray-600">Optimized loading and frame sequencing for best experience</p>
+        <div class="text-center p-2 sm:p-6 bg-gray-50 rounded-lg">
+          <h4 class="text-xs sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-900">Performance</h4>
+          <p class="text-xs sm:text-gray-600">Optimized loading and frame sequencing for best experience</p>
         </div>
-        <div class="text-center p-6 bg-gray-50 rounded-lg">
-          <h4 class="text-lg font-semibold mb-2 text-gray-900">Design</h4>
-          <p class="text-gray-600">Cinematic storytelling through interactive scroll</p>
+        <div class="text-center p-2 sm:p-6 bg-gray-50 rounded-lg">
+          <h4 class="text-xs sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-900">Design</h4>
+          <p class="text-xs sm:text-gray-600">Cinematic storytelling through interactive scroll</p>
         </div>
       </div>
     </div>
@@ -368,10 +382,95 @@ const galleryImages = [
     galleryThumbs.forEach((thumb, idx) => {
       thumb.addEventListener('click', () => openModal(idx));
     });
+
+    // Mobile menu logic
+    const menuBtn = document.getElementById('menuBtn');
+    const menuIcon = document.getElementById('menuIcon');
+    const navbarLinks = document.getElementById('navbarLinks');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    let menuOpen = false;
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        navbarLinks.classList.remove('hidden');
+        navbarLinks.classList.add('flex');
+        navbarLinks.style.flexDirection = 'column';
+        navbarLinks.style.background = 'rgba(255,255,255,0.0)';
+        navbarLinks.style.position = 'absolute';
+        navbarLinks.style.top = '100%';
+        navbarLinks.style.left = '0';
+        navbarLinks.style.width = '100vw';
+        navbarLinks.style.zIndex = '50';
+        navbarLinks.style.padding = '16px 0';
+        // Add spacing and font size to anchor tags
+        navbarLinks.querySelectorAll('a').forEach(a => {
+          a.style.margin = '12px 0';
+          a.style.fontSize = '1.1rem';
+          a.style.textAlign = 'center';
+        });
+        mobileMenuOverlay.style.background = 'rgba(0,0,0,0.05)';
+        mobileMenuOverlay.style.opacity = '1';
+        mobileMenuOverlay.style.pointerEvents = 'auto';
+        // Animate icon to X
+        menuIcon.innerHTML = '<line x1="4" y1="4" x2="20" y2="20" /><line x1="20" y1="4" x2="4" y2="20" />';
+      } else {
+        navbarLinks.classList.remove('flex');
+        navbarLinks.classList.add('hidden');
+        navbarLinks.style.flexDirection = '';
+        navbarLinks.style.background = '';
+        navbarLinks.style.position = '';
+        navbarLinks.style.top = '';
+        navbarLinks.style.left = '';
+        navbarLinks.style.width = '';
+        navbarLinks.style.zIndex = '';
+        navbarLinks.style.padding = '';
+        // Reset anchor styles
+        navbarLinks.querySelectorAll('a').forEach(a => {
+          a.style.margin = '';
+          a.style.fontSize = '';
+          a.style.textAlign = '';
+        });
+        mobileMenuOverlay.style.opacity = '0';
+        mobileMenuOverlay.style.pointerEvents = 'none';
+        mobileMenuOverlay.style.background = '';
+        // Animate icon to hamburger
+        menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />';
+      }
+    }
+    if (menuBtn) menuBtn.onclick = toggleMenu;
+    if (mobileMenuOverlay) mobileMenuOverlay.onclick = function() {
+      if (menuOpen) toggleMenu();
+    };
   });
 </script>
 
 <style>
+@media (max-width: 300px) {
+  .container {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+  h1, h2, h3, h4, p, a, button {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+  }
+  #navbar {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 2px !important;
+  }
+  #gallery > div {
+    min-width: 60px !important;
+    min-height: 60px !important;
+  }
+  #galleryModal > div {
+    max-width: 90vw !important;
+    padding: 2px !important;
+  }
+  #modalImg {
+    max-height: 30vh !important;
+  }
+}
 #galleryModal {
   opacity: 0;
   pointer-events: none;
@@ -379,5 +478,39 @@ const galleryImages = [
 #galleryModal[style*="opacity: 1"] {
   opacity: 1 !important;
   pointer-events: auto !important;
+}
+@media (min-width: 1200px) {
+  #menuBtn {
+    display: block !important;
+  }
+}
+@media (max-width: 1199px) {
+  #menuBtn {
+    display: none !important;
+  }
+}
+@media (max-width: 639px) {
+  #menuBtn {
+    display: block !important;
+  }
+  #navbarLinks {
+    display: none !important;
+  }
+  #navbarLinks.flex {
+    display: flex !important;
+  }
+}
+@media (min-width: 640px) {
+  #menuBtn {
+    display: none !important;
+  }
+  #navbarLinks {
+    display: flex !important;
+    position: static !important;
+    background: none !important;
+    flex-direction: row !important;
+    width: auto !important;
+    padding: 0 !important;
+  }
 }
 </style>

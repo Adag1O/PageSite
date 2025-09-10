@@ -1,10 +1,10 @@
 ---
 import DemoLayout from "../../layouts/DemoLayout.astro";
 const galleryImages = [
-  { src: "/background/13938017-hd_1920_1080_25fps_050.jpg", alt: "Gallery image 1" },
-  { src: "/background/13938017-hd_1920_1080_25fps_100.jpg", alt: "Gallery image 2" },
-  { src: "/background/13938017-hd_1920_1080_25fps_150.jpg", alt: "Gallery image 3" },
-  { src: "/background/13938017-hd_1920_1080_25fps_200.jpg", alt: "Gallery image 4" }
+  { src: "/background/13938017-hd_1920_1080_25fps_050.webp", alt: "Gallery image 1" },
+  { src: "/background/13938017-hd_1920_1080_25fps_100.webp", alt: "Gallery image 2" },
+  { src: "/background/13938017-hd_1920_1080_25fps_150.webp", alt: "Gallery image 3" },
+  { src: "/background/13938017-hd_1920_1080_25fps_200.webp", alt: "Gallery image 4" }
 ];
 ---
 
@@ -32,7 +32,7 @@ const galleryImages = [
     <img 
       id="Background" 
       class="fixed top-0 left-0 w-full h-full object-cover z-10"
-      src="/background/13938017-hd_1920_1080_25fps_000.jpg"
+      src="/background/13938017-hd_1920_1080_25fps_000.webp"
       alt="Scrolling video frames"
     />
     
@@ -105,10 +105,10 @@ const galleryImages = [
 
   // Make galleryImages available in window for modal logic
   (window as typeof window & { galleryImages: typeof galleryImages }).galleryImages = [
-    { src: "/background/13938017-hd_1920_1080_25fps_050.jpg", alt: "Gallery image 1" },
-    { src: "/background/13938017-hd_1920_1080_25fps_100.jpg", alt: "Gallery image 2" },
-    { src: "/background/13938017-hd_1920_1080_25fps_150.jpg", alt: "Gallery image 3" },
-    { src: "/background/13938017-hd_1920_1080_25fps_200.jpg", alt: "Gallery image 4" }
+    { src: "/background/13938017-hd_1920_1080_25fps_050.webp", alt: "Gallery image 1" },
+    { src: "/background/13938017-hd_1920_1080_25fps_100.webp", alt: "Gallery image 2" },
+    { src: "/background/13938017-hd_1920_1080_25fps_150.webp", alt: "Gallery image 3" },
+    { src: "/background/13938017-hd_1920_1080_25fps_200.webp", alt: "Gallery image 4" }
   ];
 
   // Wait for DOM to be ready
@@ -122,7 +122,7 @@ const galleryImages = [
     // Preload all frames for smoother experience
     for (let i = 0; i <= totalFrames; i++) {
       const preloadImg = new window.Image();
-      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.jpg`;
+      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.web`;
     }
 
     if (imgElement && overlayElement && navbarElement) {

@@ -122,7 +122,7 @@ const galleryImages = [
     // Preload all frames for smoother experience
     for (let i = 0; i <= totalFrames; i++) {
       const preloadImg = new window.Image();
-      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.web`;
+      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.webp`;
     }
 
     if (imgElement && overlayElement && navbarElement) {
@@ -157,7 +157,7 @@ const galleryImages = [
               lastFrameNumber = frameNumber;
               const paddedFrame = String(frameNumber).padStart(3, "0");
               // Update the image source only if frame changes
-              imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.jpg`;
+              imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.webp`;
             }
             // Error handling for blocked images
             imgElement.onerror = function() {

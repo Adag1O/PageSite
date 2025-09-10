@@ -117,7 +117,14 @@ const galleryImages = [
     const overlayElement = document.getElementById('overlay') as HTMLElement;
     const navbarElement = document.getElementById('navbar') as HTMLElement;
     const totalFrames = 278; // Based on your available images (000-278)
-    
+    let lastFrameNumber = -1;
+
+    // Preload first 10 frames for smoother experience
+    for (let i = 0; i < 10; i++) {
+      const preloadImg = new window.Image();
+      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.jpg`;
+    }
+
     if (imgElement && overlayElement && navbarElement) {
       // Set initial state for overlay - invisible and small
       gsap.set(overlayElement, { opacity: 0 });
@@ -146,20 +153,25 @@ const galleryImages = [
             // Calculate which frame to show based on scroll progress
             const frame = Math.floor(self.progress * totalFrames);
             const frameNumber = Math.min(frame, totalFrames);
-            const paddedFrame = String(frameNumber).padStart(3, "0");
-            
-            // Update the image source
-            imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.jpg`;
-            
+            if (frameNumber !== lastFrameNumber) {
+              lastFrameNumber = frameNumber;
+              const paddedFrame = String(frameNumber).padStart(3, "0");
+              // Update the image source only if frame changes
+              imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.jpg`;
+            }
+            // Error handling for blocked images
+            imgElement.onerror = function() {
+              imgElement.style.display = 'none';
+            };
+            imgElement.onload = function() {
+              imgElement.style.display = '';
+            };
             // Control overlay visibility based on scroll progress
-            const progress = self.progress;
-            
             // Overlay appears between 40% and 60% of scroll progress
             let overlayOpacity = 0;
             let overlayScale = 0.3;
-            
+            const progress = self.progress;
             if (progress >= 0.4 && progress <= 0.6) {
-              // Calculate local progress within the 40%-60% range
               const localProgress = (progress - 0.4) / 0.2; // 0 to 1
               overlayOpacity = localProgress;
               overlayScale = 0.3 + (localProgress * 0.7); // 0.3 to 1.0

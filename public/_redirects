@@ -4,6 +4,7 @@
 # Assets redirects - MUST come before page redirects
 /background/*      /background/:splat        200
 
+# _astro assets for subdomains
 https://demo.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat        200!
 https://www.demo.adagi0.com/_astro/*  https://adagi0.com/_astro/:splat        200!
 https://demos.adagi0.com/_astro/*     https://adagi0.com/_astro/:splat        200!
@@ -35,6 +36,7 @@ https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
 # Fallback redirects for specific demo routes
 /Demos/LinkTree               /Demos/LinkTree                      200
 /Demos/Wedding                /Demos/Wedding                       200
+/Demos/Video                  /Demos/Video                       200
 /Demos/                       /Demos/                              200
 
 # SPA fallback for any unmatched routes in Demos
@@ -43,6 +45,7 @@ https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
 # Fallback redirects
 /Demos/LinkTree               /Demos/LinkTree.html               200
 /Demos/Wedding                /Demos/Wedding.html                200
+/Demos/Video                  /Demos/Video.html                  200
 /Demos/                       /Demos/index.html                  200
 
 # SPA fallback for any unmatched routes in Demos

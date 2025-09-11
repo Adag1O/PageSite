@@ -43,7 +43,7 @@ const galleryImages = [
     <img 
       id="Background" 
       class="fixed top-0 left-0 w-full h-full object-cover z-10" 
-      style="min-width: 100vw; min-height: 100vh;" 
+      style="min-width: 100vw; min-height: 100vh; will-change: transform, opacity;" 
       src="/background/13938017-hd_1920_1080_25fps_000.webp" 
       alt="Scrolling video frames" 
     />
@@ -193,7 +193,7 @@ const galleryImages = [
           trigger: ".scroll-container",
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.2, // Faster response to scroll
+          scrub: 0.1, // Faster response to scroll for smoother animation
           onUpdate: (self) => {
             // Calculate which frame to show based on scroll progress
             const frame = Math.floor(self.progress * totalFrames);

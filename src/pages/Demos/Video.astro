@@ -1,10 +1,11 @@
 ---
 import DemoLayout from "../../layouts/DemoLayout.astro";
+import { IoMenu } from "astro-icon/ionicons";
 const galleryImages = [
-  { src: "/background/13938017-hd_1920_1080_25fps_050.webp", alt: "Gallery image 1" },
-  { src: "/background/13938017-hd_1920_1080_25fps_100.webp", alt: "Gallery image 2" },
-  { src: "/background/13938017-hd_1920_1080_25fps_150.webp", alt: "Gallery image 3" },
-  { src: "/background/13938017-hd_1920_1080_25fps_200.webp", alt: "Gallery image 4" }
+  { src: "https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg", alt: "Gallery image 1" },
+  { src: "https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg", alt: "Gallery image 2" },
+  { src: "https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg", alt: "Gallery image 3" },
+  { src: "https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg", alt: "Gallery image 4" }
 ];
 ---
 
@@ -21,11 +22,7 @@ const galleryImages = [
         <h1 class="text-base sm:text-xl font-bold transition-colors duration-500">Scroll Video Demo</h1>
       </div>
       <button id="menuBtn" aria-label="Open menu" class="block sm:hidden ml-2 p-2 rounded focus:outline-none bg-transparent" style="font-size: 24px;">
-        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-700 transition-transform duration-300">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+      <IoMenu />
       </button>
       <div id="navbarLinks" class="hidden sm:flex items-center space-x-2 sm:space-x-6">
         <a href="#gallery" class="text-xs sm:text-base hover:opacity-80 transition-all duration-300">Gallery</a>
@@ -360,7 +357,7 @@ const galleryImages = [
       document.body.style.overflow = '';
     }
 
-    function showImg(idx) {
+    function showImg(idx: number) {
       currentImgIdx = idx;
       if (modalImg && window.galleryImages) {
         modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
@@ -385,9 +382,9 @@ const galleryImages = [
 
     // Mobile menu logic
     const menuBtn = document.getElementById('menuBtn');
-    const menuIcon = document.getElementById('menuIcon');
-    const navbarLinks = document.getElementById('navbarLinks');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const menuIcon = document.getElementById('menuIcon') as HTMLElement;
+    const navbarLinks = document.getElementById('navbarLinks') as HTMLElement;
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay') as HTMLElement;
     let menuOpen = false;
     function toggleMenu() {
       menuOpen = !menuOpen;

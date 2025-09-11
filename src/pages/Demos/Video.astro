@@ -1,5 +1,5 @@
 ---
-import { IoMenu } from "react-icons/io5";
+import { IoChevronBack, IoChevronForward, IoCloseOutline, IoMenu } from "react-icons/io5";
 import DemoLayout from "../../layouts/DemoLayout.astro";
 
 const galleryImages = [
@@ -23,7 +23,7 @@ const galleryImages = [
         <h1 class="text-base sm:text-xl font-bold transition-colors duration-500">Scroll Video Demo</h1>
       </div>
       <button id="menuBtn" aria-label="Open menu" class="block sm:hidden ml-2 p-2 rounded focus:outline-none bg-transparent" style="font-size: 24px;">
-      <IoMenu />
+      <IoMenu color="white"/>
       </button>
       <div id="navbarLinks" class="hidden sm:flex items-center space-x-2 sm:space-x-6">
         <a href="#gallery" class="text-xs sm:text-base hover:opacity-80 transition-all duration-300">Gallery</a>
@@ -71,14 +71,13 @@ const galleryImages = [
       </div>
 
       <!-- Modal for gallery images -->
-      <div id="galleryModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 opacity-0 pointer-events-none px-2">
-        <div class="relative bg-white rounded-lg shadow-lg max-w-xs sm:max-w-xl w-full p-2 sm:p-4 flex flex-col items-center">
-          <button id="closeModalBtn" class="absolute top-1 right-1 sm:top-2 sm:right-2 text-gray-500 hover:text-gray-700 text-xl sm:text-2xl font-bold">&times;</button>
-          <img id="modalImg" src="" alt="Gallery modal" class="w-full h-auto max-h-[40vh] sm:max-h-[70vh] rounded mb-2 sm:mb-4" />
-          <div class="flex justify-between w-full">
-            <button id="prevImgBtn" class="px-2 py-1 sm:px-4 sm:py-2 bg-gray-200 rounded hover:bg-gray-300 text-xs sm:text-base">Prev</button>
-            <button id="nextImgBtn" class="px-2 py-1 sm:px-4 sm:py-2 bg-gray-200 rounded hover:bg-gray-300 text-xs sm:text-base">Next</button>
-          </div>
+      <div id="galleryModal" class="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-xs bg-opacity-80 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-white text-3xl font-bold bg-black bg-opacity-40 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70 transition-colors z-60"><IoCloseOutline /></button>
+        <div class="absolute top-0 left-0 w-full h-full" id="modalOverlay" style="cursor:pointer;"></div>
+        <div class="relative w-full h-full flex flex-col items-center justify-center">
+          <button id="prevImgBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl hover:bg-opacity-70 transition-colors z-60"><IoChevronBack /></button>
+          <img id="modalImg" src="" alt="Gallery modal" class="max-w-full max-h-[80vh] rounded shadow-lg" style="object-fit:contain;" />
+          <button id="nextImgBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl hover:bg-opacity-70 transition-colors z-60"><IoChevronForward/></button>
         </div>
       </div>
 
@@ -108,6 +107,17 @@ const galleryImages = [
       </div>
     </div>
   </div>
+
+  <!-- Loader overlay -->
+  <div id="pageLoader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white bg-opacity-95 transition-opacity duration-500">
+    <div class="flex flex-col items-center">
+      <svg class="animate-spin h-20 w-20 text-indigo-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+      </svg>
+      <span class="text-gray-700 text-lg font-semibold">Cargando...</span>
+    </div>
+  </div>
 </DemoLayout>
 
 <script>
@@ -117,10 +127,10 @@ const galleryImages = [
 
   // Make galleryImages available in window for modal logic
   (window as typeof window & { galleryImages: typeof galleryImages }).galleryImages = [
-    { src: "/background/13938017-hd_1920_1080_25fps_050.webp", alt: "Gallery image 1" },
-    { src: "/background/13938017-hd_1920_1080_25fps_100.webp", alt: "Gallery image 2" },
-    { src: "/background/13938017-hd_1920_1080_25fps_150.webp", alt: "Gallery image 3" },
-    { src: "/background/13938017-hd_1920_1080_25fps_200.webp", alt: "Gallery image 4" }
+   { src: "https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg", alt: "Gallery image 1" },
+  { src: "https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg", alt: "Gallery image 2" },
+  { src: "https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg", alt: "Gallery image 3" },
+  { src: "https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg", alt: "Gallery image 4" }
   ];
 
   // Wait for DOM to be ready
@@ -130,12 +140,35 @@ const galleryImages = [
     const navbarElement = document.getElementById('navbar') as HTMLElement;
     const totalFrames = 278; // Based on your available images (000-278)
     let lastFrameNumber = -1;
+    const pageLoader = document.getElementById('pageLoader');
+    let loadedFrames = 0;
+    let loadedGallery = 0;
+    const totalGallery = window.galleryImages.length;
 
     // Preload all frames for smoother experience
     for (let i = 0; i <= totalFrames; i++) {
       const preloadImg = new window.Image();
       preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.webp`;
+      preloadImg.onload = () => {
+        loadedFrames++;
+        if (loadedFrames === totalFrames + 1 && loadedGallery === totalGallery && pageLoader) {
+          pageLoader.style.opacity = '0';
+          setTimeout(() => { pageLoader.style.display = 'none'; }, 500);
+        }
+      };
     }
+    // Preload gallery images
+    window.galleryImages.forEach(img => {
+      const preloadImg = new window.Image();
+      preloadImg.src = img.src;
+      preloadImg.onload = () => {
+        loadedGallery++;
+        if (loadedFrames === totalFrames + 1 && loadedGallery === totalGallery && pageLoader) {
+          pageLoader.style.opacity = '0';
+          setTimeout(() => { pageLoader.style.display = 'none'; }, 500);
+        }
+      };
+    });
 
     if (imgElement && overlayElement && navbarElement) {
       // Set initial state for overlay - invisible and small
@@ -330,14 +363,16 @@ const galleryImages = [
 
     // Gallery modal logic
     let currentImgIdx = 0;
-    const galleryModal = document.getElementById('galleryModal') as HTMLElement;
-    const modalImg = document.getElementById('modalImg') as HTMLImageElement;
-    const closeModalBtn = document.getElementById('closeModalBtn') as HTMLButtonElement; 
-    const prevImgBtn = document.getElementById('prevImgBtn') as HTMLButtonElement;
-    const nextImgBtn = document.getElementById('nextImgBtn') as HTMLButtonElement;
-    const galleryThumbs = document.querySelectorAll('#gallery > div') as NodeListOf<HTMLElement>;
+    const galleryModal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const prevImgBtn = document.getElementById('prevImgBtn');
+    const nextImgBtn = document.getElementById('nextImgBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const navbar = document.getElementById('navbar');
+    const galleryThumbs = document.querySelectorAll('#gallery > div');
 
-    function openModal(idx: number) {
+    function openModal(idx) {
       currentImgIdx = idx;
       if (modalImg && window.galleryImages) {
         modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
@@ -347,6 +382,7 @@ const galleryImages = [
         galleryModal.style.opacity = '1';
         galleryModal.style.pointerEvents = 'auto';
       }
+      if (navbar) navbar.style.display = 'none';
       document.body.style.overflow = 'hidden';
     }
 
@@ -355,10 +391,11 @@ const galleryImages = [
         galleryModal.style.opacity = '0';
         galleryModal.style.pointerEvents = 'none';
       }
+      if (navbar) navbar.style.display = '';
       document.body.style.overflow = '';
     }
 
-    function showImg(idx: number) {
+    function showImg(idx) {
       currentImgIdx = idx;
       if (modalImg && window.galleryImages) {
         modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
@@ -373,9 +410,7 @@ const galleryImages = [
     if (nextImgBtn) nextImgBtn.onclick = function() {
       showImg((currentImgIdx + 1) % window.galleryImages.length);
     };
-    if (galleryModal) galleryModal.onclick = function(e) {
-      if (e.target === galleryModal) closeModal();
-    };
+    if (modalOverlay) modalOverlay.onclick = closeModal;
     // Add click listeners to gallery images
     galleryThumbs.forEach((thumb, idx) => {
       thumb.addEventListener('click', () => openModal(idx));

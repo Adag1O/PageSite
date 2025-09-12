@@ -128,8 +128,8 @@ const portfolioData = {
       technologies: ["Astro", "CSS"],
       url: "/Demos/LinkTree",
       preview: true,
-      status: "demo",
-      statusText: "Demo",
+      status: "live",
+      statusText: "En Vivo",
       type: "website"
     },
     {
@@ -140,21 +140,20 @@ const portfolioData = {
       technologies: ["Astro", "Tailwind"],
       url: "/Demos/Wedding",
       preview: true,
-      status: "demo",
-      statusText: "Demo",
+      status: "live",
+      statusText: "En Vivo",
       type: "website"
     },
     {
-      id: "techstore-pro",
-      title: "TechStore Pro",
+      id: "Video Drone",
+      title: "Video Drone",
       description: "Plataforma e-commerce completa con carrito inteligente, pagos seguros y gestión de inventario en tiempo real",
-      category: "E-commerce",
-      technologies: ["Next.js", "Stripe"],
-      icon: "M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5M7 13l-1.1 5m0 0a1.5 1.5 0 102.1 2.1m-2.1-2.1h12a1.5 1.5 0 012.1 2.1m-12 0a1.5 1.5 0 11-3 0",
-      gradient: "from-emerald-500 to-teal-600",
-      status: "private",
-      statusText: "Proyecto Privado",
-      statusIcon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+      category: "Marketing",
+      technologies: ["Astro", "Tailwind"],
+      url: "/Demos/Video",
+      preview: true,
+      status: "live",
+      statusText: "En Vivo",
       type: "website"
     },
     {
@@ -200,7 +199,7 @@ function getStatusColor(status: string): string {
 
 // Función para obtener el color de categoría
 function getCategoryColor(category: string): string {
-  const colors = {
+  const colors: Record<string, string> = {
     'Personal': 'emerald',
     'Social': 'purple',
     'Eventos': 'rose',
@@ -243,18 +242,27 @@ function getCategoryColor(category: string): string {
     </div>
 
     <!-- Minimalistic Tab Navigation -->
-    <div class="portfolio-tabs relative mb-16">
-        <div class="flex p-1 items-center rounded-lg justify-center bg-gray-100" id="TabGrl" style="min-width: 420px;">
-            <div class="flex w-full h-10 rounded-md relative overflow-hidden" id="Tab">
-                <div class="absolute top-0 h-full bg-black rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0"></div>
-                {Object.keys(portfolioData).map((tabName, index) => (
-                    <button class={`tab-btn flex-1 relative z-10 transition-all duration-200 ${index === 0 ? 'text-white' : 'text-gray-600'} text-sm font-medium rounded-md flex items-center justify-center`}>
-                        <span>{tabName}</span>
-                    </button>
-                ))}
-            </div>
-        </div>
+<div class="portfolio-tabs relative mb-16">
+  <div class="flex p-1 items-center justify-center bg-gray-100 rounded-lg w-full max-w-4xl mx-auto overflow-x-auto">
+    <div class="flex min-w-max h-12 md:h-14 rounded-md relative overflow-hidden" id="Tab">
+      {/* Highlight */}
+      <div class="absolute top-0 h-full bg-gray-950/90 rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0"></div>
+
+      {/* Tabs */}
+      {Object.keys(portfolioData).map((tabName, index) => (
+        <button
+          class={`tab-btn flex-shrink-0 relative z-10 transition-all duration-200 ${
+            index === 0 ? 'text-white' : 'text-gray-600'
+          } text-xs sm:text-sm md:text-base font-medium rounded-md flex items-center justify-center px-3 md:px-5 py-1 md:py-2 whitespace-nowrap`}
+        >
+          <span class="truncate">{tabName}</span>
+        </button>
+      ))}
     </div>
+  </div>
+</div>
+
+
 
     <!-- Dynamic Tab Content -->
     {Object.entries(portfolioData).map(([tabName, items], tabIndex) => (

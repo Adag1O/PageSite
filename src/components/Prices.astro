@@ -20,22 +20,30 @@
         </div>
     
         <!-- Tab Navigation -->
-        <div class="relative mb-12">
-            <div class="flex p-1 items-center rounded-lg justify-center bg-gray-100" id="TabGrl" style="min-width: 420px;">
-                <div class="flex w-full h-10 rounded-md relative overflow-hidden" id="Tab1">
-                    <div class="absolute top-0 h-full bg-black rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0" id="Indicator"></div>
-                    <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-white text-sm font-medium rounded-md flex items-center justify-center">
-                        <span>Dispositivos</span>
-                    </button>
-                    <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-gray-600 text-sm font-medium rounded-md flex items-center justify-center">
-                        <span>Aplicaciones</span>
-                    </button>
-                    <button class="tab-btn flex-1 relative z-10 transition-all duration-200 text-gray-600 text-sm font-medium rounded-md flex items-center justify-center">
-                        <span>Sitios Web</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="relative mb-12">
+  <div class="flex p-1 items-center justify-center bg-gray-100 rounded-lg w-full max-w-full mx-auto overflow-x-auto">
+    <div class="flex min-w-max h-10 md:h-12 rounded-md relative overflow-hidden" id="Tab1">
+      <!-- Indicator -->
+      <div
+        id="Indicator"
+        class="absolute top-0 h-full bg-black rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0"
+      ></div>
+
+      <!-- Tabs -->
+      <button class="tab-btn flex-shrink-0 min-w-[90px] relative z-10 transition-all duration-200 text-white text-xs sm:text-sm md:text-base font-medium rounded-md flex items-center justify-center px-3 py-2 whitespace-nowrap">
+        <span>Dispositivos</span>
+      </button>
+      <button class="tab-btn flex-shrink-0 min-w-[90px] relative z-10 transition-all duration-200 text-gray-600 text-xs sm:text-sm md:text-base font-medium rounded-md flex items-center justify-center px-3 py-2 whitespace-nowrap">
+        <span>Aplicaciones</span>
+      </button>
+      <button class="tab-btn flex-shrink-0 min-w-[90px] relative z-10 transition-all duration-200 text-gray-600 text-xs sm:text-sm md:text-base font-medium rounded-md flex items-center justify-center px-3 py-2 whitespace-nowrap">
+        <span>Sitios Web</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
     
         <!-- Pricing Cards Container -->
         <div class="relative w-full overflow-hidden pt-4">
@@ -93,10 +101,8 @@
                     </div>
 
                     <!-- Professional Device Plan -->
-                    <div class="w-full lg:w-1/3 bg-white border-2 border-black rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <span class="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">Más Popular</span>
-                        </div>
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
+
                         <div>
                             <div class="text-center mb-6">
                                 <div class="w-16 h-16 mx-auto mb-4 bg-black rounded-xl flex items-center justify-center">
@@ -248,10 +254,8 @@
                     </div>
 
                     <!-- Professional App Plan -->
-                    <div class="w-full lg:w-1/3 bg-white border-2 border-black rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <span class="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">Más Popular</span>
-                        </div>
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
+>
                         <div>
                             <div class="text-center mb-6">
                                 <div class="w-16 h-16 mx-auto mb-4 bg-black rounded-xl flex items-center justify-center">
@@ -404,10 +408,7 @@
                     </div>
 
                     <!-- Professional Website Plan -->
-                    <div class="w-full lg:w-1/3 bg-white border-2 border-black rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <span class="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">Más Popular</span>
-                        </div>
+                    <div class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative">
                         <div>
                             <div class="text-center mb-6">
                                 <div class="w-16 h-16 mx-auto mb-4 bg-black rounded-xl flex items-center justify-center">

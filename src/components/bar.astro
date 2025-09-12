@@ -72,5 +72,18 @@ window.addEventListener("scroll", () => {
   title.classList.toggle("text-xl", viewportWidth >= 480 && viewportWidth < 640);
   title.classList.toggle("text-3xl", viewportWidth >= 640 && viewportWidth < 1024);
   title.classList.toggle("text-4xl", viewportWidth >= 1024);
+
+  // Ajustar top según tamaño de pantalla
+  if (isScrolled) {
+    if (viewportWidth < 640) {
+      nav.classList.add("top-12");
+      nav.classList.remove("top-8");
+    } else {
+      nav.classList.add("top-8");
+      nav.classList.remove("top-12");
+    }
+  } else {
+    nav.classList.remove("top-8", "top-12");
+  }
 });
 </script>

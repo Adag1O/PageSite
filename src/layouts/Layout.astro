@@ -12,7 +12,7 @@ import EndPage from "../components/SingleComponent/EndPage.astro";
 		<meta name="generator" content={Astro.generator} />
 		<title>AdagIO</title>
 	</head>
-	<body class="flex flex-col min-h-screen w-full">
+	<body class="flex flex-col w-full min-h-min items-center">
 		<slot />
 		<EndPage />
 	</body>
@@ -26,6 +26,5 @@ import EndPage from "../components/SingleComponent/EndPage.astro";
 	body {
 		margin: 0;
 		padding: 0;
-		overflow-x: hidden; /* evita que algo “empuje” el html */
 	}
 </style>

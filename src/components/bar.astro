@@ -1,85 +1,76 @@
 ---
-const { imgUrl, ContactoUrl } = Astro.props;
+const { ContactoUrl } = Astro.props;
 ---
 
-<nav
-  id="navbar"
-  class="flex items-center justify-between z-20 flex-nowrap w-[80%] mx-auto my-10 text-black transition-all duration-500 ease-in-out px-4 py-3 gap-4"
->
-  <h1 id="navbar-title" class="text-3xl poppins-semibold transition-all duration-500">
-    <span id="name1" class="text-[#123472]">Adag</span
-    ><span id="name2" class="text-[#ff0040]">IO</span>
+<nav id="navbar" class="sticky top-0 z-[20] flex  items-center justify-center sm:justify-between w-[80%] max-w-[1200px] mx-auto px-2 py-2 sm:px-3 sm:py-[9px] my-2 sm:my-4 rounded-md transition-all duration-700 gap-2 sm:gap-4">
+  <h1 id="navbar-title" class="text-xl sm:text-3xl md:text-4xl poppins-semibold transition-all duration-500">
+    <span id="name1" class="text-[#123472] m-0 p-0">Adag</span><span id="name2" class="text-[#ff0040] m-0 p-0">IO</span>
   </h1>
-  <a
-    id="contacto"
-    href={ContactoUrl}
-    class="text-white bg-black px-4 py-2.5 rounded-lg text-xs font-medium transition-colors duration-500 whitespace-nowrap"
-    >Contacto</a
-  >
+  <a id="contacto" class="text-white bg-black px-3 py-2 rounded-lg text-xs sm:text-sm md:text-base font-medium transition-colors duration-500 whitespace-nowrap">
+    Contacto
+  </a>
 </nav>
 
 <script>
-import type { HtmlHTMLAttributes } from "react";
+const nav = document.getElementById("navbar");
+const contacto = document.getElementById("contacto");
+const title = document.getElementById("navbar-title");
+const name1 = document.getElementById("name1");
+const name2 = document.getElementById("name2");
 
-const nav = document.getElementById("navbar") as HTMLHtmlElement;
-const contacto = document.getElementById("contacto") as HTMLHtmlElement;
-const title = document.getElementById("navbar-title") as HTMLHtmlElement;
-const name1 = document.getElementById("name1") as HTMLHtmlElement;
-const name2 = document.getElementById("name2")as HTMLHtmlElement;
-
-const MIN_WIDTH = 205; // ancho mínimo en px al hacer scroll
-const MAX_WIDTH = 240; // ancho máximo cuando scroll
-
+const MIN_WIDTH = 105;
+nav.style.transition = "width 1.2s cubic-bezier(0.4,0,0.2,1), background-color 0.7s, color 0.7s, box-shadow 0.7s, padding 0.7s";
 window.addEventListener("scroll", () => {
-  const isScrolled = window.scrollY > 10;
   const viewportWidth = window.innerWidth;
-  console.log("ScrollY:", window.scrollY, "isScrolled:", isScrolled, "viewport:", viewportWidth);
-
-  // Limpiar clases de ancho
-  nav.classList.remove("w-[80%]", "w-[25%]", "sm:w-[50%]", "md:w-[40%]", "lg:w-[25%]");
-
-  if (isScrolled) {
-    // Calcular ancho fijo limitado
-    let newWidth = viewportWidth * 0.25; // 25% por defecto
-    if (newWidth < MIN_WIDTH) newWidth = MIN_WIDTH;
-    if (newWidth > MAX_WIDTH) newWidth = MAX_WIDTH;
-    nav.style.width = `${newWidth}px`;
-    console.log("Scroll ON: ancho fijo limitado", newWidth);
+  const scrollY = Math.min(window.scrollY, 80);
+  const progress = scrollY / 80;
+  let minPercent;
+  if (viewportWidth < 320) {
+    minPercent = 0.80;
+  } else if (viewportWidth < 390) {
+    minPercent = 0.70;
+  } else if (viewportWidth < 480) {
+    minPercent = 0.60;
+  } else if (viewportWidth < 640) {
+    minPercent = 0.45;
+  } else if (viewportWidth < 1024) {
+    minPercent = 0.40;
   } else {
-    nav.style.width = ""; // vuelve al 80% definido en Tailwind
-    nav.classList.add("w-[80%]");
-    console.log("Scroll OFF: ancho 80%");
+    minPercent = 0.25;
   }
-
-  // Otros estilos
-  nav.classList.toggle("rounded-lg", isScrolled);
-  nav.classList.toggle("sticky", isScrolled);
-  nav.classList.toggle("top-4", isScrolled);
+  let maxPercent = 0.8;
+  let percent = maxPercent - (maxPercent - minPercent) * progress;
+  let newWidth = viewportWidth * percent;
+  if (newWidth < MIN_WIDTH) newWidth = MIN_WIDTH;
+  if (newWidth > viewportWidth * maxPercent) newWidth = viewportWidth * maxPercent;
+  nav.style.width = `${newWidth}px`;
+  nav.style.transition = "width 0.7s cubic-bezier(0.4,0,0.2,1), background-color 0.5s, color 0.5s, box-shadow 0.5s, padding 0.5s";
+  const isScrolled = window.scrollY > 40;
   nav.classList.toggle("bg-gray-900/40", isScrolled);
   nav.classList.toggle("backdrop-blur-xs", isScrolled);
   nav.classList.toggle("text-white", isScrolled);
+  nav.classList.toggle("top-8", isScrolled);
+  nav.classList.toggle("rounded-md", isScrolled);
+  nav.classList.toggle("bg-gray-100/5", isScrolled);
+  nav.classList.toggle("bg-transparent", !isScrolled);
   nav.classList.toggle("text-black", !isScrolled);
-
   contacto.classList.toggle("text-black", isScrolled);
   contacto.classList.toggle("bg-white", isScrolled);
   contacto.classList.toggle("text-white", !isScrolled);
   contacto.classList.toggle("bg-black", !isScrolled);
-
   name1.classList.toggle("text-white", isScrolled);
   name2.classList.toggle("text-white", isScrolled);
   name1.classList.toggle("text-[#123472]", !isScrolled);
   name2.classList.toggle("text-[#ff0040]", !isScrolled);
-
-  // Reducir padding y tamaño del texto al hacer scroll
+  nav.classList.toggle("max-sm:flex-col",isScrolled);
+  nav?.classList.toggle("sm:flex-row",!isScrolled);
   nav.classList.toggle("py-1", isScrolled);
-  nav.classList.toggle("px-3", isScrolled);
-  nav.classList.toggle("py-3", !isScrolled);
-  nav.classList.toggle("px-4", !isScrolled);
-
-  title.classList.toggle("text-2xl", isScrolled);
-  title.classList.toggle("text-3xl", !isScrolled);
-
-  console.log("Clases navbar:", nav.className);
-  console.log("Clases contacto:", contacto.className);
+  nav.classList.toggle("px-2", isScrolled);
+  nav.classList.toggle("py-2", !isScrolled);
+  nav.classList.toggle("px-2", !isScrolled);
+  title.classList.toggle("text-lg", viewportWidth < 480);
+  title.classList.toggle("text-xl", viewportWidth >= 480 && viewportWidth < 640);
+  title.classList.toggle("text-3xl", viewportWidth >= 640 && viewportWidth < 1024);
+  title.classList.toggle("text-4xl", viewportWidth >= 1024);
 });
 </script>

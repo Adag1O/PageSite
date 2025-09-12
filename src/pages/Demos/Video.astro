@@ -208,7 +208,6 @@ const galleryImages = [
             if (frameNumber !== lastFrameNumber) {
               lastFrameNumber = frameNumber;
               const paddedFrame = String(frameNumber).padStart(3, "0");
-              // Update the image source only if frame changes
               imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.webp`;
             }
             // Error handling for blocked images
@@ -219,23 +218,25 @@ const galleryImages = [
               imgElement.style.display = '';
             };
             // Control overlay visibility based on scroll progress
-            // Overlay appears between 40% and 60% of scroll progress
             let overlayOpacity = 0;
             let overlayScale = 0.3;
             const progress = self.progress;
             if (progress >= 0.4 && progress <= 0.6) {
-              const localProgress = (progress - 0.4) / 0.2; // 0 to 1
+              const localProgress = (progress - 0.4) / 0.2;
               overlayOpacity = localProgress;
-              overlayScale = 0.3 + (localProgress * 0.7); // 0.3 to 1.0
+              overlayScale = 0.3 + (localProgress * 0.7);
             } else if (progress > 0.6) {
-              // Keep visible after 60%
               overlayOpacity = 1;
               overlayScale = 1;
             }
-            
-            // Apply overlay transformations
             gsap.set(overlayElement, { opacity: overlayOpacity });
             gsap.set(overlayElement.querySelector('div'), { scale: overlayScale });
+            // Reset animation state if at top
+            if (window.scrollY === 0) {
+              imgElement.src = `/background/13938017-hd_1920_1080_25fps_000.webp`;
+              gsap.set(overlayElement, { opacity: 0 });
+              gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
+            }
           },
           onLeave: () => {
             // Hide video elements when scroll section ends

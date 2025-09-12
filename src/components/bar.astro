@@ -4,16 +4,16 @@ const { imgUrl, ContactoUrl } = Astro.props;
 
 <nav
   id="navbar"
-  class="flex items-center justify-between z-20 flex-nowrap w-[80%] mx-auto my-10 text-black transition-all duration-500 ease-in-out px-4 py-3 gap-4"
+  class="flex items-center justify-between z-20 flex-nowrap w-[80%] my-10 text-black  px-4 py-3"
 >
-  <h1 id="navbar-title" class="text-3xl poppins-semibold transition-all duration-500">
+  <h1 id="navbar-title" class="text-3xl poppins-semibold transition-all duration-500 max-sm:ml-1.5 max-sm:gap-1">
     <span id="name1" class="text-[#123472]">Adag</span
     ><span id="name2" class="text-[#ff0040]">IO</span>
   </h1>
   <a
     id="contacto"
     href={ContactoUrl}
-    class="text-white bg-black px-4 py-2.5 rounded-lg text-xs font-medium transition-colors duration-500 whitespace-nowrap"
+    class="text-white bg-black px-4 max-sm:mr-1.5 py-2.5 rounded-lg text-xs font-medium transition-colors duration-500 whitespace-nowrap"
     >Contacto</a
   >
 </nav>
@@ -36,7 +36,6 @@ window.addEventListener("scroll", () => {
   console.log("ScrollY:", window.scrollY, "isScrolled:", isScrolled, "viewport:", viewportWidth);
 
   // Limpiar clases de ancho
-  nav.classList.remove("w-[80%]", "w-[25%]", "sm:w-[50%]", "md:w-[40%]", "lg:w-[25%]");
 
   if (isScrolled) {
     // Calcular ancho fijo limitado
@@ -44,11 +43,9 @@ window.addEventListener("scroll", () => {
     if (newWidth < MIN_WIDTH) newWidth = MIN_WIDTH;
     if (newWidth > MAX_WIDTH) newWidth = MAX_WIDTH;
     nav.style.width = `${newWidth}px`;
-    console.log("Scroll ON: ancho fijo limitado", newWidth);
   } else {
     nav.style.width = ""; // vuelve al 80% definido en Tailwind
     nav.classList.add("w-[80%]");
-    console.log("Scroll OFF: ancho 80%");
   }
 
   // Otros estilos
@@ -71,13 +68,16 @@ window.addEventListener("scroll", () => {
   name2.classList.toggle("text-[#ff0040]", !isScrolled);
 
   // Reducir padding y tamaño del texto al hacer scroll
-  nav.classList.toggle("py-1", isScrolled);
-  nav.classList.toggle("px-3", isScrolled);
+  nav.classList.toggle("py-2", isScrolled);
+  nav.classList.toggle("px-4", isScrolled);
   nav.classList.toggle("py-3", !isScrolled);
   nav.classList.toggle("px-4", !isScrolled);
 
   title.classList.toggle("text-2xl", isScrolled);
   title.classList.toggle("text-3xl", !isScrolled);
+
+  // Agregar transición suave para el cambio de ancho
+  nav.style.transition = "width 1.2s cubic-bezier(0.4,0,0.2,1), background-color 0.5s, color 0.5s";
 
   console.log("Clases navbar:", nav.className);
   console.log("Clases contacto:", contacto.className);

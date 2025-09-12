@@ -49,6 +49,13 @@ const galleryImages = [
     />
     
     <!-- Overlay content -->
+    <div id="overlayStart" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
+      <div class="text-white text-center bg-transparent bg-opacity-90 p-6 sm:p-16 rounded-2xl flex flex-col items-center gap-4">
+        <h1 class="text-2xl sm:text-5xl font-extrabold mb-4 sm:mb-8">Welcome to the Scroll Animation</h1>
+        <p class="text-lg sm:text-2xl mb-4">Start scrolling to begin the experience</p>
+        <button id="startBtn" class="bg-white text-indigo-700 font-bold px-6 py-3 rounded-lg shadow-lg text-lg sm:text-xl hover:bg-indigo-100 transition-colors">Start</button>
+      </div>
+    </div>
     <div id="overlay" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
       <div class="text-white text-center bg-transparent bg-opacity-50 p-2 sm:p-8 rounded-lg ">
         <h1 class="text-lg sm:text-4xl font-bold mb-2 sm:mb-4">Scroll Video</h1>

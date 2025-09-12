@@ -5,7 +5,7 @@ import Particles from "./SingleComponent/Particles.astro";
 
 <div class="flex items-center w-[100%] flex-col gap-20">
   <div
-    class="w-[80%] h-[450px] relative flex items-start justify-evenly flex-col bg-[#1a1919] rounded-4xl text-sky-50 mb-32"
+    class="w-[80%] h-[450px] relative flex items-start max-sm:items-center justify-evenly flex-col bg-[#1a1919] rounded-4xl text-sky-50 mb-32"
   >
   <!--   <img src="/public/bg.png" class="absolute top-0 left-0 w-full h-full rounded-4xl object-cover border-black border">
  -->
@@ -14,18 +14,18 @@ import Particles from "./SingleComponent/Particles.astro";
     <Particles class="absolute top-0 left-0 w-full h-full rounded-4xl bg-black z-13" />
   </div>
 
-    <h1 class="ml-20 text-8xl font-medium poppins-semibold z-20">
+    <h1 class="sm:ml-20 max-sm:text-5xl text-6xl font-medium poppins-semibold z-20">
       <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]"
         >IO</span
       >
     </h1>
-    <h2 class="ml-20 text-md max-w-[60%] font-medium z-20">
+    <h2 class="sm:ml-20 text-md max-w-[60%] font-medium z-20">
       Impulsa tu negocio con soluciones tecnológicas innovadoras y personalizadas.<br>
       Descubre cómo AdagIO puede transformar tu presencia digital.
     </h2>
 
     <a href="#ContactoForm"
-      class="cursor-pointer group z-20 relative ml-20 bg-transparent text-zinc-100 border border-zinc-100 hover:bg-zinc-300 hover:text-black font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ease-in-out shadow hover:shadow-lg w-40 h-12"
+      class="cursor-pointer group z-20 relative sm:ml-20 bg-transparent text-zinc-100 border border-zinc-100 hover:bg-zinc-300 hover:text-black font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ease-in-out shadow hover:shadow-lg w-40 h-12"
     >
       <div class="relative flex items-center justify-center gap-2">
         <span class="relative inline-block overflow-hidden">

@@ -17,7 +17,7 @@ fs.readdirSync(inputDir).forEach(file => {
   const inputPath = path.join(inputDir, file);
   const outputPath = path.join(outputDir, file.replace(/\.[^.]+$/, '.avif'));
   // Only process image files
-  if (fs.statSync(inputPath).isFile() && /\.(jpg|jpeg|png|webp)$/i.test(file)) {
+  if (fs.statSync(inputPath).isFile() && /\.(jpg|jpeg|png|webp|)$/i.test(file)) {
     sharp(inputPath)
       .toFormat('avif')
       .toFile(outputPath)

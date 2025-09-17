@@ -14,7 +14,7 @@ import DemoLayout from "../../../layouts/DemoLayout.astro";
           .slice(0, 16);
         return cartasAleatorias.map(({ carta, idx }, i) => (
           <button class="relative border border-gray-200 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300 aspect-[2/3] flex items-center justify-center bg-white p-1 loteria-btn" data-index={i}>
-            <img src={`/loteria/${idx}_${carta}.avif`} alt={`Carta ${carta}`} class="w-full h-full object-contain max-h-48" />
+            <img src={`/Cards/${idx}_${carta}.avif`} alt={`Carta ${carta}`} class="w-full h-full object-contain max-h-48" />
             <span class="absolute inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-300 loteria-overlay"></span>
           </button>
         ));

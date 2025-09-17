@@ -35,7 +35,7 @@ const prevBtn = document.querySelector('#prev-btn');
 const nextBtn = document.querySelector('#next-btn');
 const runBtn = document.querySelector('#run-btn');
 function showImage(idx) {
-  if (img) img.src = `/loteria/${images[idx]}`;
+  if (img) img.src = `/Cards/${images[idx]}`;
 }
 function getRandomUnused() {
   if (used.length === images.length) return null;

@@ -44,7 +44,7 @@ const galleryImages = [
       id="Background" 
       class="fixed top-0 left-0 w-full h-full object-cover z-10" 
       style="min-width: 100vw; min-height: 100vh; will-change: transform, opacity;" 
-      src="/background/13938017-hd_1920_1080_25fps_000.webp" 
+      src="/background/13938017-hd_1920_1080_25fps_000.avif" 
       alt="Scrolling video frames" 
     />
     
@@ -117,13 +117,7 @@ const galleryImages = [
 
   <!-- Loader overlay -->
   <div id="pageLoader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white bg-opacity-95 transition-opacity duration-500">
-    <div class="flex flex-col items-center">
-      <svg class="animate-spin h-20 w-20 text-indigo-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-      </svg>
-      <span class="text-gray-700 text-lg font-semibold">Cargando...</span>
-    </div>
+   <div class="loader"></div>
   </div>
 </DemoLayout>
 
@@ -155,7 +149,7 @@ const galleryImages = [
     // Preload all frames for smoother experience
     for (let i = 0; i <= totalFrames; i++) {
       const preloadImg = new window.Image();
-      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.webp`;
+      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.avif`;
       preloadImg.onload = () => {
         loadedFrames++;
         if (loadedFrames === totalFrames + 1 && loadedGallery === totalGallery && pageLoader) {
@@ -208,7 +202,7 @@ const galleryImages = [
             if (frameNumber !== lastFrameNumber) {
               lastFrameNumber = frameNumber;
               const paddedFrame = String(frameNumber).padStart(3, "0");
-              imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.webp`;
+              imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.avif`;
             }
             // Error handling for blocked images
             imgElement.onerror = function() {
@@ -233,7 +227,7 @@ const galleryImages = [
             gsap.set(overlayElement.querySelector('div'), { scale: overlayScale });
             // Reset animation state if at top
             if (window.scrollY === 0) {
-              imgElement.src = `/background/13938017-hd_1920_1080_25fps_000.webp`;
+              imgElement.src = `/background/13938017-hd_1920_1080_25fps_000.avif`;
               gsap.set(overlayElement, { opacity: 0 });
               gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
             }
@@ -553,5 +547,28 @@ const galleryImages = [
     width: auto !important;
     padding: 0 !important;
   }
+}
+</style>
+
+<style>
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: fit-content;
+  font-size: 40px;
+  font-family: system-ui,sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #0000;
+  -webkit-text-stroke: 1px #000;
+  background: 
+    linear-gradient(-60deg,#0000 45%,#000 0 55%,#0000 0) 
+    0/300% 100% no-repeat text;
+  animation: l3 2s linear infinite;
+}
+.loader:before {
+  content: "Loading ...";
+}
+@keyframes l3 {
+  0%{background-position: 100%}
 }
 </style>

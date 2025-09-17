@@ -1,0 +1,77 @@
+---
+import DemoLayout from "../../../layouts/DemoLayout.astro";
+// import HeadCommerce from "../../components/SingleComponent/Ecommerce/HeadCommerce.astro";
+// If you still get an error, verify the file exists at src/components/HeadCommerce.astro
+import HeadCommerce from "../../../components/SingleComponent/Ecommerce/HeadCommerce.astro";
+---
+
+<DemoLayout>
+	<HeadCommerce />
+	<!-- Hero Section -->
+	<section
+		class="flex flex-col items-center justify-center text-center py-16 px-4"
+	>
+		<h2 class="text-4xl font-extrabold text-gray-800 mb-4">
+			Discover Our 3D Products
+		</h2>
+		<p class="text-lg text-gray-600 mb-6">
+			View, explore, and shop your favorite electronics in 3D before
+			buying.
+		</p>
+		<button
+			class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-700"
+		>
+			Shop Now
+		</button>
+	</section>
+
+	<!-- Product Grid -->
+	<section class="flex flex-wrap justify-center gap-8 px-6 pb-16">
+		<!-- Product Card -->
+<a
+			href="/Demos/Ecommerce/arduinomega"
+			style="border: 1px solid #000; width:100%; height:100%;"
+		>
+		</a>
+		<a
+			href="/Demos/Ecommerce/arduino"
+			style="border: 1px solid #000; width:100%; height:100%;"
+		>
+		</a>
+	</section>
+
+	<!-- Content -->
+	<div class="p-5 flex flex-col gap-3">
+		<h3
+			class="font-semibold text-lg text-gray-800 group-hover:text-green-600 transition-colors"
+		>
+			Starter Kit
+		</h3>
+		<p class="text-sm text-gray-500">
+			Includes sensors, motors, and everything you need.
+		</p>
+		<div class="flex items-center justify-between">
+			<p class="text-xl font-bold text-green-600">$49.99</p>
+			<button
+				class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+			>
+				<i class="ri-shopping-cart-2-line"></i> Add
+			</button>
+		</div>
+	</div>
+</DemoLayout>
+
+<style>
+	.header {
+		text-align: center;
+		font-size: 2rem;
+		font-weight: 700;
+		margin-top: 2rem;
+		letter-spacing: 1px;
+	}
+	.viewer-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>

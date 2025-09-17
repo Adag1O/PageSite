@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import DemoLayout from "../../../layouts/DemoLayout.astro";
+import HeadCommerce from "../../../components/SingleComponent/Ecommerce/HeadCommerce.astro";
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+export const getStaticPaths: GetStaticPaths = () => {
+    return [
+        { params: { slug: "arduino" } }       
+    ];
+};
+---
+
+<DemoLayout>
+    	<HeadCommerce/>
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <!-- Visualizador 3D -->
+<div class="bg-gray-50 rounded-lg overflow-hidden shadow-md">
+        <div 
+          class="online_3d_viewer h-96 w-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg" 
+          id="model-viewer"
+          model={`/steps/${Astro.params.slug}.step`}
+        >
+
+            
+    </div>
+
+</DemoLayout>
+
+<script type="module" >
+    import * as OV from "../../node_modules/online-3d-viewer/build/engine/o3dv.module.js";
+			window.addEventListener("load", () => {
+				const objects = OV.Init3DViewerElements();
+				objects.map((object) => {
+					object.viewer.SetBackgroundColor(
+						new OV.RGBAColor(0, 0, 0, 0),
+					);
+				});
+			});
+
+  
+        
+
+    </script>
+

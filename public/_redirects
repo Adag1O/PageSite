@@ -37,6 +37,9 @@ https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
 /Demos/LinkTree               /Demos/LinkTree                      200
 /Demos/Wedding                /Demos/Wedding                       200
 /Demos/Video                  /Demos/Video                       200
+/Demos/Ecommerce              /Demos/Ecommerce                       200
+/Demos/Loteria              /Demos/Loteria                       200
+
 /Demos/                       /Demos/                              200
 
 # SPA fallback for any unmatched routes in Demos
@@ -47,6 +50,9 @@ https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
 /Demos/Wedding                /Demos/Wedding.html                200
 /Demos/Video                  /Demos/Video.html                  200
 /Demos/                       /Demos/index.html                  200
+/Demos/Ecommerce              /Demos/Ecommerce/index              200
+/Demos/Ecommerce/*            /Demos/Ecommerce/index              200
 
+/Demos/Loteria/*            /Demos/Loteria/*              200
 # SPA fallback for any unmatched routes in Demos
 /Demos/*                      /Demos/index.html                  200

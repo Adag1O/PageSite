@@ -1,0 +1,78 @@
+---
+import DemoLayout from "../../../layouts/DemoLayout.astro";
+---
+
+<DemoLayout>
+  <div class="flex flex-col items-center justify-center py-8 gap-6 w-full min-h-[100%]">
+    <div class="flex flex-col items-center">
+      <img id="loteria-img" src="/loteria/1_El_Gallo.avif" alt="El Gallo" class="w-[40%] object-cover rounded-lg border border-gray-200 shadow-md mb-4" />
+      <div class="flex gap-4 items-center justify-center mt-2">
+        <button id="prev-btn" class="p-2 rounded-full bg-gray-100 hover:bg-blue-100 transition-colors shadow">
+          <svg class="w-7 h-7 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="next-btn" class="p-2 rounded-full bg-gray-100 hover:bg-blue-100 transition-colors shadow">
+          <svg class="w-7 h-7 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+          </svg>
+        </button>
+        <input type="number" name="time" id="time" min="1" step="1" class="w-24 px-2 py-1 border rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Segundos" />
+        <button id="run-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">Run</button>
+      </div>
+    </div>
+  </div>
+</DemoLayout>
+
+<script>
+const images = [
+  "1_El_Gallo.avif", "2_El_Diablo.avif", "3_La_Dama.avif", "4_El_Catrin.avif", "5_El_Paraguas.avif", "6_La_Sirena.avif", "7_La_Escalera.avif", "8_La_Botella.avif", "9_El_Barril.avif", "10_El_Arbol.avif", "11_El_Melon.avif", "12_El_Valiente.avif", "13_El_Gorrito.avif", "14_La_Muerte.avif", "15_La_Pera.avif", "16_La_Bandera.avif", "17_El_Bandolon.avif", "18_El_Violoncello.avif", "19_La_Garza.avif", "20_El_Pajaro.avif"
+];
+let used = [];
+let current = 0;
+const img = document.getElementById('loteria-img');
+const prevBtn = document.querySelector('#prev-btn');
+const nextBtn = document.querySelector('#next-btn');
+const runBtn = document.querySelector('#run-btn');
+function showImage(idx) {
+  if (img) img.src = `/loteria/${images[idx]}`;
+}
+function getRandomUnused() {
+  if (used.length === images.length) return null;
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * images.length);
+  } while (used.includes(idx));
+  used.push(idx);
+  current = idx;
+  return idx;
+}
+if (nextBtn) nextBtn.onclick = () => {
+  const idx = getRandomUnused();
+  if (idx !== null) showImage(idx);
+};
+if (prevBtn) prevBtn.onclick = () => {
+  if (used.length > 1) {
+    used.pop();
+    current = used[used.length - 1];
+    showImage(current);
+  }
+};
+if (runBtn) runBtn.onclick = () => {
+  const timeInput = document.getElementById('time');
+  const time = Math.max(1, parseInt(timeInput?.value || '1')) * 1000;
+  let interval;
+  used = [];
+  function run() {
+    const idx = getRandomUnused();
+    if (idx !== null) {
+      showImage(idx);
+      interval = setTimeout(run, time);
+    } else {
+      clearTimeout(interval);
+    }
+  }
+  run();
+};
+showImage(current);
+</script>

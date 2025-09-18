@@ -5,7 +5,7 @@ import DemoLayout from "../../../layouts/DemoLayout.astro";
 <DemoLayout>
   <div class="flex flex-col items-center justify-center py-8 gap-6 w-full min-h-[100%]">
     <div class="flex flex-col items-center">
-      <img id="loteria-img" src="/card/1_El_Gallo.avif" alt="El Gallo" class="w-[40%] object-cover rounded-lg border border-gray-200 shadow-md mb-4" />
+      <img id="loteria-img" src="/Cards/1_El_Gallo.avif" alt="El Gallo" class="w-[40%] object-cover rounded-lg border border-gray-200 shadow-md mb-4" />
       <div class="flex gap-4 items-center justify-center mt-2">
         <button id="prev-btn" class="p-2 rounded-full bg-gray-100 hover:bg-blue-100 transition-colors shadow">
           <svg class="w-7 h-7 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -28,20 +28,34 @@ import DemoLayout from "../../../layouts/DemoLayout.astro";
 const images = [
   "1_El_Gallo.avif", "2_El_Diablo.avif", "3_La_Dama.avif", "4_El_Catrin.avif", "5_El_Paraguas.avif", "6_La_Sirena.avif", "7_La_Escalera.avif", "8_La_Botella.avif", "9_El_Barril.avif", "10_El_Arbol.avif", "11_El_Melon.avif", "12_El_Valiente.avif", "13_El_Gorrito.avif", "14_La_Muerte.avif", "15_La_Pera.avif", "16_La_Bandera.avif", "17_El_Bandolon.avif", "18_El_Violoncello.avif", "19_La_Garza.avif", "20_El_Pajaro.avif"
 ];
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 let used = [];
 let current = 0;
+let interval = null;
 const img = document.getElementById('loteria-img');
 const prevBtn = document.querySelector('#prev-btn');
 const nextBtn = document.querySelector('#next-btn');
 const runBtn = document.querySelector('#run-btn');
+const timeInput = document.getElementById('time');
+let shuffledImages = shuffle([...images]);
 function showImage(idx) {
-  if (img) img.src = `/Cards/${images[idx]}`;
+  if (img) {
+    // Forzar recarga si la imagen está en caché
+    const src = `/Cards/${shuffledImages[idx]}`;
+    img.src = src + '?t=' + Date.now(); // Agrega un query param para forzar refresco visual
+  }
 }
 function getRandomUnused() {
-  if (used.length === images.length) return null;
+  if (used.length === shuffledImages.length) return null;
   let idx;
   do {
-    idx = Math.floor(Math.random() * images.length);
+    idx = Math.floor(Math.random() * shuffledImages.length);
   } while (used.includes(idx));
   used.push(idx);
   current = idx;
@@ -58,21 +72,40 @@ if (prevBtn) prevBtn.onclick = () => {
     showImage(current);
   }
 };
-if (runBtn) runBtn.onclick = () => {
-  const timeInput = document.getElementById('time');
-  const time = Math.max(1, parseInt(timeInput?.value || '1')) * 1000;
-  let interval;
+function stopRun() {
+  if (interval) {
+    clearTimeout(interval);
+    interval = null;
+    runBtn.textContent = 'Run';
+  }
+}
+function startRun() {
+  stopRun();
   used = [];
+  current = 0;
+  shuffledImages = shuffle([...images]);
+  showImage(current);
+  runBtn.textContent = 'Stop';
+  const time = Math.max(1, parseInt(timeInput?.value || '1')) * 1000;
   function run() {
     const idx = getRandomUnused();
     if (idx !== null) {
       showImage(idx);
       interval = setTimeout(run, time);
     } else {
-      clearTimeout(interval);
+      stopRun();
     }
   }
   run();
-};
+}
+if (runBtn) {
+  runBtn.onclick = () => {
+    if (interval) {
+      stopRun();
+    } else {
+      startRun();
+    }
+  };
+}
 showImage(current);
 </script>

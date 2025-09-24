@@ -23,8 +23,8 @@
 </nav>
 <script>
 const nav = document.getElementById("navbar") as HTMLElement;
-const title = document.getElementById("navbar-title");
-const contacto = document.getElementById("contacto");
+const title = document.getElementById("navbar-title") as HTMLElement;
+const contacto = document.getElementById("contacto") as HTMLElement;
 nav.style.transition = "width 0.7s cubic-bezier(0.4,0,0.2,1)";
 window.addEventListener('DOMContentLoaded',() =>{
   const scrolled = window.scrollY > 10;

@@ -13,21 +13,21 @@
     "build:all": "npm run build:main && npm run build:demos"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.5.11",
-    "@astrojs/react": "^4.3.1",
-    "@tailwindcss/vite": "^4.1.13",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "astro": "^5.13.11",
+    "@astrojs/netlify": "^6.6.2",
+    "@astrojs/react": "^4.4.2",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.0",
     "gsap": "^3.13.0",
     "online-3d-viewer": "^0.16.0",
     "particlesjs": "^2.2.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
     "scrollreveal": "^4.0.9",
-    "sharp": "^0.34.4",
-    "tailwindcss": "^4.1.13"
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@types/scrollreveal": "^0.0.11"

@@ -1,7 +1,7 @@
 ---
 // Datos del portafolio organizados por categorías
 const portfolioData = {
-  "Dispositivos": [
+ /* "Dispositivos": [
     {
       id: "iot-system",
       title: "Sistema IoT Inteligente",
@@ -106,7 +106,7 @@ const portfolioData = {
       icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
       type: "app"
     }
-  ],
+  ],*/
   "Sitios Web": [
     {
       id: "jesusvelez-website",
@@ -157,29 +157,26 @@ const portfolioData = {
       type: "website"
     },
     {
-      id: "analytics-pro",
-      title: "Analytics Pro",
-      description: "Dashboard empresarial avanzado con visualización de datos en tiempo real, reportes automatizados y métricas predictivas",
-      category: "SaaS",
-      technologies: ["Vue.js", "D3.js"],
-      icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
-      gradient: "from-blue-500 to-indigo-600",
-      status: "development",
-      statusText: "En Desarrollo",
-      statusIcon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
+      id: "firefox-extension",
+      title: "Firefox Extension",
+      description: "Firefox Extension para mejorar la productividad y seguridad del navegador con funcionalidades personalizadas",
+      category: "Extension",
+      url: "https://addons.mozilla.org/es-MX/firefox/addon/virtualkey/",
+      icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+      technologies: ["Javascript", "Node.js"],
+      status: "production",
+      statusText: "En Producción",
       type: "website"
     },
     {
-      id: "creative-studio",
-      title: "Creative Studio",
-      description: "Sitio web para agencia creativa con portfolio interactivo, animaciones WebGL y experiencia inmersiva 3D",
-      category: "Creativo",
-      technologies: ["Three.js", "GSAP"],
-      icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z",
-      gradient: "from-purple-500 to-pink-500",
-      status: "coming-soon",
-      statusText: "Próximamente",
-      statusIcon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
+      id: "shopify-store",
+      title: "Shopify Store",
+      description: "Tienda online profesional con diseño moderno, carrito optimizado y experiencia de compra fluida",
+      category: "Ecommerce",
+      icon: "M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H19M7 13v4a2 2 0 002 2h8a2 2 0 002-2v-4m-8 6h4",
+      technologies: ["React.js", "Javascript"],
+      status: "development",
+      statusText: "En Desarrollo",
       type: "website"
     }
   ]
@@ -192,6 +189,7 @@ function getStatusColor(status: string): string {
     'demo': 'blue',
     'private': 'gray',
     'development': 'blue',
+    'production': 'green',
     'coming-soon': 'gray'
   };
   return colors[status] || 'gray';
@@ -204,6 +202,8 @@ function getCategoryColor(category: string): string {
     'Social': 'purple',
     'Eventos': 'rose',
     'E-commerce': 'emerald',
+    'Ecommerce': 'emerald',
+    'Extension': 'orange',
     'SaaS': 'blue',
     'Creativo': 'purple',
     'Productividad': 'indigo',
@@ -223,16 +223,16 @@ function getCategoryColor(category: string): string {
 }
 ---
 
-<div class="w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-20 py-16 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+<div class="w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-20 py-16 bg-gray-50">
     <!-- Header Section -->
     <div class="flex flex-col items-center justify-center gap-6 mb-16 text-center">
         <div class="inline-block mb-2">
-            <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent text-sm font-semibold uppercase tracking-wider">
+            <span class="text-indigo-600 text-sm font-semibold uppercase tracking-wider">
                 Nuestro Trabajo
             </span>
         </div>
         <h1 class="portfolio-title text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-            <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span class="text-indigo-600">
                 Portafolio
             </span>
         </h1>
@@ -246,7 +246,7 @@ function getCategoryColor(category: string): string {
   <div class="flex p-1 items-center justify-center bg-gray-100 rounded-lg w-full max-w-4xl mx-auto overflow-x-auto">
     <div class="flex min-w-max h-12 md:h-14 rounded-md relative overflow-hidden" id="Tab">
       {/* Highlight */}
-      <div class="absolute top-0 h-full bg-gray-950/90 rounded-md w-1/3 transition-all duration-300 ease-out left-0 z-0"></div>
+      <div class="absolute top-0 h-full bg-gray-950/90 rounded-md transition-all duration-300 ease-out left-0 z-0" style={`width: ${100 / Object.keys(portfolioData).length}%`}></div>
 
       {/* Tabs */}
       {Object.keys(portfolioData).map((tabName, index) => (
@@ -255,7 +255,7 @@ function getCategoryColor(category: string): string {
             index === 0 ? 'text-white' : 'text-gray-600'
           } text-xs sm:text-sm md:text-base font-medium rounded-md flex items-center justify-center px-3 md:px-5 py-1 md:py-2 whitespace-nowrap`}
         >
-          <span class="truncate">{tabName}</span>
+          <span class="">{tabName}</span>
         </button>
       ))}
     </div>
@@ -267,14 +267,14 @@ function getCategoryColor(category: string): string {
     <!-- Dynamic Tab Content -->
     {Object.entries(portfolioData).map(([tabName, items], tabIndex) => (
         <div 
-            id={tabName.replace(/\s+/g, '')} 
+            id={tabName.replace(/\s+/g, '').replace(/í/g, 'i')} 
             class={`portfolio-grid ${tabIndex === 0 ? 'flex' : 'hidden'} flex-wrap gap-4 w-full max-w-6xl justify-center transition-all duration-300 ${tabIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
         >
             {items.map((item) => (
                 <!-- Website with Preview -->
                 {item.preview ? (
                     <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-0 flex flex-col overflow-hidden">
-                        <div class="relative w-full h-56 rounded-t-lg overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50">
+                        <div class="relative w-full h-56 rounded-t-lg overflow-hidden bg-gray-50">
                             <iframe 
                                 src={item.url} 
                                 title={`${item.title} preview`}
@@ -282,7 +282,7 @@ function getCategoryColor(category: string): string {
                                 loading="lazy"
                                 style="background: #f8fafc;"
                             ></iframe>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-gray-700 shadow-lg border">
                                 <span class="flex items-center gap-1">
                                     <div class={`w-2 h-2 bg-${getStatusColor(item.status)}-500 rounded-full animate-pulse`}></div>
@@ -323,20 +323,12 @@ function getCategoryColor(category: string): string {
                     <!-- Standard Portfolio Item -->
                     <div class="portfolio-item group bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6">
                         <div class="text-center">
-                            {item.gradient ? (
-                                <div class={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${item.gradient} rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow`}>
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}/>
-                                    </svg>
-                                </div>
-                            ) : (
-                                <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}/>
-                                    </svg>
-                                </div>
-                            )}
-                            <h3 class={`${item.gradient ? 'text-lg font-bold' : 'text-lg font-semibold'} text-gray-900 mb-2`}>{item.title}</h3>
+                            <div class="w-12 h-12 mx-auto mb-4 bg-black rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
                             <p class="text-sm text-gray-600 mb-4">{item.description}</p>
                             {item.technologies ? (
                                 <div class="flex flex-wrap gap-2 justify-center mb-4">
@@ -372,6 +364,21 @@ function getCategoryColor(category: string): string {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.statusIcon}/>
                                     </svg>
                                     <span class="text-xs">{item.statusText}</span>
+                                </div>
+                            )}
+                            {item.url && (
+                                <div class="mt-4">
+                                    <a 
+                                        href={item.url} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1 text-indigo-600 hover:text-purple-600 text-sm font-semibold transition-all duration-200 hover:gap-2"
+                                    >
+                                        Visitar
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                        </svg>
+                                    </a>
                                 </div>
                             )}
                         </div>
@@ -516,7 +523,9 @@ function getCategoryColor(category: string): string {
         
         // Animate initial portfolio items with delay
         setTimeout(() => {
-            const initialItems = document.querySelectorAll('#Dispositivos .portfolio-item');
+            // Use the correct selector for current available tabs
+            const firstTabName = Object.keys(portfolioData || {})[0]?.replace(/\s+/g, '').replace(/í/g, 'i');
+            const initialItems = document.querySelectorAll(`#${firstTabName || 'SitiosWeb'} .portfolio-item`);
             initialItems.forEach((item, index) => {
                 // Items are already visible, just add a subtle entrance animation
                 (item as HTMLElement).style.animation = `fadeInUp 0.6s ease forwards ${index * 0.1}s`;
@@ -547,7 +556,7 @@ function getCategoryColor(category: string): string {
     }
 
     /* Ensure content is initially visible for first tab */
-    #Dispositivos .portfolio-item {
+    #SitiosWeb .portfolio-item {
         opacity: 1;
         transform: translateY(0);
     }
@@ -577,23 +586,6 @@ function getCategoryColor(category: string): string {
     .portfolio-item .rounded-t-lg {
         position: relative;
         overflow: hidden;
-    }
-
-    .portfolio-item .rounded-t-lg::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 1;
-    }
-
-    .portfolio-item:hover .rounded-t-lg::before {
-        opacity: 1;
     }
 
     /* Enhanced status indicators */

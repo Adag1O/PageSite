@@ -1,66 +1,38 @@
 # Netlify _redirects file for subdomain routing
-# Simple redirects from subdomains to main domain
+# Optimized for better performance and fewer conflicts
 
-# Assets redirects - MUST come before page redirects
+# Assets redirects - MUST come before page redirects  
 /background/*      /background/:splat        200
-/Cards/*           /Cards/:splat        200
+/Cards/*           /Cards/:splat             200
 
-# _astro assets for subdomains
-https://demo.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat        200!
-https://www.demo.adagi0.com/_astro/*  https://adagi0.com/_astro/:splat        200!
-https://demos.adagi0.com/_astro/*     https://adagi0.com/_astro/:splat        200!
-https://www.demos.adagi0.com/_astro/* https://adagi0.com/_astro/:splat        200!
+# _astro assets for subdomains - consolidated
+https://*.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat    200!
 
-# Favicon redirects
-https://demo.adagi0.com/favicon.ico      https://adagi0.com/favicon.svg         301!
-https://www.demo.adagi0.com/favicon.ico  https://adagi0.com/favicon.svg         301!
-https://demos.adagi0.com/favicon.ico     https://adagi0.com/favicon.svg         301!
-https://www.demos.adagi0.com/favicon.ico https://adagi0.com/favicon.svg         301!
+# Favicon redirects - consolidated
+https://*.adagi0.com/favicon.ico   https://adagi0.com/favicon.svg      301!
+https://*.adagi0.com/favicon.svg   https://adagi0.com/favicon.svg      200!
 
-https://demo.adagi0.com/favicon.svg      https://adagi0.com/favicon.svg         200!
-https://www.demo.adagi0.com/favicon.svg  https://adagi0.com/favicon.svg         200!
-https://demos.adagi0.com/favicon.svg     https://adagi0.com/favicon.svg         200!
-https://www.demos.adagi0.com/favicon.svg https://adagi0.com/favicon.svg         200!
+# Subdomain redirects (proxy - maintains subdomain visible)
+https://demo.adagi0.com/*          https://adagi0.com/Demos/:splat     200!
+https://demo.adagi0.com            https://adagi0.com/Demos/           200!
+https://demos.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
+https://demos.adagi0.com           https://adagi0.com/Demos/           200!
 
-# demo.adagi0.com redirects (proxy - mantiene subdominio visible)
-https://demo.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
-https://demo.adagi0.com           https://adagi0.com/Demos/           200!
-https://www.demo.adagi0.com/*     https://adagi0.com/Demos/:splat     200!
-https://www.demo.adagi0.com       https://adagi0.com/Demos/           200!
+# Demos route handling
+/Demos/LinkTree                    /Demos/LinkTree                     200
+/Demos/Wedding                     /Demos/Wedding                      200
+/Demos/Video                       /Demos/Video                        200
+/Demos/Ecommerce                   /Demos/Ecommerce                    200
+/Demos/Loteria                     /Demos/Loteria                      200
+/Demos/                            /Demos/                             200
 
-# demos.adagi0.com redirects (proxy - mantiene subdominio visible)
-https://demos.adagi0.com/*        https://adagi0.com/Demos/:splat     200!
-https://demos.adagi0.com          https://adagi0.com/Demos/           200!
-https://www.demos.adagi0.com/*    https://adagi0.com/Demos/:splat     200!
-https://www.demos.adagi0.com      https://adagi0.com/Demos/           200!
+# Assets protection for Demos
+/Demos/*.js                        /Demos/:splat                       200
+/Demos/*.css                       /Demos/:splat                       200
+/Demos/*.png                       /Demos/:splat                       200
+/Demos/*.jpg                       /Demos/:splat                       200
+/Demos/*.svg                       /Demos/:splat                       200
+/Demos/*.avif                      /Demos/:splat                       200
 
-# Fallback redirects for specific demo routes
-/Demos/LinkTree               /Demos/LinkTree                      200
-/Demos/Wedding                /Demos/Wedding                       200
-/Demos/Video                  /Demos/Video                          200
-/Demos/Ecommerce              /Demos/Ecommerce                       200
-/Demos/Loteria                /Demos/Loteria                       200
-/Demos/                       /Demos/                              200
-
-
-# Assets exceptions for Demos (antes del fallback SPA)
-/Demos/*.js   /Demos/:splat   200
-/Demos/*.css  /Demos/:splat   200
-/Demos/*.png  /Demos/:splat   200
-/Demos/*.jpg  /Demos/:splat   200
-/Demos/*.svg  /Demos/:splat   200
-/Demos/*.avif /Demos/:splat   200
-
-# SPA fallback for any unmatched routes in Demos
-/Demos/*                      /Demos/index                       200
-
-# Fallback redirects
-/Demos/LinkTree               /Demos/LinkTree.html               200
-/Demos/Wedding                /Demos/Wedding.html                200
-/Demos/Video                  /Demos/Video.html                  200
-/Demos/                       /Demos/index.html                  200
-/Demos/Ecommerce              /Demos/Ecommerce/index             200
-/Demos/Ecommerce/*            /Demos/Ecommerce/index             200
-/Demos/Loteria/*            /Demos/Loteria/*                     200
-# SPA fallback for any unmatched routes in Demos
-/Demos/*                      /Demos/index.html                  200
+# SPA fallback - should be last
+/Demos/*                           /Demos/index.html                   200

@@ -4,29 +4,11 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
 
 # Assets redirects - MUST come before page redirects
 [[redirects]]
-  from = "https://demo.adagi0.com/_astro/*"
-  to = "https://adagi0.com/_astro/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.demo.adagi0.com/_astro/*"
-  to = "https://adagi0.com/_astro/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://demos.adagi0.com/_astro/*"
-  to = "https://adagi0.com/_astro/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.demos.adagi0.com/_astro/*"
+  from = "https://*.adagi0.com/_astro/*"
   to = "https://adagi0.com/_astro/:splat"
   status = 200
   force = true
@@ -45,18 +27,6 @@
   force = true
 
 [[redirects]]
-  from = "https://www.demo.adagi0.com/*"
-  to = "https://adagi0.com/Demos/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.demo.adagi0.com"
-  to = "https://adagi0.com/Demos/"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "https://demos.adagi0.com/*"
   to = "https://adagi0.com/Demos/:splat"
   status = 200
@@ -68,28 +38,21 @@
   status = 200
   force = true
 
-[[redirects]]
-  from = "https://www.demos.adagi0.com/*"
-  to = "https://adagi0.com/Demos/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.demos.adagi0.com"
-  to = "https://adagi0.com/Demos/"
-  status = 200
-  force = true
-
 # Edge functions completely disabled
 
-# Headers for CORS and security
+# Headers for security and performance
 [[headers]]
   for = "/Demos/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
-    # Allow iframe embedding for demo pages
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*"
@@ -97,3 +60,4 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    X-XSS-Protection = "1; mode=block"

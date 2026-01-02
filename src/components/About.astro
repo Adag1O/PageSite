@@ -2,174 +2,192 @@
 import scrollReveal from "scrollreveal";
 ---
 
-<div class="w-full bg-gradient-to-br from-gray-50 via-white to-gray-50 py-20">
-  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-20">
+<div class="w-full bg-gray-50 py-24 relative overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#123472]/5 rounded-full blur-3xl animate-blob"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#ff0040]/5 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div class="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+    </div>
+
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-20 relative z-10">
     
     <!-- Header Section -->
-    <div class="flex flex-col items-center w-full text-center mb-20">
-      <div class="inline-block mb-6">
-        <span class="bg-gradient-to-r from-[#123472] to-[#ff0040] bg-clip-text text-transparent text-sm font-semibold uppercase tracking-wider">
+    <div class="flex flex-col items-center w-full text-center mb-24">
+      <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-8">
+        <span class="bg-gradient-to-r from-[#123472] to-[#ff0040] bg-clip-text text-transparent text-xs font-bold uppercase tracking-widest">
           Nuestras Especialidades
         </span>
       </div>
       
-      <h1 class="about-title text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-8">
+      <h1 class="about-title text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 tracking-tight">
         ¿Por qué elegir 
-        <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span>?
+        <span class="relative inline-block">
+            <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span>?
+            <svg class="absolute w-full h-3 -bottom-1 left-0 text-[#ff0040]/20" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path class="draw-path" d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="3" fill="none" />
+            </svg>
+        </span>
       </h1>
       
-      <p class="about-subtitle text-lg sm:text-xl text-gray-600 max-w-4xl leading-relaxed">
-        Combinamos experiencia técnica, innovación y diseño para crear soluciones tecnológicas que transforman ideas en realidades digitales exitosas. Nuestro enfoque integral abarca desde dispositivos IoT hasta aplicaciones web de última generación.
+      <p class="about-subtitle text-lg sm:text-xl text-gray-500 max-w-3xl leading-relaxed text-pretty">
+        Combinamos experiencia técnica, innovación y diseño para crear soluciones tecnológicas que transforman ideas en realidades digitales exitosas.
       </p>
     </div>
 
     <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 mb-24">
       
       <!-- Dispositivos Electrónicos -->
-      <div class="about-card group bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-        <div class="mb-6">
-          <div class="w-16 h-16 bg-gradient-to-br  rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-8 h-8 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          
-          <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#123472] transition-colors duration-300">
-            Dispositivos IoT
-          </h2>
-          
-          <p class="text-gray-600 leading-relaxed mb-6">
-            Desarrollamos dispositivos inteligentes con conectividad avanzada, seguridad robusta y interfaces intuitivas para automatización industrial y domótica.
-          </p>
-        </div>
+      <div class="about-card group bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-[0_20px_40px_-15px_rgba(18,52,114,0.1)] transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#123472]/10 to-transparent rounded-bl-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-110"></div>
         
-        <div class="space-y-3">
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#123472] rounded-full mr-3"></div>
-            <span>Sensores y actuadores inteligentes</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#123472] rounded-full mr-3"></div>
-            <span>Conectividad Wi-Fi, Bluetooth, LoRa</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#123472] rounded-full mr-3"></div>
-            <span>Análisis de datos en tiempo real</span>
-          </div>
+        <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#123472] to-[#2a5298] rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-[#123472]/20 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#123472] transition-colors duration-300">
+                Dispositivos IoT
+            </h2>
+            
+            <p class="text-gray-500 leading-relaxed mb-8 text-sm">
+                Desarrollamos dispositivos inteligentes con conectividad avanzada, seguridad robusta y interfaces intuitivas.
+            </p>
+            
+            <ul class="space-y-3">
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-[#123472] rounded-full mr-3"></span>
+                    Sensores inteligentes
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-[#123472] rounded-full mr-3"></span>
+                    Conectividad IoT
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-[#123472] rounded-full mr-3"></span>
+                    Análisis en tiempo real
+                </li>
+            </ul>
         </div>
       </div>
 
       <!-- Aplicaciones -->
-      <div class="about-card group bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
-        <div class="mb-6">
-          <div class="w-16 h-16 bg-gradient-to-br rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-8 h-8 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          
-          <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#ff0040] transition-colors duration-300">
-            Aplicaciones Móviles
-          </h2>
-          
-          <p class="text-gray-600 leading-relaxed mb-6">
-            Creamos aplicaciones móviles nativas e híbridas con experiencias de usuario excepcionales, rendimiento optimizado y arquitecturas escalables.
-          </p>
-        </div>
+      <div class="about-card group bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-[0_20px_40px_-15px_rgba(255,0,64,0.1)] transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff0040]/10 to-transparent rounded-bl-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-110"></div>
         
-        <div class="space-y-3">
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#ff0040] rounded-full mr-3"></div>
-            <span>iOS, Android y multiplataforma</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#ff0040] rounded-full mr-3"></div>
-            <span>UI/UX diseño personalizado</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#ff0040] rounded-full mr-3"></div>
-            <span>Integración con APIs y bases de datos</span>
-          </div>
+        <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff0040] to-[#ff4b7d] rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-[#ff0040]/20 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#ff0040] transition-colors duration-300">
+                Aplicaciones Móviles
+            </h2>
+            
+            <p class="text-gray-500 leading-relaxed mb-8 text-sm">
+                Creamos aplicaciones móviles nativas e híbridas con experiencias de usuario excepcionales y rendimiento optimizado.
+            </p>
+            
+            <ul class="space-y-3">
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-[#ff0040] rounded-full mr-3"></span>
+                    iOS y Android
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-[#ff0040] rounded-full mr-3"></span>
+                    UI/UX personalizado
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-[#ff0040] rounded-full mr-3"></span>
+                    APIs escalables
+                </li>
+            </ul>
         </div>
       </div>
 
       <!-- Sitios Web -->
-      <div class="about-card group bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 md:col-span-2 lg:col-span-1">
-        <div class="mb-6">
-          <div class="w-16 h-16 bg-gradient-to-br rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-8 h-8 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-            </svg>
-          </div>
-          
-          <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#123472] transition-colors duration-300">
-            Desarrollo Web
-          </h2>
-          
-          <p class="text-gray-600 leading-relaxed mb-6">
-            Desarrollamos sitios web modernos, responsivos y optimizados con tecnologías de vanguardia, SEO avanzado y experiencias de usuario inmersivas.
-          </p>
-        </div>
+      <div class="about-card group bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.1)] transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-600/10 to-transparent rounded-bl-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-110"></div>
         
-        <div class="space-y-3">
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#123472] rounded-full mr-3"></div>
-            <span>Frameworks modernos (React, Astro, Next.js)</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#123472] rounded-full mr-3"></div>
-            <span>E-commerce y plataformas complejas</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-700">
-            <div class="w-2 h-2 bg-[#123472] rounded-full mr-3"></div>
-            <span>Optimización SEO y performance</span>
-          </div>
+        <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-indigo-600/20 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                </svg>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
+                Desarrollo Web
+            </h2>
+            
+            <p class="text-gray-500 leading-relaxed mb-8 text-sm">
+                Desarrollamos sitios web modernos, responsivos y optimizados con tecnologías de vanguardia y SEO avanzado.
+            </p>
+            
+            <ul class="space-y-3">
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-indigo-600 rounded-full mr-3"></span>
+                    React, Astro, Next.js
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-indigo-600 rounded-full mr-3"></span>
+                    E-commerce
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 bg-indigo-600 rounded-full mr-3"></span>
+                    SEO y Performance
+                </li>
+            </ul>
         </div>
       </div>
       
     </div>
 
     <!-- Additional Value Propositions -->
-    <div class="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-      <div class="about-stat group">
-        <div class="w-12 h-12 bg-gradient-to-r rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-6 h-6 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div class="about-stat group bg-white p-6 rounded-2xl border border-gray-100 hover:border-gray-200 transition-all duration-300">
+        <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Rápido</h3>
-        <p class="text-gray-600 text-sm">Desarrollo ágil con entregas incrementales</p>
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Rápido</h3>
+        <p class="text-gray-500 text-xs">Entregas ágiles</p>
       </div>
       
-      <div class="about-stat group">
-        <div class="w-12 h-12 bg-gradient- rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-6 h-6 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      <div class="about-stat group bg-white p-6 rounded-2xl border border-gray-100 hover:border-gray-200 transition-all duration-300">
+        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Seguro</h3>
-        <p class="text-gray-600 text-sm">Implementación de mejores prácticas de seguridad</p>
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Seguro</h3>
+        <p class="text-gray-500 text-xs">Protección total</p>
       </div>
       
-      <div class="about-stat group">
-        <div class="w-12 h-12 bg-gradient-to-r rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-6 h-6 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+      <div class="about-stat group bg-white p-6 rounded-2xl border border-gray-100 hover:border-gray-200 transition-all duration-300">
+        <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Escalable</h3>
-        <p class="text-gray-600 text-sm">Arquitecturas que crecen con tu negocio</p>
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Escalable</h3>
+        <p class="text-gray-500 text-xs">Crecimiento continuo</p>
       </div>
       
-      <div class="about-stat group">
-        <div class="w-12 h-12 bg-gradient-to-r  rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-6 h-6 text-white" fill="" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+      <div class="about-stat group bg-white p-6 rounded-2xl border border-gray-100 hover:border-gray-200 transition-all duration-300">
+        <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Soporte</h3>
-        <p class="text-gray-600 text-sm">Acompañamiento continuo post-desarrollo</p>
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Soporte</h3>
+        <p class="text-gray-500 text-xs">24/7 Asistencia</p>
       </div>
     </div>
     
@@ -180,127 +198,68 @@ import scrollReveal from "scrollreveal";
   import ScrollReveal from "scrollreveal";
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Configuration for different animation types
-    const fadeInUp = {
-      distance: '60px',
-      origin: 'bottom',
-      opacity: 0,
-      duration: 800,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      reset: false,
-      cleanup: true
-    };
-
-    const fadeInLeft = {
-      distance: '80px',
-      origin: 'left',
-      opacity: 0,
-      duration: 1000,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      reset: false,
-      cleanup: true
-    };
-
-    const scaleIn = {
-      scale: 0.8,
-      opacity: 0,
-      duration: 800,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      reset: false,
-      cleanup: true
-    };
-
-    const stagger = {
-      distance: '40px',
-      origin: 'bottom',
-      opacity: 0,
-      duration: 600,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      interval: 200,
-      reset: false,
-      cleanup: true
-    };
-
-    // Apply animations
-    ScrollReveal().reveal('.about-title', fadeInUp);
-    ScrollReveal().reveal('.about-subtitle', { ...fadeInUp, delay: 200 });
-    ScrollReveal().reveal('.about-card', stagger);
-    ScrollReveal().reveal('.about-stat', { ...stagger, interval: 100, delay: 400 });
-  });
-
-  // Add hover effects and interaction enhancements
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.about-card');
-    
-    cards.forEach((card) => {
-      const gradientBg = card.querySelector('div[class*="bg-gradient"]') as HTMLElement;
-      
-      card.addEventListener('mouseenter', () => {
-        if (gradientBg) {
-          gradientBg.style.transform = 'scale(1.1) rotate(5deg)';
-        }
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        if (gradientBg) {
-          gradientBg.style.transform = 'scale(1) rotate(0deg)';
-        }
-      });
+    const sr = ScrollReveal({
+        distance: '20px',
+        duration: 800,
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        interval: 100,
+        opacity: 0,
+        scale: 0.95
     });
+
+    sr.reveal('.about-title', { origin: 'bottom', delay: 100 });
+    sr.reveal('.about-subtitle', { origin: 'bottom', delay: 200 });
+    sr.reveal('.about-card', { origin: 'bottom', interval: 150, delay: 300 });
+    sr.reveal('.about-stat', { origin: 'bottom', interval: 100, delay: 500 });
   });
 </script>
 
 <style>
-  .about-card {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+  /* Smooth text rendering */
+  h1, h2, h3, p, span {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  .about-card:hover {
-    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
-    border-color: rgba(18, 52, 114, 0.3);
+  /* Custom Animations */
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
   }
-
-  .about-stat:hover {
-    transform: translateY(-5px);
+  
+  .animate-blob {
+    animation: blob 7s infinite;
   }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .about-card:nth-child(even) {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .about-card:nth-child(odd) {
-    animation: float 6s ease-in-out infinite;
+  
+  .animation-delay-2000 {
     animation-delay: 2s;
   }
-
-  .about-title {
-    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
   }
 
-  .about-card div[class*="bg-gradient"] {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* List Item Hover Effect */
+  .about-card ul li {
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .about-card ul li:hover {
+    transform: translateX(6px);
   }
 
-  .about-stat div[class*="bg-gradient"] {
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(18, 52, 114, 0.3);
+  /* SVG Draw Animation */
+  .draw-path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: draw 1.5s ease-out forwards 0.5s;
   }
 
-  .about-stat:hover div[class*="bg-gradient"] {
-    box-shadow: 0 8px 25px rgba(18, 52, 114, 0.4);
-  }
-
-  /* Responsive enhancements */
-  @media (max-width: 768px) {
-    .about-card:nth-child(even),
-    .about-card:nth-child(odd) {
-      animation: none;
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
     }
   }
 </style>

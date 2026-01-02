@@ -3,14 +3,116 @@ import Figma from "../icons/figma";
 import Facebook from "../icons/Facebook";
 import Instagram from "../icons/Instagram";
 import Github from "../icons/Github";
+import WhatsApp from "../icons/WhatsApp.astro";
 ---
 
-<footer class="w-full h-[120px] flex items-end justify-between bg-[#121212]">
-    <a href="#" class=" text-white ml-16 mb-8 poppins-regular text-4xl"> AdagIO <span class="text-lg">&copy; {new Date().getFullYear()}</span></a>
-    <div class="flex items-center gap-4 mr-16 mb-8">
-       <a href="#"> <Facebook className="w-6 h-6" client:idle/> </a>
-       <a href="#"> <Instagram className="w-6 h-6" client:idle/> </a>
-       <a href="#"> <Figma className="w-6 h-6" client:idle/> </a>
-       <a href="#"> <Github className="w-6 h-6" client:idle/> </a>
+<footer class="w-full bg-[#0a0a0a] border-t border-white/10 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-12">
+      
+      <!-- Brand Section -->
+      <div class="lg:col-span-4 flex flex-col items-start">
+        <a href="#" class="group flex items-center gap-2 mb-6">
+            <span class="text-3xl md:text-4xl poppins-medium text-white tracking-tight">
+                Adag<span class="text-[#ffffff]">IO</span>
+            </span>
+        </a>
+        <p class="text-gray-400 poppins-light text-sm leading-relaxed max-w-md mb-8 text-pretty">
+            Desarrollo de Páginas Web, Dispositivos Electrónicos y Herramientas de Software para impulsar tu presencia digital al siguiente nivel. Innovación y tecnología a tu alcance.
+        </p>
+        <div class="flex items-center gap-4">
+            <a href="#" class="p-2 rounded-full bg-white/5 hover:bg-[#ffffff1f] text-white transition-all duration-300 hover:scale-110 group" aria-label="Facebook">
+                <Facebook className="w-5 h-5" client:idle/>
+            </a>
+            <a href="#" class="p-2 rounded-full bg-white/5 hover:bg-[#ffffff1f] text-white transition-all duration-300 hover:scale-110 group" aria-label="Instagram">
+                <Instagram className="w-5 h-5" client:idle/>
+            </a>
+            <a href="#" class="p-2 rounded-full bg-white/5 hover:bg-[#ffffff1f] text-white transition-all duration-300 hover:scale-110 group" aria-label="Figma">
+                <Figma className="w-5 h-5" client:idle/>
+            </a>
+            <a href="#" class="p-2 rounded-full bg-white/5 hover:bg-[#ffffff1f] text-white transition-all duration-300 hover:scale-110 group" aria-label="Github">
+                <Github className="w-5 h-5" client:idle/>
+            </a>
+        </div>
+      </div>
+
+      <!-- Links Section -->
+      <div class="lg:col-span-2 md:pl-4">
+        <h3 class="text-white poppins-semibold text-lg mb-6 relative inline-block">
+            Secciones
+            <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-[#ffffff]"></span>
+        </h3>
+        <ul class="flex flex-col gap-2">
+            <li><a href="#about" class="text-gray-400 hover:text-[#ffffff] hover:pl-4 transition-all duration-300 poppins-regular text-sm inline-block">About</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-[#ffffff] hover:pl-4 transition-all duration-300 poppins-regular text-sm inline-block">Services</a></li>
+            <li><a href="#portafolio" class="text-gray-400 hover:text-[#ffffff] hover:pl-4 transition-all duration-300 poppins-regular text-sm inline-block">Portafolio</a></li>
+            <li><a href="#prices" class="text-gray-400 hover:text-[#ffffff] hover:pl-4 transition-all duration-300 poppins-regular text-sm inline-block">Prices</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-[#ffffff] hover:pl-4 transition-all duration-300 poppins-regular text-sm inline-block">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white poppins-semibold text-lg mb-6 relative inline-block">
+            Contacto
+            <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-[#ffffff]"></span>
+        </h3>
+        <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2 text-gray-400 group">
+                <span class="mt-1 text-[#ff0040]">✉️</span>
+                <a href="mailto:contacto@adagio.com" class="poppins-regular text-sm hover:text-white transition-colors">contacto@adagio.com</a>
+            </div>
+            <div class="flex items-center gap-2 text-gray-400 group">
+                <span class="mt-1 text-[#ff0040]">📍</span>
+                <p class="poppins-regular text-sm">Ciudad de México, México</p>
+            </div>
+
+        </div>
+      </div>
+
+      <!-- Support / WhatsApp Section -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white poppins-semibold text-lg mb-6 relative inline-block">
+            Atención al Cliente
+            <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-[#ff0040]"></span>
+        </h3>
+        <div class="flex flex-col gap-4">
+            <p class="text-gray-400 poppins-light text-sm">
+                ¿Tienes dudas? Escríbenos directamente por WhatsApp.
+            </p>
+            <a href="https://wa.me/5215500000000" class="flex items-center justify-center gap-2 px-6 py-3 bg-white  text-[#25D366] rounded-lg transition-all duration-300 poppins-medium text-sm  shadow-lg ">
+                <WhatsApp className="w-5 h-5" /> 
+                <span>WhatsApp</span>
+            </a>
+            <div class="mt-2 p-4 bg-white/5 rounded-lg border border-white/5">
+                <p class="text-white poppins-medium text-sm mb-2 flex items-center gap-2">
+                    Horario de Atención
+                </p>
+                <div class="space-y-1">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400">Lun - Vie:</span>
+                        <span class="text-white">9:00 AM - 6:00 PM</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400">Sábados:</span>
+                        <span class="text-white">10:00 AM - 2:00 PM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-gray-500 text-xs poppins-light text-center md:text-left">
+            &copy; {new Date().getFullYear()} AdagIO. Todos los derechos reservados.
+        </p>
+        <div class="flex gap-6">
+            <a href="#" class="text-gray-500 hover:text-white text-xs poppins-light transition-colors">Privacidad</a>
+            <a href="#" class="text-gray-500 hover:text-white text-xs poppins-light transition-colors">Términos</a>
+        </div>
+    </div>
+  </div>
 </footer>

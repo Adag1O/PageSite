@@ -1,26 +1,103 @@
-<div id="ContactoForm" class="bg-white w-full flex flex-col items-center py-26  ">
+<div id="ContactoForm" class="bg-white w-full flex flex-col items-center py-24 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
+        <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-100 blur-3xl"></div>
+        <div class="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-red-50 blur-3xl"></div>
+    </div>
 
-    <div class="flex items-start flex-col md:flex-row justify-center gap-10  w-full md:w-[80%]">
-        <div class="flex flex-col gap-3 w-full md:w-1/2 items-center">
-            <h1 class="text-5xl font-medium md:ml-10 mt-4">🚀</h1>
-            <h1 class="text-2xl font-medium md:ml-10 mt-8 text-center md:text-left">Ponte en contacto con nosotros hoy mismo</h1>
-            <p class="md:ml-10 md:w-[60%] mt-4 w-[90%] text-medium md:text-base font-normal text-gray-600 text-justify">Si tienes alguna pregunta o necesitas ayuda con algo, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
+    <div class="flex items-start flex-col lg:flex-row justify-center gap-16 w-full max-w-7xl px-6 lg:px-8 relative z-10">
+        <!-- Left Column: Info -->
+        <div class="flex flex-col gap-6 w-full lg:w-1/2 items-start">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-50 text-4xl shadow-sm mb-2">
+                🚀
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+                Ponte en contacto con nosotros hoy mismo
+            </h2>
+            <p class="text-lg text-gray-600 leading-relaxed text-pretty">
+                Si tienes alguna pregunta o necesitas ayuda con tu próximo gran proyecto, no dudes en escribirnos. Estamos aquí para convertir tus ideas en realidad digital.
+            </p>
+            
+            <div class="mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-100 w-full">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                    <span class="text-green-500">●</span> Tiempo de respuesta
+                </h3>
+                <p class="text-gray-600 text-sm">
+                    Nos tomamos muy en serio tu tiempo. Nuestro equipo suele responder a todas las consultas en un plazo de <span class="font-semibold text-gray-900">24 horas hábiles</span>.
+                </p>
+            </div>
         </div>
-        <form name="Contact" method="POST" class="flex flex-col gap-4 items-center justify-center w-full md:w-1/2" data-netlify="true" action="/">
-            <div class="flex flex-col gap-2 md:w-[100%] w-[85%]  ">
-                <label for="Nombre" class="text-lg font-medium">Nombre</label>
-                <input  required type="text" id="Nombre" placeholder="Nombre Completo" name="Nombre" class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
-            </div>
-            <div class="flex flex-col gap-3 md:w-[100%] w-[85%]">
-                <label for="CorreoElectronico" class="text-lg font-medium">Email</label>
-                <input required type="email" id="CorreoElectronico" placeholder="Correo Electronico" name="CorreoElectronico"  class="bg-gray-500/10 rounded-md p-3 w-[90%] font-light text-sm"/>
 
+        <!-- Right Column: Form -->
+        <form name="Contact" method="POST" class="flex flex-col gap-6 w-full lg:w-1/2 bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100" data-netlify="true" action="/">
+            
+            <div class="flex flex-col gap-2">
+                <label for="Nombre" class="text-sm font-medium text-gray-700">Nombre Completo <span class="text-red-500">*</span></label>
+                <input 
+                    required 
+                    type="text" 
+                    id="Nombre" 
+                    name="Nombre" 
+                    placeholder="Ej. Juan Pérez" 
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                />
             </div>
-            <div class="flex flex-col gap-3 md:w-[100%] w-[85%]">        
-                <label for="Mensaje" class="text-lg font-medium">Mensaje</label>
-                <textarea required id="Mensaje" placeholder="Escribe tu mensaje" name="Mensaje" class="bg-gray-500/10 resize-none rounded-md p-3 w-[90%] h-[150px] font-light text-sm"></textarea>
+
+            <div class="flex flex-col gap-2">
+                <label for="type" class="text-sm font-medium text-gray-700">Tipo de Proyecto <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <select 
+                        required 
+                        name="type" 
+                        id="type" 
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 text-gray-900 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer"
+                    >
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="tienda-linea">Tienda en Línea (E-commerce)</option>
+                        <option value="pagina-web">Página Web Corporativa</option>
+                        <option value="herramientas">Herramientas Digitales / Software</option>
+                        <option value="electronica">Dispositivos Electrónicos / IoT</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="bg-gray-900 text-white rounded-md p-2 md:w-[70%] w-[85%] mt-3 font-medium">Enviar</button>
+
+            <div class="flex flex-col gap-2">
+                <label for="CorreoElectronico" class="text-sm font-medium text-gray-700">Correo Electrónico <span class="text-red-500">*</span></label>
+                <input 
+                    required 
+                    type="email" 
+                    id="CorreoElectronico" 
+                    name="CorreoElectronico" 
+                    placeholder="tu@correo.com" 
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                />
+            </div>
+
+            <div class="flex flex-col gap-2">        
+                <label for="Mensaje" class="text-sm font-medium text-gray-700">Mensaje <span class="text-red-500">*</span></label>
+                <textarea 
+                    required 
+                    id="Mensaje" 
+                    name="Mensaje" 
+                    placeholder="Cuéntanos más sobre tu proyecto..." 
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 h-[150px] text-gray-900 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                ></textarea>
+            </div>
+
+            <button 
+                type="submit" 
+                class="w-full bg-[#121212] hover:bg-black text-white font-medium rounded-xl p-4 mt-2 transition-all duration-300 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
+            >
+                Enviar Mensaje
+            </button>
+            
+            <p class="text-xs text-center text-gray-400 mt-2">
+                Al enviar este formulario aceptas nuestra política de privacidad.
+            </p>
         </form>
     </div>
 </div>

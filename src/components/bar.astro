@@ -4,11 +4,12 @@
 
 <nav
   id="navbar"
-  class="sticky top-2 z-[20] flex items-center h-[70px] justify-between rounded-md  bg-transparent transition-all duration-500"
+  class="sticky top-5 z-[20] my-5 flex items-center h-[60px] sm:h-[70px] justify-between rounded-md transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] mx-auto w-[95%] sm:w-[80%]"
+  data-scrolled="false"
 >
   <h1
     id="navbar-title"
-    class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl poppins-semibold transition-all duration-500"
+    class="text-xl sm:text-3xl md:text-4xl lg:text-5xl poppins-semibold transition-all duration-500"
   >
     <span id="name1" class="text-[#123472] m-0 p-0">Adag</span><span
       id="name2"
@@ -16,60 +17,72 @@
   </h1>
   <a
     id="contacto"
-    class="text-white bg-black px-4 py-2 rounded-lg text-base sm:text-lg md:text-xl font-semibold transition-colors duration-500 whitespace-nowrap"
+    class="text-white bg-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-lg md:text-xl font-semibold transition-colors duration-500 whitespace-nowrap cursor-pointer hover:bg-gray-800"
   >
     Contacto
   </a>
 </nav>
+
+<style>
+  @reference "../styles/global.css";
+
+  /* Default State (Top) */
+  nav {
+    background-color: transparent;
+  }
+
+  /* Default margins */
+  nav #navbar-title {
+    @apply max-sm:ml-8 ml-6;
+  }
+
+  nav #contacto {
+    @apply max-sm:mr-8 mr-6;
+  }
+
+  /* Scrolled State */
+  nav[data-scrolled="true"] {
+    @apply bg-gray-500/20 backdrop-blur-xs shadow-sm gap-2 sm:gap-3;
+    /* Responsive widths for pill shape */
+    @apply w-[60%] sm:w-[60%] md:w-[35%] lg:w-[30%];
+  }
+
+  /* Title adjustments */
+  nav[data-scrolled="true"] #navbar-title {
+    @apply max-sm:ml-8 ml-6;
+  }
+
+  /* Contact button adjustments */
+  nav[data-scrolled="true"] #contacto {
+    @apply max-sm:mr-8 mr-6;
+  }
+</style>
+
 <script>
-const nav = document.getElementById("navbar") as HTMLElement;
-const title = document.getElementById("navbar-title") as HTMLElement;
-const contacto = document.getElementById("contacto") as HTMLElement;
-nav.style.transition = "width 0.7s cubic-bezier(0.4,0,0.2,1)";
-window.addEventListener('DOMContentLoaded',() =>{
-  const scrolled = window.scrollY > 10;
-  const atTop = window.scrollY === 0;
-  console.log({ scrolled, atTop, scrollY: window.scrollY, widthClasses: nav.className });
-})
-window.addEventListener("scroll", () => {
-  const scrolled = window.scrollY > 10;
-  const atTop = window.scrollY === 0;
-  console.log({ scrolled, atTop, scrollY: window.scrollY, widthClasses: nav.className });
-  nav.classList.toggle("w-[80%]", atTop);
+  const nav = document.getElementById("navbar");
+  
+  if (nav) {
+    const updateNav = () => {
+      const scrolled = window.scrollY > 10;
+      // Only update if the state changes to avoid unnecessary DOM writes
+      if (nav.getAttribute('data-scrolled') !== scrolled.toString()) {
+        nav.setAttribute("data-scrolled", scrolled.toString());
+      }
+    };
 
-  // Remove all width classes before applying the correct one
-  nav.classList.remove("w-[80%]", "max-sm:w-[80%]", "sm:w-[60%]", "md:w-[35%]", "lg:w-[30%]");
-  if (atTop) {
-    nav.classList.add("w-[80%]");
-  } else if (scrolled) {
-    if (window.innerWidth < 640) {
-      nav.classList.add("max-sm:w-[80%]");
-    } else if (window.innerWidth < 1024) {
-      nav.classList.add("sm:w-[60%]");
-    } else if (window.innerWidth < 1280) {
-      nav.classList.add("md:w-[35%]");
-    } else {
-      nav.classList.add("lg:w-[30%]");
-    }
+    // Initial check
+    updateNav();
+
+    // Optimized scroll listener using requestAnimationFrame
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateNav();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
   }
-  // Always keep top-2 for sticky
-  nav.classList.remove("top-5", "top-10", "max-sm:top-5");
-  nav.classList.add("top-2");
-
-
-  if(scrolled){
-    nav.classList.add("max-sm:w:[80]","sm:w-[60%]","md");
-  } else {
-    nav.classList.remove("top-5");
-  }
-  nav.classList.toggle("bg-transparent", !scrolled);
-  nav.classList.toggle("max-sm:top-5", !scrolled);
-  nav.classList.toggle("backdrop-blur-xs", scrolled);
-  nav.classList.toggle("bg-gray-500/20", scrolled);
-  nav.classList.toggle("gap-3", scrolled);
-  nav.classList.toggle("shadow-lg", scrolled);
-  title.classList.toggle("ml-2", scrolled);
-  contacto.classList.toggle("mr-2", scrolled);
-
-});
 </script>

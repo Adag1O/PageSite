@@ -1,196 +1,288 @@
 ---
 import scrollReveal from "scrollreveal";
+import AWS from './icons/AWS.astro';
+import GCP from './icons/GCP.astro';
+import Shopify from './icons/Shopify.astro';
+import Wordpress from './icons/Wordpress.astro';
+import Odoo from './icons/Odoo.astro';
 ---
-<div class="w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-20 py-16 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-  <div class="w-full max-w-7xl bg-white/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 shadow-xl border border-white/20">
+<div class="w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-20 py-24 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 overflow-hidden">
+  <div class="w-full max-w-7xl bg-white/80 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-10 lg:p-16 shadow-2xl border border-white/40 relative">
+    
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
     <!-- Header Section -->
-    <div class="text-center mb-12 lg:mb-16"> 
-      <div class="inline-block mb-4">
-        <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent text-sm font-semibold uppercase tracking-wider">
+    <div class="text-center mb-16 lg:mb-20 relative z-10"> 
+      <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-6">
+        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-xs sm:text-sm font-bold uppercase tracking-widest">
           Nuestros Servicios
         </span>
       </div>
-      <h1 class="info text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-        Qué servicios pueden <br class="hidden sm:block"> 
-        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          ayudar a tu negocio
+      <h1 class="info text-4xl sm:text-5xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
+        Soluciones que <br class="hidden sm:block"> 
+        <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          transforman negocios
         </span>
       </h1>
-      <p class="info text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        Soluciones integrales y personalizadas para impulsar tu negocio al siguiente nivel
+      <p class="info text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+        Combinamos estrategia, diseño y tecnología para crear experiencias digitales que generan resultados reales.
       </p>
     </div>
     
     <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-20 relative z-10">
       <!-- Service 1: Dispositivos Electrónicos -->
       <div class="services group">
-        <div class="relative bg-gradient-to-br from-purple-50 to-purple-100/80 rounded-2xl p-8 h-full min-h-[350px] border border-purple-200/50 hover:border-purple-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
-          <!-- Background Pattern -->
-          <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500 rounded-full -translate-y-16 translate-x-16"></div>
-            <div class="absolute bottom-0 left-0 w-24 h-24 bg-purple-400 rounded-full translate-y-12 -translate-x-12"></div>
-          </div>
+        <div class="relative bg-white rounded-3xl p-8 h-full min-h-[380px] border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden group-hover:border-purple-200">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <!-- Icon -->
-          <div class="relative z-10 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="relative z-10 mb-8">
+            <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-purple-600 transition-all duration-500">
+              <svg class="w-7 h-7 text-purple-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
             </div>
           </div>
           
           <div class="relative z-10">
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 group-hover:text-purple-700 transition-colors duration-300">
-              Dispositivos Electrónicos
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-purple-700 transition-colors duration-300">
+              Digital Kiosk
             </h3>
-            <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-6">
-              Desarrollamos dispositivos electrónicos con alta conectividad, modularidad y seguridad, 
-              ideales para negocios que buscan optimizar y facilitar su trabajo diario.
+            <p class="text-gray-600 leading-relaxed mb-6">
+              PreVenta de Kioskos Publicitarios o Propositos Especificos.
             </p>
-          
+            <ul class="space-y-2">
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
+                    Pantallas Táctiles Interactivas
+                </li>
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
+                    Gestión de Contenido Remoto
+                </li>
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
+                    Diseño Personalizado
+                </li>
+            </ul>
           </div>
         </div>
       </div>
 
       <!-- Service 2: Rediseño Web -->
       <div class="services group">
-        <div class="relative bg-gradient-to-br from-green-50 to-emerald-100/80 rounded-2xl p-8 h-full min-h-[350px] border border-green-200/50 hover:border-green-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
-          <!-- Background Pattern -->
-          <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 right-0 w-28 h-28 bg-green-500 rounded-full -translate-y-12 translate-x-12"></div>
-            <div class="absolute bottom-0 left-0 w-36 h-36 bg-emerald-400 rounded-full translate-y-18 -translate-x-18"></div>
-          </div>
+        <div class="relative bg-white rounded-3xl p-8 h-full min-h-[380px] border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden group-hover:border-emerald-200">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <!-- Icon -->
-          <div class="relative z-10 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="relative z-10 mb-8">
+            <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-emerald-600 transition-all duration-500">
+              <svg class="w-7 h-7 text-emerald-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"/>
               </svg>
             </div>
           </div>
           
           <div class="relative z-10">
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 group-hover:text-green-700 transition-colors duration-300">
-              Rediseño de Contenido Web
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">
+              Diseño Web UI/UX
             </h3>
-            <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-6">
-              Mejoramos el diseño, rendimiento y usabilidad de tu sitio web para ofrecer una experiencia 
-              atractiva y eficiente que convierta visitantes en clientes.
+            <p class="text-gray-600 leading-relaxed mb-6">
+              Creamos experiencias web cautivadoras y funcionales. Optimizamos cada interacción para maximizar la conversión y retención.
             </p>
-            
+            <ul class="space-y-2">
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></span>
+                    Landing Pages
+                </li>
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></span>
+                    Sitios Corporativos
+                </li>
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></span>
+                    Optimización SEO
+                </li>
+            </ul>
           </div>
         </div>
       </div>
 
       <!-- Service 3: Desarrollo de Apps -->
       <div class="services group">
-        <div class="relative bg-gradient-to-br from-rose-50 to-pink-100/80 rounded-2xl p-8 h-full min-h-[350px] border border-rose-200/50 hover:border-rose-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
-          <!-- Background Pattern -->
-          <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 left-0 w-32 h-32 bg-rose-500 rounded-full -translate-y-16 -translate-x-16"></div>
-            <div class="absolute bottom-0 right-0 w-24 h-24 bg-pink-400 rounded-full translate-y-12 translate-x-12"></div>
-          </div>
+        <div class="relative bg-white rounded-3xl p-8 h-full min-h-[380px] border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden group-hover:border-blue-200">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <!-- Icon -->
-          <div class="relative z-10 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="relative z-10 mb-8">
+            <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-blue-600 transition-all duration-500">
+              <svg class="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
               </svg>
             </div>
           </div>
           
           <div class="relative z-10">
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 group-hover:text-rose-700 transition-colors duration-300">
-              Desarrollo de Aplicaciones
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-700 transition-colors duration-300">
+              Desarrollo de Apps
             </h3>
-            <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-6">
-              Creamos aplicaciones móviles y web que te permiten controlar tus procesos de forma remota, 
-              impulsando la productividad y conectividad de tu negocio.
+            <p class="text-gray-600 leading-relaxed mb-6">
+              Aplicaciones nativas y multiplataforma robustas y escalables. Llevamos tu negocio al bolsillo de tus clientes.
             </p>
-
+            <div class="flex gap-3 mt-4">
+                <div class="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100" title="AWS">
+                    <AWS class="w-6 h-6" />
+                </div>
+                <div class="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded border border-gray-100" title="Google Cloud">
+                    <GCP class="w-6 h-6" />
+                </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Service 4: E-commerce -->
       <div class="services group">
-        <div class="relative bg-gradient-to-br from-amber-50 to-yellow-100/80 rounded-2xl p-8 h-full min-h-[400px] border border-amber-200/50 hover:border-amber-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
-          <!-- Background Pattern -->
-          <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 right-0 w-40 h-40 bg-amber-500 rounded-full -translate-y-20 translate-x-20"></div>
-            <div class="absolute bottom-0 left-0 w-32 h-32 bg-yellow-400 rounded-full translate-y-16 -translate-x-16"></div>
-          </div>
+        <div class="relative bg-white rounded-3xl p-8 h-full min-h-[380px] border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden group-hover:border-amber-200">
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <!-- Icon -->
-          <div class="relative z-10 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="relative z-10 mb-8">
+            <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-amber-600 transition-all duration-500">
+              <svg class="w-7 h-7 text-amber-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
               </svg>
             </div>
           </div>
           
           <div class="relative z-10">
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 group-hover:text-amber-700 transition-colors duration-300">
-              E-commerce & Plataformas
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-amber-700 transition-colors duration-300">
+              E-commerce
             </h3>
-            <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-6">
-              Diseñamos tiendas en línea y plataformas de servicios para potenciar tus ventas, 
-              con experiencia de usuario excepcional e integración de métodos de pago seguros.
+            <p class="text-gray-600 leading-relaxed mb-6">
+              Tiendas online de alto rendimiento. Integramos las mejores plataformas para maximizar tus ventas.
             </p>
             
-            <!-- Payment Icons -->
-            <div class="flex gap-3 mb-6">
-             
-              <svg  class="w-[35px] h-[35px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 150 104" {...Astro.props}><path fill="#0A0080" d="M150 49.027c0-26.944-33.685-48.87-75-48.87-41.501 0-75 21.926-75 48.87v2.787c0 28.616 29.404 51.843 75 51.843 45.968 0 75-23.227 75-51.843v-2.787Z"/><path fill="#2ABCFF" d="M147.022 49.027c0 25.457-32.196 46.083-72.022 46.083-39.826 0-72.022-20.626-72.022-46.083C2.978 23.57 35.174 2.944 75 2.944c39.826.186 72.022 20.626 72.022 46.083Z"/><path fill="#fff" d="M50.993 34.533s-.745.743-.373 1.487c1.117 1.486 4.653 2.23 8.189 1.486 2.047-.557 4.839-2.601 7.444-4.645 2.792-2.23 5.583-4.46 8.56-5.389 2.979-.93 4.84-.558 6.142-.186 1.49.372 2.978 1.3 5.584 3.345 5.024 3.716 24.751 20.997 28.101 23.97 2.792-1.3 15.075-6.503 31.638-10.22-1.117-8.919-6.514-17.095-14.702-23.784-11.353 4.831-25.31 7.247-39.082.557 0 0-7.444-3.53-14.702-3.345-10.794.186-15.447 5.017-20.472 9.849l-6.327 6.875Z"/><path fill="#fff" d="M114.082 56.274c-.186-.186-23.263-20.44-28.474-24.342-2.978-2.23-4.653-2.788-6.514-3.16-.93-.185-2.233 0-3.163.372-2.42.744-5.584 2.788-8.375 5.017-2.978 2.416-5.77 4.46-8.189 5.017-3.163.93-7.258 0-9.119-1.114-.744-.558-1.303-1.115-1.489-1.673-.744-1.486.559-2.787.745-2.973l6.327-6.875 2.233-2.23c-2.047.186-3.908.743-5.769 1.3-2.233.558-4.466 1.302-6.7 1.302-.93 0-5.955-.744-6.885-1.115-5.77-1.487-10.794-3.16-18.425-6.69C11.166 25.8 5.211 34.161 3.536 43.452c1.303.372 3.35.93 4.28 1.115 20.472 4.46 26.8 9.291 28.102 10.22 1.303-1.3 2.978-2.23 5.025-2.23 2.233 0 4.28 1.115 5.583 2.974 1.117-.93 2.792-1.673 4.839-1.673.93 0 1.86.186 2.977.558a6.83 6.83 0 0 1 4.095 3.716c.744-.372 1.675-.557 2.791-.557 1.117 0 2.233.185 3.35.743 3.722 1.672 4.28 5.389 4.094 8.176h.745c4.466 0 8.189 3.716 8.189 8.176 0 1.3-.373 2.601-.931 3.902 1.303.743 4.28 2.23 7.072 1.858 2.233-.186 2.978-.929 3.35-1.486.186-.372.372-.558.186-.93l-5.77-6.503s-.93-.93-.558-1.3c.373-.372.93.185 1.303.557 2.978 2.415 6.514 6.132 6.514 6.132s.372.557 1.675.743c1.116.186 3.163 0 4.652-1.115.373-.372.745-.743.93-1.115 1.49-1.858-.185-3.716-.185-3.716l-6.7-7.619s-.93-.929-.558-1.3c.372-.372.93.185 1.302.557a253.206 253.206 0 0 1 8.003 7.619c.558.371 3.164 2.044 6.513-.186 2.048-1.301 2.42-2.973 2.42-4.274-.186-1.672-1.489-2.787-1.489-2.787l-9.305-9.291s-.93-.744-.558-1.301c.372-.372.93.186 1.302.557 2.978 2.416 10.98 9.663 10.98 9.663.186 0 2.792 2.044 6.328-.186 1.303-.743 2.047-1.858 2.047-3.345-.372-2.044-2.047-3.53-2.047-3.53Z"/><path fill="#fff" d="M69.417 67.98c-1.489 0-2.978.744-3.164.744-.186 0 0-.558.186-.93.186-.371 2.047-5.946-2.605-7.99-3.536-1.486-5.583.186-6.328.93-.186.185-.372.185-.372 0 0-.93-.558-3.717-3.536-4.646-4.28-1.3-7.072 1.672-7.816 2.787-.373-2.415-2.42-4.46-5.025-4.46a5 5 0 0 0-5.025 5.018 5 5 0 0 0 5.025 5.017c1.303 0 2.605-.558 3.536-1.487v.186c-.186 1.3-.559 5.76 4.094 7.619 1.861.743 3.536.186 4.839-.744.372-.371.372-.185.372.186-.186 1.115 0 3.717 3.536 5.017 2.605 1.115 4.28 0 5.21-.929.373-.371.56-.371.56.372.185 3.345 2.977 5.946 6.327 5.946 3.536 0 6.327-2.787 6.327-6.318.186-3.344-2.605-6.132-6.141-6.318Z"/><path fill="#0A0080" d="M115.012 53.858c-7.072-6.132-23.635-20.44-27.915-23.785-2.606-1.858-4.28-2.973-5.77-3.344-.744-.186-1.674-.372-2.791-.372s-2.42.186-3.536.558c-2.792.929-5.77 3.158-8.56 5.388l-.187.186c-2.605 2.044-5.21 4.088-7.258 4.646-.93.185-1.861.371-2.605.371-2.234 0-4.28-.743-5.025-1.672-.186-.186 0-.372.186-.744l6.141-7.06c4.839-4.832 9.492-9.477 20.1-9.663h.558c6.7 0 13.213 2.973 13.958 3.345 6.327 2.973 12.655 4.46 19.168 4.46 6.7 0 13.586-1.673 21.03-5.018-.744-.743-1.675-1.3-2.605-2.044-6.328 2.787-12.469 4.088-18.425 4.088-5.955 0-12.096-1.486-17.866-4.274-.372-.186-7.63-3.53-15.26-3.53h-.558c-8.933.186-13.958 3.344-17.308 6.132-3.35 0-6.142.929-8.747 1.672-2.233.558-4.28 1.115-6.142 1.115h-2.233c-2.233 0-13.213-2.787-21.96-6.132-.93.557-1.675 1.3-2.605 2.044 9.119 3.716 20.285 6.69 23.82 6.875.931 0 2.048.186 2.979.186 2.233 0 4.652-.557 6.885-1.3 1.303-.372 2.792-.744 4.28-1.116l-1.302 1.301-6.328 6.876c-.558.557-1.674 1.858-.93 3.53.372.743.93 1.3 1.675 1.858 1.489.93 4.28 1.673 6.7 1.673.93 0 1.86 0 2.605-.372 2.606-.557 5.397-2.787 8.375-5.203 2.42-1.858 5.77-4.274 8.188-5.017.745-.186 1.675-.372 2.234-.372h.558c1.675.186 3.35.744 6.328 2.973 5.21 3.903 28.287 24.157 28.473 24.343 0 0 1.489 1.3 1.303 3.344 0 1.115-.744 2.23-1.861 2.974-.93.557-2.047.929-2.978.929-1.488 0-2.605-.744-2.605-.744s-8.002-7.247-10.98-9.662c-.372-.372-.93-.744-1.303-.744-.186 0-.372.186-.558.372-.372.557 0 1.3.744 1.858l9.305 9.291s1.117 1.115 1.303 2.416c0 1.486-.744 2.787-2.233 3.902-1.117.743-2.233 1.115-3.35 1.115-1.489 0-2.42-.557-2.605-.743l-1.303-1.301c-2.42-2.416-4.839-4.831-6.7-6.318-.372-.371-.93-.743-1.303-.743-.186 0-.372 0-.558.186-.186.186-.372.743.186 1.3a2.3 2.3 0 0 0 .372.558l6.7 7.618s1.303 1.673.186 3.16l-.186.37-.558.558c-1.117.93-2.606 1.115-3.35 1.115h-.93c-.745-.186-1.117-.371-1.303-.557-.373-.372-3.722-3.902-6.514-6.132-.372-.372-.744-.743-1.303-.743-.186 0-.372 0-.558.185-.558.558.372 1.487.558 1.859l5.77 6.317s0 .186-.186.372c-.187.372-.931.93-2.978 1.3h-.745c-2.233 0-4.466-1.114-5.583-1.672.559-1.115.745-2.415.745-3.716 0-4.645-3.908-8.548-8.561-8.548h-.372c.186-2.23-.186-6.317-4.28-7.99-1.117-.557-2.42-.743-3.537-.743-.93 0-1.86.186-2.605.557-.93-1.672-2.233-2.973-4.28-3.53-1.117-.372-2.048-.558-3.164-.558-1.675 0-3.35.558-4.839 1.487-1.303-1.672-3.536-2.787-5.583-2.787-1.861 0-3.722.743-5.211 2.044-1.861-1.301-8.933-5.947-27.916-10.22-.93-.186-2.977-.744-4.28-1.115-.186 1.115-.372 2.044-.558 3.159 0 0 3.536.929 4.28.929 19.355 4.274 25.868 8.733 26.985 9.662a7.446 7.446 0 0 0-.558 2.787c0 4.089 3.35 7.247 7.258 7.247.372 0 .93 0 1.303-.185.558 2.973 2.605 5.203 5.397 6.317.93.372 1.675.558 2.605.558.558 0 1.117 0 1.675-.186.558 1.3 1.861 3.159 4.466 4.274.931.372 1.861.557 2.792.557.745 0 1.489-.185 2.233-.371 1.303 3.159 4.467 5.389 8.003 5.389 2.233 0 4.466-.93 6.141-2.602 1.303.743 4.28 2.23 7.258 2.23h1.117c2.978-.372 4.28-1.487 4.839-2.416.186-.186.186-.371.372-.557.744.186 1.489.371 2.233.371 1.675 0 3.164-.557 4.653-1.672 1.489-1.115 2.605-2.601 2.791-4.088.559.186 1.117.186 1.489.186 1.675 0 3.35-.558 4.839-1.487 2.977-2.044 3.536-4.46 3.536-6.132.558.186 1.116.186 1.675.186 1.489 0 2.977-.557 4.466-1.3a6.49 6.49 0 0 0 3.164-5.018c.186-1.486-.186-2.787-.931-4.088 5.025-2.23 16.378-6.318 29.963-9.29 0-1.116-.186-2.045-.372-3.16-16.191 2.974-28.288 8.176-31.452 9.477ZM69.417 80.244c-3.164 0-5.77-2.415-5.956-5.574 0-.186 0-.93-.558-.93-.186 0-.372.187-.744.372-.745.558-1.675 1.301-2.792 1.301-.558 0-1.302-.186-1.86-.371-3.35-1.301-3.35-3.717-3.165-4.646 0-.186 0-.557-.186-.743l-.186-.186h-.186c-.186 0-.372 0-.558.186-1.117.743-2.047 1.115-2.978 1.115-.558 0-1.116-.186-1.675-.372-4.466-1.672-4.094-5.946-3.908-7.061 0-.186 0-.372-.186-.557l-.372-.186-.373.371c-.93.744-2.047 1.301-3.163 1.301-2.606 0-4.653-2.044-4.653-4.645 0-2.602 2.047-4.646 4.653-4.646 2.233 0 4.28 1.672 4.466 3.902l.186 1.301.745-1.115c0-.186 1.86-2.973 5.397-2.973.558 0 1.302.186 2.047.372 2.791.743 3.164 3.344 3.164 4.273 0 .558.558.558.558.558.186 0 .372-.186.558-.186.559-.557 1.675-1.486 3.35-1.486.745 0 1.675.185 2.606.557 4.28 1.858 2.419 7.247 2.419 7.433-.372.929-.372 1.3 0 1.486h.372c.186 0 .372 0 .745-.186.558-.185 1.489-.557 2.233-.557 3.164 0 5.955 2.602 5.955 5.946 0 3.345-2.605 5.946-5.955 5.946Z"/></svg>
-            <svg  class="w-[35px] h-[35px]" xmlns="http://www.w3.org/2000/svg" viewBox="7.056000232696533 3 37.35095977783203 45" {...Astro.props}><g xmlns="http://www.w3.org/2000/svg" clip-path="url(#a)"><path fill="#002991" d="M38.914 13.35c0 5.574-5.144 12.15-12.927 12.15H18.49l-.368 2.322L16.373 39H7.056l5.605-36h15.095c5.083 0 9.082 2.833 10.555 6.77a9.687 9.687 0 0 1 .603 3.58z"></path><path fill="#60CDFF" d="M44.284 23.7A12.894 12.894 0 0 1 31.53 34.5h-5.206L24.157 48H14.89l1.483-9 1.75-11.178.367-2.322h7.497c7.773 0 12.927-6.576 12.927-12.15 3.825 1.974 6.055 5.963 5.37 10.35z"></path><path fill="#008CFF" d="M38.914 13.35C37.31 12.511 35.365 12 33.248 12h-12.64L18.49 25.5h7.497c7.773 0 12.927-6.576 12.927-12.15z"></path></g></svg>
-            <svg  class="w-[35px] h-[35px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 214" {...Astro.props}><path fill="#635BFF" d="M512 110.08c0-36.409-17.636-65.138-51.342-65.138c-33.85 0-54.33 28.73-54.33 64.854c0 42.808 24.179 64.426 58.88 64.426c16.925 0 29.725-3.84 39.396-9.244v-28.445c-9.67 4.836-20.764 7.823-34.844 7.823c-13.796 0-26.027-4.836-27.591-21.618h69.547c0-1.85.284-9.245.284-12.658m-70.258-13.511c0-16.071 9.814-22.756 18.774-22.756c8.675 0 17.92 6.685 17.92 22.756zm-90.31-51.627c-13.939 0-22.899 6.542-27.876 11.094l-1.85-8.818h-31.288v165.83l35.555-7.537l.143-40.249c5.12 3.698 12.657 8.96 25.173 8.96c25.458 0 48.64-20.48 48.64-65.564c-.142-41.245-23.609-63.716-48.498-63.716m-8.534 97.991c-8.391 0-13.37-2.986-16.782-6.684l-.143-52.765c3.698-4.124 8.818-6.968 16.925-6.968c12.942 0 21.902 14.506 21.902 33.137c0 19.058-8.818 33.28-21.902 33.28M241.493 36.551l35.698-7.68V0l-35.698 7.538zm0 10.809h35.698v124.444h-35.698zm-38.257 10.524L200.96 47.36h-30.72v124.444h35.556V87.467c8.39-10.951 22.613-8.96 27.022-7.396V47.36c-4.551-1.707-21.191-4.836-29.582 10.524m-71.112-41.386l-34.702 7.395l-.142 113.92c0 21.05 15.787 36.551 36.836 36.551c11.662 0 20.195-2.133 24.888-4.693V140.8c-4.55 1.849-27.022 8.391-27.022-12.658V77.653h27.022V47.36h-27.022zM35.982 83.484c0-5.546 4.551-7.68 12.09-7.68c10.808 0 24.461 3.272 35.27 9.103V51.484c-11.804-4.693-23.466-6.542-35.27-6.542C19.2 44.942 0 60.018 0 85.192c0 39.252 54.044 32.995 54.044 49.92c0 6.541-5.688 8.675-13.653 8.675c-11.804 0-26.88-4.836-38.827-11.378v33.849c13.227 5.689 26.596 8.106 38.827 8.106c29.582 0 49.92-14.648 49.92-40.106c-.142-42.382-54.329-34.845-54.329-50.774"/></svg>
-          
-
+            <div class="flex flex-wrap gap-3 mb-4">
+                <div class="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100 hover:border-amber-200 transition-colors">
+                    <Shopify class="w-5 h-5" />
+                    <span class="text-xs font-medium text-gray-600">Shopify</span>
+                </div>
+                <div class="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100 hover:border-amber-200 transition-colors">
+                    <Wordpress class="w-5 h-5" />
+                    <span class="text-xs font-medium text-gray-600">WooCommerce</span>
+                </div>
             </div>
             
-
+            <!-- Payment Gateways -->
+            <div class="flex gap-3 items-center transition-all duration-300">
+                <!-- MercadoPago -->
+                <svg class="w-8 h-auto" viewBox="0 0 150 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#0A0080" d="M150 49.027c0-26.944-33.685-48.87-75-48.87-41.501 0-75 21.926-75 48.87v2.787c0 28.616 29.404 51.843 75 51.843 45.968 0 75-23.227 75-51.843v-2.787Z"/>
+                    <path fill="#2ABCFF" d="M147.022 49.027c0 25.457-32.196 46.083-72.022 46.083-39.826 0-72.022-20.626-72.022-46.083C2.978 23.57 35.174 2.944 75 2.944c39.826.186 72.022 20.626 72.022 46.083Z"/>
+                    <path fill="#fff" d="M50.993 34.533s-.745.743-.373 1.487c1.117 1.486 4.653 2.23 8.189 1.486 2.047-.557 4.839-2.601 7.444-4.645 2.792-2.23 5.583-4.46 8.56-5.389 2.979-.93 4.84-.558 6.142-.186 1.49.372 2.978 1.3 5.584 3.345 5.024 3.716 24.751 20.997 28.101 23.97 2.792-1.3 15.075-6.503 31.638-10.22-1.117-8.919-6.514-17.095-14.702-23.784-11.353 4.831-25.31 7.247-39.082.557 0 0-7.444-3.53-14.702-3.345-10.794.186-15.447 5.017-20.472 9.849l-6.327 6.875Z"/>
+                    <path fill="#fff" d="M114.082 56.274c-.186-.186-23.263-20.44-28.474-24.342-2.978-2.23-4.653-2.788-6.514-3.16-.93-.185-2.233 0-3.163.372-2.42.744-5.584 2.788-8.375 5.017-2.978 2.416-5.77 4.46-8.189 5.017-3.163.93-7.258 0-9.119-1.114-.744-.558-1.303-1.115-1.489-1.673-.744-1.486.559-2.787.745-2.973l6.327-6.875 2.233-2.23c-2.047.186-3.908.743-5.769 1.3-2.233.558-4.466 1.302-6.7 1.302-.93 0-5.955-.744-6.885-1.115-5.77-1.487-10.794-3.16-18.425-6.69C11.166 25.8 5.211 34.161 3.536 43.452c1.303.372 3.35.93 4.28 1.115 20.472 4.46 26.8 9.291 28.102 10.22 1.303-1.3 2.978-2.23 5.025-2.23 2.233 0 4.28 1.115 5.583 2.974 1.117-.93 2.792-1.673 4.839-1.673.93 0 1.86.186 2.977.558a6.83 6.83 0 0 1 4.095 3.716c.744-.372 1.675-.557 2.791-.557 1.117 0 2.233.185 3.35.743 3.722 1.672 4.28 5.389 4.094 8.176h.745c4.466 0 8.189 3.716 8.189 8.176 0 1.3-.373 2.601-.931 3.902 1.303.743 4.28 2.23 7.072 1.858 2.233-.186 2.978-.929 3.35-1.486.186-.372.372-.558.186-.93l-5.77-6.503s-.93-.93-.558-1.3c.373-.372.93.185 1.303.557 2.978 2.415 6.514 6.132 6.514 6.132s.372.557 1.675.743c1.116.186 3.163 0 4.652-1.115.373-.372.745-.743.93-1.115 1.49-1.858-.185-3.716-.185-3.716l-6.7-7.619s-.93-.929-.558-1.3c.372-.372.93.185 1.302.557a253.206 253.206 0 0 1 8.003 7.619c.558.371 3.164 2.044 6.513-.186 2.048-1.301 2.42-2.973 2.42-4.274-.186-1.672-1.489-2.787-1.489-2.787l-9.305-9.291s-.93-.744-.558-1.3c.372-.372.93.186 1.302.557 2.978 2.416 10.98 9.663 10.98 9.663.186 0 2.792 2.044 6.328-.186 1.303-.743 2.047-1.858 2.047-3.345-.372-2.044-2.047-3.53-2.047-3.53Z"/>
+                    <path fill="#fff" d="M69.417 67.98c-1.489 0-2.978.744-3.164.744-.186 0 0-.558.186-.93.186-.371 2.047-5.946-2.605-7.99-3.536-1.486-5.583.186-6.328.93-.186.185-.372.185-.372 0 0-.93-.558-3.717-3.536-4.646-4.28-1.3-7.072 1.672-7.816 2.787-.373-2.415-2.42-4.46-5.025-4.46a5 5 0 0 0-5.025 5.018 5 5 0 0 0 5.025 5.017c1.303 0 2.605-.558 3.536-1.487v.186c-.186 1.3-.559 5.76 4.094 7.619 1.861.743 3.536.186 4.839-.744.372-.371.372-.185.372.186-.186 1.115 0 3.717 3.536 5.017 2.605 1.115 4.28 0 5.21-.929.373-.371.56-.371.56.372.185 3.345 2.977 5.946 6.327 5.946 3.536 0 6.327-2.787 6.327-6.318.186-3.344-2.605-6.132-6.141-6.318Z"/>
+                    <path fill="#0A0080" d="M115.012 53.858c-7.072-6.132-23.635-20.44-27.915-23.785-2.606-1.858-4.28-2.973-5.77-3.344-.744-.186-1.674-.372-2.791-.372s-2.42.186-3.536.558c-2.792.929-5.77 3.158-8.56 5.388l-.187.186c-2.605 2.044-5.21 4.088-7.258 4.646-.93.185-1.861.371-2.605.371-2.234 0-4.28-.743-5.025-1.672-.186-.186 0-.372.186-.744l6.141-7.06c4.839-4.832 9.492-9.477 20.1-9.663h.558c6.7 0 13.213 2.973 13.958 3.345 6.327 2.973 12.655 4.46 19.168 4.46 6.7 0 13.586-1.673 21.03-5.018-.744-.743-1.675-1.3-2.605-2.044-6.328 2.787-12.469 4.088-18.425 4.088-5.955 0-12.096-1.486-17.866-4.274-.372-.186-7.63-3.53-15.26-3.53h-.558c-8.933.186-13.958 3.344-17.308 6.132-3.35 0-6.142.929-8.747 1.672-2.233.558-4.28 1.115-6.142 1.115h-2.233c-2.233 0-13.213-2.787-21.96-6.132-.93.557-1.675 1.3-2.605 2.044 9.119 3.716 20.285 6.69 23.82 6.875.931 0 2.048.186 2.979.186 2.233 0 4.652-.557 6.885-1.3 1.303-.372 2.792-.744 4.28-1.116l-1.302 1.301-6.328 6.876c-.558.557-1.674 1.858-.93 3.53.372.743.93 1.3 1.675 1.858 1.489.93 4.28 1.673 6.7 1.673.93 0 1.86 0 2.605-.372 2.606-.557 5.397-2.787 8.375-5.203 2.42-1.858 5.77-4.274 8.188-5.017.745-.186 1.675-.372 2.234-.372h.558c1.675.186 3.35.744 6.328 2.973 5.21 3.903 28.287 24.157 28.473 24.343 0 0 1.489 1.3 1.303 3.344 0 1.115-.744 2.23-1.861 2.974-.93.557-2.047.929-2.978.929-1.488 0-2.605-.744-2.605-.744s-8.002-7.247-10.98-9.662c-.372-.372-.93-.744-1.303-.744-.186 0-.372.186-.558.372-.372.557 0 1.3.744 1.858l9.305 9.291s1.117 1.115 1.303 2.416c0 1.486-.744 2.787-2.233 3.902-1.117.743-2.233 1.115-3.35 1.115-1.489 0-2.42-.557-2.605-.743l-1.303-1.301c-2.42-2.416-4.839-4.831-6.7-6.318-.372-.371-.93-.743-1.303-.743-.186 0-.372 0-.558.186-.186.186-.372.743.186 1.3a2.3 2.3 0 0 0 .372.558l6.7 7.618s1.303 1.673.186 3.16l-.186.37-.558.558c-1.117.93-2.606 1.115-3.35 1.115h-.93c-.745-.186-1.117-.371-1.303-.557-.373-.372-3.722-3.902-6.514-6.132-.372-.372-.744-.743-1.303-.743-.186 0-.372 0-.558.185-.558.558.372 1.487.558 1.859l5.77 6.317s0 .186-.186.372c-.187.372-.931.93-2.978 1.3h-.745c-2.233 0-4.466-1.114-5.583-1.672.559-1.115.745-2.415.745-3.716 0-4.645-3.908-8.548-8.561-8.548h-.372c.186-2.23-.186-6.317-4.28-7.99-1.117-.557-2.42-.743-3.537-.743-.93 0-1.86.186-2.605.557-.93-1.672-2.233-2.973-4.28-3.53-1.117-.372-2.048-.558-3.164-.558-1.675 0-3.35.558-4.839 1.487-1.303-1.672-3.536-2.787-5.583-2.787-1.861 0-3.722.743-5.211 2.044-1.861-1.301-8.933-5.947-27.916-10.22-.93-.186-2.977-.744-4.28-1.115-.186 1.115-.372 2.044-.558 3.159 0 0 3.536.929 4.28.929 19.355 4.274 25.868 8.733 26.985 9.662a7.446 7.446 0 0 0-.558 2.787c0 4.089 3.35 7.247 7.258 7.247.372 0 .93 0 1.303-.185.558 2.973 2.605 5.203 5.397 6.317.93.372 1.675.558 2.605.558.558 0 1.117 0 1.675-.186.558 1.3 1.861 3.159 4.466 4.274.931.372 1.861.557 2.792.557.745 0 1.489-.185 2.233-.371 1.303 3.159 4.467 5.389 8.003 5.389 2.233 0 4.466-.93 6.141-2.602 1.303.743 4.28 2.23 7.258 2.23h1.117c2.978-.372 4.28-1.487 4.839-2.416.186-.186.186-.371.372-.557.744.186 1.489.371 2.233.371 1.675 0 3.164-.557 4.653-1.672 1.489-1.115 2.605-2.601 2.791-4.088.559.186 1.117.186 1.489.186 1.675 0 3.35-.558 4.839-1.487 2.977-2.044 3.536-4.46 3.536-6.132.558.186 1.116.186 1.675.186 1.489 0 2.977-.557 4.466-1.3a6.49 6.49 0 0 0 3.164-5.018c.186-1.486-.186-2.787-.931-4.088 5.025-2.23 16.378-6.318 29.963-9.29 0-1.116-.186-2.045-.372-3.16-16.191 2.974-28.288 8.176-31.452 9.477ZM69.417 80.244c-3.164 0-5.77-2.415-5.956-5.574 0-.186 0-.93-.558-.93-.186 0-.372.187-.744.372-.745.558-1.675 1.301-2.792 1.301-.558 0-1.302-.186-1.86-.371-3.35-1.301-3.35-3.717-3.165-4.646 0-.186 0-.557-.186-.743l-.186-.186h-.186c-.186 0-.372 0-.558.186-1.117.743-2.047 1.115-2.978 1.115-.558 0-1.116-.186-1.675-.372-4.466-1.672-4.094-5.946-3.908-7.061 0-.186 0-.372-.186-.557l-.372-.186-.373.371c-.93.744-2.047 1.301-3.163 1.301-2.606 0-4.653-2.044-4.653-4.645 0-2.602 2.047-4.646 4.653-4.646 2.233 0 4.28 1.672 4.466 3.902l.186 1.301.745-1.115c0-.186 1.86-2.973 5.397-2.973.558 0 1.302.186 2.047.372 2.791.743 3.164 3.344 3.164 4.273 0 .558.558.558.558.558.186 0 .372-.186.558-.186.559-.557 1.675-1.486 3.35-1.486.745 0 1.675.185 2.606.557 4.28 1.858 2.419 7.247 2.419 7.433-.372.929-.372 1.3 0 1.486h.372c.186 0 .372 0 .745-.186.558-.185 1.489-.557 2.233-.557 3.164 0 5.955 2.602 5.955 5.946 0 3.345-2.605 5.946-5.955 5.946Z"/></svg>
+                
+                <!-- PayPal -->
+                <svg class="w-8 h-auto" viewBox="7.056000232696533 3 37.35095977783203 45" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#a)">
+                        <path fill="#002991" d="M38.914 13.35c0 5.574-5.144 12.15-12.927 12.15H18.49l-.368 2.322L16.373 39H7.056l5.605-36h15.095c5.083 0 9.082 2.833 10.555 6.77a9.687 9.687 0 0 1 .603 3.58z"/>
+                        <path fill="#60CDFF" d="M44.284 23.7A12.894 12.894 0 0 1 31.53 34.5h-5.206L24.157 48H14.89l1.483-9 1.75-11.178.367-2.322h7.497c7.773 0 12.927-6.576 12.927-12.15 3.825 1.974 6.055 5.963 5.37 10.35z"/>
+                        <path fill="#008CFF" d="M38.914 13.35C37.31 12.511 35.365 12 33.248 12h-12.64L18.49 25.5h7.497c7.773 0 12.927-6.576 12.927-12.15z"/>
+                    </g>
+                </svg>
+                
+                <!-- Stripe -->
+                <svg class="w-8 h-auto" viewBox="0 0 512 214" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#635BFF" d="M512 110.08c0-36.409-17.636-65.138-51.342-65.138c-33.85 0-54.33 28.73-54.33 64.854c0 42.808 24.179 64.426 58.88 64.426c16.925 0 29.725-3.84 39.396-9.244v-28.445c-9.67 4.836-20.764 7.823-34.844 7.823c-13.796 0-26.027-4.836-27.591-21.618h69.547c0-1.85.284-9.245.284-12.658m-70.258-13.511c0-16.071 9.814-22.756 18.774-22.756c8.675 0 17.92 6.685 17.92 22.756zm-90.31-51.627c-13.939 0-22.899 6.542-27.876 11.094l-1.85-8.818h-31.288v165.83l35.555-7.537l.143-40.249c5.12 3.698 12.657 8.96 25.173 8.96c25.458 0 48.64-20.48 48.64-65.564c-.142-41.245-23.609-63.716-48.498-63.716m-8.534 97.991c-8.391 0-13.37-2.986-16.782-6.684l-.143-52.765c3.698-4.124 8.818-6.968 16.925-6.968c12.942 0 21.902 14.506 21.902 33.137c0 19.058-8.818 33.28-21.902 33.28M241.493 36.551l35.698-7.68V0l-35.698 7.538zm0 10.809h35.698v124.444h-35.698zm-38.257 10.524L200.96 47.36h-30.72v124.444h35.556V87.467c8.39-10.951 22.613-8.96 27.022-7.396V47.36c-4.551-1.707-21.191-4.836-29.582 10.524m-71.112-41.386l-34.702 7.395l-.142 113.92c0 21.05 15.787 36.551 36.836 36.551c11.662 0 20.195-2.133 24.888-4.693V140.8c-4.55 1.849-27.022 8.391-27.022-12.658V77.653h27.022V47.36h-27.022zM35.982 83.484c0-5.546 4.551-7.68 12.09-7.68c10.808 0 24.461 3.272 35.27 9.103V51.484c-11.804-4.693-23.466-6.542-35.27-6.542C19.2 44.942 0 60.018 0 85.192c0 39.252 54.044 32.995 54.044 49.92c0 6.541-5.688 8.675-13.653 8.675c-11.804 0-26.88-4.836-38.827-11.378v33.849c13.227 5.689 26.596 8.106 38.827 8.106c29.582 0 49.92-14.648 49.92-40.106c-.142-42.382-54.329-34.845-54.329-50.774"/></svg>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Service 5: Ideas Personalizadas -->
-      <div class="services group md:col-span-2 lg:col-span-1">
-        <div class="relative bg-gradient-to-br from-sky-50 to-blue-100/80 rounded-2xl p-8 h-full min-h-[350px] border border-sky-200/50 hover:border-sky-300 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
-          <!-- Background Pattern -->
-          <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 left-0 w-36 h-36 bg-sky-500 rounded-full -translate-y-18 -translate-x-18"></div>
-            <div class="absolute bottom-0 right-0 w-28 h-28 bg-blue-400 rounded-full translate-y-14 translate-x-14"></div>
-          </div>
+      <!-- Service 5: Herramientas Digitales -->
+      <div class="services group">
+        <div class="relative bg-white rounded-3xl p-8 h-full min-h-[380px] border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden group-hover:border-cyan-200">
+          <div class="absolute inset-0 bg-gradient-to-br from-cyan-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           <!-- Icon -->
-          <div class="relative z-10 mb-6">
-            <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="relative z-10 mb-8">
+            <div class="w-14 h-14 bg-cyan-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-cyan-600 transition-all duration-500">
+              <svg class="w-7 h-7 text-cyan-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="relative z-10">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-cyan-700 transition-colors duration-300">
+              Herramientas Digitales
+            </h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+              Desarrollo de herramientas digitales a medida. Creamos extensiones para plataformas propias, navegadores y actualizamos tus aplicaciones.
+            </p>
+             <ul class="space-y-2">
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"></span>
+                    Extensiones de Navegador
+                </li>
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"></span>
+                    Plugins para Plataformas
+                </li>
+                <li class="flex items-center text-sm text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"></span>
+                    Actualización de Apps
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 6: Ideas Personalizadas -->
+      <div class="services group">
+        <div class="relative bg-white rounded-3xl p-8 h-full min-h-[380px] border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden group-hover:border-pink-200">
+          <div class="absolute inset-0 bg-gradient-to-br from-pink-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <!-- Icon -->
+          <div class="relative z-10 mb-8">
+            <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-pink-600 transition-all duration-500">
+              <svg class="w-7 h-7 text-pink-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
               </svg>
             </div>
           </div>
           
           <div class="relative z-10">
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2 group-hover:text-sky-700 transition-colors duration-300">
-              ¿Tienes una idea?
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-pink-700 transition-colors duration-300">
+              Proyectos a Medida
             </h3>
-            <p class="text-lg font-semibold text-sky-600 mb-4">
-              ¡La desarrollamos para ti!
+            <p class="text-gray-600 leading-relaxed mb-6">
+              ¿Tienes una idea única? Desarrollamos software personalizado adaptado 100% a las necesidades específicas de tu negocio.
             </p>
-            <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-6">
-              Te ayudamos a convertir tu visión en realidad, con el respaldo de un equipo profesional, 
-              tecnología de vanguardia y atención personalizada en cada paso del proceso.
-            </p>
-            
+            <div class="mt-4">
+                <span class="text-sm font-semibold text-pink-500">¡Hagámoslo realidad!</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    
+    <!-- Tech Stack Strip -->
+    <div class="border-t border-gray-100 pt-12">
+        <p class="text-center text-sm font-semibold text-gray-400 uppercase tracking-widest mb-8">Tecnologías que impulsan nuestros proyectos</p>
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            <AWS class="h-8 w-auto" />
+            <GCP class="h-8 w-auto" />
+            <Shopify class="h-8 w-auto" />
+            <Wordpress class="h-8 w-auto" />
+        </div>
     </div>
     
   </div>

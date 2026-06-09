@@ -1,0 +1,188 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bar from '../components/bar.astro';
+
+const lastUpdate = "09 de junio de 2026";
+---
+
+<Layout
+  title="Aviso de Privacidad | AdagIO"
+  description="Aviso de privacidad de AdagIO conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)."
+>
+  <Bar />
+
+  <main class="w-full bg-gray-50 min-h-screen">
+
+    <!-- Hero -->
+    <section class="w-full bg-white border-b border-gray-100 py-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-semibold uppercase tracking-widest mb-6">
+          Legal
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Aviso de Privacidad</h1>
+        <p class="text-gray-500 text-sm">Última actualización: {lastUpdate}</p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="w-full py-16 px-4">
+      <div class="max-w-3xl mx-auto">
+
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-10 text-sm text-blue-800">
+          Aviso emitido en cumplimiento de la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong> y su Reglamento, publicados en el Diario Oficial de la Federación.
+        </div>
+
+        <div class="space-y-10">
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">1. Responsable del tratamiento</h2>
+            <p class="text-gray-600 leading-relaxed">
+              <strong>AdagIO</strong>, con domicilio en Ciudad de México, México, es responsable del tratamiento de los datos personales que nos proporciones. Puedes contactarnos en <a href="mailto:privacidad@adagi0.com" class="text-[#123472] hover:underline font-semibold">privacidad@adagi0.com</a>.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">2. Datos personales que recabamos</h2>
+            <p class="text-gray-600 leading-relaxed mb-4">Podemos recabar los siguientes datos personales:</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {[
+                { title: "Datos de identificación", items: ["Nombre completo", "Correo electrónico", "Número de teléfono"] },
+                { title: "Datos de contacto", items: ["Empresa u organización", "Ciudad o estado", "Tipo de proyecto"] },
+                { title: "Datos técnicos (automáticos)", items: ["Dirección IP", "Tipo de navegador", "Páginas visitadas", "Tiempo de sesión"] },
+                { title: "Datos de formulario", items: ["Descripción de proyecto", "Presupuesto estimado", "Mensaje de contacto"] },
+              ].map(group => (
+                <div class="bg-white rounded-2xl p-5 border border-gray-100">
+                  <h3 class="font-bold text-gray-900 text-sm mb-3">{group.title}</h3>
+                  <ul class="space-y-1">
+                    {group.items.map(item => (
+                      <li class="text-gray-500 text-sm flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#123472] flex-shrink-0"></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p class="text-gray-500 text-sm mt-4">
+              <strong>No recabamos datos personales sensibles</strong> (salud, biometría, creencias religiosas, origen racial, etc.).
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">3. Finalidades del tratamiento</h2>
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-2">Finalidades primarias (necesarias para el servicio):</h3>
+                <ul class="space-y-1 text-gray-600 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Atender solicitudes de cotización, consulta o contratación de servicios.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Gestionar la relación comercial y el cumplimiento de contratos.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Enviar confirmaciones, actualizaciones y notificaciones relacionadas con tu proyecto.</li>
+                  <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Facturación y cumplimiento de obligaciones fiscales.</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-2">Finalidades secundarias (puedes oponerte):</h3>
+                <ul class="space-y-1 text-gray-600 text-sm">
+                  <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span> Envío de newsletter, novedades y promociones de AdagIO.</li>
+                  <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span> Análisis estadístico del uso del sitio web para mejorar nuestros servicios.</li>
+                  <li class="flex items-start gap-2"><span class="text-blue-500 mt-0.5">•</span> Invitaciones a eventos, webinars o lanzamientos de productos.</li>
+                </ul>
+                <p class="text-gray-400 text-xs mt-2">Para oponerte a finalidades secundarias, escríbenos a <a href="mailto:privacidad@adagi0.com" class="underline">privacidad@adagi0.com</a>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">4. Transferencias de datos</h2>
+            <p class="text-gray-600 leading-relaxed mb-4">
+              Tus datos personales pueden ser compartidos con los siguientes terceros, siempre bajo las mismas condiciones de protección:
+            </p>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="text-left p-3 font-semibold text-gray-700">Destinatario</th>
+                    <th class="text-left p-3 font-semibold text-gray-700">Finalidad</th>
+                    <th class="text-left p-3 font-semibold text-gray-700">Requiere consentimiento</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 bg-white">
+                  <tr>
+                    <td class="p-3 text-gray-600">Netlify Inc.</td>
+                    <td class="p-3 text-gray-600">Hosting y procesamiento de formularios</td>
+                    <td class="p-3 text-gray-500">No (necesario)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 text-gray-600">Google LLC</td>
+                    <td class="p-3 text-gray-600">Analytics y métricas de uso</td>
+                    <td class="p-3 text-gray-500">No (necesario)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 text-gray-600">Autoridades fiscales</td>
+                    <td class="p-3 text-gray-600">Cumplimiento de obligaciones legales</td>
+                    <td class="p-3 text-gray-500">No (obligación legal)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-gray-500 text-sm mt-3">No vendemos ni cedemos tus datos personales a terceros con fines comerciales propios.</p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">5. Derechos ARCO</h2>
+            <p class="text-gray-600 leading-relaxed mb-4">
+              Tienes derecho a <strong>Acceder, Rectificar, Cancelar u Oponerte</strong> al tratamiento de tus datos personales (derechos ARCO), así como a la portabilidad y limitación del tratamiento.
+            </p>
+            <div class="bg-gray-900 text-white rounded-2xl p-6">
+              <h3 class="font-bold mb-3">¿Cómo ejercer tus derechos?</h3>
+              <ol class="space-y-2 text-sm text-gray-300">
+                <li>1. Envía un correo a <a href="mailto:privacidad@adagi0.com" class="text-blue-400 hover:underline">privacidad@adagi0.com</a> con el asunto "Solicitud ARCO".</li>
+                <li>2. Incluye tu nombre completo, datos de contacto y una descripción clara de tu solicitud.</li>
+                <li>3. Adjunta una copia de tu identificación oficial.</li>
+                <li>4. Recibirás respuesta en un plazo máximo de <strong class="text-white">20 días hábiles</strong>.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">6. Cookies y tecnologías de rastreo</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Nuestro sitio utiliza cookies propias y de terceros para analizar el tráfico (Google Analytics) y mejorar la experiencia de usuario. Puedes desactivar las cookies desde la configuración de tu navegador, aunque esto podría limitar algunas funcionalidades del sitio.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">7. Cambios al aviso</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Podemos actualizar este Aviso de Privacidad periódicamente. Publicaremos los cambios en esta página con la fecha de actualización. Para cambios sustanciales te notificaremos por correo electrónico si tienes una relación comercial activa con nosotros.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">8. Autoridad competente</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Si consideras que tus derechos han sido vulnerados, puedes presentar una queja ante el <strong>Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)</strong> en <a href="https://home.inai.org.mx" target="_blank" rel="noopener noreferrer" class="text-[#123472] hover:underline">home.inai.org.mx</a>.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Back link -->
+        <div class="mt-16 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Volver al inicio
+          </a>
+          <span class="hidden sm:block text-gray-300">|</span>
+          <a href="/terminos" class="text-sm font-semibold text-[#123472] hover:underline">
+            Ver Términos de Uso →
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,266 @@
+# ============================================================
+#  PRODUCTION — Manual-approval-gated deploy to Netlify prod
+# ============================================================
+#
+#  Trigger A: push / merge into main or master  →  prepares
+#             the release artifact and WAITS for a human to
+#             approve the "production" GitHub Environment.
+#
+#  Trigger B: workflow_dispatch  →  lets you re-deploy any
+#             previously-merged SHA by clicking "Run workflow"
+#             in the GitHub Actions UI.
+#
+#  PRODUCTION IS NEVER DEPLOYED AUTOMATICALLY.
+# ============================================================
+
+name: 🏭 Production Deploy
+
+on:
+  # ── A: merge into main / master ───────────────────────────
+  push:
+    branches:
+      - main
+      - master
+
+  # ── B: manual re-deploy via GitHub Actions UI ─────────────
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for manual deploy"
+        required: true
+        default: "Manual production release"
+      skip_build_cache:
+        description: "Force rebuild (skip cache)"
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  # Only one production pipeline can run at a time.
+  group: production
+  cancel-in-progress: false   # never cancel a running prod deploy
+
+env:
+  NODE_VERSION: "22.12.0"
+
+jobs:
+  # ── 1. Build ───────────────────────────────────────────────
+  build:
+    name: 🔨 Build — production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    outputs:
+      artifact-name: ${{ steps.meta.outputs.artifact-name }}
+      version: ${{ steps.meta.outputs.version }}
+
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: 📦 Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: 🔍 Astro type check
+        run: npx astro check
+
+      - name: 🔍 TypeScript strict check
+        run: npx tsc --noEmit
+
+      - name: 🏗️ Production build
+        run: npx astro build
+        env:
+          NODE_ENV: production
+          PUBLIC_SITE_URL: "https://jesusvelez.xyz"
+
+      - name: 🏷️ Build metadata
+        id: meta
+        run: |
+          VERSION="${{ github.sha }}"
+          SHORT="${VERSION:0:7}"
+          DATE=$(date -u +"%Y%m%d-%H%M%S")
+          ARTIFACT="dist-prod-${DATE}-${SHORT}"
+          echo "artifact-name=$ARTIFACT" >> $GITHUB_OUTPUT
+          echo "version=$SHORT" >> $GITHUB_OUTPUT
+          echo "## 🏷️ Production Build Ready" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** \`$SHORT\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Artifact:** \`$ARTIFACT\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Built at:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "> ⏳ **Waiting for manual approval before deploying to production.**" >> $GITHUB_STEP_SUMMARY
+
+      - name: � Package build output
+        run: |
+          echo "=== dist/ contents ==="
+          ls -lR dist/
+          echo "=== .netlify/ contents ==="
+          ls -lR .netlify/ || echo ".netlify/ not found"
+          tar -czf build-output.tar.gz dist/ .netlify/
+          echo "Tarball size: $(du -sh build-output.tar.gz)"
+
+      - name: 📤 Upload production artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.artifact-name }}
+          path: build-output.tar.gz
+          retention-days: 30
+
+  # ── 2. Manual approval gate ────────────────────────────────
+  #
+  #  This job does nothing except sit inside the "production"
+  #  GitHub Environment.  The Environment's "Required reviewers"
+  #  rule will pause execution here until a human approves.
+  #
+  #  Configure reviewers at:
+  #  GitHub → Repo → Settings → Environments → production
+  # ──────────────────────────────────────────────────────────
+  await-approval:
+    name: ⏳ Await manual approval
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 1440   # 24 h window to approve
+    environment:
+      name: production       # ← this is where the approval gate lives
+
+    steps:
+      - name: ✅ Approval received
+        run: |
+          echo "Production deploy approved by: ${{ github.actor }}"
+          echo "Proceeding to deploy version: ${{ needs.build.outputs.version }}"
+
+  # ── 3. Deploy to Netlify production ────────────────────────
+  deploy-production:
+    name: 🌐 Deploy → Production
+    runs-on: ubuntu-latest
+    needs: [build, await-approval]
+    timeout-minutes: 15
+
+    steps:
+      - name: ⬇️ Checkout (for Netlify project config)
+        uses: actions/checkout@v4
+
+      - name: 📥 Download production artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact-name }}
+          path: .
+
+      - name: 📦 Extract build output
+        run: |
+          tar -xzf build-output.tar.gz
+          echo "=== dist/ ==="
+          ls -lR dist/
+          echo "=== .netlify/ ==="
+          ls -lR .netlify/ || echo ".netlify/ not found"
+
+      - name: 🟢 Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: 📦 Install Netlify CLI
+        run: npm install -g netlify-cli@26.0.1
+
+      - name: 📂 List dist contents
+        run: ls -lR dist/
+
+      - name: 🚀 Deploy to Netlify PRODUCTION
+        id: netlify
+        run: |
+          OUTPUT=$(netlify deploy \
+            --dir=dist \
+            --functions=.netlify/v1/functions \
+            --prod \
+            --no-build \
+            --site=${{ secrets.NETLIFY_SITE_ID }} \
+            --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --message="Production: ${{ needs.build.outputs.version }} (approved by ${{ github.actor }})" \
+            --json)
+          DEPLOY_URL=$(echo $OUTPUT | jq -r '.deploy_url')
+          LOGS_URL=$(echo $OUTPUT | jq -r '.logs')
+          echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "logs-url=$LOGS_URL" >> $GITHUB_OUTPUT
+          echo "## 🎉 Production Deploy Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL:** $DEPLOY_URL" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** \`${{ needs.build.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Approved by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Logs:** $LOGS_URL" >> $GITHUB_STEP_SUMMARY
+
+      # ── Health-check after deploy ─────────────────────────
+      - name: 🩺 Health check
+        run: |
+          # Check the Netlify deploy URL (always available immediately)
+          DEPLOY_URL="${{ steps.netlify.outputs.deploy-url }}"
+          CUSTOM_URL="https://jesusvelez.xyz"
+          MAX_RETRIES=5
+          RETRY_DELAY=10
+
+          echo "▶ Checking Netlify deploy URL: $DEPLOY_URL"
+          for i in $(seq 1 $MAX_RETRIES); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$DEPLOY_URL" || echo "000")
+            echo "Attempt $i/$MAX_RETRIES — HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Netlify deploy URL is healthy"
+              break
+            fi
+            if [ "$i" = "$MAX_RETRIES" ]; then
+              echo "❌ Netlify deploy URL failed after $MAX_RETRIES attempts"
+              exit 1
+            fi
+            sleep $RETRY_DELAY
+          done
+
+          # Check custom domain — warn only (DNS propagation may take time)
+          echo ""
+          echo "▶ Checking custom domain: $CUSTOM_URL"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$CUSTOM_URL" || echo "000")
+          echo "Custom domain HTTP $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Custom domain is healthy"
+          else
+            echo "⚠️ Custom domain returned HTTP $STATUS — may be a DNS/propagation issue (non-fatal)"
+            echo "⚠️ Custom domain check: HTTP $STATUS — verify DNS config in Netlify dashboard" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ── Create GitHub Release tag ─────────────────────────
+      - name: 🏷️ Create GitHub Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ needs.build.outputs.version }}';
+            const date = new Date().toISOString().split('T')[0];
+            try {
+              await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: `v${date}-${version}`,
+                name: `Production Release ${date} (${version})`,
+                body: [
+                  `## 🚀 Production Deploy`,
+                  ``,
+                  `- **Deployed by:** @${{ github.actor }}`,
+                  `- **Commit:** \`${{ github.sha }}\``,
+                  `- **URL:** ${{ steps.netlify.outputs.deploy-url }}`,
+                  `- **Reason:** ${{ github.event.inputs.reason || 'Merge to main' }}`
+                ].join('\n'),
+                draft: false,
+                prerelease: false
+              });
+            } catch(e) {
+              console.log('Release creation warning:', e.message);
+            }
+
+      # ── Notify on failure ─────────────────────────────────
+      - name: 🚨 Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Production deploy FAILED for version ${{ needs.build.outputs.version }}"
+          echo "## ❌ Production Deploy FAILED" >> $GITHUB_STEP_SUMMARY
+          echo "Check the logs and consider rolling back via Netlify dashboard." >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,300 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Bar from '../../components/bar.astro';
+import Formulario from '../../components/Formulario.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map(p => ({ params: { slug: p.id } }));
+}
+
+const { slug } = Astro.params;
+const product = await getEntry('products', slug!);
+if (!product) return Astro.redirect('/productos');
+
+const { Content } = await render(product);
+const p = product.data;
+
+// Load related products
+const allProducts = await getCollection('products');
+const related = p.related
+  ? allProducts.filter(rp => p.related!.includes(rp.id))
+  : [];
+
+// Placeholder images when no real images
+const images = p.images?.length ? p.images : [null, null, null];
+---
+
+<Layout
+  title={`${p.name} | AdagIO Productos`}
+  description={p.description}
+>
+  <Bar />
+
+  <main class="w-full bg-white">
+
+    <!-- Breadcrumb -->
+    <div class="w-full border-b border-gray-100 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-2 text-sm text-gray-500">
+        <a href="/" class="hover:text-gray-900 transition-colors">Inicio</a>
+        <span>/</span>
+        <a href="/productos" class="hover:text-gray-900 transition-colors">Productos</a>
+        <span>/</span>
+        <span class="text-gray-900 font-medium truncate">{p.name}</span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="w-full py-12 px-4">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+
+        <!-- Image Gallery -->
+        <div class="space-y-4">
+          <!-- Main image -->
+          <div id="main-img" class={`relative aspect-[4/3] bg-gradient-to-br ${p.gradient} rounded-3xl overflow-hidden flex items-center justify-center group`}>
+            {images[0] ? (
+              <img
+                id="main-img-el"
+                src={images[0]}
+                alt={p.name}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="eager"
+              />
+            ) : (
+              <div class="flex flex-col items-center gap-4 text-white/60">
+                <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d={p.icon || "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"}/>
+                </svg>
+                <span class="text-white/40 text-sm">Imagen próximamente</span>
+              </div>
+            )}
+            {p.tag && (
+              <span class={`absolute top-4 left-4 ${p.tagColor ?? 'bg-amber-500'} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg`}>
+                {p.tag}
+              </span>
+            )}
+            {!p.inStock && (
+              <div class="absolute inset-0 bg-black/50 flex items-center justify-center rounded-3xl">
+                <span class="bg-white/20 backdrop-blur text-white font-bold text-2xl px-6 py-3 rounded-2xl border border-white/30">Preventa</span>
+              </div>
+            )}
+          </div>
+
+          <!-- Thumbnails -->
+          {images.length > 1 && (
+            <div class="flex gap-3" id="thumbs">
+              {images.map((img, i) => (
+                <button
+                  class={`thumb flex-1 aspect-square rounded-xl overflow-hidden border-2 transition-all duration-200 ${i === 0 ? 'border-gray-900' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                  data-src={img ?? ''}
+                  data-idx={i}
+                >
+                  {img ? (
+                    <img src={img} alt={`${p.name} ${i + 1}`} class="w-full h-full object-cover" loading="lazy"/>
+                  ) : (
+                    <div class={`w-full h-full bg-gradient-to-br ${p.gradient} opacity-60 flex items-center justify-center`}>
+                      <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={p.icon || "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"}/>
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <!-- Video -->
+          {p.video && (
+            <div class="rounded-3xl overflow-hidden aspect-video bg-black">
+              <iframe
+                src={p.video}
+                title={`Video ${p.name}`}
+                class="w-full h-full"
+                allow="autoplay; fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          )}
+        </div>
+
+        <!-- Product Info -->
+        <div class="lg:sticky lg:top-24 space-y-6">
+          <div>
+            <span class="inline-block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{p.category}</span>
+            <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight mb-3">{p.name}</h1>
+            <p class="text-gray-600 text-lg leading-relaxed">{p.description}</p>
+          </div>
+
+          <!-- Price -->
+          <div class="flex items-end gap-3 py-4 border-y border-gray-100">
+            <span class="text-5xl font-black text-gray-900">${p.price}</span>
+            <span class="text-gray-400 mb-1 text-lg">MXN</span>
+            {p.inStock ? (
+              <span class="ml-auto flex items-center gap-1.5 text-sm font-semibold text-green-600 bg-green-50 px-3 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                Disponible
+              </span>
+            ) : (
+              <span class="ml-auto flex items-center gap-1.5 text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                Preventa
+              </span>
+            )}
+          </div>
+
+          <!-- Specs quick list -->
+          <div>
+            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Especificaciones</h3>
+            <ul class="space-y-2">
+              {p.specs.map(s => (
+                <li class="flex items-start gap-2.5 text-sm text-gray-700">
+                  <svg class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <a
+              href="#ContactoForm"
+              class={`flex-1 flex items-center justify-center gap-2 bg-gradient-to-r ${p.gradient} text-white font-bold py-4 px-6 rounded-2xl hover:opacity-90 transition-opacity shadow-lg text-base`}
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              Solicitar cotización
+            </a>
+            <a
+              href={`https://wa.me/5215512345678?text=Hola, me interesa el producto: ${encodeURIComponent(p.name)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-700 font-semibold py-4 px-5 rounded-2xl hover:border-green-500 hover:text-green-600 transition-colors text-base"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </div>
+
+          <!-- Badges -->
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            {[
+              { icon: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4", label: "Envío incluido" },
+              { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", label: "Garantía 1 año" },
+              { icon: "M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z", label: "Soporte 24/7" },
+            ].map(b => (
+              <div class="flex flex-col items-center gap-1.5 text-center p-3 bg-gray-50 rounded-2xl">
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={b.icon}/>
+                </svg>
+                <span class="text-xs font-semibold text-gray-600 leading-tight">{b.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    {p.features && p.features.length > 0 && (
+      <section class="w-full bg-gray-50 py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl font-black text-gray-900 mb-12 text-center">Características principales</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {p.features.map(f => (
+              <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
+                {f.icon && (
+                  <div class={`w-12 h-12 bg-gradient-to-br ${p.gradient} rounded-2xl flex items-center justify-center mb-4`}>
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={f.icon}/>
+                    </svg>
+                  </div>
+                )}
+                <h3 class="font-bold text-gray-900 mb-2">{f.title}</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">{f.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- MDX Content -->
+    <section class="w-full bg-white py-20 px-4">
+      <div class="max-w-3xl mx-auto prose prose-lg prose-gray
+        prose-headings:font-black prose-headings:text-gray-900
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-p:text-gray-600 prose-p:leading-relaxed
+        prose-li:text-gray-600
+        prose-strong:text-gray-900
+        prose-a:text-[#123472] prose-a:no-underline hover:prose-a:underline
+        prose-ol:space-y-2">
+        <Content />
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    {related.length > 0 && (
+      <section class="w-full bg-gray-50 py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-2xl font-black text-gray-900 mb-8">Productos relacionados</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {related.map(rp => (
+              <a href={`/productos/${rp.id}`} class="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
+                <div class={`h-32 bg-gradient-to-br ${rp.data.gradient} flex items-center justify-center`}>
+                  <svg class="w-14 h-14 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d={rp.data.icon || "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"}/>
+                  </svg>
+                </div>
+                <div class="p-5">
+                  <span class="text-xs text-gray-400 uppercase tracking-widest font-bold">{rp.data.category}</span>
+                  <h3 class="font-bold text-gray-900 mt-1 mb-1 group-hover:text-[#123472] transition-colors">{rp.data.name}</h3>
+                  <p class="text-xs text-gray-500 line-clamp-2">{rp.data.description}</p>
+                  <p class="text-lg font-black text-gray-900 mt-3">${rp.data.price} <span class="text-xs text-gray-400 font-normal">MXN</span></p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <Formulario />
+  </main>
+</Layout>
+
+<script>
+  // Thumbnail gallery switcher
+  const thumbs = document.querySelectorAll<HTMLButtonElement>('.thumb');
+  const mainImg = document.getElementById('main-img-el') as HTMLImageElement | null;
+
+  thumbs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const src = btn.dataset.src;
+      if (mainImg && src) {
+        mainImg.src = src;
+        mainImg.classList.add('opacity-0');
+        setTimeout(() => mainImg.classList.remove('opacity-0'), 50);
+      }
+      thumbs.forEach(t => t.classList.replace('border-gray-900', 'border-transparent'));
+      thumbs.forEach(t => t.classList.add('opacity-60'));
+      btn.classList.replace('border-transparent', 'border-gray-900');
+      btn.classList.remove('opacity-60');
+    });
+  });
+</script>
+
+<style>
+  img { transition: opacity 0.2s; }
+  .opacity-0 { opacity: 0; }
+</style>

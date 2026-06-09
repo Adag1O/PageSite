@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bar from '../components/bar.astro';
+import Formulario from '../components/Formulario.astro';
+
+const services = [
+  {
+    id: "web",
+    title: "Diseño Web & UI/UX",
+    tagline: "Sitios que convierten visitantes en clientes",
+    description: "Creamos experiencias web cautivadoras y funcionales. Cada proyecto arranca con un wireframe detallado y pasa por pruebas de usabilidad antes del lanzamiento.",
+    features: ["Landing Pages de alta conversión", "Sitios corporativos hasta 20 páginas", "Rediseño y optimización SEO", "Análisis de métricas con GA4"],
+    price: "Desde $5,500 MXN",
+    color: "from-emerald-500 to-teal-600",
+    icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
+  },
+  {
+    id: "apps",
+    title: "Desarrollo de Apps",
+    tagline: "Lleva tu negocio al bolsillo de tus clientes",
+    description: "Aplicaciones móviles y web nativas con React Native, Flutter o desarrollo nativo iOS/Android. Backend escalable en Node.js o NestJS con infraestructura cloud.",
+    features: ["Apps iOS & Android", "PWA y apps web progresivas", "API REST y GraphQL", "Integración de pagos y notificaciones push"],
+    price: "Desde $12,000 MXN",
+    color: "from-blue-500 to-indigo-600",
+    icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
+  },
+  {
+    id: "ecommerce",
+    title: "E-commerce",
+    tagline: "Tiendas online que venden 24/7",
+    description: "Implementamos tiendas online sobre Shopify, WooCommerce o plataformas a medida. Integramos pasarelas de pago (Mercado Pago, Stripe, PayPal) y logística.",
+    features: ["Catálogo ilimitado", "Gestión de inventario en tiempo real", "Pasarelas de pago integradas", "Panel de administración personalizado"],
+    price: "Desde $18,000 MXN",
+    color: "from-amber-500 to-orange-600",
+    icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z",
+  },
+  {
+    id: "iot",
+    title: "Dispositivos IoT & Hardware",
+    tagline: "Hardware inteligente conectado a internet",
+    description: "Diseñamos y fabricamos dispositivos IoT personalizados: sensores, actuadores, kiosks y sistemas embebidos. Desde el prototipo hasta la producción en serie.",
+    features: ["Diseño de PCB personalizado", "Firmware en C/C++ y MicroPython", "Dashboard MQTT en tiempo real", "Kiosks digitales llave en mano"],
+    price: "Desde $2,500 MXN",
+    color: "from-purple-500 to-violet-600",
+    icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+  },
+  {
+    id: "tools",
+    title: "Herramientas Digitales",
+    tagline: "Software a medida para tu operación",
+    description: "Extensiones de navegador, plugins para plataformas existentes, bots de automatización, integraciones entre sistemas y actualización de aplicaciones legacy.",
+    features: ["Extensiones Chrome/Firefox", "Automatización de procesos (RPA)", "Integraciones API de terceros", "Migración y modernización de apps"],
+    price: "Desde $3,000 MXN",
+    color: "from-cyan-500 to-sky-600",
+    icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
+  },
+  {
+    id: "custom",
+    title: "Proyectos a Medida",
+    tagline: "Tu idea, nuestra ingeniería",
+    description: "¿Tienes un proyecto que no encaja en ninguna categoría? Nos sentamos contigo, entendemos tu necesidad y construimos exactamente lo que tu negocio necesita.",
+    features: ["Sesión de discovery gratuita", "Prototipo en 2 semanas", "Metodología ágil con sprints", "Entrega iterativa con demos"],
+    price: "Cotización personalizada",
+    color: "from-pink-500 to-rose-600",
+    icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+  },
+];
+
+const process = [
+  { step: "01", title: "Discovery", description: "Sesión de 1 hora para entender tu negocio, objetivos y usuarios." },
+  { step: "02", title: "Propuesta", description: "Entregamos alcance, cronograma y presupuesto detallado en 48h." },
+  { step: "03", title: "Diseño", description: "Wireframes y prototipo interactivo aprobado por ti antes de desarrollar." },
+  { step: "04", title: "Desarrollo", description: "Sprints quincenales con demos en vivo. Tú ves el avance en tiempo real." },
+  { step: "05", title: "QA & Launch", description: "Pruebas exhaustivas, despliegue y monitoreo post-lanzamiento." },
+  { step: "06", title: "Soporte", description: "Plan de mantenimiento y soporte continuo según tu necesidad." },
+];
+---
+
+<Layout
+  title="Servicios | AdagIO - Consultoría Tecnológica"
+  description="Diseño web, desarrollo de apps, e-commerce, dispositivos IoT y proyectos a medida. Soluciones tecnológicas integrales para tu empresa."
+>
+  <Bar />
+
+  <main class="w-full">
+
+    <!-- Hero -->
+    <section class="relative w-full py-28 px-4 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none -mr-60 -mt-40"></div>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-8">
+          <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-xs font-bold uppercase tracking-widest">
+            Nuestros Servicios
+          </span>
+        </div>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 mb-6 leading-tight">
+          Soluciones que<br/>
+          <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            transforman negocios
+          </span>
+        </h1>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          Desde una landing page hasta un dispositivo IoT industrial. Cubrimos todo el espectro tecnológico con calidad y precios justos.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services grid -->
+    <section class="w-full bg-white py-20 px-4">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map(s => (
+          <div class="group bg-gray-50 border border-gray-100 rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden relative">
+            <div class={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${s.color} opacity-5 rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-10`}></div>
+
+            <div class={`w-14 h-14 bg-gradient-to-br ${s.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={s.icon}/>
+              </svg>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-1 relative z-10">{s.title}</h2>
+            <p class="text-sm font-semibold text-gray-400 mb-4 relative z-10">{s.tagline}</p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6 relative z-10">{s.description}</p>
+
+            <ul class="space-y-2 mb-8 relative z-10 flex-1">
+              {s.features.map(f => (
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <svg class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <div class="border-t border-gray-100 pt-5 flex items-center justify-between relative z-10">
+              <span class="text-sm font-bold text-gray-900">{s.price}</span>
+              <a href="#ContactoForm" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors flex items-center gap-1">
+                Cotizar
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="w-full bg-gray-50 py-24 px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Nuestro Proceso</h2>
+          <p class="text-gray-500 text-lg">Metodología clara de principio a fin.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {process.map(p => (
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+              <span class="text-5xl font-black text-gray-100 block mb-3">{p.step}</span>
+              <h3 class="text-lg font-bold text-gray-900 mb-2">{p.title}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{p.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Formulario />
+  </main>
+</Layout>

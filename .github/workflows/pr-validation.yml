@@ -1,0 +1,131 @@
+# ============================================================
+#  PR VALIDATION — Gate for Pull Requests targeting main/master
+# ============================================================
+#
+#  Trigger : pull_request opened / synchronised / reopened
+#            targeting main OR master
+#  Steps   : type-check → build → size report
+#  Result  : PR is BLOCKED if any step fails
+# ============================================================
+
+name: ✅ PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22.12.0"
+
+jobs:
+  # ── Validate ───────────────────────────────────────────────
+  validate:
+    name: 🔍 Lint · Type-check · Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: ⬇️ Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: 📦 Install dependencies
+        run: npm ci --prefer-offline
+
+      # ── Type safety ──────────────────────────────────────
+      - name: 🔍 Astro type check
+        run: npx astro check
+
+      # ── TypeScript strict check ──────────────────────────
+      - name: 🔍 TypeScript check
+        run: npx tsc --noEmit
+
+      # ── Production build ─────────────────────────────────
+      - name: 🏗️ Build (production mode)
+        run: npx astro build
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PRODUCTION_SITE_URL }}
+
+      # ── Build size report ─────────────────────────────────
+      - name: 📊 Build size report
+        run: |
+          echo "## 📊 Build Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "| Path | Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+          du -sh dist/ >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Top 10 largest files" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          find dist/ -type f | xargs ls -lSh 2>/dev/null | head -10 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # ── Post PR comment with result ───────────────────────
+      - name: 💬 Comment on PR — success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('<!-- ci-bot-pr-check -->')
+            );
+            const body = `<!-- ci-bot-pr-check -->
+            ## ✅ PR Validation Passed
+
+            | Check | Status |
+            |-------|--------|
+            | Astro type check | ✅ Passed |
+            | TypeScript strict | ✅ Passed |
+            | Production build | ✅ Passed |
+
+            > Commit: \`${{ github.sha }}\`
+            > Ready to merge into \`${{ github.base_ref }}\` 🚀
+            `;
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body
+              });
+            }
+
+      - name: 💬 Comment on PR — failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `<!-- ci-bot-pr-check -->
+            ## ❌ PR Validation Failed
+
+            The pipeline failed. Please check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+
+            > Commit: \`${{ github.sha }}\``
+            });

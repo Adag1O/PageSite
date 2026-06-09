@@ -39,14 +39,12 @@ const galleryImages = [
     <!-- Create a long scrollable container for the scroll trigger -->
     <div class="spacer" style="height: 500vh;"></div>
     
-    <!-- Fixed position image that changes based on scroll -->
-    <img 
-      id="Background" 
-      class="fixed top-0 left-0 w-full h-full object-cover z-10" 
-      style="min-width: 100vw; min-height: 100vh; will-change: transform, opacity;" 
-      src="/background/13938017-hd_1920_1080_25fps_000.avif" 
-      alt="Scrolling video frames" 
-    />
+    <!-- Canvas para renderizado de fotogramas vía GPU (sin reflow del DOM) -->
+    <canvas
+      id="Background"
+      class="fixed top-0 left-0 w-full h-full z-10"
+      style="will-change: transform;"
+    ></canvas>
     
     <!-- Overlay content -->
     <div id="overlayStart" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
@@ -115,367 +113,205 @@ const galleryImages = [
     </div>
   </div>
 
-  <!-- Loader overlay -->
-  <div id="pageLoader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white bg-opacity-95 transition-opacity duration-500">
-   <div class="loader"></div>
+  <!-- Loader overlay con barra de progreso real -->
+  <div id="pageLoader" class="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black transition-opacity duration-700">
+    <p class="text-white/60 text-xs font-medium tracking-[0.3em] uppercase mb-4">Loading</p>
+    <div class="w-48 h-0.5 bg-white/20 rounded-full overflow-hidden">
+      <div id="loaderProgress" class="h-full bg-white rounded-full" style="width:0%;transition:width 0.15s ease-out;"></div>
+    </div>
+    <p id="loaderPercent" class="text-white/40 text-xs mt-3">0%</p>
   </div>
 </DemoLayout>
 
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { FramePlayer } from "../../utils/FramePlayer";
   gsap.registerPlugin(ScrollTrigger);
 
-  // Make galleryImages available in window for modal logic
-  (window as typeof window & { galleryImages: typeof galleryImages }).galleryImages = [
-   { src: "https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg", alt: "Gallery image 1" },
-  { src: "https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg", alt: "Gallery image 2" },
-  { src: "https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg", alt: "Gallery image 3" },
-  { src: "https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg", alt: "Gallery image 4" }
+  type GalleryImage = { src: string; alt: string };
+  declare global { interface Window { galleryImages: GalleryImage[]; } }
+
+  window.galleryImages = [
+    { src: "https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg", alt: "Gallery image 1" },
+    { src: "https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg", alt: "Gallery image 2" },
+    { src: "https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg", alt: "Gallery image 3" },
+    { src: "https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg", alt: "Gallery image 4" },
   ];
 
-  // Wait for DOM to be ready
   document.addEventListener('DOMContentLoaded', () => {
-    const imgElement = document.getElementById('Background') as HTMLImageElement;
-    const overlayElement = document.getElementById('overlay') as HTMLElement;
-    const navbarElement = document.getElementById('navbar') as HTMLElement;
-    const totalFrames = 278; // Based on your available images (000-278)
-    let lastFrameNumber = -1;
-    const pageLoader = document.getElementById('pageLoader');
-    let loadedFrames = 0;
-    let loadedGallery = 0;
-    const totalGallery = window.galleryImages.length;
+    const canvas      = document.getElementById('Background') as HTMLCanvasElement;
+    const overlayEl   = document.getElementById('overlay') as HTMLElement;
+    const navbar      = document.getElementById('navbar') as HTMLElement;
+    const pageLoader  = document.getElementById('pageLoader') as HTMLElement;
+    const loaderBar   = document.getElementById('loaderProgress') as HTMLElement;
+    const loaderPct   = document.getElementById('loaderPercent') as HTMLElement;
 
-    // Preload all frames for smoother experience
-    for (let i = 0; i <= totalFrames; i++) {
-      const preloadImg = new window.Image();
-      preloadImg.src = `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, "0")}.avif`;
-      preloadImg.onload = () => {
-        loadedFrames++;
-        if (loadedFrames === totalFrames + 1 && loadedGallery === totalGallery && pageLoader) {
+    // ── FramePlayer: carga progresiva + renderizado en canvas vía RAF ─────────
+    const player = new FramePlayer(canvas, {
+      totalFrames: 278,
+      framePathFn: (i) =>
+        `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, '0')}.avif`,
+      readyThreshold: 0.12, // listo con el 12 % de frames cargados
+      onProgress: (pct) => {
+        const p = Math.round(pct * 100);
+        if (loaderBar) loaderBar.style.width = `${p}%`;
+        if (loaderPct) loaderPct.textContent  = `${p}%`;
+      },
+      onReady: () => {
+        if (pageLoader) {
           pageLoader.style.opacity = '0';
-          setTimeout(() => { pageLoader.style.display = 'none'; }, 500);
+          setTimeout(() => { pageLoader.style.display = 'none'; }, 700);
         }
-      };
-    }
-    // Preload gallery images
-    window.galleryImages.forEach(img => {
-      const preloadImg = new window.Image();
-      preloadImg.src = img.src;
-      preloadImg.onload = () => {
-        loadedGallery++;
-        if (loadedFrames === totalFrames + 1 && loadedGallery === totalGallery && pageLoader) {
-          pageLoader.style.opacity = '0';
-          setTimeout(() => { pageLoader.style.display = 'none'; }, 500);
-        }
-      };
+        initScrollAnim();
+      },
     });
+    player.init();
 
-    if (imgElement && overlayElement && navbarElement) {
-      // Set initial state for overlay - invisible and small
-      gsap.set(overlayElement, { opacity: 0 });
-      gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
-      
-      // Initialize navbar with transparent background for video section
-      gsap.set(navbarElement, { 
-        backgroundColor: "rgba(255, 255, 255, 0)"
-      });
-      
-      // Set initial text colors for transparent state
-      const navTitle = navbarElement.querySelector('h1');
-      const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
-      
-      gsap.set(navTitle, { color: "white" });
-      gsap.set(navLinks, { color: "rgba(255, 255, 255, 0.9)" });
+    // ── Animación de scroll ───────────────────────────────────────────────────
+    function initScrollAnim() {
+      if (!canvas || !overlayEl || !navbar) return;
 
-      // Create a timeline for the image sequence AND overlay control
+      gsap.set(overlayEl, { opacity: 0 });
+      gsap.set(overlayEl.querySelector('div'), { scale: 0.3 });
+      gsap.set(navbar, { backgroundColor: 'rgba(255,255,255,0)' });
+
+      const navTitle = navbar.querySelector('h1');
+      const navLinks = navbar.querySelectorAll<HTMLElement>('a:not([href="/"])');
+      gsap.set(navTitle, { color: 'white' });
+      gsap.set(navLinks, { color: 'rgba(255,255,255,0.9)' });
+
+      const navToSolid = () => {
+        gsap.to(navbar,    { backgroundColor: 'rgba(255,255,255,1)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', duration: 0.6 });
+        gsap.to(navTitle,  { color: '#111827', duration: 0.6 });
+        gsap.to(navLinks,  { color: '#4B5563', duration: 0.6 });
+      };
+      const navToTransp = () => {
+        gsap.to(navbar,    { backgroundColor: 'rgba(255,255,255,0)', boxShadow: 'none', backdropFilter: 'none', duration: 0.6 });
+        gsap.to(navTitle,  { color: 'white', duration: 0.6 });
+        gsap.to(navLinks,  { color: 'rgba(255,255,255,0.9)', duration: 0.6 });
+      };
+
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".scroll-container",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.1, // Faster response to scroll for smoother animation
+          trigger: '.scroll-container',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.1,
           onUpdate: (self) => {
-            // Calculate which frame to show based on scroll progress
-            const frame = Math.floor(self.progress * totalFrames);
-            const frameNumber = Math.min(frame, totalFrames);
-            if (frameNumber !== lastFrameNumber) {
-              lastFrameNumber = frameNumber;
-              const paddedFrame = String(frameNumber).padStart(3, "0");
-              imgElement.src = `/background/13938017-hd_1920_1080_25fps_${paddedFrame}.avif`;
-            }
-            // Error handling for blocked images
-            imgElement.onerror = function() {
-              imgElement.style.display = 'none';
-            };
-            imgElement.onload = function() {
-              imgElement.style.display = '';
-            };
-            // Control overlay visibility based on scroll progress
-            let overlayOpacity = 0;
-            let overlayScale = 0.3;
-            const progress = self.progress;
-            if (progress >= 0.4 && progress <= 0.6) {
-              const localProgress = (progress - 0.4) / 0.2;
-              overlayOpacity = localProgress;
-              overlayScale = 0.3 + (localProgress * 0.7);
-            } else if (progress > 0.6) {
-              overlayOpacity = 1;
-              overlayScale = 1;
-            }
-            gsap.set(overlayElement, { opacity: overlayOpacity });
-            gsap.set(overlayElement.querySelector('div'), { scale: overlayScale });
-            // Reset animation state if at top
-            if (window.scrollY === 0) {
-              imgElement.src = `/background/13938017-hd_1920_1080_25fps_000.avif`;
-              gsap.set(overlayElement, { opacity: 0 });
-              gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
-            }
+            // Delegar el renderizado al FramePlayer (usa RAF internamente)
+            player.seekToProgress(self.progress);
+
+            const p = self.progress;
+            let opacity = 0, scale = 0.3;
+            if (p >= 0.4 && p <= 0.6) {
+              const lp = (p - 0.4) / 0.2;
+              opacity = lp;
+              scale   = 0.3 + lp * 0.7;
+            } else if (p > 0.6) { opacity = 1; scale = 1; }
+            gsap.set(overlayEl, { opacity });
+            gsap.set(overlayEl.querySelector('div'), { scale });
           },
-          onLeave: () => {
-            // Hide video elements when scroll section ends
-            gsap.to([imgElement, overlayElement], {
-              opacity: 0,
-              duration: 0.5,
-              ease: "power2.inOut"
-            });
-            // Change navbar to solid background when video section ends
-            gsap.to(navbarElement, {
-              backgroundColor: "rgba(255, 255, 255, 1)",
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-              backdropFilter: "none",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            // Change text colors to dark for solid background
-            const navTitle = navbarElement.querySelector('h1');
-            const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
-            gsap.to(navTitle, { 
-              color: "#111827", // text-gray-900
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            gsap.to(navLinks, { 
-              color: "#4B5563", // text-gray-600
-              duration: 0.6,
-              ease: "power2.out"
-            });
-          },
-          onEnterBack: () => {
-            // Show video elements when scrolling back into section
-            gsap.to(imgElement, {
-              opacity: 1,
-              duration: 0.5,
-              ease: "power2.inOut"
-            });
-            // Change navbar back to fully transparent when in video section (no blur)
-            gsap.to(navbarElement, {
-              backgroundColor: "rgba(255, 255, 255, 0)",
-              boxShadow: "none",
-              backdropFilter: "none",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            // Change text colors back to light for transparent background
-            const navTitle = navbarElement.querySelector('h1');
-            const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
-            gsap.to(navTitle, { 
-              color: "white",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            gsap.to(navLinks, { 
-              color: "rgba(255, 255, 255, 0.9)",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            // Don't force overlay to visible - let onUpdate handle it
-          },
+          onLeave:     () => { gsap.to([canvas, overlayEl], { opacity: 0, duration: 0.5 }); navToSolid(); },
+          onEnterBack: () => { gsap.to(canvas, { opacity: 1, duration: 0.5 }); navToTransp(); },
           onLeaveBack: () => {
-            // Ensure overlay is hidden when going back to beginning
-            gsap.set(overlayElement, { opacity: 0 });
-            gsap.set(overlayElement.querySelector('div'), { scale: 0.3 });
-            // Keep navbar transparent when leaving video section backwards
-            gsap.to(navbarElement, {
-              backgroundColor: "rgba(255, 255, 255, 0)",
-              boxShadow: "none",
-              backdropFilter: "none",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            // Keep text colors light
-            const navTitle = navbarElement.querySelector('h1');
-            const navLinks = navbarElement.querySelectorAll('a:not([href="/"])');
-            gsap.to(navTitle, { 
-              color: "white",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-            gsap.to(navLinks, { 
-              color: "rgba(255, 255, 255, 0.9)",
-              duration: 0.6,
-              ease: "power2.out"
-            });
-          }
-        }
+            gsap.set(overlayEl, { opacity: 0 });
+            gsap.set(overlayEl.querySelector('div'), { scale: 0.3 });
+            navToTransp();
+          },
+        },
       });
 
-      // Optional: Add some scale animation for extra effect
-      tl.fromTo(imgElement, 
-        { scale: 1 }, 
-        { scale: 1.1, duration: 1, ease: "none" }
-      );
+      tl.fromTo(canvas, { scale: 1 }, { scale: 1.1, duration: 1, ease: 'none' });
     }
 
-    // Smooth scroll for navbar links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    // ── Smooth scroll ──────────────────────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
         const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-        const target = href ? document.querySelector(href) : null;
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+        document.querySelector(href ?? '')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // Animate gallery items when they come into view
-    const galleryItems = document.querySelectorAll('#gallery > div');
-    galleryItems.forEach((item, index) => {
-      gsap.fromTo(item, 
+    // ── Gallery: animación al hacer scroll ────────────────────────────────────
+    document.querySelectorAll<HTMLElement>('#gallery > div').forEach((item, i) => {
+      gsap.fromTo(item,
         { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          },
-          delay: index * 0.1 // Stagger animation
-        }
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: i * 0.1,
+          scrollTrigger: { trigger: item, start: 'top 80%', toggleActions: 'play none none reverse' } },
       );
     });
 
-    // Gallery modal logic
-    let currentImgIdx = 0;
-    const galleryModal = document.getElementById('galleryModal');
-    const modalImg = document.getElementById('modalImg');
+    // ── Modal de galería ───────────────────────────────────────────────────────
+    let currentIdx = 0;
+    const galleryModal  = document.getElementById('galleryModal');
+    const modalImg      = document.getElementById('modalImg') as HTMLImageElement;
     const closeModalBtn = document.getElementById('closeModalBtn');
-    const prevImgBtn = document.getElementById('prevImgBtn');
-    const nextImgBtn = document.getElementById('nextImgBtn');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const navbar = document.getElementById('navbar');
-    const galleryThumbs = document.querySelectorAll('#gallery > div');
+    const prevBtn       = document.getElementById('prevImgBtn');
+    const nextBtn       = document.getElementById('nextImgBtn');
+    const modalOverlay  = document.getElementById('modalOverlay');
+    const navbarEl      = document.getElementById('navbar');
 
-    function openModal(idx) {
-      currentImgIdx = idx;
-      if (modalImg && window.galleryImages) {
-        modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
-        modalImg.setAttribute('alt', window.galleryImages[currentImgIdx].alt);
-      }
-      if (galleryModal) {
-        galleryModal.style.opacity = '1';
-        galleryModal.style.pointerEvents = 'auto';
-      }
-      if (navbar) navbar.style.display = 'none';
+    const openModal = (idx: number) => {
+      currentIdx = idx;
+      if (modalImg) { modalImg.src = window.galleryImages[idx].src; modalImg.alt = window.galleryImages[idx].alt; }
+      if (galleryModal) { galleryModal.style.opacity = '1'; galleryModal.style.pointerEvents = 'auto'; }
+      if (navbarEl) navbarEl.style.display = 'none';
       document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      if (galleryModal) {
-        galleryModal.style.opacity = '0';
-        galleryModal.style.pointerEvents = 'none';
-      }
-      if (navbar) navbar.style.display = '';
+    };
+    const closeModal = () => {
+      if (galleryModal) { galleryModal.style.opacity = '0'; galleryModal.style.pointerEvents = 'none'; }
+      if (navbarEl) navbarEl.style.display = '';
       document.body.style.overflow = '';
-    }
-
-    function showImg(idx) {
-      currentImgIdx = idx;
-      if (modalImg && window.galleryImages) {
-        modalImg.setAttribute('src', window.galleryImages[currentImgIdx].src);
-        modalImg.setAttribute('alt', window.galleryImages[currentImgIdx].alt);
-      }
-    }
-
-    if (closeModalBtn) closeModalBtn.onclick = closeModal;
-    if (prevImgBtn) prevImgBtn.onclick = function() {
-      showImg((currentImgIdx - 1 + window.galleryImages.length) % window.galleryImages.length);
     };
-    if (nextImgBtn) nextImgBtn.onclick = function() {
-      showImg((currentImgIdx + 1) % window.galleryImages.length);
+    const showImg = (delta: number) => {
+      currentIdx = (currentIdx + delta + window.galleryImages.length) % window.galleryImages.length;
+      if (modalImg) { modalImg.src = window.galleryImages[currentIdx].src; modalImg.alt = window.galleryImages[currentIdx].alt; }
     };
-    if (modalOverlay) modalOverlay.onclick = closeModal;
-    // Add click listeners to gallery images
-    galleryThumbs.forEach((thumb, idx) => {
-      thumb.addEventListener('click', () => openModal(idx));
+
+    // Exponer openModal globalmente para los atributos onclick inline del template
+    (window as any).openModal = openModal;
+
+    closeModalBtn?.addEventListener('click', closeModal);
+    prevBtn?.addEventListener('click',      () => showImg(-1));
+    nextBtn?.addEventListener('click',      () => showImg(+1));
+    modalOverlay?.addEventListener('click', closeModal);
+    document.querySelectorAll<HTMLElement>('#gallery > div').forEach((thumb, i) => {
+      thumb.addEventListener('click', () => openModal(i));
     });
 
-    // Mobile menu logic
-    const menuBtn = document.getElementById('menuBtn');
-    const menuIcon = document.getElementById('menuIcon') as HTMLElement;
-    const navbarLinks = document.getElementById('navbarLinks') as HTMLElement;
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay') as HTMLElement;
+    // ── Menú móvil ────────────────────────────────────────────────────────────
+    const menuBtn       = document.getElementById('menuBtn');
+    const navbarLinks   = document.getElementById('navbarLinks') as HTMLElement;
+    const mobileOverlay = document.getElementById('mobileMenuOverlay') as HTMLElement;
     let menuOpen = false;
-    function toggleMenu() {
+
+    const toggleMenu = () => {
       menuOpen = !menuOpen;
       if (menuOpen) {
-        navbarLinks.classList.remove('hidden');
-        navbarLinks.classList.add('flex');
-        navbarLinks.style.flexDirection = 'column';
-        navbarLinks.style.background = 'rgba(255,255,255,0.0)';
-        navbarLinks.style.position = 'absolute';
-        navbarLinks.style.top = '100%';
-        navbarLinks.style.left = '0';
-        navbarLinks.style.width = '100vw';
-        navbarLinks.style.zIndex = '50';
-        navbarLinks.style.padding = '16px 0';
-        // Add spacing and font size to anchor tags
-        navbarLinks.querySelectorAll('a').forEach(a => {
-          a.style.margin = '12px 0';
-          a.style.fontSize = '1.1rem';
-          a.style.textAlign = 'center';
+        navbarLinks.classList.replace('hidden', 'flex');
+        Object.assign(navbarLinks.style, {
+          flexDirection: 'column', background: 'rgba(0,0,0,0.85)',
+          position: 'absolute', top: '100%', left: '0',
+          width: '100vw', zIndex: '50', padding: '16px 0',
         });
-        mobileMenuOverlay.style.background = 'rgba(0,0,0,0.05)';
-        mobileMenuOverlay.style.opacity = '1';
-        mobileMenuOverlay.style.pointerEvents = 'auto';
-        // Animate icon to X
-        menuIcon.innerHTML = '<line x1="4" y1="4" x2="20" y2="20" /><line x1="20" y1="4" x2="4" y2="20" />';
+        navbarLinks.querySelectorAll('a').forEach((a) =>
+          Object.assign(a.style, { margin: '12px 0', fontSize: '1.1rem', textAlign: 'center' }));
+        mobileOverlay.style.opacity = '1';
+        mobileOverlay.style.pointerEvents = 'auto';
       } else {
-        navbarLinks.classList.remove('flex');
-        navbarLinks.classList.add('hidden');
-        navbarLinks.style.flexDirection = '';
-        navbarLinks.style.background = '';
-        navbarLinks.style.position = '';
-        navbarLinks.style.top = '';
-        navbarLinks.style.left = '';
-        navbarLinks.style.width = '';
-        navbarLinks.style.zIndex = '';
-        navbarLinks.style.padding = '';
-        // Reset anchor styles
-        navbarLinks.querySelectorAll('a').forEach(a => {
-          a.style.margin = '';
-          a.style.fontSize = '';
-          a.style.textAlign = '';
-        });
-        mobileMenuOverlay.style.opacity = '0';
-        mobileMenuOverlay.style.pointerEvents = 'none';
-        mobileMenuOverlay.style.background = '';
-        // Animate icon to hamburger
-        menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />';
+        navbarLinks.classList.replace('flex', 'hidden');
+        ['flexDirection','background','position','top','left','width','zIndex','padding']
+          .forEach((k) => ((navbarLinks.style as any)[k] = ''));
+        navbarLinks.querySelectorAll('a').forEach((a) => { a.style.margin = ''; a.style.fontSize = ''; a.style.textAlign = ''; });
+        mobileOverlay.style.opacity = '0';
+        mobileOverlay.style.pointerEvents = 'none';
       }
-    }
-    if (menuBtn) menuBtn.onclick = toggleMenu;
-    if (mobileMenuOverlay) mobileMenuOverlay.onclick = function() {
-      if (menuOpen) toggleMenu();
     };
+
+    menuBtn?.addEventListener('click', toggleMenu);
+    mobileOverlay?.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
   });
 </script>
 
@@ -550,25 +386,3 @@ const galleryImages = [
 }
 </style>
 
-<style>
-/* HTML: <div class="loader"></div> */
-.loader {
-  width: fit-content;
-  font-size: 40px;
-  font-family: system-ui,sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #0000;
-  -webkit-text-stroke: 1px #000;
-  background: 
-    linear-gradient(-60deg,#0000 45%,#000 0 55%,#0000 0) 
-    0/300% 100% no-repeat text;
-  animation: l3 2s linear infinite;
-}
-.loader:before {
-  content: "Loading ...";
-}
-@keyframes l3 {
-  0%{background-position: 100%}
-}
-</style>

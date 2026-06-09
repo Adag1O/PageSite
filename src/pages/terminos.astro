@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bar from '../components/bar.astro';
+
+const lastUpdate = "09 de junio de 2026";
+---
+
+<Layout
+  title="Términos de Uso | AdagIO"
+  description="Términos y condiciones de uso de los servicios de AdagIO. Conoce las reglas que rigen el uso de nuestra plataforma y servicios tecnológicos."
+>
+  <Bar />
+
+  <main class="w-full bg-gray-50 min-h-screen">
+
+    <!-- Hero -->
+    <section class="w-full bg-white border-b border-gray-100 py-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-semibold uppercase tracking-widest mb-6">
+          Legal
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Términos de Uso</h1>
+        <p class="text-gray-500 text-sm">Última actualización: {lastUpdate}</p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="w-full py-16 px-4">
+      <div class="max-w-3xl mx-auto prose prose-gray prose-lg">
+
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-10 text-sm text-amber-800">
+          <strong>Importante:</strong> Al acceder y utilizar los servicios de AdagIO, aceptas los presentes Términos de Uso. Si no estás de acuerdo, te pedimos que no utilices nuestros servicios.
+        </div>
+
+        <div class="space-y-10">
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">1. Identificación</h2>
+            <p class="text-gray-600 leading-relaxed">
+              <strong>AdagIO</strong> es una empresa de consultoría tecnológica con domicilio en Ciudad de México, México. Operamos el sitio web <strong>adagi0.com</strong> y todos sus subdominios, así como los servicios de desarrollo de software, diseño web y venta de hardware electrónico descritos en nuestra plataforma.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">2. Uso aceptable</h2>
+            <p class="text-gray-600 leading-relaxed mb-4">Al utilizar nuestro sitio y servicios, aceptas:</p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-1">✓</span> Proporcionar información veraz y actualizada al solicitar cotizaciones o servicios.</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-1">✓</span> No reproducir, distribuir o modificar el contenido del sitio sin autorización escrita.</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-1">✓</span> No realizar actividades que puedan dañar, deshabilitar o sobrecargar nuestra infraestructura.</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-1">✓</span> No utilizar nuestros demos o herramientas para actividades ilegales o que violen derechos de terceros.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">3. Servicios y contratos</h2>
+            <p class="text-gray-600 leading-relaxed">
+              La información de precios publicada en el sitio es referencial. Cada proyecto se formaliza mediante una propuesta escrita y contrato específico. AdagIO se reserva el derecho de aceptar o rechazar solicitudes de servicio. Los pagos, plazos y condiciones de entrega se definen en el contrato individual de cada proyecto.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">4. Propiedad intelectual</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Todo el contenido publicado en adagi0.com — incluyendo textos, imágenes, logotipos, código de demos y diseños — es propiedad de AdagIO o se usa con licencia de sus respectivos propietarios. El código fuente y diseños desarrollados para un cliente son propiedad del cliente una vez liquidado el proyecto, salvo acuerdo en contrario.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">5. Limitación de responsabilidad</h2>
+            <p class="text-gray-600 leading-relaxed">
+              AdagIO no se hace responsable por interrupciones del servicio causadas por fuerza mayor, fallas de terceros proveedores (hosting, pasarelas de pago, servicios cloud) o mal uso del cliente. Los demos publicados en el subdominio <strong>demo.adagi0.com</strong> se proporcionan "tal cual" con fines ilustrativos y no representan compromisos de funcionalidad final.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">6. Modificaciones</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Nos reservamos el derecho de modificar estos Términos de Uso en cualquier momento. Los cambios serán publicados en esta página con la fecha de actualización. El uso continuado del sitio después de cualquier modificación constituye la aceptación de los nuevos términos.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">7. Ley aplicable</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Estos Términos se rigen por las leyes de los Estados Unidos Mexicanos. Cualquier controversia se someterá a los tribunales competentes de la Ciudad de México, renunciando expresamente a cualquier otro fuero que pudiera corresponder.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">8. Contacto</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Para dudas relacionadas con estos Términos, escríbenos a <a href="mailto:legal@adagi0.com" class="text-[#123472] hover:underline font-semibold">legal@adagi0.com</a> o utiliza el formulario de contacto en nuestra página principal.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Back link -->
+        <div class="mt-16 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Volver al inicio
+          </a>
+          <span class="hidden sm:block text-gray-300">|</span>
+          <a href="/privacidad" class="text-sm font-semibold text-[#123472] hover:underline">
+            Ver Aviso de Privacidad →
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</Layout>

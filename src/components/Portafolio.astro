@@ -210,6 +210,18 @@ const portfolioData = {
       status: "development",
       statusText: "En Desarrollo",
       type: "website"
+    },
+    {
+      id: "digital-kiosk-demo",
+      title: "Digital Kiosk",
+      description: "Demo interactivo de kiosk digital con pantalla táctil: catálogo de productos, mapa e información.",
+      category: "Hardware",
+      technologies: ["Astro", "Tailwind"],
+      url: "/Demos/Kiosk",
+      preview: true,
+      status: "live",
+      statusText: "En Vivo",
+      type: "website"
     }
   ]
 };
@@ -249,7 +261,7 @@ function getCategoryColor(category: string): string {
     'Seguridad': 'red',
     'Redes': 'green',
     'Domótica': 'purple',
-    'Hardware': 'gray'
+    'Hardware': 'indigo'
   };
   return colors[category] || 'gray';
 }
@@ -318,12 +330,11 @@ function getTechIcon(tech: string): string {
                 {item.preview ? (
                     <div class="portfolio-item group bg-gray-50 border border-gray-200 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col overflow-hidden relative">
                         <div class="relative w-full h-64 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-b border-gray-200">
-                            <iframe 
-                                src={item.url} 
+                            <iframe
+                                data-src={item.url}
                                 title={`${item.title} preview`}
-                                class="w-[400%] h-[400%] border-0 transform scale-[0.25] origin-top-left transition-all duration-700 ease-out group-hover:scale-[0.26]"
-                                loading="lazy"
-                                style="background: #ffffff; pointer-events: none;"
+                                class="lazy-iframe w-[400%] h-[400%] border-0 transform scale-[0.25] origin-top-left transition-all duration-700 ease-out group-hover:scale-[0.26]"
+                                style="background: #f9fafb; pointer-events: none;"
                             ></iframe>
                             <!-- Overlay for better visual -->
                             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/30 pointer-events-none"></div>
@@ -529,6 +540,22 @@ function getTechIcon(tech: string): string {
         }
     }
     
+    // Lazy-load iframes using IntersectionObserver
+    const iframeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const iframe = entry.target as HTMLIFrameElement;
+                const src = iframe.dataset.src;
+                if (src && !iframe.src) {
+                    iframe.src = src;
+                }
+                iframeObserver.unobserve(iframe);
+            }
+        });
+    }, { rootMargin: "200px" });
+
+    document.querySelectorAll(".lazy-iframe").forEach((el) => iframeObserver.observe(el));
+
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
         // ScrollReveal

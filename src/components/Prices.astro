@@ -1,249 +1,280 @@
 ---
-// Datos de precios organizados por categorías
 const pricingData = {
-  "Dispositivos": [
+  "Sitios Web": [
     {
-      title: "Básico",
-      description: "Ideal para prototipos y pruebas de concepto",
-      price: "2,500",
-      icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-      gradient: "from-green-500 to-emerald-500",
-      features: [
-        "Sensor básico",
-        "Microcontrolador incluido",
-        "Código fuente",
-        "1 mes de soporte"
-      ]
+      title: "Landing Page",
+      description: "Presencia digital profesional de una página",
+      price: "5,500",
+      period: "proyecto único",
+      gradient: "from-emerald-500 to-teal-500",
+      icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9",
+      features: ["Diseño responsive", "Hosting 1 año incluido", "Dominio incluido", "SSL certificado", "Formulario de contacto"],
+      notIncluded: ["CMS para contenido", "Blog"],
     },
     {
-      title: "Profesional",
-      description: "Para implementaciones comerciales",
-      price: "8,500",
-      icon: "M13 10V3L4 14h7v7l9-11h-7z",
+      title: "Corporativo",
+      description: "Sitio completo con hasta 10 páginas y CMS",
+      price: "18,000",
+      period: "proyecto único",
+      gradient: "from-blue-600 to-indigo-600",
+      icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
       isPopular: true,
-      features: [
-        "Múltiples sensores",
-        "Conectividad Wi-Fi/Bluetooth",
-        "Dashboard web incluido",
-        "6 meses de soporte"
-      ]
+      features: ["Hasta 10 páginas", "CMS editable", "SEO optimizado", "Google Analytics 4", "Responsive + accesible", "Soporte 3 meses"],
+      notIncluded: [],
     },
     {
-      title: "Empresarial",
-      description: "Soluciones industriales completas",
-      price: "15,000",
-      icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-      gradient: "from-purple-500 to-indigo-500",
-      features: [
-        "Sistema completo IoT",
-        "Análisis de datos con IA",
-        "App móvil personalizada",
-        "Soporte 24/7 por 1 año"
-      ]
-    }
+      title: "E-commerce",
+      description: "Tienda online completa lista para vender",
+      price: "35,000",
+      period: "proyecto único",
+      gradient: "from-purple-600 to-violet-600",
+      icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z",
+      features: ["Catálogo ilimitado", "Pasarelas de pago", "Panel de pedidos", "Gestión de inventario", "SEO e-commerce", "Soporte 6 meses"],
+      notIncluded: [],
+    },
   ],
   "Aplicaciones": [
     {
       title: "App Básica",
-      description: "Aplicación móvil sencilla",
+      description: "Aplicación móvil con funciones esenciales",
       price: "12,000",
+      period: "proyecto único",
+      gradient: "from-cyan-500 to-sky-500",
       icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
-      gradient: "from-blue-500 to-cyan-500",
-      features: [
-        "Android & iOS",
-        "5 pantallas incluidas",
-        "Diseño personalizado",
-        "3 meses de soporte"
-      ]
+      features: ["Android & iOS", "5 pantallas", "Diseño personalizado", "Soporte 3 meses"],
+      notIncluded: ["Base de datos", "Notificaciones push"],
     },
     {
       title: "App Premium",
-      description: "Aplicación completa con funciones avanzadas",
+      description: "App completa con backend y notificaciones",
       price: "25,000",
+      period: "proyecto único",
+      gradient: "from-blue-600 to-indigo-600",
       icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
       isPopular: true,
-      features: [
-        "Android, iOS & Web",
-        "Pantallas ilimitadas",
-        "Base de datos incluida",
-        "6 meses de soporte"
-      ]
+      features: ["Android, iOS & Web", "Pantallas ilimitadas", "Base de datos incluida", "Notificaciones push", "Soporte 6 meses"],
+      notIncluded: [],
     },
     {
-      title: "App Empresarial",
-      description: "Solución completa con IA y analytics",
+      title: "Empresarial",
+      description: "Plataforma con IA y analytics avanzado",
       price: "45,000",
+      period: "proyecto único",
+      gradient: "from-purple-600 to-violet-600",
       icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
-      gradient: "from-purple-500 to-indigo-500",
-      features: [
-        "Multiplataforma completa",
-        "IA y Machine Learning",
-        "API personalizada",
-        "Soporte 24/7 por 1 año"
-      ]
-    }
+      features: ["Multiplataforma completa", "IA y Machine Learning", "API personalizada", "Dashboard analítico", "Soporte 24/7 × 1 año"],
+      notIncluded: [],
+    },
   ],
-  "Sitios Web": [
+  "Dispositivos": [
     {
-      title: "Landing Page",
-      description: "Sitio web profesional de una página",
-      price: "5,500",
-      icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9",
-      gradient: "from-green-500 to-emerald-500",
-      features: [
-        "Diseño responsive",
-        "Hosting por 1 año",
-        "Dominio incluido",
-        "SSL certificado"
-      ]
+      title: "Básico",
+      description: "Prototipo o prueba de concepto IoT",
+      price: "2,500",
+      period: "proyecto único",
+      gradient: "from-emerald-500 to-teal-500",
+      icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+      features: ["1 sensor principal", "Microcontrolador incluido", "Código fuente", "Soporte 1 mes"],
+      notIncluded: ["Dashboard web", "Conectividad cloud"],
     },
     {
-      title: "Sitio Corporativo",
-      description: "Sitio web completo con CMS",
-      price: "18,000",
-      icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
+      title: "Profesional",
+      description: "Solución IoT comercial lista para desplegar",
+      price: "8,500",
+      period: "proyecto único",
+      gradient: "from-blue-600 to-indigo-600",
+      icon: "M13 10V3L4 14h7v7l9-11h-7z",
       isPopular: true,
-      features: [
-        "Hasta 10 páginas",
-        "CMS para contenido",
-        "SEO optimizado",
-        "Google Analytics"
-      ]
+      features: ["Múltiples sensores", "Wi-Fi / Bluetooth", "Dashboard web incluido", "OTA updates", "Soporte 6 meses"],
+      notIncluded: [],
     },
     {
-      title: "E-commerce",
-      description: "Tienda online completa",
-      price: "35,000",
-      icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z",
-      gradient: "from-purple-500 to-indigo-500",
-      features: [
-        "Catálogo ilimitado",
-        "Pagos en línea",
-        "Panel de administración",
-        "Soporte premium 6 meses"
-      ]
-    }
-  ]
+      title: "Empresarial",
+      description: "Sistema IoT industrial completo con IA",
+      price: "15,000",
+      period: "proyecto único",
+      gradient: "from-purple-600 to-violet-600",
+      icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+      features: ["Sistema IoT completo", "Análisis con IA", "App móvil personalizada", "Integración ERP/CRM", "Soporte 24/7 × 1 año"],
+      notIncluded: [],
+    },
+  ],
 };
+
+const tabs = Object.keys(pricingData);
 ---
 
-<div class="w-full bg-gray-50 flex items-center justify-center py-16"> 
-    <div class="w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-20 flex flex-col gap-16 items-center">
-        <!-- Header Section -->
-        <div class="text-center mb-8">
-            <div class="inline-block mb-4">
-                <span class="text-indigo-600 text-sm font-semibold uppercase tracking-wider">
-                    Precios Transparentes
-                </span>
-            </div>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                <span class="text-indigo-600">
-                    Servicios y Productos
-                </span>
-                <br />
-                <span class="text-gray-900">a precios accesibles</span>
-            </h1>
-            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Ofrecemos soluciones tecnológicas de calidad profesional con precios justos y transparentes
-            </p>
-        </div>
-    
-        <!-- Tab Navigation -->
-        <div class="relative mb-12">
-            <div class="flex p-1 items-center justify-center bg-gray-100 rounded-lg w-full max-w-full mx-auto overflow-x-auto">
-                <div class="flex min-w-max h-10 md:h-12 rounded-md relative overflow-hidden" id="Tab1">
-                    <div id="Indicator" class="absolute top-0 h-full bg-black rounded-md transition-all duration-300 ease-out left-0 z-0" style={`width: ${100 / Object.keys(pricingData).length}%`}></div>
-                    {Object.keys(pricingData).map((tabName, index) => (
-                        <button class={`tab-btn shrink-0 min-w-[90px] relative z-10 transition-all duration-200 ${index === 0 ? 'text-white' : 'text-gray-600'} text-xs sm:text-sm md:text-base font-medium rounded-md flex items-center justify-center px-3 py-2 whitespace-nowrap`}>
-                            <span>{tabName}</span>
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </div>
+<section class="w-full bg-white py-24 px-4" id="precios">
+  <div class="max-w-6xl mx-auto">
 
-
-    
-        <!-- Pricing Cards Container -->
-        <div class="relative w-full overflow-hidden pt-4">
-            <div id="carousel" class="flex transition-transform duration-500 ease-in-out w-full">
-                {Object.entries(pricingData).map(([category, plans]) => (
-                    <div class="min-w-full p-2 flex flex-col lg:flex-row justify-center items-stretch gap-6">
-                        {plans.map((plan) => (
-                            <div class={`w-full lg:w-1/3 bg-white border border-gray-200 rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 ${plan.isPopular ? 'hover:shadow-xl' : 'hover:shadow-lg'}`}>
-                                <div>
-                                    <div class="text-center mb-6">
-                                        <div class={`w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center ${plan.gradient ? `bg-gradient-to-r ${plan.gradient}` : 'bg-black'}`}>
-                                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={plan.icon}/>
-                                            </svg>
-                                        </div>
-                                        <h3 class="text-2xl font-bold text-gray-900 mb-2">{plan.title}</h3>
-                                        <p class="text-gray-600 text-sm mb-4">{plan.description}</p>
-                                        <div class="mb-6">
-                                            <span class="text-4xl font-bold text-gray-900">${plan.price}</span>
-                                            <span class="text-gray-600 text-sm ml-2">MXN</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="space-y-4 mb-8">
-                                        {plan.features.map((feature) => (
-                                            <div class="flex items-center">
-                                                <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                                </svg>
-                                                <span class="text-gray-700 text-sm">{feature}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                
-                                <a href="#ContactoForm" class={`w-full py-3 px-6 rounded-lg transition-colors duration-200 font-medium text-center block ${plan.isPopular ? 'bg-black hover:bg-gray-800 text-white' : 'bg-gray-900 hover:bg-gray-800 text-white'}`}>
-                                    Seleccionar Plan
-                                </a>
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
-        </div>
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-6">
+        <span class="text-indigo-600 text-xs font-bold uppercase tracking-widest">Precios Transparentes</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-5 leading-tight">
+        Servicios a precios
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> accesibles</span>
+      </h2>
+      <p class="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
+        Sin letras pequeñas. Precios fijos por proyecto, soporte incluido y entregas en tiempo.
+      </p>
     </div>
-</div>
 
+    <!-- Tab pills -->
+    <div class="flex justify-center mb-14">
+      <div class="inline-flex p-1 bg-gray-100 rounded-2xl gap-1" id="price-tabs" role="tablist">
+        {tabs.map((tab, i) => (
+          <button
+            role="tab"
+            aria-selected={i === 0 ? "true" : "false"}
+            aria-controls={`panel-${i}`}
+            id={`tab-${i}`}
+            data-idx={i}
+            class={`
+              price-tab px-5 sm:px-7 py-2.5 rounded-xl text-sm font-semibold
+              transition-all duration-300
+              ${i === 0
+                ? 'bg-white text-gray-900 shadow-sm shadow-gray-200'
+                : 'text-gray-500 hover:text-gray-800'}
+            `}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Panels -->
+    <div class="relative">
+      {Object.entries(pricingData).map(([category, plans], panelIdx) => (
+        <div
+          id={`panel-${panelIdx}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${panelIdx}`}
+          class={`price-panel grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-300
+            ${panelIdx === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute inset-0 pointer-events-none'}`}
+        >
+          {plans.map(plan => (
+            <div class={`
+              relative flex flex-col rounded-3xl overflow-hidden
+              transition-all duration-300
+              ${plan.isPopular
+                ? 'ring-2 ring-indigo-500 shadow-2xl shadow-indigo-100 scale-[1.02]'
+                : 'border border-gray-100 shadow-lg hover:shadow-xl'}
+            `}>
+              {/* Popular badge */}
+              {plan.isPopular && (
+                <div class="absolute top-0 left-0 right-0 flex justify-center -translate-y-0">
+                  <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[11px] font-bold uppercase tracking-widest px-5 py-1.5 rounded-b-xl">
+                    ⭐ Más Popular
+                  </span>
+                </div>
+              )}
+
+              {/* Gradient header */}
+              <div class={`bg-gradient-to-br ${plan.gradient} p-6 pt-8 ${plan.isPopular ? 'pt-10' : ''}`}>
+                <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={plan.icon}/>
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-black text-white mb-1">{plan.title}</h3>
+                <p class="text-white/70 text-sm">{plan.description}</p>
+              </div>
+
+              {/* Body */}
+              <div class="bg-white flex flex-col flex-1 p-6">
+                {/* Price */}
+                <div class="mb-6 pb-6 border-b border-gray-100">
+                  <div class="flex items-end gap-1">
+                    <span class="text-xs text-gray-400 mb-1.5">$</span>
+                    <span class="text-4xl font-black text-gray-900">{plan.price}</span>
+                    <span class="text-gray-400 text-sm mb-1.5 ml-1">MXN</span>
+                  </div>
+                  <span class="text-xs text-gray-400">{plan.period}</span>
+                </div>
+
+                {/* Features */}
+                <ul class="space-y-3 mb-6 flex-1">
+                  {plan.features.map(f => (
+                    <li class="flex items-start gap-2.5 text-sm text-gray-700">
+                      <svg class="w-4.5 h-4.5 text-emerald-500 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      {f}
+                    </li>
+                  ))}
+                  {plan.notIncluded && plan.notIncluded.map(f => (
+                    <li class="flex items-start gap-2.5 text-sm text-gray-400 line-through">
+                      <svg class="w-4.5 h-4.5 text-gray-300 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                      </svg>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <a
+                  href="#ContactoForm"
+                  class={`
+                    w-full flex items-center justify-center gap-2
+                    py-3.5 px-6 rounded-2xl
+                    text-sm font-bold transition-all duration-300
+                    ${plan.isPopular
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:opacity-90 shadow-lg shadow-indigo-200'
+                      : 'bg-gray-900 hover:bg-gray-700 text-white'}
+                  `}
+                >
+                  Seleccionar plan
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom note -->
+    <p class="text-center text-gray-400 text-sm mt-20">
+      ¿Tienes necesidades específicas?
+      <a href="#ContactoForm" class="text-indigo-600 font-semibold hover:underline ml-1">Cotización personalizada →</a>
+    </p>
+
+  </div>
+</section>
 
 <script>
-    const tab = document.getElementById("Tab1");
-    const indicator = document.getElementById("Indicator");
-    const carousel = document.getElementById("carousel");
+  const tabBtns = document.querySelectorAll<HTMLButtonElement>('.price-tab');
+  const panels  = document.querySelectorAll<HTMLElement>('.price-panel');
 
-    if (tab && indicator && carousel) {
-        const buttons = tab.querySelectorAll("button");
-        const totalTabs = buttons.length;
+  function activateTab(idx: number) {
+    tabBtns.forEach((btn, i) => {
+      const active = i === idx;
+      btn.setAttribute('aria-selected', String(active));
+      btn.classList.toggle('bg-white',      active);
+      btn.classList.toggle('text-gray-900', active);
+      btn.classList.toggle('shadow-sm',     active);
+      btn.classList.toggle('shadow-gray-200', active);
+      btn.classList.toggle('text-gray-500', !active);
+      btn.classList.toggle('hover:text-gray-800', !active);
+    });
 
-        buttons.forEach((button, index) => {
-            button.addEventListener("click", () => moveIndicator(index));
-        });
+    panels.forEach((panel, i) => {
+      const active = i === idx;
+      panel.classList.toggle('opacity-0',         !active);
+      panel.classList.toggle('translate-y-4',     !active);
+      panel.classList.toggle('absolute',          !active);
+      panel.classList.toggle('inset-0',           !active);
+      panel.classList.toggle('pointer-events-none',!active);
+      panel.classList.toggle('opacity-100',       active);
+      panel.classList.toggle('translate-y-0',     active);
+    });
+  }
 
-        function moveIndicator(index: number) {
-            if (indicator) {
-                indicator.style.left = `${(index * 100) / totalTabs}%`;
-            }
-
-            buttons.forEach((btn, i) => {
-                const isActive = i === index;
-                btn.classList.toggle("text-white", isActive);
-                btn.classList.toggle("text-gray-600", !isActive);
-            });
-
-            if (carousel) {
-                carousel.style.transform = `translateX(-${index * 100}%)`;
-            }
-        }
-    }
+  tabBtns.forEach((btn, i) => btn.addEventListener('click', () => activateTab(i)));
 </script>
-
-<style>
-    .tab-btn {
-        transition: color 0.2s ease;
-    }
-</style>

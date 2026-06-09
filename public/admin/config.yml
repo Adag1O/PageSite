@@ -1,0 +1,122 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: es
+
+collections:
+
+  # ─── PRODUCTOS ────────────────────────────────────────────────
+  - name: "products"
+    label: "Productos"
+    label_singular: "Producto"
+    folder: "src/content/products"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Categoría", name: "category", widget: "select",
+          options: ["Kiosks", "IoT & Sensores", "Redes", "Accesorios"] }
+      - { label: "Precio (ej: 45,000)", name: "price", widget: "string" }
+      - { label: "Precio numérico", name: "priceNumber", widget: "number", required: false }
+      - { label: "Etiqueta (ej: Nuevo)", name: "tag", widget: "string", required: false }
+      - { label: "Color etiqueta (ej: bg-green-500)", name: "tagColor", widget: "string", required: false }
+      - { label: "Descripción corta", name: "description", widget: "string" }
+      - { label: "Descripción larga", name: "longDescription", widget: "text", required: false }
+      - label: "Especificaciones"
+        name: "specs"
+        widget: "list"
+        field: { label: "Spec", name: "spec", widget: "string" }
+      - label: "Características"
+        name: "features"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Descripción", name: "description", widget: "text" }
+          - { label: "Icono SVG path", name: "icon", widget: "string", required: false }
+      - label: "Imágenes"
+        name: "images"
+        widget: "list"
+        required: false
+        field: { label: "URL imagen", name: "image", widget: "image" }
+      - { label: "Video URL", name: "video", widget: "string", required: false }
+      - { label: "En stock", name: "inStock", widget: "boolean", default: true }
+      - { label: "Gradiente (ej: from-blue-500 to-indigo-600)", name: "gradient", widget: "string", default: "from-blue-500 to-indigo-600" }
+      - label: "Productos relacionados (slugs)"
+        name: "related"
+        widget: "list"
+        required: false
+        field: { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Contenido MDX", name: "body", widget: "markdown" }
+
+  # ─── DEMOS ────────────────────────────────────────────────────
+  - name: "demos"
+    label: "Demos"
+    label_singular: "Demo"
+    folder: "src/content/demos"
+    create: true
+    delete: true
+    extension: json
+    format: json
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Ruta (ej: /LinkTree)", name: "path", widget: "string" }
+      - { label: "Descripción", name: "description", widget: "string" }
+      - { label: "Categoría", name: "category", widget: "string" }
+      - { label: "Ícono", name: "icon", widget: "select",
+          options: ["link","heart","video","grid","cart","screen","star","bolt"] }
+      - { label: "Activo", name: "active", widget: "boolean", default: true }
+      - label: "Tema visual"
+        name: "theme"
+        widget: "object"
+        fields:
+          - { label: "bg (ej: bg-blue-50)", name: "bg", widget: "string" }
+          - { label: "text (ej: text-blue-600)", name: "text", widget: "string" }
+          - { label: "border (ej: border-blue-100)", name: "border", widget: "string" }
+          - { label: "hoverText (ej: group-hover:text-blue-600)", name: "hoverText", widget: "string" }
+
+  # ─── SERVICIOS ────────────────────────────────────────────────
+  - name: "services"
+    label: "Servicios"
+    label_singular: "Servicio"
+    folder: "src/content/services"
+    create: true
+    delete: true
+    extension: json
+    format: json
+    fields:
+      - { label: "ID único", name: "id", widget: "string" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Subtítulo", name: "tagline", widget: "string" }
+      - { label: "Descripción", name: "description", widget: "text" }
+      - label: "Características"
+        name: "features"
+        widget: "list"
+        field: { label: "Característica", name: "feature", widget: "string" }
+      - { label: "Precio referencial", name: "price", widget: "string" }
+      - { label: "Gradiente CSS", name: "color", widget: "string" }
+      - { label: "Ícono SVG path", name: "icon", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", default: 0 }
+
+  # ─── CONFIGURACIÓN GENERAL ────────────────────────────────────
+  - name: "settings"
+    label: "Configuración"
+    files:
+      - label: "General"
+        name: "general"
+        file: "src/content/settings/general.json"
+        fields:
+          - { label: "Nombre del sitio", name: "siteName", widget: "string" }
+          - { label: "WhatsApp (solo números, ej: 5215512345678)", name: "whatsapp", widget: "string" }
+          - { label: "Email de contacto", name: "email", widget: "string" }
+          - { label: "Dirección", name: "address", widget: "string" }
+          - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
+          - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+          - { label: "GitHub URL", name: "github", widget: "string", required: false }

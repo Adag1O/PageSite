@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bar from '../components/bar.astro';
+import Formulario from '../components/Formulario.astro';
+
+const values = [
+  {
+    title: "Innovación",
+    description: "Adoptamos las tecnologías más recientes para entregar soluciones que marcan la diferencia.",
+    icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+    color: "from-yellow-400 to-orange-500",
+  },
+  {
+    title: "Transparencia",
+    description: "Precios claros, plazos reales y comunicación honesta en cada etapa del proyecto.",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    color: "from-green-400 to-emerald-600",
+  },
+  {
+    title: "Calidad",
+    description: "Cada línea de código, cada pieza de hardware, pasa por pruebas rigurosas antes de entregarse.",
+    icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
+    color: "from-blue-400 to-indigo-600",
+  },
+  {
+    title: "Compromiso",
+    description: "Nos convertimos en aliados estratégicos de nuestros clientes, más allá del lanzamiento.",
+    icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+    color: "from-pink-400 to-rose-600",
+  },
+];
+
+const stats = [
+  { value: "50+", label: "Proyectos entregados" },
+  { value: "3", label: "Años de experiencia" },
+  { value: "30+", label: "Clientes satisfechos" },
+  { value: "24/7", label: "Soporte técnico" },
+];
+
+const stack = [
+  "Astro", "React", "Next.js", "Node.js", "Nest.js",
+  "Tailwind CSS", "TypeScript", "AWS", "GCP", "Shopify",
+  "Raspberry Pi", "Arduino", "MQTT", "Docker",
+];
+---
+
+<Layout
+  title="Nosotros | AdagIO - Quiénes Somos"
+  description="Conoce al equipo detrás de AdagIO: consultores, diseñadores y makers apasionados por transformar negocios con tecnología."
+>
+  <Bar />
+
+  <main class="w-full">
+
+    <!-- Hero -->
+    <section class="relative w-full py-28 px-4 overflow-hidden bg-white">
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#123472]/5 rounded-full blur-3xl pointer-events-none -mr-40 -mt-40"></div>
+      <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#ff0040]/5 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20"></div>
+
+      <div class="max-w-5xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-gray-50 border border-gray-200 shadow-sm mb-8">
+          <span class="bg-gradient-to-r from-[#123472] to-[#ff0040] bg-clip-text text-transparent text-xs font-bold uppercase tracking-widest">
+            Quiénes Somos
+          </span>
+        </div>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 mb-8 leading-tight tracking-tight">
+          Tecnología con
+          <span class="text-[#123472]"> propósito</span>
+        </h1>
+        <p class="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed">
+          AdagIO es una consultora tecnológica mexicana especializada en desarrollo de software, diseño web y fabricación de hardware electrónico. Transformamos ideas en productos reales que generan impacto.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="w-full bg-gray-900 py-16 px-4">
+      <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {stats.map(s => (
+          <div>
+            <p class="text-4xl sm:text-5xl font-black text-white mb-2">{s.value}</p>
+            <p class="text-gray-400 text-sm font-medium">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="w-full bg-gray-50 py-24 px-4">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="bg-white rounded-3xl p-10 border border-gray-100 shadow-lg">
+          <div class="w-14 h-14 bg-[#123472] rounded-2xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Misión</h2>
+          <p class="text-gray-600 leading-relaxed">
+            Democratizar el acceso a la tecnología de punta para empresas de todos los tamaños, ofreciendo soluciones integrales de software y hardware que sean accesibles, escalables y de clase mundial.
+          </p>
+        </div>
+        <div class="bg-white rounded-3xl p-10 border border-gray-100 shadow-lg">
+          <div class="w-14 h-14 bg-[#ff0040] rounded-2xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Visión</h2>
+          <p class="text-gray-600 leading-relaxed">
+            Ser la empresa tecnológica de referencia en México y Latinoamérica, reconocida por la calidad de nuestros productos, la solidez de nuestros equipos y el impacto real en los negocios de nuestros clientes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="w-full bg-white py-24 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Nuestros Valores</h2>
+          <p class="text-gray-500 text-lg max-w-xl mx-auto">Los principios que guían cada decisión que tomamos.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map(v => (
+            <div class="group text-center p-8 rounded-3xl border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+              <div class={`w-16 h-16 mx-auto bg-gradient-to-br ${v.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={v.icon}/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-3">{v.title}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{v.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech stack -->
+    <section class="w-full bg-gray-50 py-20 px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-8">Stack tecnológico</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          {stack.map(t => (
+            <span class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Formulario />
+  </main>
+</Layout>

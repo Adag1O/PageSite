@@ -1,88 +1,246 @@
 ---
-
+const navLinks = [
+  { label: "Servicios",  href: "/#servicios" },
+  { label: "Productos",  href: "/productos"  },
+  { label: "Nosotros",   href: "/nosotros"   },
+  { label: "Demos",      href: "/Demos"      },
+];
 ---
 
-<nav
-  id="navbar"
-  class="sticky top-5 z-[20] my-5 flex items-center h-[60px] sm:h-[70px] justify-between rounded-md transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] mx-auto w-[95%] sm:w-[80%]"
-  data-scrolled="false"
->
-  <h1
-    id="navbar-title"
-    class="text-xl sm:text-3xl md:text-4xl lg:text-5xl poppins-semibold transition-all duration-500"
+<!-- ── Navbar ─────────────────────────────────────────────────── -->
+<header id="site-header" class="sticky top-0 z-[100] w-full">
+
+  <!-- Main bar -->
+  <nav
+    id="navbar"
+    class="
+      relative mx-auto flex items-center justify-between
+      px-5 sm:px-8
+      h-16 sm:h-[70px]
+      transition-all duration-500 ease-[cubic-bezier(.4,0,.2,1)]
+      w-full
+    "
+    data-scrolled="false"
   >
-    <span id="name1" class="text-[#123472] m-0 p-0">Adag</span><span
-      id="name2"
-      class="text-[#ff0040] m-0 p-0">IO</span>
-  </h1>
-  <a
-    id="contacto"
-    class="text-white bg-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-lg md:text-xl font-semibold transition-colors duration-500 whitespace-nowrap cursor-pointer hover:bg-gray-800"
+    <!-- ── Logo ── -->
+    <a
+      href="/"
+      id="nav-logo"
+      class="text-2xl sm:text-3xl poppins-semibold shrink-0 transition-all duration-300"
+      aria-label="AdagIO — Inicio"
+    >
+      <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span>
+    </a>
+
+    <!-- ── Desktop links ── -->
+    <ul
+      class="
+        hidden md:flex items-center gap-1
+        text-sm font-medium text-gray-700
+      "
+      role="list"
+    >
+      {navLinks.map(l => (
+        <li>
+          <a
+            href={l.href}
+            class="
+              relative px-4 py-2 rounded-lg
+              hover:bg-gray-100 hover:text-gray-900
+              transition-colors duration-200
+              nav-link
+            "
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- ── Right side ── -->
+    <div class="flex items-center gap-3">
+      <a
+        href="#ContactoForm"
+        class="
+          hidden sm:inline-flex items-center gap-1.5
+          bg-gray-900 hover:bg-[#123472]
+          text-white text-sm font-semibold
+          px-4 py-2 rounded-xl
+          transition-colors duration-300
+          shadow-sm
+        "
+      >
+        Contacto
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+
+      <!-- Hamburger -->
+      <button
+        id="menu-toggle"
+        class="
+          md:hidden flex flex-col justify-center items-center
+          w-9 h-9 rounded-lg
+          hover:bg-gray-100 transition-colors
+          gap-[5px]
+        "
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="ham-line block h-[2px] w-5 bg-gray-800 rounded-full transition-all duration-300 origin-center"></span>
+        <span class="ham-line block h-[2px] w-5 bg-gray-800 rounded-full transition-all duration-300"></span>
+        <span class="ham-line block h-[2px] w-5 bg-gray-800 rounded-full transition-all duration-300 origin-center"></span>
+      </button>
+    </div>
+
+    <!-- Scrolled underline -->
+    <span
+      id="nav-border"
+      class="absolute bottom-0 left-0 right-0 h-px bg-gray-200/0 transition-all duration-500"
+    ></span>
+  </nav>
+
+  <!-- ── Mobile menu (slide-down) ── -->
+  <div
+    id="mobile-menu"
+    class="
+      md:hidden overflow-hidden
+      max-h-0 transition-[max-height,opacity] duration-400 ease-in-out
+      opacity-0 bg-white/95 backdrop-blur-xl border-b border-gray-100
+    "
+    aria-hidden="true"
   >
-    Contacto
-  </a>
-</nav>
+    <div class="px-5 py-4 flex flex-col gap-1">
+      {navLinks.map(l => (
+        <a
+          href={l.href}
+          class="
+            mobile-nav-link
+            flex items-center justify-between
+            px-4 py-3 rounded-xl text-gray-700
+            hover:bg-gray-50 hover:text-gray-900
+            text-sm font-semibold transition-colors
+          "
+        >
+          {l.label}
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      ))}
+      <a
+        href="#ContactoForm"
+        class="
+          mobile-nav-link mt-2
+          flex items-center justify-center gap-2
+          bg-gray-900 text-white text-sm font-bold
+          py-3 px-4 rounded-xl transition-colors hover:bg-[#123472]
+        "
+      >
+        Contacto
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</header>
 
 <style>
   @reference "../styles/global.css";
 
-  /* Default State (Top) */
-  nav {
-    background-color: transparent;
+  /* Transparent at top */
+  #navbar { background: transparent; }
+
+  /* Scrolled glass state */
+  #navbar[data-scrolled="true"] {
+    @apply mx-4 sm:mx-8 lg:mx-auto lg:max-w-5xl
+           rounded-2xl px-5
+           bg-white/80 backdrop-blur-xl
+           shadow-[0_4px_30px_rgba(0,0,0,.06)]
+           border border-white/60;
+    margin-top: 8px;
+    width: calc(100% - 2rem);
   }
 
-  /* Default margins */
-  nav #navbar-title {
-    @apply max-sm:ml-8 ml-6;
+  #navbar[data-scrolled="true"] #nav-border {
+    background: transparent;
   }
 
-  nav #contacto {
-    @apply max-sm:mr-8 mr-6;
+  /* Active link underline */
+  .nav-link.active {
+    @apply text-gray-900 font-semibold;
   }
 
-  /* Scrolled State */
-  nav[data-scrolled="true"] {
-    @apply bg-gray-500/20 backdrop-blur-xs shadow-sm gap-2 sm:gap-3;
-    /* Responsive widths for pill shape */
-    @apply w-[60%] sm:w-[60%] md:w-[35%] lg:w-[30%];
-  }
-
-  /* Title adjustments */
-  nav[data-scrolled="true"] #navbar-title {
-    @apply max-sm:ml-8 ml-6;
-  }
-
-  /* Contact button adjustments */
-  nav[data-scrolled="true"] #contacto {
-    @apply max-sm:mr-8 mr-6;
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background: #123472;
+    border-radius: 99px;
   }
 </style>
 
 <script>
-  const nav = document.getElementById("navbar");
-  
-  if (nav) {
-    const updateNav = () => {
-      const scrolled = window.scrollY > 10;
-      // Only update if the state changes to avoid unnecessary DOM writes
-      if (nav.getAttribute('data-scrolled') !== scrolled.toString()) {
-        nav.setAttribute("data-scrolled", scrolled.toString());
-      }
-    };
+  const navbar   = document.getElementById('navbar')!;
+  const toggle   = document.getElementById('menu-toggle')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const hamLines = document.querySelectorAll<HTMLElement>('.ham-line');
 
-    // Initial check
-    updateNav();
+  /* ── Scroll shrink ── */
+  let ticking = false;
+  const updateNav = () => {
+    const scrolled = window.scrollY > 20;
+    navbar.dataset.scrolled = String(scrolled);
+  };
+  updateNav();
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { updateNav(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
 
-    // Optimized scroll listener using requestAnimationFrame
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateNav();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-  }
+  /* ── Mobile menu ── */
+  let open = false;
+  const setMenu = (state: boolean) => {
+    open = state;
+    toggle.setAttribute('aria-expanded', String(state));
+    mobileMenu.setAttribute('aria-hidden', String(!state));
+
+    if (state) {
+      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+      mobileMenu.style.opacity   = '1';
+    } else {
+      mobileMenu.style.maxHeight = '0';
+      mobileMenu.style.opacity   = '0';
+    }
+
+    // Animate hamburger → X
+    hamLines[0].style.transform = state ? 'translateY(7px) rotate(45deg)'  : '';
+    hamLines[1].style.opacity   = state ? '0' : '1';
+    hamLines[2].style.transform = state ? 'translateY(-7px) rotate(-45deg)' : '';
+
+    document.body.style.overflow = state ? 'hidden' : '';
+  };
+
+  toggle.addEventListener('click', () => setMenu(!open));
+
+  // Close on any mobile link click
+  document.querySelectorAll('.mobile-nav-link').forEach(a =>
+    a.addEventListener('click', () => setMenu(false))
+  );
+
+  /* ── Active link highlight ── */
+  const current = location.pathname;
+  document.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach(a => {
+    const href = new URL(a.href, location.origin).pathname;
+    if (href !== '/' && current.startsWith(href)) a.classList.add('active');
+    else if (href === '/' && current === '/') a.classList.add('active');
+  });
 </script>

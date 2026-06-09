@@ -1,36 +1,71 @@
 ---
-import TagDemo from "../components/SingleComponent/TagDemo.astro";
 import "../styles/global.css";
 
-export interface Props {
+interface Props {
   title?: string;
+  description?: string;
+  showBack?: boolean;
 }
 
-const { title = "AdagIO Demo" } = Astro.props;
+const {
+  title = "AdagIO — Demo",
+  description = "Demo interactivo por AdagIO",
+  showBack = true,
+} = Astro.props;
 ---
+
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<!-- Demo tag -->
-		<TagDemo Position="TL" Color="#fff" Background="" />
-		<slot />
-		
-		<!-- Footer -->
-		<footer style="margin-top: auto; padding: 16px; background-color: rgb(17 24 39); color: white; text-align: center;">
-			<p style="font-size: 14px; margin: 0;">© 2024 AdagIO - Demo Preview</p>
-		</footer>
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="min-h-screen flex flex-col bg-gray-50">
 
-<style>
-	html{
-		background-color: #f5f4f6;
-	}
-</style>
+    <!-- Demo top bar -->
+    {showBack && (
+      <div class="w-full bg-gray-900/95 backdrop-blur-sm border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
+          <a
+            href="/Demos"
+            class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Demos
+          </a>
+
+          <div class="flex items-center gap-2">
+            <span class="flex h-1.5 w-1.5 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+            </span>
+            <span class="text-gray-400 text-xs font-semibold uppercase tracking-widest">Demo Preview</span>
+          </div>
+
+          <a href="/" class="text-sm poppins-semibold shrink-0">
+            <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span>
+          </a>
+        </div>
+      </div>
+    )}
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-gray-900 text-gray-500 text-xs text-center py-4 border-t border-white/5">
+      © {new Date().getFullYear()} AdagIO —
+      <a href="/" class="hover:text-white transition-colors ml-1">adagi0.com</a>
+      <span class="mx-2">·</span>
+      <a href="/Demos" class="hover:text-white transition-colors">Ver todos los demos</a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+---
+import DemoLayout from '../../layouts/DemoLayout.astro';
+---
+
+<DemoLayout title="Digital Kiosk Demo | AdagIO">
+  <div class="min-h-screen bg-gray-900 flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
+
+    <!-- Background grid -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full max-w-4xl flex flex-col items-center gap-8">
+
+      <!-- Header -->
+      <div class="text-center mb-4">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          Demo Interactivo
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-black text-white mb-3">Digital Kiosk</h1>
+        <p class="text-gray-400 text-lg max-w-xl mx-auto">Simula la experiencia de un kiosk publicitario interactivo. Toca las opciones como si fuera una pantalla táctil real.</p>
+      </div>
+
+      <!-- Kiosk frame -->
+      <div class="relative w-full max-w-sm mx-auto">
+        <!-- Outer bezel -->
+        <div class="bg-gray-800 rounded-3xl p-4 shadow-2xl ring-4 ring-white/10">
+          <!-- Screen -->
+          <div id="kiosk-screen" class="bg-black rounded-2xl overflow-hidden aspect-[9/16] relative select-none">
+
+            <!-- Slide: Welcome -->
+            <div id="slide-welcome" class="slide absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#0d1f45] to-[#123472] text-white p-8 gap-6 transition-opacity duration-500">
+              <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div class="text-center">
+                <h2 class="text-3xl font-black mb-2">Bienvenido</h2>
+                <p class="text-white/70 text-sm leading-relaxed">¿En qué podemos ayudarte hoy?</p>
+              </div>
+              <div class="grid grid-cols-2 gap-4 w-full mt-4">
+                {[
+                  { label: "Información", icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", slide: "slide-info" },
+                  { label: "Catálogo", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", slide: "slide-catalog" },
+                  { label: "Contacto", icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", slide: "slide-contact" },
+                  { label: "Mapa", icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", slide: "slide-map" },
+                ].map(opt => (
+                  <button
+                    class="kiosk-btn bg-white/10 hover:bg-white/20 active:bg-white/30 border border-white/20 rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-200 cursor-pointer"
+                    data-target={opt.slide}
+                  >
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={opt.icon}/>
+                    </svg>
+                    <span class="text-xs font-semibold text-white/90">{opt.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <!-- Slide: Info -->
+            <div id="slide-info" class="slide hidden absolute inset-0 flex flex-col bg-white text-gray-900 transition-opacity duration-500">
+              <div class="bg-[#123472] p-5 flex items-center gap-3">
+                <button class="back-btn text-white" data-target="slide-welcome">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h3 class="text-white font-bold text-lg">Información</h3>
+              </div>
+              <div class="flex-1 overflow-auto p-6 flex flex-col gap-5">
+                <div class="bg-gray-50 rounded-2xl p-4">
+                  <h4 class="font-bold text-gray-900 mb-1">Horario</h4>
+                  <p class="text-gray-600 text-sm">Lunes – Viernes: 9:00 – 18:00<br/>Sábados: 10:00 – 14:00</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4">
+                  <h4 class="font-bold text-gray-900 mb-1">Dirección</h4>
+                  <p class="text-gray-600 text-sm">Av. Insurgentes Sur 1602, Crédito Constructor, CDMX</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4">
+                  <h4 class="font-bold text-gray-900 mb-1">Teléfono</h4>
+                  <p class="text-gray-600 text-sm">+52 55 1234 5678</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4">
+                  <h4 class="font-bold text-gray-900 mb-1">Wi-Fi Gratis</h4>
+                  <p class="text-gray-600 text-sm">Red: AdagIO_Guest<br/>Contraseña: bienvenido2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide: Catalog -->
+            <div id="slide-catalog" class="slide hidden absolute inset-0 flex flex-col bg-white transition-opacity duration-500">
+              <div class="bg-[#ff0040] p-5 flex items-center gap-3">
+                <button class="back-btn text-white" data-target="slide-welcome">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h3 class="text-white font-bold text-lg">Catálogo</h3>
+              </div>
+              <div class="flex-1 overflow-auto p-4 grid grid-cols-2 gap-3">
+                {[
+                  { name: "Kiosk Pro 55\"", price: "$45,000", emoji: "🖥️" },
+                  { name: "Kiosk Slim 32\"", price: "$22,000", emoji: "📺" },
+                  { name: "IoT Node Hub", price: "$3,500", emoji: "📡" },
+                  { name: "Sensor Pack", price: "$1,200", emoji: "🔌" },
+                ].map(item => (
+                  <div class="bg-gray-50 rounded-2xl p-4 flex flex-col items-center gap-2 border border-gray-100">
+                    <span class="text-3xl">{item.emoji}</span>
+                    <span class="text-xs font-bold text-gray-900 text-center leading-tight">{item.name}</span>
+                    <span class="text-xs font-black text-[#123472]">{item.price}</span>
+                    <button class="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full mt-1">Ver</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Slide: Contact -->
+            <div id="slide-contact" class="slide hidden absolute inset-0 flex flex-col bg-white transition-opacity duration-500">
+              <div class="bg-emerald-600 p-5 flex items-center gap-3">
+                <button class="back-btn text-white" data-target="slide-welcome">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h3 class="text-white font-bold text-lg">Contacto</h3>
+              </div>
+              <div class="flex-1 p-6 flex flex-col gap-4">
+                <input type="text" placeholder="Tu nombre" class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-500"/>
+                <input type="email" placeholder="Correo electrónico" class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-500"/>
+                <textarea placeholder="¿En qué podemos ayudarte?" class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-500 h-24 resize-none"></textarea>
+                <button id="kiosk-send" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition-colors">Enviar</button>
+                <p id="kiosk-sent" class="hidden text-center text-sm font-semibold text-emerald-600">¡Mensaje enviado! ✓</p>
+              </div>
+            </div>
+
+            <!-- Slide: Map -->
+            <div id="slide-map" class="slide hidden absolute inset-0 flex flex-col bg-white transition-opacity duration-500">
+              <div class="bg-orange-500 p-5 flex items-center gap-3">
+                <button class="back-btn text-white" data-target="slide-welcome">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <h3 class="text-white font-bold text-lg">Ubicación</h3>
+              </div>
+              <div class="flex-1 flex flex-col items-center justify-center p-6 gap-4 text-center">
+                <div class="w-32 h-32 bg-orange-50 rounded-full flex items-center justify-center">
+                  <svg class="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xl font-bold text-gray-900 mb-2">Ciudad de México</h4>
+                  <p class="text-gray-500 text-sm">Av. Insurgentes Sur 1602<br/>Crédito Constructor, CDMX</p>
+                </div>
+                <div class="w-full bg-gray-100 rounded-2xl h-32 flex items-center justify-center text-gray-400 text-sm">
+                  📍 Mapa interactivo
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Stand -->
+        <div class="mx-auto w-8 h-16 bg-gray-700 rounded-b-lg mt-0"></div>
+        <div class="mx-auto w-32 h-3 bg-gray-600 rounded-full"></div>
+      </div>
+
+      <!-- Info label -->
+      <p class="text-gray-500 text-sm text-center max-w-xs">
+        Este es un demo de kiosk digital. En producción se despliega en pantallas táctiles de 32" a 86".
+        <a href="/productos" class="text-blue-400 hover:underline ml-1">Ver productos →</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Kiosk navigation
+    function showSlide(id: string) {
+      document.querySelectorAll(".slide").forEach(s => {
+        (s as HTMLElement).style.opacity = "0";
+        setTimeout(() => {
+          s.classList.add("hidden");
+          s.classList.remove("flex");
+        }, 200);
+      });
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.remove("hidden");
+        target.classList.add("flex");
+        setTimeout(() => { target.style.opacity = "1"; }, 10);
+      }
+    }
+
+    document.querySelectorAll<HTMLButtonElement>(".kiosk-btn, .back-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const t = btn.dataset.target;
+        if (t) showSlide(t);
+      });
+    });
+
+    document.getElementById("kiosk-send")?.addEventListener("click", () => {
+      document.getElementById("kiosk-sent")?.classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("kiosk-sent")?.classList.add("hidden");
+        showSlide("slide-welcome");
+      }, 2000);
+    });
+
+    // Initial state
+    showSlide("slide-welcome");
+  </script>
+</DemoLayout>

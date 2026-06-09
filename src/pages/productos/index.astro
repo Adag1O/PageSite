@@ -1,0 +1,191 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Bar from '../../components/bar.astro';
+import Formulario from '../../components/Formulario.astro';
+
+const allProducts = await getCollection('products');
+const products = allProducts.sort((a, b) => (a.data.priceNumber ?? 0) - (b.data.priceNumber ?? 0));
+const categories = ["Todos", ...new Set(products.map(p => p.data.category))];
+---
+
+<Layout
+  title="Productos | AdagIO - Hardware Electrónico"
+  description="Kiosks digitales, sensores IoT, redes y accesorios electrónicos para negocios. Envío e instalación en toda la República Mexicana."
+>
+  <Bar />
+
+  <main class="w-full">
+
+    <!-- Hero -->
+    <section class="w-full bg-gradient-to-br from-gray-900 via-[#0d1f45] to-gray-900 py-24 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-xs font-bold uppercase tracking-widest mb-8">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          Hardware Electrónico
+        </div>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+          Tecnología que<br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">puedes tocar</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Kiosks interactivos, dispositivos IoT, infraestructura de red y accesorios inteligentes. Diseño, fabricación e instalación en México.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-10">
+          <a href="#catalogo" class="bg-white text-gray-900 font-bold px-8 py-3.5 rounded-xl hover:bg-gray-100 transition-colors">
+            Ver Catálogo
+          </a>
+          <a href="#ContactoForm" class="border border-white/30 text-white font-semibold px-8 py-3.5 rounded-xl hover:bg-white/10 transition-colors">
+            Cotizar
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges strip -->
+    <div class="w-full bg-white border-b border-gray-100 py-4 px-4">
+      <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-8 text-sm text-gray-600 font-medium">
+        {[
+          { icon: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4", label: "Envío a todo México" },
+          { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", label: "Garantía 1 año" },
+          { icon: "M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z", label: "Soporte técnico 24/7" },
+          { icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z", label: "Instalación incluida" },
+        ].map(b => (
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#123472]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={b.icon}/>
+            </svg>
+            {b.label}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Catalog -->
+    <section id="catalogo" class="w-full bg-gray-50 py-20 px-4">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Category filter -->
+        <div class="flex flex-wrap gap-3 mb-12 justify-center" id="cat-filter">
+          {categories.map((cat, i) => (
+            <button
+              data-cat={cat}
+              class={`cat-btn px-5 py-2 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                i === 0
+                  ? "bg-gray-900 text-white border-gray-900"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <!-- Products grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+          {products.map((p) => (
+            <div
+              class="product-card group bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col"
+              data-category={p.data.category}
+            >
+              <div class={`relative h-40 bg-gradient-to-br ${p.data.gradient} flex items-center justify-center`}>
+                <svg class="w-20 h-20 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d={p.data.icon || "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"}/>
+                </svg>
+                {p.data.tag && (
+                  <span class={`absolute top-4 left-4 ${p.data.tagColor} text-white text-xs font-bold px-3 py-1 rounded-full`}>
+                    {p.data.tag}
+                  </span>
+                )}
+                {!p.data.inStock && (
+                  <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Preventa</span>
+                  </div>
+                )}
+              </div>
+
+              <div class="p-6 flex flex-col flex-1">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{p.data.category}</span>
+                <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#123472] transition-colors">{p.data.name}</h2>
+                <p class="text-sm text-gray-500 leading-relaxed mb-4">{p.data.description}</p>
+
+                <ul class="space-y-1.5 mb-6">
+                  {p.data.specs.slice(0, 4).map(s => (
+                    <li class="flex items-center gap-2 text-xs text-gray-600">
+                      <svg class="w-3.5 h-3.5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
+                  <div>
+                    <span class="text-2xl font-black text-gray-900">${p.data.price}</span>
+                    <span class="text-xs text-gray-400 ml-1">MXN</span>
+                  </div>
+                  <div class="flex gap-2">
+                    <a
+                      href={`/productos/${p.id}`}
+                      class="text-sm font-semibold text-gray-600 border border-gray-200 hover:border-gray-400 px-4 py-2 rounded-xl transition-colors"
+                    >
+                      Ver más
+                    </a>
+                    <a
+                      href="#ContactoForm"
+                      class="bg-gray-900 hover:bg-[#123472] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors duration-300"
+                    >
+                      Cotizar
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p class="text-center text-gray-400 text-sm mt-12">
+          ¿Necesitas algo personalizado? <a href="#ContactoForm" class="text-[#123472] font-semibold hover:underline">Contáctanos</a> para una cotización a medida.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="w-full bg-white py-20 px-4 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">¿Proyecto a escala?</h2>
+        <p class="text-gray-600 mb-8">Fabricamos pedidos personalizados para empresas, gobierno e instituciones. Precios especiales por volumen.</p>
+        <a href="#ContactoForm" class="inline-block bg-[#123472] hover:bg-[#0d2558] text-white font-bold px-10 py-4 rounded-xl transition-colors duration-300 text-lg">
+          Hablar con un experto
+        </a>
+      </div>
+    </section>
+
+    <Formulario />
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".cat-btn");
+    const cards = document.querySelectorAll<HTMLElement>(".product-card");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cat = btn.dataset.cat ?? "Todos";
+        buttons.forEach((b) => {
+          b.classList.remove("bg-gray-900", "text-white", "border-gray-900");
+          b.classList.add("bg-white", "text-gray-600", "border-gray-200");
+        });
+        btn.classList.remove("bg-white", "text-gray-600", "border-gray-200");
+        btn.classList.add("bg-gray-900", "text-white", "border-gray-900");
+        cards.forEach((card) => {
+          const match = cat === "Todos" || card.dataset.category === cat;
+          card.style.display = match ? "" : "none";
+        });
+      });
+    });
+  </script>
+</Layout>

@@ -1,77 +1,472 @@
 ---
 import DemoLayout from "../../../layouts/DemoLayout.astro";
-// import HeadCommerce from "../../components/SingleComponent/Ecommerce/HeadCommerce.astro";
-// If you still get an error, verify the file exists at src/components/HeadCommerce.astro
-import HeadCommerce from "../../../components/SingleComponent/Ecommerce/HeadCommerce.astro";
+
+const products = [
+  {
+    id: "iot-node",
+    name: "IoT Node Pro",
+    category: "Conectividad",
+    price: 849,
+    badge: "Nuevo",
+    badgeColor: "bg-indigo-500",
+    description: "Nodo IoT con WiFi, Bluetooth y 12 puertos GPIO. Ideal para automatización del hogar.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=600&fit=crop",
+    tags: ["WiFi", "BLE", "GPIO"],
+    rating: 4.9,
+    reviews: 128,
+    gradient: "from-indigo-600 to-blue-700",
+  },
+  {
+    id: "sensor-pack",
+    name: "Sensor Pack X12",
+    category: "Sensores",
+    price: 449,
+    badge: "Popular",
+    badgeColor: "bg-rose-500",
+    description: "Kit de 12 sensores: temperatura, humedad, movimiento, luz UV, gas y más.",
+    image: "https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?w=600&h=600&fit=crop",
+    tags: ["12 sensores", "Plug & Play"],
+    rating: 4.8,
+    reviews: 94,
+    gradient: "from-rose-600 to-pink-700",
+  },
+  {
+    id: "kiosk-slim",
+    name: "Kiosk Slim 21\"",
+    category: "Hardware",
+    price: 12999,
+    badge: "Premium",
+    badgeColor: "bg-amber-500",
+    description: "Kiosk táctil de 21 pulgadas, pantalla IPS Full HD, procesador i5, SSD 256GB.",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=600&fit=crop",
+    tags: ["21\"", "Touch", "i5"],
+    rating: 4.7,
+    reviews: 31,
+    gradient: "from-amber-600 to-orange-700",
+  },
+  {
+    id: "mesh-ap",
+    name: "Mesh AP Dual Band",
+    category: "Red",
+    price: 1299,
+    badge: null,
+    badgeColor: "",
+    description: "Punto de acceso mesh dual band 2.4/5GHz, cobertura 150m², ideal para almacenes.",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop",
+    tags: ["Dual Band", "150m²", "PoE"],
+    rating: 4.6,
+    reviews: 57,
+    gradient: "from-teal-600 to-cyan-700",
+  },
+  {
+    id: "nfc-reader",
+    name: "NFC Reader USB-C",
+    category: "Acceso",
+    price: 349,
+    badge: "Oferta",
+    badgeColor: "bg-green-500",
+    description: "Lector NFC USB-C compatible con tarjetas ISO 14443, ISO 15693 y etiquetas NTAG.",
+    image: "https://images.unsplash.com/photo-1616400619175-5beda3a17896?w=600&h=600&fit=crop",
+    tags: ["USB-C", "ISO 14443", "NTAG"],
+    rating: 4.5,
+    reviews: 73,
+    gradient: "from-violet-600 to-purple-700",
+  },
+  {
+    id: "dev-board",
+    name: "Dev Board ARM64",
+    category: "Desarrollo",
+    price: 699,
+    badge: null,
+    badgeColor: "",
+    description: "SBC ARM64 con 4GB RAM, GPU Mali, eMMC 32GB. Perfecta para proyectos embebidos.",
+    image: "https://images.unsplash.com/photo-1501700493788-fa1a4fc9fe62?w=600&h=600&fit=crop",
+    tags: ["ARM64", "4GB RAM", "eMMC"],
+    rating: 4.8,
+    reviews: 45,
+    gradient: "from-slate-600 to-gray-700",
+  },
+];
+
+const categories = ["Todos", "Conectividad", "Sensores", "Hardware", "Red", "Acceso", "Desarrollo"];
 ---
 
-<DemoLayout>
-	<HeadCommerce />
-	<!-- Hero Section -->
-	<section
-		class="flex flex-col items-center justify-center text-center py-16 px-4"
-	>
-		<h2 class="text-4xl font-extrabold text-gray-800 mb-4">
-			Discover Our 3D Products
-		</h2>
-		<p class="text-lg text-gray-600 mb-6">
-			View, explore, and shop your favorite electronics in 3D before
-			buying.
-		</p>
-		<button
-			class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-700"
-		>
-			Shop Now
-		</button>
-	</section>
+<DemoLayout title="Tienda IoT - AdagIO">
+  <div class="min-h-screen bg-gray-950 text-white" id="shop-root">
 
-	<!-- Product Grid -->
-	<section class="flex flex-wrap justify-center gap-8 px-6 pb-16">
-		<!-- Product Card -->
-<a
-			href="/Demos/Ecommerce/arduinomega"
-			style="border: 1px solid #000; width:100%; height:100%;"
-		>
-		</a>
-		<a
-			href="/Demos/Ecommerce/arduino"
-			style="border: 1px solid #000; width:100%; height:100%;"
-		>
-		</a>
-	</section>
+    <!-- Topbar -->
+    <header class="sticky top-0 z-40 bg-gray-950/90 backdrop-blur-md border-b border-white/5">
+      <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-lg font-black text-white">AdagIO</span>
+          <span class="text-gray-600 text-sm">/</span>
+          <span class="text-gray-400 text-sm">Tienda</span>
+        </div>
 
-	<!-- Content -->
-	<div class="p-5 flex flex-col gap-3">
-		<h3
-			class="font-semibold text-lg text-gray-800 group-hover:text-green-600 transition-colors"
-		>
-			Starter Kit
-		</h3>
-		<p class="text-sm text-gray-500">
-			Includes sensors, motors, and everything you need.
-		</p>
-		<div class="flex items-center justify-between">
-			<p class="text-xl font-bold text-green-600">$49.99</p>
-			<button
-				class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-			>
-				<i class="ri-shopping-cart-2-line"></i> Add
-			</button>
-		</div>
-	</div>
+        <div class="flex-1 max-w-xs hidden sm:block">
+          <div class="relative">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input id="searchInput" type="text" placeholder="Buscar productos…" class="w-full pl-9 pr-3 py-2 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/60 transition-colors" />
+          </div>
+        </div>
+
+        <button id="cartBtn" class="relative flex items-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-xl transition-colors text-sm font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span class="hidden sm:inline">Carrito</span>
+          <span id="cartCount" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden py-16 sm:py-24 px-4">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-950 via-gray-950 to-gray-950"></div>
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 blur-3xl rounded-full"></div>
+      <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-violet-600/10 blur-3xl rounded-full"></div>
+      <div class="max-w-6xl mx-auto relative flex flex-col sm:flex-row items-center gap-8">
+        <div class="flex-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 text-xs mb-6">
+            <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
+            Envíos a todo México
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 leading-tight">
+            Hardware<br/><span class="text-indigo-400">IoT & Embebidos</span>
+          </h1>
+          <p class="text-gray-400 mb-8 max-w-md leading-relaxed">Componentes electrónicos, kiosks y soluciones de conectividad para proyectos industriales y comerciales.</p>
+          <div class="flex gap-3 flex-wrap">
+            <a href="#products" class="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition-all hover:-translate-y-0.5 text-sm">
+              Ver catálogo
+            </a>
+            <a href="https://adagi0.com" target="_blank" class="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-xl transition-all text-sm">
+              Cotizar proyecto
+            </a>
+          </div>
+        </div>
+        <div class="flex-shrink-0 grid grid-cols-2 gap-3 w-full sm:w-72">
+          {[
+            { val: '50+', label: 'Productos' },
+            { val: '3 días', label: 'Entrega' },
+            { val: '12 m', label: 'Garantía' },
+            { val: '24/7', label: 'Soporte' },
+          ].map(s => (
+            <div class="bg-white/5 border border-white/8 rounded-2xl p-4 text-center">
+              <p class="text-2xl font-black text-white">{s.val}</p>
+              <p class="text-gray-500 text-xs mt-0.5">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section id="products" class="px-4 py-6 border-y border-white/5 bg-gray-950/80 sticky top-14 z-30 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+        {categories.map((cat, i) => (
+          <button
+            class={`filter-btn flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all ${i === 0 ? 'bg-indigo-500 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}`}
+            data-cat={cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </section>
+
+    <!-- Product grid -->
+    <section class="max-w-6xl mx-auto px-4 py-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="productGrid">
+        {products.map(p => (
+          <div
+            class="product-card group bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.07] hover:border-indigo-500/30 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 flex flex-col"
+            data-cat={p.category}
+            data-name={p.name.toLowerCase()}
+          >
+            <!-- Image -->
+            <div class={`relative h-48 bg-gradient-to-br ${p.gradient} overflow-hidden`}>
+              <img
+                src={p.image}
+                alt={p.name}
+                class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
+              />
+              {p.badge && (
+                <span class={`absolute top-3 left-3 px-2.5 py-1 ${p.badgeColor} text-white text-[10px] font-bold uppercase tracking-wider rounded-lg`}>
+                  {p.badge}
+                </span>
+              )}
+              <div class="absolute bottom-3 right-3 flex gap-1">
+                {p.tags.map(t => (
+                  <span class="px-2 py-0.5 bg-black/40 backdrop-blur-sm text-white text-[10px] rounded-md">{t}</span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="p-5 flex flex-col flex-1">
+              <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">{p.category}</p>
+              <h3 class="text-white font-semibold mb-2 group-hover:text-indigo-300 transition-colors">{p.name}</h3>
+              <p class="text-gray-500 text-xs leading-relaxed mb-4 flex-1">{p.description}</p>
+
+              <div class="flex items-center gap-1 mb-4">
+                <div class="flex">
+                  {Array.from({length: 5}).map((_, i) => (
+                    <svg class={`w-3.5 h-3.5 ${i < Math.floor(p.rating) ? 'text-amber-400' : 'text-gray-700'}`} fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <span class="text-gray-500 text-xs ml-1">{p.rating} ({p.reviews})</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-xl font-black text-white">${p.price.toLocaleString()}<span class="text-gray-600 text-xs font-normal"> MXN</span></p>
+                </div>
+                <button
+                  class="add-to-cart flex items-center gap-1.5 px-4 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-indigo-500/30 active:scale-95"
+                  data-id={p.id}
+                  data-name={p.name}
+                  data-price={p.price}
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty state -->
+      <div id="emptyState" class="hidden text-center py-20">
+        <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+        <p class="text-gray-500 text-sm">No se encontraron productos</p>
+      </div>
+    </section>
+
+    <!-- Cart drawer -->
+    <div id="cartOverlay" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-sm bg-gray-900 border-l border-white/10 z-50 flex flex-col translate-x-full transition-transform duration-300 shadow-2xl">
+      <div class="flex items-center justify-between p-5 border-b border-white/10">
+        <h2 class="font-bold text-white">Tu carrito</h2>
+        <button id="closeCart" class="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center transition-colors">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-3">
+        <p id="cartEmpty" class="text-gray-600 text-sm text-center py-10">Tu carrito está vacío</p>
+      </div>
+
+      <div class="p-5 border-t border-white/10">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-400 text-sm">Total</span>
+          <span id="cartTotal" class="text-white text-xl font-black">$0 MXN</span>
+        </div>
+        <button id="checkoutBtn" class="w-full py-3.5 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition-all text-sm disabled:opacity-40 disabled:cursor-not-allowed">
+          Solicitar cotización por WhatsApp
+        </button>
+        <p class="text-gray-600 text-xs text-center mt-3">Demo · No se procesan pagos reales</p>
+      </div>
+    </aside>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex items-center gap-2 px-4 py-3 bg-gray-800 border border-white/10 rounded-xl shadow-xl text-sm text-white opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+      <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      <span id="toastMsg">Producto agregado</span>
+    </div>
+  </div>
+
+  <script>
+    interface CartItem { id: string; name: string; price: number; qty: number; }
+    let cart: CartItem[] = [];
+    let toastTimer: ReturnType<typeof setTimeout>;
+
+    // ── Toast ────────────────────────────────────────────────────────────────
+    function showToast(msg: string) {
+      const t = document.getElementById('toast')!;
+      const m = document.getElementById('toastMsg')!;
+      m.textContent = msg;
+      t.style.opacity = '1';
+      t.style.transform = 'translate(-50%, 0)';
+      t.style.pointerEvents = 'auto';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translate(-50%, 16px)';
+        t.style.pointerEvents = 'none';
+      }, 2200);
+    }
+
+    // ── Cart state ───────────────────────────────────────────────────────────
+    function updateCartUI() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const countEl = document.getElementById('cartCount')!;
+      countEl.textContent = String(count);
+      count > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
+      (document.getElementById('cartTotal') as HTMLElement).textContent = `$${total.toLocaleString()} MXN`;
+
+      const itemsEl = document.getElementById('cartItems')!;
+      const emptyEl = document.getElementById('cartEmpty')!;
+      const checkoutEl = document.getElementById('checkoutBtn') as HTMLButtonElement;
+
+      if (cart.length === 0) {
+        emptyEl.classList.remove('hidden');
+        checkoutEl.disabled = true;
+        return;
+      }
+      emptyEl.classList.add('hidden');
+      checkoutEl.disabled = false;
+
+      // Re-render items
+      const existing = itemsEl.querySelectorAll('.cart-item');
+      existing.forEach(el => el.remove());
+      cart.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item flex items-center justify-between gap-3 bg-white/5 rounded-xl p-3';
+        div.innerHTML = `
+          <div class="flex-1 min-w-0">
+            <p class="text-white text-sm font-medium truncate">${item.name}</p>
+            <p class="text-gray-500 text-xs">$${item.price.toLocaleString()} MXN</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="qty-dec w-6 h-6 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs transition-colors" data-id="${item.id}">−</button>
+            <span class="text-white text-sm w-4 text-center">${item.qty}</span>
+            <button class="qty-inc w-6 h-6 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs transition-colors" data-id="${item.id}">+</button>
+          </div>
+        `;
+        itemsEl.appendChild(div);
+      });
+
+      // Qty buttons
+      itemsEl.querySelectorAll<HTMLButtonElement>('.qty-dec').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.dataset.id!;
+          const idx = cart.findIndex(i => i.id === id);
+          if (cart[idx].qty > 1) cart[idx].qty--;
+          else cart.splice(idx, 1);
+          updateCartUI();
+        };
+      });
+      itemsEl.querySelectorAll<HTMLButtonElement>('.qty-inc').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.dataset.id!;
+          const idx = cart.findIndex(i => i.id === id);
+          cart[idx].qty++;
+          updateCartUI();
+        };
+      });
+    }
+
+    // ── Add to cart ──────────────────────────────────────────────────────────
+    document.querySelectorAll<HTMLButtonElement>('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { id, name, price } = btn.dataset;
+        const existing = cart.find(i => i.id === id);
+        if (existing) existing.qty++;
+        else cart.push({ id: id!, name: name!, price: Number(price), qty: 1 });
+        updateCartUI();
+        showToast(`${name} agregado al carrito`);
+      });
+    });
+
+    // ── Cart drawer ──────────────────────────────────────────────────────────
+    const drawer = document.getElementById('cartDrawer')!;
+    const overlay = document.getElementById('cartOverlay')!;
+    const openCart = () => {
+      drawer.style.transform = 'translateX(0)';
+      overlay.style.opacity = '1'; overlay.style.pointerEvents = 'auto';
+      document.body.style.overflow = 'hidden';
+    };
+    const closeCart = () => {
+      drawer.style.transform = 'translateX(100%)';
+      overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none';
+      document.body.style.overflow = '';
+    };
+    document.getElementById('cartBtn')?.addEventListener('click', openCart);
+    document.getElementById('closeCart')?.addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+
+    document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+      const msg = cart.map(i => `• ${i.name} x${i.qty} - $${(i.price*i.qty).toLocaleString()} MXN`).join('\n');
+      const total = cart.reduce((s,i) => s + i.price*i.qty, 0);
+      window.open(`https://wa.me/5215512345678?text=${encodeURIComponent(`Hola AdagIO, me interesa cotizar:\n${msg}\n\nTotal estimado: $${total.toLocaleString()} MXN`)}`, '_blank');
+    });
+
+    // ── Filter ───────────────────────────────────────────────────────────────
+    let activeFilter = 'Todos';
+    let searchQuery = '';
+
+    function applyFilter() {
+      const cards = document.querySelectorAll<HTMLElement>('.product-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const cat = card.dataset.cat || '';
+        const name = card.dataset.name || '';
+        const catMatch = activeFilter === 'Todos' || cat === activeFilter;
+        const searchMatch = name.includes(searchQuery.toLowerCase());
+        const show = catMatch && searchMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      const empty = document.getElementById('emptyState')!;
+      empty.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    document.querySelectorAll<HTMLButtonElement>('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('bg-indigo-500', 'text-white');
+          b.classList.add('bg-white/5', 'text-gray-400');
+        });
+        btn.classList.add('bg-indigo-500', 'text-white');
+        btn.classList.remove('bg-white/5', 'text-gray-400');
+        activeFilter = btn.dataset.cat || 'Todos';
+        applyFilter();
+      });
+    });
+
+    document.getElementById('searchInput')?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value;
+      applyFilter();
+    });
+
+    // ── Scroll reveal for product cards ─────────────────────────────────────
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).style.opacity = '1';
+          (e.target as HTMLElement).style.transform = 'translateY(0)';
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.product-card').forEach((el, i) => {
+      (el as HTMLElement).style.opacity = '0';
+      (el as HTMLElement).style.transform = 'translateY(24px)';
+      (el as HTMLElement).style.transition = `opacity 0.5s ease ${i * 60}ms, transform 0.5s ease ${i * 60}ms`;
+      revealObs.observe(el);
+    });
+
+    updateCartUI();
+  </script>
+
+  <style>
+    html { background: #030712; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </DemoLayout>
-
-<style>
-	.header {
-		text-align: center;
-		font-size: 2rem;
-		font-weight: 700;
-		margin-top: 2rem;
-		letter-spacing: 1px;
-	}
-	.viewer-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-</style>

@@ -4,13 +4,11 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
-  showBack?: boolean;
 }
 
 const {
   title = "AdagIO — Demo",
   description = "Demo interactivo por AdagIO",
-  showBack = true,
 } = Astro.props;
 ---
 
@@ -27,35 +25,6 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="min-h-screen flex flex-col bg-gray-50">
-
-    <!-- Demo top bar -->
-    {showBack && (
-      <div class="w-full bg-gray-900/95 backdrop-blur-sm border-b border-white/10 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
-          <a
-            href="/Demos"
-            class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-            Demos
-          </a>
-
-          <div class="flex items-center gap-2">
-            <span class="flex h-1.5 w-1.5 relative">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
-            </span>
-            <span class="text-gray-400 text-xs font-semibold uppercase tracking-widest">Demo Preview</span>
-          </div>
-
-          <a href="/" class="text-sm poppins-semibold shrink-0">
-            <span class="text-[#123472]">Adag</span><span class="text-[#ff0040]">IO</span>
-          </a>
-        </div>
-      </div>
-    )}
 
     <main class="flex-1">
       <slot />

@@ -2,110 +2,271 @@
 import DemoLayout from "../../../layouts/DemoLayout.astro";
 ---
 
-<DemoLayout>
-  <div class="flex flex-col items-center justify-center py-8 gap-6 w-full min-h-[100%]">
-    <div class="flex flex-col items-center">
-      <img id="loteria-img" src="/Cards/1_El_Gallo.avif" alt="El Gallo" class="w-[40%] object-cover rounded-lg border border-gray-200 shadow-md mb-4" />
-      <div class="flex gap-4 items-center justify-center mt-2">
-        <button id="prev-btn" class="p-2 rounded-full bg-gray-100 hover:bg-blue-100 transition-colors shadow">
-          <svg class="w-7 h-7 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
-          </svg>
-        </button>
-        <button id="next-btn" class="p-2 rounded-full bg-gray-100 hover:bg-blue-100 transition-colors shadow">
-          <svg class="w-7 h-7 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
-          </svg>
-        </button>
-        <input type="number" name="time" id="time" min="1" step="1" class="w-24 px-2 py-1 border rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Segundos" />
-        <button id="run-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">Run</button>
-      </div>
-    </div>
-  </div>
-</DemoLayout>
+<DemoLayout title="Lotería - Mazo de Cartas">
+  <div class="min-h-screen bg-gradient-to-br from-amber-950 via-red-950 to-gray-950 flex flex-col" id="cartas-root">
 
-<script>
-const images = [
-  "1_El_Gallo.avif", "2_El_Diablo.avif", "3_La_Dama.avif", "4_El_Catrin.avif", "5_El_Paraguas.avif", "6_La_Sirena.avif", "7_La_Escalera.avif", "8_La_Botella.avif", "9_El_Barril.avif", "10_El_Arbol.avif", "11_El_Melon.avif", "12_El_Valiente.avif", "13_El_Gorrito.avif", "14_La_Muerte.avif", "15_La_Pera.avif", "16_La_Bandera.avif", "17_El_Bandolon.avif", "18_El_Violoncello.avif", "19_La_Garza.avif", "20_El_Pajaro.avif"
-];
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-let used = [];
-let current = 0;
-let interval = null;
-const img = document.getElementById('loteria-img');
-const prevBtn = document.querySelector('#prev-btn');
-const nextBtn = document.querySelector('#next-btn');
-const runBtn = document.querySelector('#run-btn');
-const timeInput = document.getElementById('time');
-let shuffledImages = shuffle([...images]);
-function showImage(idx) {
-  if (img) {
-    // Forzar recarga si la imagen está en caché
-    const src = `/Cards/${shuffledImages[idx]}`;
-    img.src = src + '?t=' + Date.now(); // Agrega un query param para forzar refresco visual
-  }
-}
-function getRandomUnused() {
-  if (used.length === shuffledImages.length) return null;
-  let idx;
-  do {
-    idx = Math.floor(Math.random() * shuffledImages.length);
-  } while (used.includes(idx));
-  used.push(idx);
-  current = idx;
-  return idx;
-}
-if (nextBtn) nextBtn.onclick = () => {
-  const idx = getRandomUnused();
-  if (idx !== null) showImage(idx);
-};
-if (prevBtn) prevBtn.onclick = () => {
-  if (used.length > 1) {
-    used.pop();
-    current = used[used.length - 1];
-    showImage(current);
-  }
-};
-function stopRun() {
-  if (interval) {
-    clearTimeout(interval);
-    interval = null;
-    runBtn.textContent = 'Run';
-  }
-}
-function startRun() {
-  stopRun();
-  used = [];
-  current = 0;
-  shuffledImages = shuffle([...images]);
-  showImage(current);
-  runBtn.textContent = 'Stop';
-  const time = Math.max(1, parseInt(timeInput?.value || '1')) * 1000;
-  function run() {
-    const idx = getRandomUnused();
-    if (idx !== null) {
-      showImage(idx);
-      interval = setTimeout(run, time);
-    } else {
-      stopRun();
+    <!-- Header -->
+    <header class="flex items-center justify-between px-4 py-3 bg-black/30 border-b border-white/10 backdrop-blur-sm">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🎴</span>
+        <div>
+          <p class="text-white font-bold text-sm leading-tight">Lotería Mexicana</p>
+          <p class="text-amber-400 text-xs">Mazo de cartas</p>
+        </div>
+      </div>
+      <a href="/Demos/Loteria/Tablero" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs rounded-xl transition-colors font-medium">
+        ← Mi tablero
+      </a>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8 gap-6">
+
+      <!-- Current card display -->
+      <div class="relative w-48 sm:w-56">
+        <!-- Card back (shown when no card drawn) -->
+        <div id="cardBack" class="w-full aspect-[2/3] rounded-2xl bg-gradient-to-br from-red-800 to-red-950 border-4 border-amber-700/60 flex items-center justify-center shadow-2xl">
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full border-4 border-amber-500/40 flex items-center justify-center mx-auto mb-3">
+              <span class="text-3xl">🎴</span>
+            </div>
+            <p class="text-amber-300/60 text-xs tracking-widest uppercase">Lotería</p>
+          </div>
+        </div>
+
+        <!-- Current card image -->
+        <img
+          id="currentCard"
+          src=""
+          alt=""
+          class="w-full aspect-[2/3] rounded-2xl shadow-2xl border-4 border-amber-500/60 object-cover absolute inset-0 opacity-0 transition-all duration-400 scale-95"
+          decoding="async"
+        />
+
+        <!-- Card number badge -->
+        <div id="cardNumBadge" class="absolute -top-3 -right-3 w-10 h-10 bg-amber-500 border-2 border-amber-300 rounded-full flex items-center justify-center text-amber-950 font-black text-sm shadow-lg opacity-0 transition-opacity duration-300">
+          <span id="cardNum">0</span>
+        </div>
+      </div>
+
+      <!-- Card name -->
+      <div class="text-center min-h-[3rem]">
+        <h2 id="cardName" class="text-2xl sm:text-3xl font-black text-white opacity-0 transition-opacity duration-400">—</h2>
+        <p id="drawnCounter" class="text-amber-400/70 text-xs mt-1">0 de 54 cartas</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-3">
+        <button id="prevBtn" class="w-11 h-11 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+
+        <button id="nextBtn" class="px-8 py-3 bg-amber-500 hover:bg-amber-400 active:scale-95 text-amber-950 font-black rounded-xl transition-all shadow-lg shadow-amber-500/30 text-sm">
+          ¡Siguiente!
+        </button>
+
+        <button id="prevBtn2" class="w-11 h-11 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed" style="display:none;">
+        </button>
+
+        <div class="flex items-center gap-2 bg-black/30 border border-white/10 rounded-xl px-3 py-2">
+          <button id="autoToggle" class="text-amber-400 hover:text-amber-300 transition-colors">
+            <svg id="playIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pauseIcon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <select id="speedSelect" class="bg-transparent text-white text-xs focus:outline-none cursor-pointer">
+            <option value="3000">3s</option>
+            <option value="5000" selected>5s</option>
+            <option value="8000">8s</option>
+            <option value="12000">12s</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Progress dots / history -->
+      <div class="w-full max-w-xs">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-white/40 text-xs">Progreso</p>
+          <button id="shuffleBtn" class="text-xs text-amber-400 hover:text-amber-300 transition-colors">Barajar de nuevo</button>
+        </div>
+        <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div id="deckProgress" class="h-full bg-gradient-to-r from-amber-400 to-red-400 rounded-full transition-all duration-500" style="width:0%"></div>
+        </div>
+
+        <!-- Last 5 drawn cards -->
+        <div class="mt-4">
+          <p class="text-white/30 text-xs mb-2">Últimas cartas</p>
+          <div id="historyRow" class="flex gap-1.5 flex-wrap min-h-[3rem]"></div>
+        </div>
+      </div>
+
+      <!-- All done state -->
+      <div id="doneState" class="hidden text-center bg-amber-900/30 border border-amber-500/30 rounded-2xl p-6 max-w-xs w-full">
+        <div class="text-4xl mb-3">🎊</div>
+        <p class="text-white font-bold mb-1">¡Todas las cartas cantadas!</p>
+        <p class="text-amber-300/70 text-sm mb-4">Se cantaron las 54 cartas del mazo completo.</p>
+        <button id="restartBtn" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl transition-colors text-sm">
+          Nueva partida
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const ALL_IMAGES = [
+      "1_El_Gallo","2_El_Diablo","3_La_Dama","4_El_Catrin","5_El_Paraguas","6_La_Sirena",
+      "7_La_Escalera","8_La_Botella","9_El_Barril","10_El_Arbol","11_El_Melon","12_El_Valiente",
+      "13_El_Gorrito","14_La_Muerte","15_La_Pera","16_La_Bandera","17_El_Bandolon","18_El_Violoncello",
+      "19_La_Garza","20_El_Pajaro"
+    ];
+
+    function shuffle<T>(arr: T[]): T[] {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
-  }
-  run();
-}
-if (runBtn) {
-  runBtn.onclick = () => {
-    if (interval) {
-      stopRun();
-    } else {
-      startRun();
+
+    function nameFromFile(f: string) {
+      return f.replace(/^\d+_/, '').replace(/_/g, ' ');
     }
-  };
-}
-showImage(current);
-</script>
+
+    let deck: string[] = shuffle(ALL_IMAGES);
+    let history: string[] = [];
+    let autoTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const cardBack   = document.getElementById('cardBack') as HTMLElement;
+    const cardImg    = document.getElementById('currentCard') as HTMLImageElement;
+    const cardName   = document.getElementById('cardName') as HTMLElement;
+    const cardNum    = document.getElementById('cardNum') as HTMLElement;
+    const cardNumBadge = document.getElementById('cardNumBadge') as HTMLElement;
+    const drawnCounter = document.getElementById('drawnCounter') as HTMLElement;
+    const prevBtn    = document.getElementById('prevBtn') as HTMLButtonElement;
+    const nextBtn    = document.getElementById('nextBtn') as HTMLButtonElement;
+    const autoToggle = document.getElementById('autoToggle') as HTMLButtonElement;
+    const playIcon   = document.getElementById('playIcon') as HTMLElement;
+    const pauseIcon  = document.getElementById('pauseIcon') as HTMLElement;
+    const speedSelect = document.getElementById('speedSelect') as HTMLSelectElement;
+    const deckProgress = document.getElementById('deckProgress') as HTMLElement;
+    const historyRow = document.getElementById('historyRow') as HTMLElement;
+    const doneState  = document.getElementById('doneState') as HTMLElement;
+    const shuffleBtn = document.getElementById('shuffleBtn') as HTMLButtonElement;
+    const restartBtn = document.getElementById('restartBtn') as HTMLButtonElement;
+
+    function showCard(file: string) {
+      // Animate out
+      cardImg.style.opacity = '0';
+      cardImg.style.transform = 'scale(0.9)';
+      cardName.style.opacity = '0';
+      cardNumBadge.style.opacity = '0';
+
+      setTimeout(() => {
+        cardImg.src = `/Cards/${file}.avif`;
+        cardImg.alt = nameFromFile(file);
+        cardBack.style.opacity = '0';
+
+        cardImg.onload = () => {
+          cardImg.style.opacity = '1';
+          cardImg.style.transform = 'scale(1)';
+          cardName.textContent = nameFromFile(file);
+          cardName.style.opacity = '1';
+          const idx = history.length;
+          cardNum.textContent = String(idx);
+          cardNumBadge.style.opacity = '1';
+        };
+      }, 200);
+
+      drawnCounter.textContent = `${history.length} de ${ALL_IMAGES.length} cartas`;
+      deckProgress.style.width = `${(history.length / ALL_IMAGES.length) * 100}%`;
+      prevBtn.disabled = history.length <= 1;
+      updateHistory();
+    }
+
+    function updateHistory() {
+      historyRow.innerHTML = '';
+      const last5 = history.slice(-5);
+      last5.forEach((f, i) => {
+        const img = document.createElement('img');
+        img.src = `/Cards/${f}.avif`;
+        img.alt = nameFromFile(f);
+        img.loading = 'lazy';
+        img.className = 'w-8 h-12 object-cover rounded-lg border border-white/20 opacity-60 hover:opacity-100 transition-opacity';
+        img.title = nameFromFile(f);
+        if (i === last5.length - 1) img.classList.add('opacity-100', 'border-amber-400/60');
+        historyRow.appendChild(img);
+      });
+    }
+
+    function next() {
+      if (deck.length === 0) {
+        stopAuto();
+        doneState.classList.remove('hidden');
+        nextBtn.disabled = true;
+        return;
+      }
+      const card = deck.shift()!;
+      history.push(card);
+      showCard(card);
+    }
+
+    function prev() {
+      if (history.length <= 1) return;
+      deck.unshift(history.pop()!);
+      const current = history[history.length - 1];
+      showCard(current);
+    }
+
+    function startAuto() {
+      stopAuto();
+      const ms = parseInt(speedSelect.value);
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+      const run = () => {
+        if (deck.length === 0) { stopAuto(); return; }
+        next();
+        autoTimer = setTimeout(run, ms);
+      };
+      autoTimer = setTimeout(run, ms);
+    }
+
+    function stopAuto() {
+      if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+    }
+
+    nextBtn.addEventListener('click', () => { stopAuto(); next(); });
+    prevBtn.addEventListener('click', () => { stopAuto(); prev(); });
+    autoToggle.addEventListener('click', () => autoTimer ? stopAuto() : startAuto());
+    speedSelect.addEventListener('change', () => { if (autoTimer) { stopAuto(); startAuto(); } });
+
+    shuffleBtn.addEventListener('click', () => {
+      stopAuto();
+      deck = shuffle(ALL_IMAGES);
+      history = [];
+      cardImg.style.opacity = '0';
+      cardBack.style.opacity = '1';
+      cardName.textContent = '—';
+      cardName.style.opacity = '1';
+      cardNumBadge.style.opacity = '0';
+      drawnCounter.textContent = '0 de 54 cartas';
+      deckProgress.style.width = '0%';
+      historyRow.innerHTML = '';
+      nextBtn.disabled = false;
+      doneState.classList.add('hidden');
+      prevBtn.disabled = true;
+    });
+
+    restartBtn.addEventListener('click', () => window.location.reload());
+
+    // Init
+    prevBtn.disabled = true;
+    next();
+  </script>
+
+  <style>
+    #currentCard { transition: opacity 0.3s ease, transform 0.3s ease; }
+    #cardName { transition: opacity 0.3s ease; }
+    #cardNumBadge { transition: opacity 0.3s ease; }
+  </style>
+</DemoLayout>

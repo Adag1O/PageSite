@@ -1,0 +1,10 @@
+{
+  "name": "Lotería Mexicana",
+  "path": "/Loteria",
+  "description": "Juego multijugador en tiempo real de la tradicional lotería.",
+  "category": "Juegos",
+  "icon": "grid",
+  "active": true,
+  "order": 4,
+  "theme": { "bg": "bg-green-50", "text": "text-green-600", "border": "border-green-100", "hoverText": "group-hover:text-green-600" }
+}

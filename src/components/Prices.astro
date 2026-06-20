@@ -1,5 +1,16 @@
 ---
-const pricingData = {
+import { getCollection } from 'astro:content';
+
+// Precios gestionados desde el CMS (src/content/pricing/*.json)
+const pricingEntries = (await getCollection('pricing'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const pricingDataCMS = Object.fromEntries(
+  pricingEntries.map(e => [e.data.category, e.data.plans])
+);
+
+// Fallback si el CMS está vacío
+const pricingDataFallback = {
   "Sitios Web": [
     {
       title: "Landing Page",
@@ -101,6 +112,7 @@ const pricingData = {
   ],
 };
 
+const pricingData = pricingEntries.length ? pricingDataCMS : pricingDataFallback;
 const tabs = Object.keys(pricingData);
 ---
 
@@ -155,7 +167,7 @@ const tabs = Object.keys(pricingData);
           class={`price-panel grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-300
             ${panelIdx === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute inset-0 pointer-events-none'}`}
         >
-          {plans.map(plan => (
+          {plans.map((plan: { title: string; description: string; price: string; period: string; gradient: string; icon: string; features: string[]; notIncluded: string[]; isPopular?: boolean }) => (
             <div class={`
               relative flex flex-col rounded-3xl overflow-hidden
               transition-all duration-300
@@ -197,7 +209,7 @@ const tabs = Object.keys(pricingData);
 
                 {/* Features */}
                 <ul class="space-y-3 mb-6 flex-1">
-                  {plan.features.map(f => (
+                  {plan.features.map((f: string) => (
                     <li class="flex items-start gap-2.5 text-sm text-gray-700">
                       <svg class="w-4.5 h-4.5 text-emerald-500 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -205,7 +217,7 @@ const tabs = Object.keys(pricingData);
                       {f}
                     </li>
                   ))}
-                  {plan.notIncluded && plan.notIncluded.map(f => (
+                  {plan.notIncluded && plan.notIncluded.map((f: string) => (
                     <li class="flex items-start gap-2.5 text-sm text-gray-400 line-through">
                       <svg class="w-4.5 h-4.5 text-gray-300 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>

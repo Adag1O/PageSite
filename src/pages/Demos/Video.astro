@@ -1,388 +1,474 @@
 ---
-import { IoChevronBack, IoChevronForward, IoCloseOutline, IoMenu } from "react-icons/io5";
 import DemoLayout from "../../layouts/DemoLayout.astro";
-
-const galleryImages = [
-  { src: "https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg", alt: "Gallery image 1" },
-  { src: "https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg", alt: "Gallery image 2" },
-  { src: "https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg", alt: "Gallery image 3" },
-  { src: "https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg", alt: "Gallery image 4" }
-];
 ---
 
-<!-- Add meta viewport for mobile-first -->
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-</head>
-
-<DemoLayout>
-  <!-- Navbar - always visible, background changes based on video visibility -->
-  <nav id="navbar" class="fixed top-0 left-0 w-full h-14 sm:h-16 z-40 transition-all duration-500 ease-out px-2 sm:px-0">
-    <div class="container mx-auto px-2 sm:px-4 h-full flex items-center justify-between">
-      <div class="flex items-center">
-        <h1 class="text-base sm:text-xl font-bold transition-colors duration-500">Scroll Video Demo</h1>
-      </div>
-      <button id="menuBtn" aria-label="Open menu" class="block sm:hidden ml-2 p-2 rounded focus:outline-none bg-transparent" style="font-size: 24px;">
-      <IoMenu color="white"/>
-      </button>
-      <div id="navbarLinks" class="hidden sm:flex items-center space-x-2 sm:space-x-6">
-        <a href="#gallery" class="text-xs sm:text-base hover:opacity-80 transition-all duration-300">Gallery</a>
-        <a href="#about" class="text-xs sm:text-base hover:opacity-80 transition-all duration-300">About</a>
-        <a href="/" class="bg-indigo-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-indigo-700 transition-colors text-xs sm:text-base">Home</a>
-      </div>
-    </div>
-  </nav>
-  <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 transition-opacity duration-300 opacity-0 pointer-events-none"></div>
+<DemoLayout title="Scroll Video Demo - AdagIO">
+  <!-- Scroll progress bar (only visible during video section) -->
+  <div id="scrollBar" class="fixed top-0 left-0 h-0.5 bg-indigo-500 z-50 transition-all" style="width:0%; opacity:0;"></div>
 
   <!-- Video scroll section -->
-  <div class="scroll-container relative">
-    <!-- Create a long scrollable container for the scroll trigger -->
-    <div class="spacer" style="height: 500vh;"></div>
-    
-    <!-- Canvas para renderizado de fotogramas vía GPU (sin reflow del DOM) -->
-    <canvas
-      id="Background"
-      class="fixed top-0 left-0 w-full h-full z-10"
-      style="will-change: transform;"
-    ></canvas>
-    
-    <!-- Overlay content -->
-    <div id="overlayStart" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
-      <div class="text-white text-center bg-transparent bg-opacity-90 p-6 sm:p-16 rounded-2xl flex flex-col items-center gap-4">
-        <h1 class="text-2xl sm:text-5xl font-extrabold mb-4 sm:mb-8">Welcome to the Scroll Animation</h1>
-        <p class="text-lg sm:text-2xl mb-4">Start scrolling to begin the experience</p>
-        <button id="startBtn" class="bg-white text-indigo-700 font-bold px-6 py-3 rounded-lg shadow-lg text-lg sm:text-xl hover:bg-indigo-100 transition-colors">Start</button>
-      </div>
-    </div>
-    <div id="overlay" class="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none">
-      <div class="text-white text-center bg-transparent bg-opacity-50 p-2 sm:p-8 rounded-lg ">
-        <h1 class="text-lg sm:text-4xl font-bold mb-2 sm:mb-4">Scroll Video</h1>
-        <p class="text-xs sm:text-lg">Scroll to see the animation</p>
-      </div>
-    </div>
-  </div>
+  <div class="scroll-container relative" style="height:500vh;">
+    <canvas id="videoCanvas" class="fixed top-0 left-0 w-full h-full z-10" style="will-change:transform;"></canvas>
 
-  <!-- Content after video scroll -->
-  <div id="content-after-video" class="relative z-30 bg-white min-h-screen pt-14 sm:pt-16">
-    <div class="container mx-auto px-2 sm:px-4 py-8 sm:py-16">
-      <h2 id="gallery" class="text-lg sm:text-4xl font-bold text-center mb-6 sm:mb-12 text-gray-900">Gallery</h2>
-      
-      <div id="gallery" class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-6">
-        {galleryImages.map((img, idx) => (
-          <div class="bg-gray-100 aspect-square rounded-lg overflow-hidden cursor-pointer" style="min-width: 80px; min-height: 80px;" onclick={`openModal(${idx})`}>
-            <img src={img.src} alt={img.alt} class="w-full h-full object-cover" style="min-width: 80px; min-height: 80px;" />
-          </div>
-        ))}
-      </div>
-
-      <!-- Modal for gallery images -->
-      <div id="galleryModal" class="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-xs bg-opacity-80 transition-opacity duration-300 opacity-0 pointer-events-none">
-        <button id="closeModalBtn" class="absolute top-4 right-4 text-white text-3xl font-bold bg-black bg-opacity-40 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70 transition-colors z-60"><IoCloseOutline /></button>
-        <div class="absolute top-0 left-0 w-full h-full" id="modalOverlay" style="cursor:pointer;"></div>
-        <div class="relative w-full h-full flex flex-col items-center justify-center">
-          <button id="prevImgBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl hover:bg-opacity-70 transition-colors z-60"><IoChevronBack /></button>
-          <img id="modalImg" src="" alt="Gallery modal" class="max-w-full max-h-[80vh] rounded shadow-lg" style="object-fit:contain;" />
-          <button id="nextImgBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl hover:bg-opacity-70 transition-colors z-60"><IoChevronForward/></button>
-        </div>
-      </div>
-
-      <!-- Additional content -->
-      <div id="about" class="mt-8 sm:mt-16 text-center">
-        <h3 class="text-base sm:text-2xl font-bold mb-2 sm:mb-4 text-gray-900">About This Animation</h3>
-        <p class="text-xs sm:text-gray-600 max-w-xs sm:max-w-2xl mx-auto leading-relaxed">
-          This scroll-triggered video demonstrates advanced web animation techniques using GSAP and ScrollTrigger. 
-          The sequence contains 278 individual frames that create a smooth cinematic experience.
+    <!-- Hero overlay (start) -->
+    <div id="overlayStart" class="fixed inset-0 z-20 flex flex-col items-end justify-end pb-12 pr-8 sm:pb-16 sm:pr-16 pointer-events-none">
+      <div class="text-right pointer-events-auto">
+        <p class="text-indigo-300 text-xs tracking-[0.4em] uppercase mb-3 opacity-80">AdagIO · Demo</p>
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-4">
+          Scroll<br/><span class="text-indigo-400">Animation</span>
+        </h1>
+        <p class="text-white/50 text-sm sm:text-base mb-8 max-w-xs ml-auto">
+          Controla la animación cuadro a cuadro deslizándote hacia abajo.
         </p>
+        <div class="flex flex-col items-end gap-2">
+          <button id="startBtn" class="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/30 text-sm">
+            Comenzar experiencia ↓
+          </button>
+          <p class="text-white/25 text-xs">278 fotogramas · GSAP ScrollTrigger</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid overlay -->
+    <div id="overlayMid" class="fixed inset-0 z-20 flex items-center justify-center pointer-events-none opacity-0">
+      <div class="text-center px-6">
+        <h2 class="text-3xl sm:text-5xl font-bold text-white mb-3">Tecnología web</h2>
+        <p class="text-white/50 text-sm sm:text-base">Canvas GPU · GSAP ScrollTrigger · AVIF</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-screen loader -->
+  <div id="pageLoader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gray-950 select-none">
+    <!-- Background grid -->
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+
+    <!-- Glow -->
+    <div class="absolute w-80 h-80 bg-indigo-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="relative flex flex-col items-center gap-6 px-8 w-full max-w-xs">
+      <!-- Logo / brand mark -->
+      <div class="flex items-center gap-2 mb-2 opacity-60">
+        <div class="w-6 h-6 rounded-md bg-indigo-500 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <span class="text-white text-sm font-bold tracking-wide">AdagIO</span>
       </div>
 
-      <!-- More content sections -->
-      <div class="mt-8 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
-        <div class="text-center p-2 sm:p-6 bg-gray-50 rounded-lg">
-          <h4 class="text-xs sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-900">Technology</h4>
-          <p class="text-xs sm:text-gray-600">Built with GSAP ScrollTrigger for smooth scroll animations</p>
+      <!-- Circular progress ring -->
+      <div class="relative w-28 h-28">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+          <!-- Track -->
+          <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+          <!-- Fill -->
+          <circle id="loaderRing" cx="50" cy="50" r="42" fill="none" stroke="url(#loaderGrad)" stroke-width="5"
+            stroke-linecap="round"
+            stroke-dasharray="263.9"
+            stroke-dashoffset="263.9"
+            style="transition: stroke-dashoffset 0.2s ease-out;"/>
+          <defs>
+            <linearGradient id="loaderGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#818cf8"/>
+              <stop offset="100%" stop-color="#6366f1"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <!-- Center percentage -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="loaderPct" class="text-2xl font-black text-white tabular-nums">0%</span>
         </div>
-        <div class="text-center p-2 sm:p-6 bg-gray-50 rounded-lg">
-          <h4 class="text-xs sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-900">Performance</h4>
-          <p class="text-xs sm:text-gray-600">Optimized loading and frame sequencing for best experience</p>
+      </div>
+
+      <!-- Status text -->
+      <div class="text-center">
+        <p id="loaderStatus" class="text-white/50 text-xs tracking-[0.3em] uppercase mb-1">Cargando fotogramas</p>
+        <!-- Segmented mini progress bar -->
+        <div class="flex gap-1 justify-center mt-3">
+          {Array.from({length: 10}).map((_, i) => (
+            <div class="loader-seg w-4 h-0.5 rounded-full bg-white/10 transition-colors duration-300" data-seg={i}></div>
+          ))}
         </div>
-        <div class="text-center p-2 sm:p-6 bg-gray-50 rounded-lg">
-          <h4 class="text-xs sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-900">Design</h4>
-          <p class="text-xs sm:text-gray-600">Cinematic storytelling through interactive scroll</p>
+      </div>
+
+      <!-- Two-phase labels -->
+      <div class="flex gap-6 text-center">
+        <div>
+          <p id="frameLabel" class="text-xs text-white/20 tabular-nums">0 / 278</p>
+          <p class="text-[10px] text-white/15 uppercase tracking-wider mt-0.5">Frames</p>
+        </div>
+        <div class="w-px bg-white/10"></div>
+        <div>
+          <p id="windowLabel" class="text-xs text-white/20">Pendiente</p>
+          <p class="text-[10px] text-white/15 uppercase tracking-wider mt-0.5">Página</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Loader overlay con barra de progreso real -->
-  <div id="pageLoader" class="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-black transition-opacity duration-700">
-    <p class="text-white/60 text-xs font-medium tracking-[0.3em] uppercase mb-4">Loading</p>
-    <div class="w-48 h-0.5 bg-white/20 rounded-full overflow-hidden">
-      <div id="loaderProgress" class="h-full bg-white rounded-full" style="width:0%;transition:width 0.15s ease-out;"></div>
-    </div>
-    <p id="loaderPercent" class="text-white/40 text-xs mt-3">0%</p>
+  <!-- ─── Content after video ─────────────────────────────────────── -->
+  <div id="contentAfter" class="relative z-30 bg-gray-950">
+
+    <!-- Gallery -->
+    <section class="py-24 px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="mb-12">
+          <p class="text-indigo-400 text-xs tracking-[0.4em] uppercase mb-3">Portafolio</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">Galería de imágenes</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="galleryGrid">
+          {[
+            { src: 'https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Naturaleza', color: 'from-green-900/60' },
+            { src: 'https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Abstracto', color: 'from-purple-900/60' },
+            { src: 'https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Urbano', color: 'from-blue-900/60' },
+            { src: 'https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Arquitectura', color: 'from-orange-900/60' },
+          ].map((img, i) => (
+            <div
+              class="gallery-card relative aspect-square rounded-2xl overflow-hidden cursor-pointer group"
+              style={`opacity:0; transform:translateY(20px); transition: opacity 0.5s ease ${i*80}ms, transform 0.5s ease ${i*80}ms;`}
+              data-src={img.src}
+              data-label={img.label}
+            >
+              <img
+                src={img.src}
+                alt={img.label}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class={`absolute inset-0 bg-gradient-to-t ${img.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3`}>
+                <span class="text-white text-xs font-medium">{img.label}</span>
+              </div>
+              <div class="absolute inset-0 ring-2 ring-inset ring-white/0 group-hover:ring-white/10 rounded-2xl transition-all duration-300"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-24 px-4 sm:px-6 border-t border-white/5">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <p class="text-indigo-400 text-xs tracking-[0.4em] uppercase mb-3">Tecnología</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white">Cómo funciona</h2>
+          </div>
+          <p class="text-gray-500 text-sm max-w-xs">Renderizado de alta performance usando técnicas de animación cinématica en el navegador.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-4 mb-16">
+          {[
+            {
+              num: '01',
+              title: 'Carga progresiva',
+              desc: 'Los 278 fotogramas AVIF se descargan en segundo plano. Con solo el 12% disponible, la experiencia ya puede comenzar.',
+              color: 'text-indigo-400',
+            },
+            {
+              num: '02',
+              title: 'Canvas GPU',
+              desc: 'Cada fotograma se dibuja en un elemento <canvas> con aceleración por hardware, evitando reflows del DOM para máxima fluidez.',
+              color: 'text-violet-400',
+            },
+            {
+              num: '03',
+              title: 'Scroll scrubbing',
+              desc: 'GSAP ScrollTrigger mapea la posición de scroll a un progreso [0–1] que selecciona el fotograma exacto a mostrar.',
+              color: 'text-sky-400',
+            },
+          ].map(item => (
+            <div class="tech-card bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.07] hover:border-indigo-500/30 rounded-2xl p-6 transition-all duration-300 group" style="opacity:0; transform:translateY(20px);">
+              <p class={`text-3xl font-black mb-4 ${item.color} opacity-40 group-hover:opacity-70 transition-opacity`}>{item.num}</p>
+              <h3 class="text-white font-semibold mb-2 text-sm">{item.title}</h3>
+              <p class="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Metrics row -->
+        <div class="grid grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden">
+          {[
+            { val: '278', label: 'Fotogramas', unit: '' },
+            { val: '12', label: 'Umbral de inicio', unit: '%' },
+            { val: '<16', label: 'ms por frame', unit: '' },
+          ].map(m => (
+            <div class="bg-gray-950 py-8 text-center">
+              <p class="text-3xl sm:text-4xl font-black text-white mb-1">{m.val}<span class="text-indigo-400">{m.unit}</span></p>
+              <p class="text-gray-600 text-xs uppercase tracking-wider">{m.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Use cases -->
+    <section class="py-24 px-4 sm:px-6 border-t border-white/5">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-14">
+          <p class="text-indigo-400 text-xs tracking-[0.4em] uppercase mb-3">Aplicaciones</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">¿Para qué sirve?</h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          {[
+            { icon: '🚗', title: 'Lanzamientos de producto', desc: 'Muestra tu producto desde todos los ángulos mientras el usuario hace scroll, como hacen las marcas de automóviles premium.' },
+            { icon: '🏠', title: 'Real estate & arquitectura', desc: 'Recorridos virtuales inmersivos por propiedades o edificios sin plugins adicionales.' },
+            { icon: '📱', title: 'Marketing de apps', desc: 'Animaciones de la interfaz de tu app sincronizadas con el scroll para landing pages de alto impacto.' },
+            { icon: '🎮', title: 'Experiencias de juego', desc: 'Cinematics controladas por el usuario para trailers de videojuegos o campañas interactivas.' },
+          ].map(u => (
+            <div class="flex gap-4 p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/10 transition-colors">
+              <div class="text-2xl flex-shrink-0 mt-0.5">{u.icon}</div>
+              <div>
+                <h3 class="text-white font-semibold text-sm mb-1">{u.title}</h3>
+                <p class="text-gray-500 text-xs leading-relaxed">{u.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 px-4 border-t border-white/5">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">¿Quieres algo así para tu marca?</h2>
+        <p class="text-gray-400 text-sm mb-8 max-w-lg mx-auto">Creamos experiencias web cinématicas, sitios de producto, y campañas de marketing interactivas de alto impacto.</p>
+        <a
+          href="https://adagi0.com"
+          target="_blank"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30"
+        >
+          Habla con nosotros
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <footer class="py-6 border-t border-white/5 text-center">
+      <p class="text-gray-700 text-xs">Demo cinémático por <a href="https://adagi0.com" class="text-indigo-400 hover:text-indigo-300 transition-colors" target="_blank">AdagIO</a></p>
+    </footer>
   </div>
-</DemoLayout>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { FramePlayer } from "../../utils/FramePlayer";
-  gsap.registerPlugin(ScrollTrigger);
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <button id="lb-close" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <button id="lb-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="flex flex-col items-center px-14">
+      <img id="lb-img" src="" alt="" class="max-w-[90vw] max-h-[78vh] object-contain rounded-xl" />
+      <p id="lb-label" class="text-white/50 text-sm mt-3"></p>
+    </div>
+    <button id="lb-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
 
-  type GalleryImage = { src: string; alt: string };
-  declare global { interface Window { galleryImages: GalleryImage[]; } }
+  <script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { FramePlayer } from "../../utils/FramePlayer";
+    gsap.registerPlugin(ScrollTrigger);
 
-  window.galleryImages = [
-    { src: "https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg", alt: "Gallery image 1" },
-    { src: "https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg", alt: "Gallery image 2" },
-    { src: "https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg", alt: "Gallery image 3" },
-    { src: "https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg", alt: "Gallery image 4" },
-  ];
+    const GALLERY = [
+      { src: 'https://images.pexels.com/photos/2825236/pexels-photo-2825236.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Naturaleza' },
+      { src: 'https://images.pexels.com/photos/4572176/pexels-photo-4572176.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Abstracto' },
+      { src: 'https://images.pexels.com/photos/17304112/pexels-photo-17304112.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Urbano' },
+      { src: 'https://images.pexels.com/photos/33846137/pexels-photo-33846137.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Arquitectura' },
+    ];
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const canvas      = document.getElementById('Background') as HTMLCanvasElement;
-    const overlayEl   = document.getElementById('overlay') as HTMLElement;
-    const navbar      = document.getElementById('navbar') as HTMLElement;
-    const pageLoader  = document.getElementById('pageLoader') as HTMLElement;
-    const loaderBar   = document.getElementById('loaderProgress') as HTMLElement;
-    const loaderPct   = document.getElementById('loaderPercent') as HTMLElement;
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas       = document.getElementById('videoCanvas')  as HTMLCanvasElement;
+      const pageLoader   = document.getElementById('pageLoader')   as HTMLElement;
+      const scrollBar    = document.getElementById('scrollBar')    as HTMLElement;
+      const overlayStart = document.getElementById('overlayStart') as HTMLElement;
+      const overlayMid   = document.getElementById('overlayMid')   as HTMLElement;
 
-    // ── FramePlayer: carga progresiva + renderizado en canvas vía RAF ─────────
-    const player = new FramePlayer(canvas, {
-      totalFrames: 278,
-      framePathFn: (i) =>
-        `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3, '0')}.avif`,
-      readyThreshold: 0.12, // listo con el 12 % de frames cargados
-      onProgress: (pct) => {
-        const p = Math.round(pct * 100);
-        if (loaderBar) loaderBar.style.width = `${p}%`;
-        if (loaderPct) loaderPct.textContent  = `${p}%`;
-      },
-      onReady: () => {
-        if (pageLoader) {
-          pageLoader.style.opacity = '0';
-          setTimeout(() => { pageLoader.style.display = 'none'; }, 700);
-        }
-        initScrollAnim();
-      },
-    });
-    player.init();
+      const CIRC       = 263.9; // 2π × 42
+      const TOTAL_FRAMES = 278;
 
-    // ── Animación de scroll ───────────────────────────────────────────────────
-    function initScrollAnim() {
-      if (!canvas || !overlayEl || !navbar) return;
+      let framesDone   = false;
+      let windowLoaded = false;
+      let frameProgress = 0;
 
-      gsap.set(overlayEl, { opacity: 0 });
-      gsap.set(overlayEl.querySelector('div'), { scale: 0.3 });
-      gsap.set(navbar, { backgroundColor: 'rgba(255,255,255,0)' });
+      const loaderRing   = document.getElementById('loaderRing')   as SVGCircleElement;
+      const loaderPct    = document.getElementById('loaderPct')     as HTMLElement;
+      const loaderStatus = document.getElementById('loaderStatus')  as HTMLElement;
+      const frameLabel   = document.getElementById('frameLabel')    as HTMLElement;
+      const windowLabel  = document.getElementById('windowLabel')   as HTMLElement;
+      const segments     = document.querySelectorAll<HTMLElement>('.loader-seg');
 
-      const navTitle = navbar.querySelector('h1');
-      const navLinks = navbar.querySelectorAll<HTMLElement>('a:not([href="/"])');
-      gsap.set(navTitle, { color: 'white' });
-      gsap.set(navLinks, { color: 'rgba(255,255,255,0.9)' });
+      // ── Update loader UI ─────────────────────────────────────────────────
+      function setLoaderProgress(pct: number) {
+        // clamp 0–1
+        pct = Math.min(1, Math.max(0, pct));
+        if (loaderRing) loaderRing.style.strokeDashoffset = String(CIRC * (1 - pct));
+        if (loaderPct)  loaderPct.textContent = `${Math.round(pct * 100)}%`;
+        // light up segments
+        const lit = Math.round(pct * segments.length);
+        segments.forEach((seg, i) => {
+          seg.style.backgroundColor = i < lit ? 'rgba(99,102,241,0.8)' : 'rgba(255,255,255,0.08)';
+        });
+      }
 
-      const navToSolid = () => {
-        gsap.to(navbar,    { backgroundColor: 'rgba(255,255,255,1)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', duration: 0.6 });
-        gsap.to(navTitle,  { color: '#111827', duration: 0.6 });
-        gsap.to(navLinks,  { color: '#4B5563', duration: 0.6 });
-      };
-      const navToTransp = () => {
-        gsap.to(navbar,    { backgroundColor: 'rgba(255,255,255,0)', boxShadow: 'none', backdropFilter: 'none', duration: 0.6 });
-        gsap.to(navTitle,  { color: 'white', duration: 0.6 });
-        gsap.to(navLinks,  { color: 'rgba(255,255,255,0.9)', duration: 0.6 });
-      };
+      // ── Dismiss loader when BOTH signals are green ───────────────────────
+      function tryDismiss() {
+        if (!framesDone || !windowLoaded) return;
+        // Final flash to 100%
+        setLoaderProgress(1);
+        if (loaderStatus) loaderStatus.textContent = '¡Listo!';
+        setTimeout(() => {
+          if (pageLoader) {
+            pageLoader.style.transition = 'opacity 0.7s ease';
+            pageLoader.style.opacity = '0';
+            setTimeout(() => { pageLoader.style.display = 'none'; }, 750);
+          }
+          initScroll();
+        }, 300);
+      }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.scroll-container',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.1,
-          onUpdate: (self) => {
-            // Delegar el renderizado al FramePlayer (usa RAF internamente)
-            player.seekToProgress(self.progress);
+      // ── Signal 1: window.load (fonts, scripts, DOM images) ───────────────
+      if (document.readyState === 'complete') {
+        windowLoaded = true;
+        if (windowLabel) { windowLabel.textContent = 'Lista'; windowLabel.style.color = 'rgba(99,102,241,0.7)'; }
+      } else {
+        window.addEventListener('load', () => {
+          windowLoaded = true;
+          if (windowLabel) { windowLabel.textContent = 'Lista'; windowLabel.style.color = 'rgba(99,102,241,0.7)'; }
+          tryDismiss();
+        }, { once: true });
+      }
 
-            const p = self.progress;
-            let opacity = 0, scale = 0.3;
-            if (p >= 0.4 && p <= 0.6) {
-              const lp = (p - 0.4) / 0.2;
-              opacity = lp;
-              scale   = 0.3 + lp * 0.7;
-            } else if (p > 0.6) { opacity = 1; scale = 1; }
-            gsap.set(overlayEl, { opacity });
-            gsap.set(overlayEl.querySelector('div'), { scale });
-          },
-          onLeave:     () => { gsap.to([canvas, overlayEl], { opacity: 0, duration: 0.5 }); navToSolid(); },
-          onEnterBack: () => { gsap.to(canvas, { opacity: 1, duration: 0.5 }); navToTransp(); },
-          onLeaveBack: () => {
-            gsap.set(overlayEl, { opacity: 0 });
-            gsap.set(overlayEl.querySelector('div'), { scale: 0.3 });
-            navToTransp();
-          },
+      // ── Signal 2: all 278 frames loaded via FramePlayer ──────────────────
+      const player = new FramePlayer(canvas, {
+        totalFrames: TOTAL_FRAMES,
+        framePathFn: (i) => `/background/13938017-hd_1920_1080_25fps_${String(i).padStart(3,'0')}.avif`,
+        readyThreshold: 1,          // wait for ALL frames, not just 12%
+        onProgress: (pct) => {
+          frameProgress = pct;
+          setLoaderProgress(pct);
+          if (frameLabel) frameLabel.textContent = `${Math.round(pct * TOTAL_FRAMES)} / ${TOTAL_FRAMES}`;
+          // Update status label at milestones
+          if (loaderStatus) {
+            if (pct < 0.3)       loaderStatus.textContent = 'Cargando fotogramas…';
+            else if (pct < 0.7)  loaderStatus.textContent = 'Procesando secuencia…';
+            else if (pct < 1)    loaderStatus.textContent = 'Casi listo…';
+          }
+        },
+        onReady: () => {
+          framesDone = true;
+          if (frameLabel) { frameLabel.textContent = `${TOTAL_FRAMES} / ${TOTAL_FRAMES}`; frameLabel.style.color = 'rgba(99,102,241,0.7)'; }
+          tryDismiss();
         },
       });
+      player.init();
 
-      tl.fromTo(canvas, { scale: 1 }, { scale: 1.1, duration: 1, ease: 'none' });
-    }
+      // ── Scroll animation ─────────────────────────────────────────────────
+      function initScroll() {
+        gsap.set(overlayMid, { opacity: 0 });
 
-    // ── Smooth scroll ──────────────────────────────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-        document.querySelector(href ?? '')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: '.scroll-container',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.15,
+            onUpdate: (self) => {
+              player.seekToProgress(self.progress);
+
+              // Progress bar
+              if (scrollBar) {
+                scrollBar.style.width = `${self.progress * 100}%`;
+                scrollBar.style.opacity = self.progress > 0.01 && self.progress < 0.99 ? '1' : '0';
+              }
+
+              // Start overlay fade
+              if (self.progress > 0.04) {
+                gsap.to(overlayStart, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
+              } else {
+                gsap.to(overlayStart, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
+              }
+
+              // Mid overlay
+              let mid = 0;
+              const p = self.progress;
+              if (p >= 0.38 && p <= 0.62) {
+                mid = p < 0.5 ? (p - 0.38) / 0.12 : 1 - (p - 0.5) / 0.12;
+              }
+              gsap.set(overlayMid, { opacity: Math.max(0, Math.min(1, mid)) });
+            },
+            onLeave: () => {
+              gsap.to([canvas, overlayMid], { opacity: 0, duration: 0.5 });
+              if (scrollBar) scrollBar.style.opacity = '0';
+            },
+            onEnterBack: () => {
+              gsap.to(canvas, { opacity: 1, duration: 0.4 });
+            },
+            onLeaveBack: () => {
+              gsap.to(overlayStart, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
+            },
+          },
+        }).fromTo(canvas, { scale: 1 }, { scale: 1.07, duration: 1, ease: 'none' });
+      }
+
+      // Start button
+      document.getElementById('startBtn')?.addEventListener('click', () => {
+        window.scrollTo({ top: window.innerHeight * 0.6, behavior: 'smooth' });
+      });
+
+      // ── IntersectionObserver for gallery + tech cards ─────────────────────
+      const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            (e.target as HTMLElement).style.opacity = '1';
+            (e.target as HTMLElement).style.transform = 'translateY(0)';
+            revealObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.gallery-card, .tech-card').forEach(el => revealObs.observe(el));
+
+      // ── Lightbox ───────────────────────────────────────────────────────────
+      const lb = document.getElementById('lightbox')!;
+      const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+      const lbLabel = document.getElementById('lb-label')!;
+      let lbIdx = 0;
+
+      const openLb = (i: number) => {
+        lbIdx = i;
+        lbImg.src = GALLERY[i].src;
+        lbLabel.textContent = GALLERY[i].label;
+        lb.style.opacity = '1'; lb.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'hidden';
+      };
+      const closeLb = () => {
+        lb.style.opacity = '0'; lb.style.pointerEvents = 'none';
+        document.body.style.overflow = '';
+      };
+      const navLb = (d: number) => openLb((lbIdx + d + GALLERY.length) % GALLERY.length);
+
+      document.querySelectorAll('.gallery-card').forEach((c, i) => c.addEventListener('click', () => openLb(i)));
+      document.getElementById('lb-close')?.addEventListener('click', closeLb);
+      document.getElementById('lb-prev')?.addEventListener('click', () => navLb(-1));
+      document.getElementById('lb-next')?.addEventListener('click', () => navLb(+1));
+      lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+      document.addEventListener('keydown', e => {
+        if (lb.style.pointerEvents !== 'auto') return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowLeft') navLb(-1);
+        if (e.key === 'ArrowRight') navLb(+1);
       });
     });
+  </script>
 
-    // ── Gallery: animación al hacer scroll ────────────────────────────────────
-    document.querySelectorAll<HTMLElement>('#gallery > div').forEach((item, i) => {
-      gsap.fromTo(item,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: i * 0.1,
-          scrollTrigger: { trigger: item, start: 'top 80%', toggleActions: 'play none none reverse' } },
-      );
-    });
-
-    // ── Modal de galería ───────────────────────────────────────────────────────
-    let currentIdx = 0;
-    const galleryModal  = document.getElementById('galleryModal');
-    const modalImg      = document.getElementById('modalImg') as HTMLImageElement;
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const prevBtn       = document.getElementById('prevImgBtn');
-    const nextBtn       = document.getElementById('nextImgBtn');
-    const modalOverlay  = document.getElementById('modalOverlay');
-    const navbarEl      = document.getElementById('navbar');
-
-    const openModal = (idx: number) => {
-      currentIdx = idx;
-      if (modalImg) { modalImg.src = window.galleryImages[idx].src; modalImg.alt = window.galleryImages[idx].alt; }
-      if (galleryModal) { galleryModal.style.opacity = '1'; galleryModal.style.pointerEvents = 'auto'; }
-      if (navbarEl) navbarEl.style.display = 'none';
-      document.body.style.overflow = 'hidden';
-    };
-    const closeModal = () => {
-      if (galleryModal) { galleryModal.style.opacity = '0'; galleryModal.style.pointerEvents = 'none'; }
-      if (navbarEl) navbarEl.style.display = '';
-      document.body.style.overflow = '';
-    };
-    const showImg = (delta: number) => {
-      currentIdx = (currentIdx + delta + window.galleryImages.length) % window.galleryImages.length;
-      if (modalImg) { modalImg.src = window.galleryImages[currentIdx].src; modalImg.alt = window.galleryImages[currentIdx].alt; }
-    };
-
-    // Exponer openModal globalmente para los atributos onclick inline del template
-    (window as any).openModal = openModal;
-
-    closeModalBtn?.addEventListener('click', closeModal);
-    prevBtn?.addEventListener('click',      () => showImg(-1));
-    nextBtn?.addEventListener('click',      () => showImg(+1));
-    modalOverlay?.addEventListener('click', closeModal);
-    document.querySelectorAll<HTMLElement>('#gallery > div').forEach((thumb, i) => {
-      thumb.addEventListener('click', () => openModal(i));
-    });
-
-    // ── Menú móvil ────────────────────────────────────────────────────────────
-    const menuBtn       = document.getElementById('menuBtn');
-    const navbarLinks   = document.getElementById('navbarLinks') as HTMLElement;
-    const mobileOverlay = document.getElementById('mobileMenuOverlay') as HTMLElement;
-    let menuOpen = false;
-
-    const toggleMenu = () => {
-      menuOpen = !menuOpen;
-      if (menuOpen) {
-        navbarLinks.classList.replace('hidden', 'flex');
-        Object.assign(navbarLinks.style, {
-          flexDirection: 'column', background: 'rgba(0,0,0,0.85)',
-          position: 'absolute', top: '100%', left: '0',
-          width: '100vw', zIndex: '50', padding: '16px 0',
-        });
-        navbarLinks.querySelectorAll('a').forEach((a) =>
-          Object.assign(a.style, { margin: '12px 0', fontSize: '1.1rem', textAlign: 'center' }));
-        mobileOverlay.style.opacity = '1';
-        mobileOverlay.style.pointerEvents = 'auto';
-      } else {
-        navbarLinks.classList.replace('flex', 'hidden');
-        ['flexDirection','background','position','top','left','width','zIndex','padding']
-          .forEach((k) => ((navbarLinks.style as any)[k] = ''));
-        navbarLinks.querySelectorAll('a').forEach((a) => { a.style.margin = ''; a.style.fontSize = ''; a.style.textAlign = ''; });
-        mobileOverlay.style.opacity = '0';
-        mobileOverlay.style.pointerEvents = 'none';
-      }
-    };
-
-    menuBtn?.addEventListener('click', toggleMenu);
-    mobileOverlay?.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
-  });
-</script>
-
-<style>
-@media (max-width: 300px) {
-  .container {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-  }
-  h1, h2, h3, h4, p, a, button {
-    font-size: 10px !important;
-    line-height: 1.1 !important;
-  }
-  #navbar {
-    height: 32px !important;
-    min-height: 32px !important;
-    padding: 0 2px !important;
-  }
-  #gallery > div {
-    min-width: 60px !important;
-    min-height: 60px !important;
-  }
-  #galleryModal > div {
-    max-width: 90vw !important;
-    padding: 2px !important;
-  }
-  #modalImg {
-    max-height: 30vh !important;
-  }
-}
-#galleryModal {
-  opacity: 0;
-  pointer-events: none;
-}
-#galleryModal[style*="opacity: 1"] {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-@media (min-width: 1200px) {
-  #menuBtn {
-    display: block !important;
-  }
-}
-@media (max-width: 1199px) {
-  #menuBtn {
-    display: none !important;
-  }
-}
-@media (max-width: 639px) {
-  #menuBtn {
-    display: block !important;
-  }
-  #navbarLinks {
-    display: none !important;
-  }
-  #navbarLinks.flex {
-    display: flex !important;
-  }
-}
-@media (min-width: 640px) {
-  #menuBtn {
-    display: none !important;
-  }
-  #navbarLinks {
-    display: flex !important;
-    position: static !important;
-    background: none !important;
-    flex-direction: row !important;
-    width: auto !important;
-    padding: 0 !important;
-  }
-}
-</style>
-
+  <style>
+    html { background: #030712; }
+    #pageLoader { transition: opacity 0.7s ease; }
+  </style>
+</DemoLayout>

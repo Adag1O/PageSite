@@ -2,6 +2,10 @@ backend:
   name: git-gateway
   branch: main
 
+# Modo local: solo se activa cuando accedes desde localhost
+# y el proxy está corriendo (npm run cms). En producción se ignora.
+local_backend: true
+
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
@@ -73,6 +77,7 @@ collections:
       - { label: "Ícono", name: "icon", widget: "select",
           options: ["link","heart","video","grid","cart","screen","star","bolt"] }
       - { label: "Activo", name: "active", widget: "boolean", default: true }
+      - { label: "Orden", name: "order", widget: "number", default: 0 }
       - label: "Tema visual"
         name: "theme"
         widget: "object"
@@ -82,28 +87,60 @@ collections:
           - { label: "border (ej: border-blue-100)", name: "border", widget: "string" }
           - { label: "hoverText (ej: group-hover:text-blue-600)", name: "hoverText", widget: "string" }
 
-  # ─── SERVICIOS ────────────────────────────────────────────────
-  - name: "services"
-    label: "Servicios"
-    label_singular: "Servicio"
-    folder: "src/content/services"
+  # ─── TESTIMONIOS ──────────────────────────────────────────────
+  - name: "testimonials"
+    label: "Testimonios"
+    label_singular: "Testimonio"
+    folder: "src/content/testimonials"
     create: true
     delete: true
     extension: json
     format: json
+    summary: "{{name}} — {{company}} ({{rating}}★)"
     fields:
-      - { label: "ID único", name: "id", widget: "string" }
-      - { label: "Título", name: "title", widget: "string" }
-      - { label: "Subtítulo", name: "tagline", widget: "string" }
-      - { label: "Descripción", name: "description", widget: "text" }
-      - label: "Características"
-        name: "features"
-        widget: "list"
-        field: { label: "Característica", name: "feature", widget: "string" }
-      - { label: "Precio referencial", name: "price", widget: "string" }
-      - { label: "Gradiente CSS", name: "color", widget: "string" }
-      - { label: "Ícono SVG path", name: "icon", widget: "string" }
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Puesto", name: "role", widget: "string", required: false }
+      - { label: "Empresa", name: "company", widget: "string", required: false }
+      - { label: "Testimonio", name: "text", widget: "text" }
+      - { label: "Calificación (1-5)", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
+      - { label: "Foto (opcional)", name: "avatar", widget: "image", required: false }
+      - { label: "✅ Aprobado (visible en el sitio)", name: "approved", widget: "boolean", default: false }
+      - { label: "Fecha", name: "date", widget: "string", required: false, hint: "Formato: YYYY-MM-DD" }
+      - { label: "Tipo de proyecto", name: "project", widget: "string", required: false }
+
+  # ─── PRECIOS ──────────────────────────────────────────────────
+  - name: "pricing"
+    label: "Precios"
+    label_singular: "Categoría de precios"
+    folder: "src/content/pricing"
+    create: true
+    delete: true
+    extension: json
+    format: json
+    summary: "{{category}}"
+    fields:
+      - { label: "Categoría (nombre del tab)", name: "category", widget: "string" }
       - { label: "Orden", name: "order", widget: "number", default: 0 }
+      - label: "Planes"
+        name: "plans"
+        widget: "list"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Descripción", name: "description", widget: "string" }
+          - { label: "Precio (ej: 18,000)", name: "price", widget: "string" }
+          - { label: "Periodo", name: "period", widget: "string", default: "proyecto único" }
+          - { label: "Gradiente CSS", name: "gradient", widget: "string", default: "from-blue-600 to-indigo-600" }
+          - { label: "Ícono SVG path", name: "icon", widget: "string" }
+          - { label: "⭐ Plan popular", name: "isPopular", widget: "boolean", default: false }
+          - label: "Incluye"
+            name: "features"
+            widget: "list"
+            field: { label: "Característica", name: "feature", widget: "string" }
+          - label: "No incluye"
+            name: "notIncluded"
+            widget: "list"
+            required: false
+            field: { label: "Característica", name: "item", widget: "string" }
 
   # ─── CONFIGURACIÓN GENERAL ────────────────────────────────────
   - name: "settings"

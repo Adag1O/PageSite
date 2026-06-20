@@ -12,7 +12,7 @@ import Tailwind from './icons/Tech/Tailwind.astro';
 
 import JavaScript from './icons/Tech/javascript.astro';
 import Java from './icons/Tech/java.astro';
-const TECH_ICONS = {
+const TECH_ICONS: Record<string, any> = {
   'Angular': Angular,
   'Astro': AstroIcon,
   'CSS': Css,
@@ -31,8 +31,22 @@ const TECH_ICONS = {
   'Tailwind': Tailwind,
 };
 
-// Datos del portafolio organizados por categorías
-const portfolioData = {
+interface PortfolioItem {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  technologies?: string[];
+  url?: string;
+  preview?: boolean;
+  status?: string;
+  statusText?: string;
+  type: string;
+  icon?: string;
+  kickstarterUrl?: string;
+}
+
+const portfolioData: Record<string, PortfolioItem[]> = {
  /* "Dispositivos": [
     {
       id: "iot-system",
@@ -227,8 +241,8 @@ const portfolioData = {
 };
 
 // Función para obtener el color de estado
-function getStatusColor(status: string): string {
-  const colors = {
+function getStatusColor(status: string | undefined): string {
+  const colors: Record<string, string> = {
     'live': 'green',
     'demo': 'blue',
     'private': 'gray',
@@ -236,7 +250,7 @@ function getStatusColor(status: string): string {
     'production': 'green',
     'coming-soon': 'gray'
   };
-  return colors[status] || 'gray';
+  return colors[status ?? ''] || 'gray';
 }
 
 // Función para obtener el color de categoría

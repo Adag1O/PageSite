@@ -1,0 +1,10 @@
+{
+  "name": "Wedding Demo",
+  "path": "/Wedding",
+  "description": "Invitación digital para eventos especiales y bodas.",
+  "category": "Eventos",
+  "icon": "heart",
+  "active": true,
+  "order": 2,
+  "theme": { "bg": "bg-pink-50", "text": "text-pink-600", "border": "border-pink-100", "hoverText": "group-hover:text-pink-600" }
+}

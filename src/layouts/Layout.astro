@@ -67,7 +67,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://adagi0.c
 
 <!-- Netlify Identity redirect after login -->
 <script>
-  if (window.netlifyIdentity) {
+  if ((window as any).netlifyIdentity) {
     (window as any).netlifyIdentity.on("init", (user: any) => {
       if (!user) {
         (window as any).netlifyIdentity.on("login", () => {

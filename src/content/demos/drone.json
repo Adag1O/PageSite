@@ -1,0 +1,10 @@
+{
+  "name": "Drone Demo",
+  "path": "/Video",
+  "description": "Experiencia de video inmersiva controlada por scroll.",
+  "category": "Marketing",
+  "icon": "video",
+  "active": true,
+  "order": 3,
+  "theme": { "bg": "bg-purple-50", "text": "text-purple-600", "border": "border-purple-100", "hoverText": "group-hover:text-purple-600" }
+}

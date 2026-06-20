@@ -21,6 +21,9 @@ const lastUpdate = "09 de junio de 2026";
         </div>
         <h1 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Aviso de Privacidad</h1>
         <p class="text-gray-500 text-sm">Última actualización: {lastUpdate}</p>
+
+        <!-- TOC chips (se llena con JS desde los h2) -->
+        <nav id="legal-toc" class="flex flex-wrap gap-2 mt-8" aria-label="Índice del documento"></nav>
       </div>
     </section>
 
@@ -186,3 +189,19 @@ const lastUpdate = "09 de junio de 2026";
     </section>
   </main>
 </Layout>
+
+<script>
+  // Genera el índice (TOC) y anclas a partir de los h2 del documento
+  const toc = document.getElementById('legal-toc');
+  const headings = document.querySelectorAll<HTMLElement>('main h2');
+  headings.forEach((h, i) => {
+    const id = `seccion-${i + 1}`;
+    h.id = id;
+    h.style.scrollMarginTop = '90px';
+    const a = document.createElement('a');
+    a.href = `#${id}`;
+    a.textContent = h.textContent?.replace(/^\d+\.\s*/, '') ?? '';
+    a.className = 'text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-[#123472] hover:text-white px-3 py-1.5 rounded-full transition-colors';
+    toc?.appendChild(a);
+  });
+</script>

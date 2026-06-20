@@ -59,6 +59,22 @@ const navLinks = [
 
     <!-- ── Right side ── -->
     <div class="flex items-center gap-3">
+      <!-- Cart -->
+      <a
+        href="/carrito"
+        id="nav-cart"
+        class="relative flex items-center justify-center w-9 h-9 rounded-lg hover:bg-gray-100 transition-colors text-gray-700"
+        aria-label="Ver carrito"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <span
+          id="cart-badge"
+          class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-[#ff0040] text-white text-[10px] font-bold rounded-full items-center justify-center"
+        ></span>
+      </a>
+
       <a
         href="#ContactoForm"
         class="
@@ -187,6 +203,21 @@ const navLinks = [
 </style>
 
 <script>
+  import { cartCount } from '../utils/cart';
+
+  /* ── Cart badge ── */
+  const badge = document.getElementById('cart-badge');
+  const renderBadge = () => {
+    const n = cartCount();
+    if (!badge) return;
+    badge.textContent = String(n);
+    badge.classList.toggle('hidden', n === 0);
+    badge.classList.toggle('flex', n > 0);
+  };
+  renderBadge();
+  window.addEventListener('cart:updated', renderBadge);
+  window.addEventListener('storage', renderBadge);
+
   const navbar   = document.getElementById('navbar')!;
   const toggle   = document.getElementById('menu-toggle')!;
   const mobileMenu = document.getElementById('mobile-menu')!;

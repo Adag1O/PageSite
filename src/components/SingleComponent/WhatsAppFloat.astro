@@ -1,10 +1,15 @@
 ---
+import { getEntry } from 'astro:content';
+
 interface Props {
   phone?: string;
   message?: string;
 }
+
+const settings = await getEntry('settings', 'general');
+
 const {
-  phone = "5215512345678",
+  phone = settings?.data.whatsapp ?? "5215512345678",
   message = "Hola, me interesa conocer más sobre sus servicios y productos.",
 } = Astro.props;
 

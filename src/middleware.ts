@@ -19,6 +19,11 @@ export const onRequest = defineMiddleware((context, next) => {
   const { request } = context;
   const url = new URL(request.url);
   const hostname = url.hostname;
+
+  // Dev: /admin → /admin/index.html (en producción Netlify lo sirve directo)
+  if (process.env.NODE_ENV !== 'production' && (url.pathname === '/admin' || url.pathname === '/admin/')) {
+    return Response.redirect(new URL('/admin/index.html', url.origin), 302);
+  }
   
   console.log(`[Middleware] Request: ${url.href}`);
   console.log(`[Middleware] Hostname: ${hostname}`);

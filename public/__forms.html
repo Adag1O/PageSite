@@ -1,0 +1,33 @@
+<!--
+  Registro estático de formularios para Netlify Forms.
+  El sitio se renderiza por SSR, por lo que Netlify no puede detectar
+  los formularios en build. Este archivo los declara explícitamente.
+-->
+<html>
+  <body style="display:none">
+    <form name="Contact" data-netlify="true">
+      <input type="text" name="Nombre" />
+      <select name="type"></select>
+      <input type="email" name="CorreoElectronico" />
+      <textarea name="Mensaje"></textarea>
+    </form>
+
+    <form name="Pedido" data-netlify="true">
+      <input type="text" name="Productos" />
+      <input type="text" name="Total" />
+      <input type="text" name="Nombre" />
+      <input type="email" name="Correo" />
+      <input type="tel" name="Telefono" />
+      <textarea name="Notas"></textarea>
+    </form>
+
+    <form name="Testimonio" data-netlify="true">
+      <input type="text" name="Calificacion" />
+      <input type="text" name="Nombre" />
+      <input type="text" name="Puesto" />
+      <input type="text" name="Empresa" />
+      <input type="email" name="Correo" />
+      <textarea name="Testimonio"></textarea>
+    </form>
+  </body>
+</html>

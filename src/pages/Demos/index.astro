@@ -1,12 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import DemoLayout from "../../layouts/DemoLayout.astro";
 
 // Get subdomain info
 const { subdomain, isDemoSubdomain } = Astro.locals;
 const isOnDemoSubdomain = isDemoSubdomain || subdomain === 'demo' || subdomain === 'demos' || subdomain === 'Demo' || subdomain === 'Demos';
 
-// Demo routes configuration
-const demoRoutes = [
+// Demos gestionados desde el CMS (src/content/demos/*.json)
+const demoEntries = (await getCollection('demos'))
+  .filter(d => d.data.active)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const demoRoutesCMS = demoEntries.map(d => d.data);
+
+// Fallback si el CMS está vacío
+const demoRoutesFallback = [
     {
         name: "LinkTree Demo",
         path: "/LinkTree",
@@ -86,38 +94,49 @@ const demoRoutes = [
         }
     },
 ];
+
+const demoRoutes = demoRoutesCMS.length ? demoRoutesCMS : demoRoutesFallback;
+
+const demoPreviews: Record<string, { img: string; grad: string }> = {
+    heart:  { img: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=360&fit=crop', grad: 'from-rose-600/80 to-pink-900/80' },
+    video:  { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=360&fit=crop', grad: 'from-indigo-900/80 to-gray-900/80' },
+    grid:   { img: 'https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&w=600&h=360&fit=crop', grad: 'from-amber-900/80 to-red-950/80' },
+    cart:   { img: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=360&fit=crop', grad: 'from-slate-900/80 to-indigo-950/80' },
+    link:   { img: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&w=600&h=360&fit=crop', grad: 'from-violet-900/80 to-gray-950/80' },
+    screen: { img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=360&fit=crop', grad: 'from-cyan-900/80 to-gray-950/80' },
+};
 ---
 
 <DemoLayout title="AdagIO | Demos Interactivos">
-    <div class="min-h-screen bg-gray-50 relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
-        
-        <!-- Modern Grid Background -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-blue-400 opacity-20 blur-[100px]"></div>
-        <div class="absolute right-0 bottom-0 -z-10 h-[310px] w-[310px] rounded-full bg-purple-400 opacity-20 blur-[100px]"></div>
+    <div class="min-h-screen bg-gray-950 relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
+
+        <!-- Grid background -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+        <div class="absolute left-0 right-0 top-0 m-auto h-[400px] w-[400px] rounded-full bg-blue-600 opacity-10 blur-[120px]"></div>
+        <div class="absolute right-0 bottom-0 h-[300px] w-[300px] rounded-full bg-violet-600 opacity-10 blur-[100px]"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
             
             <!-- Header -->
             <div class="text-center mb-24">
-                <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-8 hover:shadow-md transition-shadow cursor-default">
+                <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 cursor-default">
                     <span class="flex h-2 w-2 relative mr-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     </span>
-                    <span class="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent text-xs sm:text-sm font-bold uppercase tracking-widest">
+                    <span class="text-gray-300 text-xs sm:text-sm font-bold uppercase tracking-widest">
                         {isOnDemoSubdomain ? 'Demo Subdomain' : 'Showcase 2026'}
                     </span>
                 </div>
                 
-                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 mb-8 tracking-tight leading-tight">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-8 tracking-tight leading-tight">
                     Experiencias Digitales <br class="hidden sm:block" />
-                    <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
                         De Próxima Generación
                     </span>
                 </h1>
-                
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
                     Explora nuestra colección de prototipos interactivos y soluciones tecnológicas diseñadas para el futuro de la web.
                 </p>
 
@@ -129,80 +148,80 @@ const demoRoutes = [
             </div>
 
             <!-- Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-24">
-                {demoRoutes.map((demo) => (
-                    <a href={isOnDemoSubdomain ? demo.path : `/Demos${demo.path}`} class="group relative block h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-20 transition duration-500"></div>
-                        <div class="relative h-full bg-white rounded-[2rem] p-8 border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 overflow-hidden flex flex-col">
-                            
-                            <!-- Decorative Corner -->
-                            <div class={`absolute top-0 right-0 w-40 h-40 ${demo.theme.bg} rounded-bl-[4rem] -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-110 opacity-50`}></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-24">
+                {demoRoutes.map((demo) => {
+                    const preview = demoPreviews[demo.icon] ?? { img: '', grad: 'from-gray-800/80 to-gray-950/80' };
+                    return (
+                    <a href={isOnDemoSubdomain ? demo.path : `/Demos${demo.path}`} class="group relative block">
+                        <div class="relative bg-gray-900 rounded-2xl overflow-hidden border border-white/8 hover:border-white/20 transition-all duration-400 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/50 flex flex-col">
 
-                            <div class="relative z-10 mb-6">
-                                <div class={`w-16 h-16 rounded-2xl ${demo.theme.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-sm`}>
-                                    {demo.icon === 'link' && (
-                                        <svg class={`w-8 h-8 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                                    )}
-                                    {demo.icon === 'heart' && (
-                                        <svg class={`w-8 h-8 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                                    )}
-                                    {demo.icon === 'video' && (
-                                        <svg class={`w-8 h-8 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                                    )}
-                                    {demo.icon === 'grid' && (
-                                        <svg class={`w-8 h-8 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                                    )}
-                                    {demo.icon === 'cart' && (
-                                        <svg class={`w-8 h-8 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                    )}
-                                    {demo.icon === 'screen' && (
-                                        <svg class={`w-8 h-8 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                    )}
-                                </div>
-
-                                <h3 class={`text-2xl font-bold text-gray-900 mb-3 ${demo.theme.hoverText} transition-colors`}>
-                                    {demo.name}
-                                </h3>
-                                <p class="text-gray-600 mb-6 leading-relaxed text-base">
-                                    {demo.description}
-                                </p>
-                            </div>
-
-                            <div class="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
-                                <span class={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase ${demo.theme.bg} ${demo.theme.text}`}>
+                            <!-- Preview image -->
+                            <div class="relative h-44 overflow-hidden">
+                                {preview.img && (
+                                    <img
+                                        src={preview.img}
+                                        alt={demo.name}
+                                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                )}
+                                <div class={`absolute inset-0 bg-gradient-to-t ${preview.grad}`}></div>
+                                <!-- Category badge -->
+                                <span class={`absolute top-3 left-3 px-2.5 py-1 rounded-lg text-xs font-semibold ${demo.theme.bg} ${demo.theme.text}`}>
                                     {demo.category}
                                 </span>
-                                <span class="flex items-center text-sm font-bold text-gray-900 group-hover:translate-x-1 transition-transform">
-                                    Explorar
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                </span>
+                                <!-- Icon -->
+                                <div class={`absolute bottom-3 right-3 w-10 h-10 rounded-xl ${demo.theme.bg} flex items-center justify-center shadow-lg`}>
+                                    {demo.icon === 'link' && <svg class={`w-5 h-5 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>}
+                                    {demo.icon === 'heart' && <svg class={`w-5 h-5 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>}
+                                    {demo.icon === 'video' && <svg class={`w-5 h-5 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>}
+                                    {demo.icon === 'grid' && <svg class={`w-5 h-5 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>}
+                                    {demo.icon === 'cart' && <svg class={`w-5 h-5 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>}
+                                    {demo.icon === 'screen' && <svg class={`w-5 h-5 ${demo.theme.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>}
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-5 flex flex-col flex-1">
+                                <h3 class="text-white font-bold text-base mb-2 group-hover:text-blue-300 transition-colors">
+                                    {demo.name}
+                                </h3>
+                                <p class="text-gray-500 text-sm leading-relaxed flex-1 mb-4">
+                                    {demo.description}
+                                </p>
+                                <div class="flex items-center text-xs font-semibold text-gray-400 group-hover:text-white transition-colors">
+                                    Explorar demo
+                                    <svg class="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                </div>
                             </div>
                         </div>
                     </a>
-                ))}
+                    );
+                })}
 
                 <!-- Coming Soon -->
-                <div class="group relative h-full min-h-[300px] rounded-[2rem] border-2 border-dashed border-gray-200 p-8 flex flex-col items-center justify-center text-center hover:border-gray-300 hover:bg-gray-50/50 transition-all duration-300">
-                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="group relative rounded-2xl border border-dashed border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.04] p-8 flex flex-col items-center justify-center text-center transition-all duration-300 min-h-[220px]">
+                    <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Próximamente</h3>
-                    <p class="text-gray-500 max-w-xs text-sm leading-relaxed">
-                        Estamos cocinando nuevas experiencias digitales. ¡Mantente atento!
+                    <h3 class="text-base font-bold text-white mb-2">Próximamente</h3>
+                    <p class="text-gray-600 max-w-xs text-xs leading-relaxed">
+                        Nuevas experiencias digitales en camino. ¡Mantente atento!
                     </p>
                 </div>
             </div>
 
             <!-- Tech Stack / Info -->
-            <div class="border-t border-gray-200 pt-16 text-center">
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-8">
+            <div class="border-t border-white/8 pt-16 text-center">
+                <p class="text-xs font-bold text-gray-600 uppercase tracking-[0.2em] mb-8">
                     Powered by Modern Tech
                 </p>
-                <div class="flex flex-wrap justify-center gap-4 opacity-70 hover:opacity-100 transition-opacity duration-500">
-                    {['Astro 5.0', 'React 19', 'Tailwind CSS', 'TypeScript', 'Framer Motion'].map((tech) => (
-                        <span class="px-5 py-2.5 bg-white rounded-2xl border border-gray-200 text-gray-600 text-sm font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default">
+                <div class="flex flex-wrap justify-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-500">
+                    {['Astro 6', 'React 19', 'Tailwind CSS 4', 'TypeScript', 'GSAP'].map((tech) => (
+                        <span class="px-4 py-2 bg-white/5 rounded-xl border border-white/8 text-gray-400 text-xs font-medium hover:bg-white/10 hover:-translate-y-0.5 transition-all cursor-default">
                             {tech}
                         </span>
                     ))}

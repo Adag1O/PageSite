@@ -1,0 +1,10 @@
+{
+  "name": "Tienda Online",
+  "path": "/Ecommerce",
+  "description": "Plataforma de comercio electrónico completa con carrito y pagos.",
+  "category": "E-commerce",
+  "icon": "cart",
+  "active": true,
+  "order": 5,
+  "theme": { "bg": "bg-amber-50", "text": "text-amber-600", "border": "border-amber-100", "hoverText": "group-hover:text-amber-600" }
+}

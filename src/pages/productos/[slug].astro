@@ -1,6 +1,5 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
-import { render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Bar from '../../components/bar.astro';
 import Formulario from '../../components/Formulario.astro';
@@ -27,6 +26,10 @@ const related = p.related
 
 // Placeholder images when no real images
 const images = p.images?.length ? p.images : [null, null, null];
+
+// WhatsApp desde la configuración del CMS
+const settings = await getEntry('settings', 'general');
+const waPhone = settings?.data.whatsapp ?? '5215512345678';
 ---
 
 <Layout
@@ -163,17 +166,23 @@ const images = p.images?.length ? p.images : [null, null, null];
 
           <!-- CTAs -->
           <div class="flex flex-col sm:flex-row gap-3 pt-2">
-            <a
-              href="#ContactoForm"
-              class={`flex-1 flex items-center justify-center gap-2 bg-gradient-to-r ${p.gradient} text-white font-bold py-4 px-6 rounded-2xl hover:opacity-90 transition-opacity shadow-lg text-base`}
+            <button
+              id="pdp-add-cart"
+              data-id={product.id}
+              data-name={p.name}
+              data-price={p.priceNumber ?? 0}
+              data-price-label={p.price}
+              data-gradient={p.gradient}
+              data-cat={p.category}
+              class={`flex-1 flex items-center justify-center gap-2 bg-gradient-to-r ${p.gradient} text-white font-bold py-4 px-6 rounded-2xl hover:opacity-90 transition-opacity shadow-lg text-base cursor-pointer`}
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
               </svg>
-              Solicitar cotización
-            </a>
+              <span id="pdp-add-label">Agregar al carrito</span>
+            </button>
             <a
-              href={`https://wa.me/5215512345678?text=Hola, me interesa el producto: ${encodeURIComponent(p.name)}`}
+              href={`https://wa.me/${waPhone}?text=${encodeURIComponent(`Hola, me interesa el producto: ${p.name}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-700 font-semibold py-4 px-5 rounded-2xl hover:border-green-500 hover:text-green-600 transition-colors text-base"
@@ -274,6 +283,26 @@ const images = p.images?.length ? p.images : [null, null, null];
 </Layout>
 
 <script>
+  import { addToCart } from '../../utils/cart';
+
+  /* Add to cart */
+  const addBtn = document.getElementById('pdp-add-cart') as HTMLButtonElement | null;
+  const addLabel = document.getElementById('pdp-add-label');
+  addBtn?.addEventListener('click', () => {
+    addToCart({
+      id: addBtn.dataset.id!,
+      name: addBtn.dataset.name!,
+      price: Number(addBtn.dataset.price ?? 0),
+      priceLabel: addBtn.dataset.priceLabel ?? '0',
+      gradient: addBtn.dataset.gradient ?? 'from-blue-500 to-indigo-600',
+      category: addBtn.dataset.cat ?? '',
+    });
+    if (addLabel) {
+      addLabel.textContent = '✓ Agregado al carrito';
+      setTimeout(() => { addLabel.textContent = 'Agregar al carrito'; }, 1500);
+    }
+  });
+
   // Thumbnail gallery switcher
   const thumbs = document.querySelectorAll<HTMLButtonElement>('.thumb');
   const mainImg = document.getElementById('main-img-el') as HTMLImageElement | null;

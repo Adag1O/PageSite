@@ -23,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = () => {
         <div 
           class="online_3d_viewer h-96 w-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg" 
           id="model-viewer"
-          model={`/steps/${Astro.params.slug}.step`}
+          {...{'model': `/steps/${Astro.params.slug}.step`}}
         >
 
             

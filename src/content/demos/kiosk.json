@@ -1,0 +1,10 @@
+{
+  "name": "Digital Kiosk",
+  "path": "/Kiosk",
+  "description": "Kiosk publicitario interactivo con pantalla táctil, catálogo y contacto.",
+  "category": "Hardware",
+  "icon": "screen",
+  "active": true,
+  "order": 6,
+  "theme": { "bg": "bg-indigo-50", "text": "text-indigo-600", "border": "border-indigo-100", "hoverText": "group-hover:text-indigo-600" }
+}

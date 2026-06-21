@@ -1,17 +1,22 @@
-# Netlify _redirects — subdomain asset + page routing
-# Rules evaluated top-to-bottom; first match wins.
+# Netlify _redirects — demo subdomain asset safety-net
+#
+# WHY NO 200 PROXY HERE:
+# A 200 proxy (demo.adagi0.com/* → adagi0.com/Demos/:splat) is a cross-domain
+# proxy. Netlify changes Host to "adagi0.com" before the SSR function runs, so
+# the Astro middleware can no longer detect "isDemoSubdomain" and never patches
+# the HTML with absolute asset URLs.
+#
+# INSTEAD: demo.adagi0.com is a Netlify domain alias. All requests reach the
+# SSR function with Host: demo.adagi0.com. The middleware rewrites the path
+# (/LinkTree → /Demos/LinkTree) and patches /_astro/ hrefs to absolute URLs
+# on adagi0.com so the browser never requests assets from the alias domain.
+#
+# These rules are just a safety-net in case a browser somehow still requests
+# a static asset from the demo subdomain (e.g. old cached page).
 
-# ── Static assets: 302 redirect from subdomain → main domain CDN ─────────
-# Status 200 proxy doesn't work cross-domain with Netlify SSR (the proxy
-# fetches through the SSR function which returns HTML, not the actual file).
-# 302 makes the browser fetch directly from adagi0.com where CDN has them.
-https://*.adagi0.com/_astro/*        https://adagi0.com/_astro/:splat        302!
-https://*.adagi0.com/Cards/*         https://adagi0.com/Cards/:splat         302!
-https://*.adagi0.com/background/*    https://adagi0.com/background/:splat    302!
-https://*.adagi0.com/uploads/*       https://adagi0.com/uploads/:splat       302!
-https://*.adagi0.com/favicon.ico     https://adagi0.com/favicon.ico          302!
-https://*.adagi0.com/favicon.svg     https://adagi0.com/favicon.svg          302!
-
-# ── Subdomain page rewrites (200 keeps subdomain in the URL bar) ──────────
-https://demo.adagi0.com/*            https://adagi0.com/Demos/:splat         200!
-https://demos.adagi0.com/*           https://adagi0.com/Demos/:splat         200!
+https://demo.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat      302!
+https://demo.adagi0.com/Cards/*       https://adagi0.com/Cards/:splat       302!
+https://demo.adagi0.com/background/*  https://adagi0.com/background/:splat  302!
+https://demo.adagi0.com/uploads/*     https://adagi0.com/uploads/:splat     302!
+https://demo.adagi0.com/favicon.ico   https://adagi0.com/favicon.ico        302!
+https://demo.adagi0.com/favicon.svg   https://adagi0.com/favicon.svg        302!

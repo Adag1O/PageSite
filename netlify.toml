@@ -6,77 +6,21 @@
 [build.environment]
   NODE_VERSION = "22.12.0"
 
-# Netlify Identity — required for Decap CMS
 [dev]
   command = "npm run dev"
   port = 4321
 
-# ── Static assets: 302 redirect from subdomain → main domain ─────────────
-# Status 200 (proxy) doesn't work cross-domain in Netlify SSR because the
-# proxy fetches through the SSR function instead of the CDN, returning HTML.
-# A 302 makes the browser fetch directly from the main domain CDN.
-[[redirects]]
-  from = "https://*.adagi0.com/_astro/*"
-  to = "https://adagi0.com/_astro/:splat"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "https://*.adagi0.com/Cards/*"
-  to = "https://adagi0.com/Cards/:splat"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "https://*.adagi0.com/background/*"
-  to = "https://adagi0.com/background/:splat"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "https://*.adagi0.com/uploads/*"
-  to = "https://adagi0.com/uploads/:splat"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "https://*.adagi0.com/favicon.ico"
-  to = "https://adagi0.com/favicon.ico"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "https://*.adagi0.com/favicon.svg"
-  to = "https://adagi0.com/favicon.svg"
-  status = 302
-  force = true
-
-# ── Subdomain page rewrites: 200 proxy (keeps subdomain in URL bar) ───────
-[[redirects]]
-  from = "https://demo.adagi0.com/*"
-  to = "https://adagi0.com/Demos/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://demos.adagi0.com/*"
-  to = "https://adagi0.com/Demos/:splat"
-  status = 200
-  force = true
-
-# Edge functions completely disabled
-
-# Headers for security and performance
-[[headers]]
-  for = "/Demos/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    X-Frame-Options = "SAMEORIGIN"
-    Cache-Control = "public, max-age=31536000, immutable"
+# NOTE: Full-URL [[redirects]] (with https:// in the "from" field) are NOT
+# supported in netlify.toml — they only work in the public/_redirects file.
+# Cross-domain subdomain routing is handled by Astro middleware + _redirects.
 
 [[headers]]
   for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/uploads/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -87,16 +31,9 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-XSS-Protection = "1; mode=block"
 
-# CMS admin — allow iframe from Netlify Identity
 [[headers]]
   for = "/admin/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     Content-Security-Policy = "frame-ancestors 'self' https://app.netlify.com"
     Cache-Control = "no-cache, no-store, must-revalidate"
-
-# Uploaded media files — long cache
-[[headers]]
-  for = "/uploads/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"

@@ -273,6 +273,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     import { FramePlayer } from "../../utils/FramePlayer";
+import type { HydrationMetadata } from "astro/runtime/server/hydration.js";
     gsap.registerPlugin(ScrollTrigger);
 
     const GALLERY = [
@@ -296,7 +297,7 @@ import DemoLayout from "../../layouts/DemoLayout.astro";
       let windowLoaded = false;
       let frameProgress = 0;
 
-      const loaderRing   = document.getElementById('loaderRing')   as SVGCircleElement;
+      const loaderRing   = document.getElementById('loaderRing')   as HTMLElement;
       const loaderPct    = document.getElementById('loaderPct')     as HTMLElement;
       const loaderStatus = document.getElementById('loaderStatus')  as HTMLElement;
       const frameLabel   = document.getElementById('frameLabel')    as HTMLElement;

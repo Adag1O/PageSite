@@ -10,6 +10,14 @@ import Rust from './icons/Tech/Rust.astro';
 import Spring from './icons/Tech/Spring.astro';
 import Tailwind from './icons/Tech/Tailwind.astro';
 
+// Compute demo subdomain base URL
+const host = Astro.request.headers.get('host') || 'localhost:4321';
+const isLocalhost = host.includes('localhost');
+const cleanHost = host.replace(/^www\./, '');
+const demoBase = isLocalhost
+  ? `http://demo.${cleanHost}`
+  : `https://demo.${cleanHost}`;
+
 import JavaScript from './icons/Tech/javascript.astro';
 import Java from './icons/Tech/java.astro';
 const TECH_ICONS: Record<string, any> = {
@@ -172,7 +180,7 @@ const portfolioData: Record<string, PortfolioItem[]> = {
       description: "Plataforma de enlaces personalizada con analytics avanzados, temas dinámicos y integración social.",
       category: "Social",
       technologies: ["Astro", "CSS"],
-      url: "/Demos/LinkTree",
+      url: `${demoBase}/LinkTree`,
       preview: true,
       status: "live",
       statusText: "En Vivo",
@@ -184,7 +192,7 @@ const portfolioData: Record<string, PortfolioItem[]> = {
       description: "Sitio web elegante para bodas con galería de fotos, cronograma del evento y formulario de confirmación de asistencia.",
       category: "Eventos",
       technologies: ["Astro", "Tailwind"],
-      url: "/Demos/Wedding",
+      url: `${demoBase}/Wedding`,
       preview: true,
       status: "live",
       statusText: "En Vivo",
@@ -196,7 +204,7 @@ const portfolioData: Record<string, PortfolioItem[]> = {
       description: "Plataforma e-commerce completa con carrito inteligente, pagos seguros y gestión de inventario en tiempo real",
       category: "Marketing",
       technologies: ["Astro", "Tailwind"],
-      url: "/Demos/Video",
+      url: `${demoBase}/Video`,
       preview: true,
       status: "live",
       statusText: "En Vivo",
@@ -231,7 +239,7 @@ const portfolioData: Record<string, PortfolioItem[]> = {
       description: "Demo interactivo de kiosk digital con pantalla táctil: catálogo de productos, mapa e información.",
       category: "Hardware",
       technologies: ["Astro", "Tailwind"],
-      url: "/Demos/Kiosk",
+      url: `${demoBase}/Kiosk`,
       preview: true,
       status: "live",
       statusText: "En Vivo",

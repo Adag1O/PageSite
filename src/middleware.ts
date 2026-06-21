@@ -3,137 +3,158 @@ import { defineMiddleware } from 'astro:middleware';
 /**
  * SUBDOMAIN ROUTING + ASSET URL REWRITING
  *
- * Problem in production:
- *   demo.adagi0.com/_astro/global.css → Netlify SSR returns HTML (no CDN coverage
- *   for the alias subdomain's static files) → browser blocks with MIME mismatch.
+ * Why this exists
+ * ───────────────
+ * demo.adagi0.com is a Netlify domain alias.  Netlify's CDN does NOT serve
+ * /_astro/* static files for alias domains — all requests go through the SSR
+ * function, which has no page route for /_astro/... and returns a 404 HTML
+ * page.  The browser then gets text/html where it expected text/css → MIME
+ * mismatch → page renders unstyled.
  *
- * Fix:
- *   For HTML responses served on the demo subdomain we rewrite every /_astro/,
- *   /Cards/, /background/, /uploads/ reference to an absolute URL on the main
- *   domain BEFORE the browser ever sees the page. The browser then requests
- *   those assets directly from adagi0.com where the CDN has them.
+ * Fix (two layers)
+ * ────────────────
+ * 1. Static-asset requests from demo subdomain → 302 to main domain (CDN).
+ * 2. HTML pages served on demo subdomain → rewrite /_astro/ references to
+ *    absolute URLs on the main domain so the browser never requests assets
+ *    from the alias domain in the first place.
  *
- * Local dev (demo.localhost:4321):
- *   Rewrite pages from /DemoName → /Demos/DemoName as before (no HTML patching
- *   needed because localhost CDN serves assets on any hostname).
+ * NOTE: We deliberately avoid process.env.NODE_ENV checks because Netlify
+ * does not guarantee NODE_ENV='production' in function runtime.  Instead we
+ * check !isLocalhost (production proxy) vs isLocalhost (dev server).
  */
 
-const STATIC_PATH = /\/_astro\/|\/Cards\/|\/background\/|\/uploads\/|\/favicon\./;
-const ASSET_EXT   = /\.(css|js|mjs|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|avif|webp|map)$/i;
+const STATIC_PREFIXES = ['/_astro/', '/Cards/', '/background/', '/uploads/'];
+const ASSET_EXT       = /\.(css|js|mjs|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|avif|webp|map)$/i;
+
+function isStaticPath(pathname: string): boolean {
+  return STATIC_PREFIXES.some(p => pathname.startsWith(p)) ||
+         pathname.startsWith('/favicon') ||
+         ASSET_EXT.test(pathname);
+}
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { request } = context;
   const url      = new URL(request.url);
-  const hostname = url.hostname;
+  const hostname = url.hostname;          // no port  e.g. demo.adagi0.com
+  const host     = url.host;             // with port e.g. demo.localhost:4321
   const pathname = url.pathname;
 
+  // ── Environment ───────────────────────────────────────────────────────────
+  const isLocalhost = hostname === 'localhost' || hostname.endsWith('.localhost');
+
   // ── Dev: /admin → /admin/index.html ──────────────────────────────────────
-  if (process.env.NODE_ENV !== 'production' &&
-      (pathname === '/admin' || pathname === '/admin/')) {
+  if (isLocalhost && (pathname === '/admin' || pathname === '/admin/')) {
     return Response.redirect(new URL('/admin/index.html', url.origin), 302);
   }
 
-  // ── Detect subdomain ──────────────────────────────────────────────────────
-  const parts       = hostname.split('.');
-  const isLocalhost = hostname === 'localhost' || hostname.endsWith('.localhost');
-  // demo.localhost → parts = ['demo','localhost']  → subdomain = 'demo'
-  // demo.adagi0.com → parts = ['demo','adagi0','com'] → subdomain = 'demo'
-  const subdomain =
+  // ── Subdomain detection ───────────────────────────────────────────────────
+  const parts = hostname.split('.');
+  // demo.localhost  → ['demo','localhost']       → subdomain = 'demo'
+  // demo.adagi0.com → ['demo','adagi0','com']    → subdomain = 'demo'
+  // adagi0.com      → ['adagi0','com']           → subdomain = null
+  // localhost       → ['localhost']              → subdomain = null
+  const subdomain: string | null =
     isLocalhost
-      ? parts.length > 1 ? parts[0] : null
-      : parts.length > 2 ? parts[0] : null;
+      ? (parts.length > 1 ? parts[0] : null)
+      : (parts.length > 2 ? parts[0] : null);
 
-  const isDemoSubdomain =
-    subdomain === 'demo'  || subdomain === 'demos' ||
-    subdomain === 'Demo'  || subdomain === 'Demos';
+  // Check all subdomain segments so www.demo.adagi0.com also matches
+  const subParts = isLocalhost ? parts.slice(0, -1) : parts.slice(0, -2);
+  const isDemoSubdomain = subParts.some(
+    p => p === 'demo' || p === 'demos' || p === 'Demo' || p === 'Demos'
+  );
 
-  context.locals.subdomain      = subdomain;
+  context.locals.subdomain       = subdomain;
   context.locals.isDemoSubdomain = isDemoSubdomain;
 
   // ── Static assets ─────────────────────────────────────────────────────────
-  // In dev both main domain and demo subdomain can serve /_astro/ fine.
-  // In production on the demo subdomain we let the middleware pass the request
-  // through; the HTML-patching step below ensures the browser never asks for
-  // _astro/* on the subdomain in the first place (so this path is a safety net).
-  const isStaticAsset = STATIC_PATH.test(pathname) || ASSET_EXT.test(pathname);
-
-  if (isStaticAsset) {
-    if (isDemoSubdomain && process.env.NODE_ENV === 'production') {
-      // Safety-net 302: if somehow a browser still requests a static asset on
-      // the demo subdomain, redirect to the main domain.
-      const mainDomain = hostname.replace(/^[^.]+\./, '');
+  if (isStaticPath(pathname)) {
+    // On production alias domains the CDN won't serve /_astro/ files, so we
+    // redirect the browser to fetch them from the main domain CDN instead.
+    // On localhost the dev server serves assets for any hostname → skip.
+    if (isDemoSubdomain && !isLocalhost) {
+      const mainHost = host.replace(/^[^.]+\./, ''); // demo.adagi0.com → adagi0.com
       return Response.redirect(
-        `${url.protocol}//${mainDomain}${pathname}${url.search}`,
+        `${url.protocol}//${mainHost}${pathname}${url.search}`,
         302
       );
     }
     return next();
   }
 
-  // ── Demo subdomain: rewrite page path ─────────────────────────────────────
+  // ── Demo subdomain: rewrite page path + patch HTML ────────────────────────
   if (isDemoSubdomain) {
-    let targetPathname = pathname;
+    // /LinkTree → /Demos/LinkTree  (don't double-prefix if already under /Demos/)
+    const targetPathname =
+      pathname.startsWith('/Demos/') || pathname === '/Demos'
+        ? pathname
+        : pathname === '/'
+          ? '/Demos/'
+          : `/Demos${pathname}`;
 
-    // Only rewrite if not already under /Demos/
-    if (!pathname.startsWith('/Demos/') && pathname !== '/Demos') {
-      targetPathname = pathname === '/' ? '/Demos/' : `/Demos${pathname}`;
-    }
+    // If already at the correct /Demos/... path (e.g. after context.rewrite
+    // re-enters the middleware), use next() to avoid an infinite rewrite loop.
+    const needsRewrite = targetPathname !== pathname;
 
-    const rewrittenUrl = new URL(targetPathname, url.origin);
-    rewrittenUrl.search = url.search;
+    const rewriteUrl = new URL(targetPathname, url.origin);
+    rewriteUrl.search = url.search;
 
-    const response = await context.rewrite(
-      new Request(rewrittenUrl, {
-        method:  request.method,
-        headers: request.headers,
-        body:    request.body,
-      })
-    );
+    const response = needsRewrite
+      ? await context.rewrite(
+          new Request(rewriteUrl, {
+            method:  request.method,
+            headers: request.headers,
+            body:    request.body,
+          })
+        )
+      : await next();
 
-    // ── PRODUCTION: patch HTML to use absolute asset URLs ─────────────────
-    // This prevents the browser from ever requesting /_astro/* on the demo
-    // subdomain.  We replace every relative /_astro/, /Cards/, /background/
-    // reference in the HTML with the full main-domain URL.
-    if (process.env.NODE_ENV === 'production') {
-      const contentType = response.headers.get('content-type') ?? '';
-      if (contentType.includes('text/html')) {
-        const mainOrigin = `${url.protocol}//${hostname.replace(/^[^.]+\./, '')}`;
+    // Patch HTML asset URLs so the browser requests /_astro/* from the main
+    // domain CDN, not from the alias domain that can't serve them.
+    // Only needed outside localhost (dev server serves assets everywhere).
+    if (!isLocalhost) {
+      const ct = response.headers.get('content-type') ?? '';
+      if (ct.includes('text/html')) {
+        const mainOrigin = `${url.protocol}//${host.replace(/^[^.]+\./, '')}`;
         let html = await response.text();
 
-        // Patch src/href/url() references
         html = html
-          .replace(/(src|href)="\/_astro\//g,   `$1="${mainOrigin}/_astro/`)
-          .replace(/(src|href)='\/\_astro\//g,   `$1='${mainOrigin}/_astro/`)
+          // <link href="/_astro/...">  <script src="/_astro/...">
+          .replace(/(href|src)="\/_astro\//g,    `$1="${mainOrigin}/_astro/`)
+          .replace(/(href|src)='\/\_astro\//g,   `$1='${mainOrigin}/_astro/`)
+          // CSS url() references
           .replace(/url\(\/_astro\//g,           `url(${mainOrigin}/_astro/`)
-          .replace(/(src|href)="\/Cards\//g,     `$1="${mainOrigin}/Cards/`)
-          .replace(/(src|href)="\/background\//g,`$1="${mainOrigin}/background/`)
-          .replace(/(src|href)="\/uploads\//g,   `$1="${mainOrigin}/uploads/`);
+          // Public-folder assets
+          .replace(/(href|src)="\/Cards\//g,     `$1="${mainOrigin}/Cards/`)
+          .replace(/(href|src)="\/background\//g,`$1="${mainOrigin}/background/`)
+          .replace(/(href|src)="\/uploads\//g,   `$1="${mainOrigin}/uploads/`)
+          // favicon
+          .replace(/(href|src)="\/favicon\./g,   `$1="${mainOrigin}/favicon.`);
 
         const headers = new Headers(response.headers);
-        headers.delete('content-length'); // length changed after patching
-
-        return new Response(html, {
-          status:  response.status,
-          headers,
-        });
+        headers.delete('content-length'); // size changed after rewrite
+        return new Response(html, { status: response.status, headers });
       }
     }
 
     return response;
   }
 
-  // ── Safety-net: /Demos/Demos/... → /Demos/... ────────────────────────────
-  // Happens when a link hardcoded as /Demos/X on the demo subdomain gets
-  // Netlify-proxied to adagi0.com/Demos/Demos/X. Rewrite silently.
+  // ── Safety-net: /Demos/Demos/... ──────────────────────────────────────────
+  // If a link inside a demo page hard-codes /Demos/X and the user is on the
+  // demo subdomain, Netlify's 200 proxy turns it into /Demos/Demos/X.
+  // Silently rewrite back to /Demos/X.
   if (pathname.startsWith('/Demos/Demos/') || pathname === '/Demos/Demos') {
-    const fixedPath = pathname.replace(/^\/Demos/, '');
-    return context.rewrite(new Request(new URL(fixedPath, url.origin), {
-      method:  request.method,
-      headers: request.headers,
-      body:    request.body,
-    }));
+    const fixed = pathname.replace(/^\/Demos/, '');
+    return context.rewrite(
+      new Request(new URL(fixed, url.origin), {
+        method:  request.method,
+        headers: request.headers,
+        body:    request.body,
+      })
+    );
   }
 
-  // ── Main domain: pass through ─────────────────────────────────────────────
+  // ── Main domain pass-through ──────────────────────────────────────────────
   return next();
 });

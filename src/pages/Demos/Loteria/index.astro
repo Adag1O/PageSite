@@ -1,0 +1,135 @@
+---
+import DemoLayout from "../../../layouts/DemoLayout.astro";
+const { isDemoSubdomain } = Astro.locals;
+const base = isDemoSubdomain ? '/Loteria' : '/Demos/Loteria';
+---
+
+<DemoLayout title="Lotería Mexicana">
+  <div class="min-h-screen bg-gradient-to-br from-amber-950 via-red-950 to-gray-950 flex flex-col">
+
+    <!-- Header -->
+    <header class="flex items-center justify-center px-4 py-4 bg-black/30 border-b border-white/10 backdrop-blur-sm">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">🎴</span>
+        <div class="text-center">
+          <p class="text-white font-black text-lg leading-tight tracking-wide">Lotería Mexicana</p>
+          <p class="text-amber-400 text-xs tracking-widest uppercase">Demo interactivo</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <main class="flex-1 flex flex-col items-center justify-center px-6 py-12 gap-10">
+
+      <!-- Decorative cards row -->
+      <div class="flex gap-3 items-end">
+        {[
+          { file: "1_El_Gallo",   rot: "-rotate-12" },
+          { file: "6_La_Sirena",  rot: "-rotate-3"  },
+          { file: "14_La_Muerte", rot: "rotate-0", big: true },
+          { file: "4_El_Catrin",  rot: "rotate-3"  },
+          { file: "12_El_Valiente",rot: "rotate-12" },
+        ].map(({ file, rot, big }) => (
+          <div class={`${big ? 'w-20' : 'w-14'} ${rot} transition-transform duration-300 hover:rotate-0 hover:scale-105`}>
+            <img
+              src={`/Cards/${file}.avif`}
+              alt={file.replace(/^\d+_/, '').replace(/_/g, ' ')}
+              class="w-full aspect-[2/3] object-cover rounded-xl border-2 border-amber-500/50 shadow-2xl"
+              loading="eager"
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Description -->
+      <div class="text-center max-w-sm">
+        <h1 class="text-3xl font-black text-white mb-3">¡A jugar!</h1>
+        <p class="text-white/60 text-sm leading-relaxed">
+          El juego de mesa mexicano más querido. Un cantador voltea cartas del mazo
+          mientras los jugadores marcan su tablero. ¡El primero en completarlo grita
+          <span class="text-amber-400 font-bold">¡Lotería!</span>
+        </p>
+      </div>
+
+      <!-- Role picker -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+
+        <!-- Cantador -->
+        <a
+          href={`${base}/Cartas`}
+          class="group relative flex flex-col items-center gap-4 p-6 rounded-2xl
+                 bg-gradient-to-br from-amber-900/60 to-red-900/40
+                 border border-amber-600/30 hover:border-amber-400/60
+                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/40
+                 text-center"
+        >
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-3xl
+                      group-hover:bg-amber-500/30 transition-colors">
+            🎙️
+          </div>
+          <div>
+            <p class="text-white font-black text-base mb-1">Cantador</p>
+            <p class="text-white/50 text-xs leading-relaxed">Voltea las cartas del mazo y cántalas a los jugadores</p>
+          </div>
+          <span class="mt-auto inline-flex items-center gap-1 text-amber-400 text-xs font-semibold">
+            Abrir mazo
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- Jugador -->
+        <a
+          href={`${base}/Tablero`}
+          class="group relative flex flex-col items-center gap-4 p-6 rounded-2xl
+                 bg-gradient-to-br from-red-900/60 to-amber-900/40
+                 border border-red-600/30 hover:border-red-400/60
+                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-red-900/40
+                 text-center"
+        >
+          <div class="w-14 h-14 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-3xl
+                      group-hover:bg-red-500/30 transition-colors">
+            🎴
+          </div>
+          <div>
+            <p class="text-white font-black text-base mb-1">Jugador</p>
+            <p class="text-white/50 text-xs leading-relaxed">Recibe tu tablero aleatorio y marca tus cartas con frijolitos</p>
+          </div>
+          <span class="mt-auto inline-flex items-center gap-1 text-red-400 text-xs font-semibold">
+            Ver tablero
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- How to play -->
+      <div class="w-full max-w-md bg-black/20 border border-white/10 rounded-2xl p-5">
+        <p class="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Cómo jugar</p>
+        <ol class="space-y-2">
+          {[
+            "Una persona abre el Mazo de cartas en su dispositivo.",
+            "Cada jugador abre su propio Tablero en otro dispositivo.",
+            "El cantador presiona ¡Siguiente! y anuncia la carta.",
+            "Los jugadores marcan la carta en su tablero.",
+            "El primero en completar su tablero grita ¡Lotería!",
+          ].map((step, i) => (
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 w-5 h-5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-black flex items-center justify-center mt-0.5">
+                {i + 1}
+              </span>
+              <p class="text-white/60 text-xs leading-relaxed">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="px-4 py-3 text-center border-t border-white/10">
+      <p class="text-white/20 text-xs">Demo por AdagIO · Lotería Mexicana</p>
+    </footer>
+  </div>
+</DemoLayout>

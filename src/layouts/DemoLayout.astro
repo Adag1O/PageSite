@@ -10,6 +10,11 @@ const {
   title = "AdagIO — Demo",
   description = "Demo interactivo por AdagIO",
 } = Astro.props;
+
+// When on demo subdomain, "all demos" = "/" (root of subdomain)
+// When on main domain, "all demos" = "/Demos"
+const { isDemoSubdomain } = Astro.locals;
+const demosIndexUrl = isDemoSubdomain ? '/' : '/Demos';
 ---
 
 <!doctype html>
@@ -34,7 +39,7 @@ const {
       © {new Date().getFullYear()} AdagIO —
       <a href="/" class="hover:text-white transition-colors ml-1">adagi0.com</a>
       <span class="mx-2">·</span>
-      <a href="/Demos" class="hover:text-white transition-colors">Ver todos los demos</a>
+      <a href={demosIndexUrl} class="hover:text-white transition-colors">Ver todos los demos</a>
     </footer>
   </body>
 </html>

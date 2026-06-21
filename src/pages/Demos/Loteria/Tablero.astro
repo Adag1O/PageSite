@@ -1,5 +1,7 @@
 ---
 import DemoLayout from "../../../layouts/DemoLayout.astro";
+const { isDemoSubdomain } = Astro.locals;
+const cartasUrl = isDemoSubdomain ? '/Loteria/Cartas' : '/Demos/Loteria/Cartas';
 
 const allCartas = [
   {id:1,name:"El Gallo"},{id:2,name:"El Diablo"},{id:3,name:"La Dama"},{id:4,name:"El Catrin"},
@@ -29,7 +31,7 @@ const shuffled = [...allCartas].sort(() => Math.random() - 0.5).slice(0, 16);
         <div id="statusBadge" class="px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs rounded-full font-medium">
           Esperando…
         </div>
-        <a href="/Demos/Loteria/Cartas" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs rounded-xl transition-colors font-medium">
+        <a href={cartasUrl} class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs rounded-xl transition-colors font-medium">
           Mazo de cartas →
         </a>
       </div>

@@ -1,5 +1,7 @@
 ---
 import DemoLayout from "../../../layouts/DemoLayout.astro";
+const { isDemoSubdomain } = Astro.locals;
+const tableroUrl = isDemoSubdomain ? '/Loteria/Tablero' : '/Demos/Loteria/Tablero';
 ---
 
 <DemoLayout title="Lotería - Mazo de Cartas">
@@ -14,7 +16,7 @@ import DemoLayout from "../../../layouts/DemoLayout.astro";
           <p class="text-amber-400 text-xs">Mazo de cartas</p>
         </div>
       </div>
-      <a href="/Demos/Loteria/Tablero" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs rounded-xl transition-colors font-medium">
+      <a href={tableroUrl} class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white text-xs rounded-xl transition-colors font-medium">
         ← Mi tablero
       </a>
     </header>

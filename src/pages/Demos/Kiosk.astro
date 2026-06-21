@@ -1,215 +1,1122 @@
 ---
 import DemoLayout from '../../layouts/DemoLayout.astro';
+const { isDemoSubdomain } = Astro.locals;
+const demosIndexUrl = isDemoSubdomain ? '/' : '/Demos';
+
+const features = [
+  { icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", title: "Pantalla táctil 10pt", desc: "Multi-touch industrial de alta sensibilidad, resistente a guantes y condiciones de trabajo exigentes." },
+  { icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z", title: "Contenido dinámico", desc: "Actualiza imágenes, videos, precios y menús en tiempo real desde el CMS sin reiniciar el equipo." },
+  { icon: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z", title: "Pagos integrados", desc: "Terminal de pago NFC, chip y banda. Compatible con Visa, Mastercard, AMEX, OXXO Pay y billeteras digitales." },
+  { icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z", title: "Lector QR / NFC", desc: "Escaneo ultrarrápido de códigos QR, códigos de barras y tarjetas NFC para acceso, fidelización y tickets." },
+  { icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", title: "Analytics en tiempo real", desc: "Dashboard con métricas de interacción, productos más vistos, tiempos de sesión y conversión." },
+  { icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z", title: "Asistente IA integrado", desc: "Chatbot conversacional para atención 24/7, resolutor de dudas frecuentes y guía de productos con IA." },
+];
+
+const integrations = [
+  { name: "Google", cat: "Ecosistema", color: "bg-blue-950 text-blue-300 border-blue-800" },
+  { name: "Calendly", cat: "Citas", color: "bg-cyan-950 text-cyan-300 border-cyan-800" },
+  { name: "Facebook", cat: "Social", color: "bg-indigo-950 text-indigo-300 border-indigo-800" },
+  { name: "Instagram", cat: "Social", color: "bg-pink-950 text-pink-300 border-pink-800" },
+  { name: "Stripe", cat: "Pagos", color: "bg-violet-950 text-violet-300 border-violet-800" },
+  { name: "Conekta", cat: "Pagos", color: "bg-orange-950 text-orange-300 border-orange-800" },
+  { name: "Shopify", cat: "E-commerce", color: "bg-emerald-950 text-emerald-300 border-emerald-800" },
+  { name: "WooCommerce", cat: "E-commerce", color: "bg-purple-950 text-purple-300 border-purple-800" },
+  { name: "Google Maps", cat: "Mapas", color: "bg-green-950 text-green-300 border-green-800" },
+  { name: "Google Meet", cat: "Videollamadas", color: "bg-sky-950 text-sky-300 border-sky-800" },
+  { name: "WhatsApp", cat: "Mensajería", color: "bg-teal-950 text-teal-300 border-teal-800" },
+  { name: "Zapier", cat: "Automatización", color: "bg-amber-950 text-amber-300 border-amber-800" },
+];
+
+const models = [
+  { size: '10"', type: "Micro Desk", desc: "Compacto para escritorios, mostradores pequeños y puntos de auto-registro.", price: "$8,900", highlight: false, touch: true, note: null },
+  { size: '15"', type: "Slim Counter", desc: "Perfecto para recepción, farmacias y caja rápida. Touch incluido.", price: "$13,500", highlight: false, touch: true, note: null },
+  { size: '21"', type: "Standard Plus", desc: "El más versátil. Lobbies, restaurantes y puntos de información.", price: "$18,500", highlight: false, touch: true, note: null },
+  { size: '32"', type: "Floor Pro", desc: "Alto impacto en tiendas y museos. Touch capacitivo opcional.", price: "$28,900", highlight: true, touch: false, note: "Touch costo aparte" },
+];
+
+const usecases = [
+  { emoji: "🛍️", sector: "Retail", title: "Punto de venta autónomo", desc: "Catálogo interactivo, auto-checkout y fidelización de clientes sin colas." },
+  { emoji: "🏨", sector: "Hospitalidad", title: "Check-in / Check-out", desc: "Registro de huéspedes, entrega de llaves digitales y servicios del hotel." },
+  { emoji: "🏥", sector: "Salud", title: "Registro de pacientes", desc: "Citas, historial clínico, filas de espera y pagos de consultas." },
+  { emoji: "🏢", sector: "Corporativo", title: "Directorio y acceso", desc: "Control de visitantes, emisión de gafetes y directorio de empleados." },
+  { emoji: "🎓", sector: "Educación", title: "Campus inteligente", desc: "Horarios, mapas de instalaciones y trámites escolares digitales." },
+  { emoji: "🍔", sector: "Food & Beverage", title: "Autoorden y menú digital", desc: "Ordena, personaliza y paga tu pedido sin depender de meseros." },
+  { emoji: "🏦", sector: "Banca & Finanzas", title: "Autoservicio bancario", desc: "Consulta de saldo, pagos de servicios, actualización de datos y turnos." },
+  { emoji: "✈️", sector: "Transporte", title: "Check-in y abordaje", desc: "Emisión de pases de abordar, consulta de vuelos y registro de equipaje." },
+  { emoji: "🎭", sector: "Eventos", title: "Registro y acreditación", desc: "Validación de boletos QR, impresión de gafetes y control de acceso en tiempo real." },
+  { emoji: "🏛️", sector: "Gobierno", title: "Trámites ciudadanos", desc: "Filas digitales, consulta de expedientes, pagos de servicios municipales y citas." },
+  { emoji: "🚗", sector: "Automotriz", title: "Showroom interactivo", desc: "Configurador de vehículos, cotizador, agendado de pruebas de manejo y financiamiento." },
+  { emoji: "🏋️", sector: "Fitness & Wellness", title: "Acceso y reservas", desc: "Registro biométrico, reserva de clases, cobro de membresías y seguimiento de asistencia." },
+  { emoji: "🌐", sector: "Turismo", title: "Información al visitante", desc: "Mapas interactivos, tours, reservas de actividades y guías de la ciudad." },
+  { emoji: "🏭", sector: "Industrial", title: "Control de planta", desc: "Registro de operadores por huella, monitoreo de líneas IoT y reportes de producción." },
+  { emoji: "🎬", sector: "Entretenimiento", title: "Taquilla y self-service", desc: "Compra de boletos, selección de asientos, combos y canje de puntos." },
+  { emoji: "🏪", sector: "Supermercados", title: "Caja de auto-cobro", desc: "Escaneo de productos, pesaje, pago sin contacto y emisión de ticket digital." },
+];
+
+const plans = [
+  {
+    name: "Starter",
+    price: "$1,200",
+    period: "/mes",
+    desc: "Ideal para un punto de contacto único.",
+    color: "border-white/10",
+    btn: "bg-white/5 hover:bg-white/10 text-white border border-white/10",
+    items: ["1 kiosk (10\"–21\")", "CMS básico", "Lector de barras incluido", "Contenido por USB incluido", "Soporte por correo", "Actualizaciones remotas"],
+    addons: ["Scanner QR (+$300/mes)", "Google Maps (+$200/mes)"],
+    missing: ["Pagos / POS", "IA Chatbot", "IoT / Docker", "NFC / Huella"],
+  },
+  {
+    name: "Business",
+    price: "$3,500",
+    period: "/mes",
+    desc: "El más elegido por medianas empresas.",
+    color: "border-blue-500/60",
+    btn: "bg-blue-600 hover:bg-blue-500 text-white",
+    badge: "Más popular",
+    items: ["Hasta 5 kiosks (10\"–32\")", "CMS avanzado", "Lector de barras + QR", "Contenido por USB", "Pagos integrados (NFC/chip)", "Google Maps incluido", "Soporte 24/7", "Actualizaciones OTA"],
+    addons: ["POS completo (+$500/mes)", "IA Chatbot (+$600/mes)", "Lector NFC (+$250/mes)"],
+    missing: ["Huella digital", "IoT / Docker"],
+  },
+  {
+    name: "Enterprise",
+    price: "A medida",
+    period: "",
+    desc: "Para cadenas y despliegues masivos.",
+    color: "border-white/10",
+    btn: "bg-white/5 hover:bg-white/10 text-white border border-white/10",
+    items: ["Kiosks ilimitados (10\"–32\")", "CMS enterprise", "Todo en Business incluido", "IA Chatbot", "POS completo", "Control IoT", "Kiosks en Docker", "Lector NFC + Huella", "SLA 99.9% · Marca blanca"],
+    addons: [],
+    missing: [],
+  },
+];
+
+const addons = [
+  {
+    name: "Scanner QR",
+    price: "Desde $300/mes",
+    desc: "Lectura instantánea de QR para tickets, cupones, acceso y fidelización de clientes.",
+    icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
+    color: "from-violet-600/15 to-violet-900/10 border-violet-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "IA Chatbot",
+    price: "Desde $600/mes",
+    desc: "Asistente conversacional con IA para atención 24/7, FAQs, recomendaciones y soporte multiidioma.",
+    icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+    color: "from-blue-600/15 to-blue-900/10 border-blue-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Control IoT",
+    price: "Desde $400/mes",
+    desc: "Gestiona dispositivos conectados: sensores, cerraduras, iluminación y equipos desde el propio kiosk.",
+    icon: "M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18",
+    color: "from-emerald-600/15 to-emerald-900/10 border-emerald-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Kiosk en Docker",
+    price: "Desde $500/mes",
+    desc: "Despliegue del software en contenedores Docker para máxima portabilidad, rollback rápido y entornos aislados.",
+    icon: "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01",
+    color: "from-sky-600/15 to-sky-900/10 border-sky-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Google Maps",
+    price: "Desde $200/mes",
+    desc: "Mapas interactivos integrados: rutas, puntos de interés, direcciones en tiempo real y Street View.",
+    icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+    color: "from-green-600/15 to-green-900/10 border-green-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Pagos integrados",
+    price: "Desde $450/mes + comisión",
+    desc: "Terminal de pago NFC, chip y banda. Compatible con Visa, MC, AMEX, OXXO Pay y billeteras digitales.",
+    icon: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z",
+    color: "from-amber-600/15 to-amber-900/10 border-amber-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "POS completo",
+    price: "Desde $700/mes",
+    desc: "Punto de venta completo: inventario, facturación CFDI, reportes de ventas, cortes de caja y roles de usuario.",
+    icon: "M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z",
+    color: "from-rose-600/15 to-rose-900/10 border-rose-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Lector NFC",
+    price: "Desde $250/mes",
+    desc: "Lectura de tarjetas NFC para acceso, membresías, pago prepago y acreditación de eventos.",
+    icon: "M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0",
+    color: "from-cyan-600/15 to-cyan-900/10 border-cyan-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Huella digital",
+    price: "Desde $350/mes",
+    desc: "Autenticación biométrica por huella dactilar para control de acceso, fichaje de personal y pagos seguros.",
+    icon: "M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4",
+    color: "from-orange-600/15 to-orange-900/10 border-orange-500/20", tag: "Add-on",
+    default: false,
+  },
+  {
+    name: "Lector de barras",
+    price: "Incluido por defecto",
+    desc: "Escáner 1D/2D integrado de alta velocidad para retail, almacén y logística. Sin costo adicional en todos los planes.",
+    icon: "M4 6h16M4 12h16M4 18h7",
+    color: "from-gray-600/10 to-gray-900/10 border-gray-500/20", tag: "Incluido",
+    default: true,
+  },
+  {
+    name: "Contenido por USB",
+    price: "Incluido por defecto",
+    desc: "Carga y actualización de contenido offline vía USB en todos los modelos. Sin necesidad de internet.",
+    icon: "M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2",
+    color: "from-gray-600/10 to-gray-900/10 border-gray-500/20", tag: "Incluido",
+    default: true,
+  },
+  {
+    name: "Touch capacitivo",
+    price: "Costo aparte en 32\"",
+    desc: "Pantalla táctil multi-punto incluida en modelos 10\"–21\". En el modelo 32\" se cotiza como módulo adicional.",
+    icon: "M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5",
+    color: "from-yellow-600/10 to-yellow-900/10 border-yellow-500/20", tag: "Condicional",
+    default: false,
+  },
+];
 ---
 
-<DemoLayout title="Digital Kiosk Demo | AdagIO">
-  <div class="min-h-screen bg-gray-900 flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
+<DemoLayout title="Kiosk Digital | AdagIO">
 
-    <!-- Background grid -->
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
-
-    <div class="relative z-10 w-full max-w-4xl flex flex-col items-center gap-8">
-
-      <!-- Header -->
-      <div class="text-center mb-4">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
-          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-          Demo Interactivo
-        </span>
-        <h1 class="text-4xl sm:text-5xl font-black text-white mb-3">Digital Kiosk</h1>
-        <p class="text-gray-400 text-lg max-w-xl mx-auto">Simula la experiencia de un kiosk publicitario interactivo. Toca las opciones como si fuera una pantalla táctil real.</p>
-      </div>
-
-      <!-- Kiosk frame -->
-      <div class="relative w-full max-w-sm mx-auto">
-        <!-- Outer bezel -->
-        <div class="bg-gray-800 rounded-3xl p-4 shadow-2xl ring-4 ring-white/10">
-          <!-- Screen -->
-          <div id="kiosk-screen" class="bg-black rounded-2xl overflow-hidden aspect-[9/16] relative select-none">
-
-            <!-- Slide: Welcome -->
-            <div id="slide-welcome" class="slide absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#0d1f45] to-[#123472] text-white p-8 gap-6 transition-opacity duration-500">
-              <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <div class="text-center">
-                <h2 class="text-3xl font-black mb-2">Bienvenido</h2>
-                <p class="text-white/70 text-sm leading-relaxed">¿En qué podemos ayudarte hoy?</p>
-              </div>
-              <div class="grid grid-cols-2 gap-4 w-full mt-4">
-                {[
-                  { label: "Información", icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", slide: "slide-info" },
-                  { label: "Catálogo", icon: "M4 6h16M4 10h16M4 14h16M4 18h16", slide: "slide-catalog" },
-                  { label: "Contacto", icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", slide: "slide-contact" },
-                  { label: "Mapa", icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", slide: "slide-map" },
-                ].map(opt => (
-                  <button
-                    class="kiosk-btn bg-white/10 hover:bg-white/20 active:bg-white/30 border border-white/20 rounded-2xl p-4 flex flex-col items-center gap-2 transition-all duration-200 cursor-pointer"
-                    data-target={opt.slide}
-                  >
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={opt.icon}/>
-                    </svg>
-                    <span class="text-xs font-semibold text-white/90">{opt.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <!-- Slide: Info -->
-            <div id="slide-info" class="slide hidden absolute inset-0 flex flex-col bg-white text-gray-900 transition-opacity duration-500">
-              <div class="bg-[#123472] p-5 flex items-center gap-3">
-                <button class="back-btn text-white" data-target="slide-welcome">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                  </svg>
-                </button>
-                <h3 class="text-white font-bold text-lg">Información</h3>
-              </div>
-              <div class="flex-1 overflow-auto p-6 flex flex-col gap-5">
-                <div class="bg-gray-50 rounded-2xl p-4">
-                  <h4 class="font-bold text-gray-900 mb-1">Horario</h4>
-                  <p class="text-gray-600 text-sm">Lunes – Viernes: 9:00 – 18:00<br/>Sábados: 10:00 – 14:00</p>
-                </div>
-                <div class="bg-gray-50 rounded-2xl p-4">
-                  <h4 class="font-bold text-gray-900 mb-1">Dirección</h4>
-                  <p class="text-gray-600 text-sm">Av. Insurgentes Sur 1602, Crédito Constructor, CDMX</p>
-                </div>
-                <div class="bg-gray-50 rounded-2xl p-4">
-                  <h4 class="font-bold text-gray-900 mb-1">Teléfono</h4>
-                  <p class="text-gray-600 text-sm">+52 55 1234 5678</p>
-                </div>
-                <div class="bg-gray-50 rounded-2xl p-4">
-                  <h4 class="font-bold text-gray-900 mb-1">Wi-Fi Gratis</h4>
-                  <p class="text-gray-600 text-sm">Red: AdagIO_Guest<br/>Contraseña: bienvenido2026</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide: Catalog -->
-            <div id="slide-catalog" class="slide hidden absolute inset-0 flex flex-col bg-white transition-opacity duration-500">
-              <div class="bg-[#ff0040] p-5 flex items-center gap-3">
-                <button class="back-btn text-white" data-target="slide-welcome">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                  </svg>
-                </button>
-                <h3 class="text-white font-bold text-lg">Catálogo</h3>
-              </div>
-              <div class="flex-1 overflow-auto p-4 grid grid-cols-2 gap-3">
-                {[
-                  { name: "Kiosk Pro 55\"", price: "$45,000", emoji: "🖥️" },
-                  { name: "Kiosk Slim 32\"", price: "$22,000", emoji: "📺" },
-                  { name: "IoT Node Hub", price: "$3,500", emoji: "📡" },
-                  { name: "Sensor Pack", price: "$1,200", emoji: "🔌" },
-                ].map(item => (
-                  <div class="bg-gray-50 rounded-2xl p-4 flex flex-col items-center gap-2 border border-gray-100">
-                    <span class="text-3xl">{item.emoji}</span>
-                    <span class="text-xs font-bold text-gray-900 text-center leading-tight">{item.name}</span>
-                    <span class="text-xs font-black text-[#123472]">{item.price}</span>
-                    <button class="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full mt-1">Ver</button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <!-- Slide: Contact -->
-            <div id="slide-contact" class="slide hidden absolute inset-0 flex flex-col bg-white transition-opacity duration-500">
-              <div class="bg-emerald-600 p-5 flex items-center gap-3">
-                <button class="back-btn text-white" data-target="slide-welcome">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                  </svg>
-                </button>
-                <h3 class="text-white font-bold text-lg">Contacto</h3>
-              </div>
-              <div class="flex-1 p-6 flex flex-col gap-4">
-                <input type="text" placeholder="Tu nombre" class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-500"/>
-                <input type="email" placeholder="Correo electrónico" class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-500"/>
-                <textarea placeholder="¿En qué podemos ayudarte?" class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm outline-none focus:border-emerald-500 h-24 resize-none"></textarea>
-                <button id="kiosk-send" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition-colors">Enviar</button>
-                <p id="kiosk-sent" class="hidden text-center text-sm font-semibold text-emerald-600">¡Mensaje enviado! ✓</p>
-              </div>
-            </div>
-
-            <!-- Slide: Map -->
-            <div id="slide-map" class="slide hidden absolute inset-0 flex flex-col bg-white transition-opacity duration-500">
-              <div class="bg-orange-500 p-5 flex items-center gap-3">
-                <button class="back-btn text-white" data-target="slide-welcome">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                  </svg>
-                </button>
-                <h3 class="text-white font-bold text-lg">Ubicación</h3>
-              </div>
-              <div class="flex-1 flex flex-col items-center justify-center p-6 gap-4 text-center">
-                <div class="w-32 h-32 bg-orange-50 rounded-full flex items-center justify-center">
-                  <svg class="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-gray-900 mb-2">Ciudad de México</h4>
-                  <p class="text-gray-500 text-sm">Av. Insurgentes Sur 1602<br/>Crédito Constructor, CDMX</p>
-                </div>
-                <div class="w-full bg-gray-100 rounded-2xl h-32 flex items-center justify-center text-gray-400 text-sm">
-                  📍 Mapa interactivo
-                </div>
-              </div>
-            </div>
-
-          </div>
+<!-- ══════════ NAVBAR ══════════ -->
+<nav id="kiosk-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href={demosIndexUrl} class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
         </div>
+        <span class="text-white font-black text-lg tracking-tight">Kiosk<span class="text-blue-400">OS</span></span>
+      </a>
 
-        <!-- Stand -->
-        <div class="mx-auto w-8 h-16 bg-gray-700 rounded-b-lg mt-0"></div>
-        <div class="mx-auto w-32 h-3 bg-gray-600 rounded-full"></div>
+      <!-- Nav links (desktop) -->
+      <div class="hidden md:flex items-center gap-8">
+        {["Características","Modelos","Capacidades","Sectores","Integraciones","Precios"].map((l, i) => (
+          <a href={`#${["features","models","addons","usecases","integrations","pricing"][i]}`}
+             class="text-gray-400 hover:text-white text-sm font-medium transition-colors">
+            {l}
+          </a>
+        ))}
       </div>
 
-      <!-- Info label -->
-      <p class="text-gray-500 text-sm text-center max-w-xs">
-        Este es un demo de kiosk digital. En producción se despliega en pantallas táctiles de 32" a 86".
-        <a href="/productos" class="text-blue-400 hover:underline ml-1">Ver productos →</a>
-      </p>
+      <!-- CTAs -->
+      <div class="flex items-center gap-3">
+        <a href="#pricing" class="hidden sm:block text-gray-400 hover:text-white text-sm font-medium transition-colors">Ver precios</a>
+        <a href="#contact-section" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-colors">
+          Solicitar demo
+        </a>
+      </div>
     </div>
   </div>
+</nav>
 
-  <script>
-    // Kiosk navigation
-    function showSlide(id: string) {
-      document.querySelectorAll(".slide").forEach(s => {
-        (s as HTMLElement).style.opacity = "0";
-        setTimeout(() => {
-          s.classList.add("hidden");
-          s.classList.remove("flex");
-        }, 200);
-      });
-      const target = document.getElementById(id);
-      if (target) {
-        target.classList.remove("hidden");
-        target.classList.add("flex");
-        setTimeout(() => { target.style.opacity = "1"; }, 10);
-      }
+<!-- ══════════ HERO ══════════ -->
+<section class="relative min-h-screen bg-gray-950 flex items-center overflow-hidden pt-16">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/15 blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-600/10 blur-[100px] rounded-full"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: copy -->
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/20 mb-8">
+          <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+          <span class="text-blue-300 text-xs font-semibold uppercase tracking-widest">Producto disponible en México</span>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl font-black text-white leading-tight tracking-tight mb-6">
+          El kiosk digital<br/>
+          <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
+            que tu negocio<br/>necesita
+          </span>
+        </h1>
+
+        <p class="text-xl text-gray-400 leading-relaxed mb-8 max-w-lg">
+          Pantallas táctiles industriales con software propio, actualizaciones remotas, pagos integrados y analytics en tiempo real. Del lobby a la tienda, del hospital al aeropuerto.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-12">
+          <a href="#contact-section" class="px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl transition-all hover:-translate-y-0.5 shadow-lg shadow-blue-600/30">
+            Cotizar ahora
+          </a>
+          <a href="#features" class="px-7 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-2xl transition-colors">
+            Ver características
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/8">
+          {[["350+","Instalaciones activas"],["99.7%","Uptime garantizado"],["24/7","Soporte técnico"]].map(([n,l]) => (
+            <div>
+              <p class="text-2xl font-black text-white">{n}</p>
+              <p class="text-gray-500 text-xs mt-0.5 leading-tight">{l}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: kiosk simulator -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="kiosk-frame relative flex-shrink-0" style="width: min(300px, 85vw);">
+          <!-- Side buttons -->
+          <div class="absolute -left-2.5 top-24 flex flex-col gap-2 z-10">
+            <div class="w-1.5 h-8 bg-gray-600 rounded-l-sm"></div>
+            <div class="w-1.5 h-8 bg-gray-600 rounded-l-sm"></div>
+          </div>
+          <div class="absolute -right-2.5 top-32 z-10">
+            <div class="w-1.5 h-10 bg-gray-600 rounded-r-sm"></div>
+          </div>
+
+          <!-- Outer bezel -->
+          <div class="bg-gradient-to-b from-gray-700 via-gray-800 to-gray-900 rounded-[2.5rem] p-3 shadow-2xl ring-1 ring-white/10"
+               style="box-shadow: 0 0 0 1px rgba(255,255,255,0.07), 0 40px 80px -20px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);">
+
+            <!-- Top bar -->
+            <div class="flex items-center justify-between px-4 py-2 mb-1">
+              <div class="flex items-center gap-1.5">
+                <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                <span class="text-gray-500 text-[9px] font-mono">KioskOS</span>
+              </div>
+              <div class="w-3 h-3 rounded-full bg-gray-900 ring-1 ring-gray-700 flex items-center justify-center">
+                <div class="w-1.5 h-1.5 rounded-full bg-gray-800 ring-1 ring-gray-600"></div>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M1.17 7.639C4.03 4.78 7.89 3 12.001 3c4.111 0 7.97 1.78 10.83 4.639l-1.415 1.414C18.918 6.557 15.573 5 12 5c-3.572 0-6.918 1.557-9.414 4.054L1.17 7.64zM12 9c2.34 0 4.524.92 6.154 2.587l-1.415 1.413A6.975 6.975 0 0012 11a6.975 6.975 0 00-4.739 1.999L5.847 11.587A8.966 8.966 0 0112 9zm0 4a4.98 4.98 0 013.536 1.464l-1.415 1.415a3 3 0 00-4.243 0L8.464 14.464A4.98 4.98 0 0112 13zm0 4a1 1 0 110 2 1 1 0 010-2z"/></svg>
+                <div class="flex items-center gap-0.5">
+                  <div class="w-5 h-2.5 rounded-sm border border-gray-500 p-px">
+                    <div class="h-full w-4/5 bg-green-500 rounded-sm"></div>
+                  </div>
+                  <div class="w-0.5 h-1.5 bg-gray-500 rounded-r-sm"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen -->
+            <div class="bg-black rounded-[1.75rem] overflow-hidden" style="aspect-ratio:9/16; position:relative;">
+
+              <!-- Status bar -->
+              <div class="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-4 py-2 bg-black/40 backdrop-blur-sm text-white text-[10px] font-medium">
+                <span id="kiosk-time" class="font-mono">--:--</span>
+                <span class="text-white/40">•</span>
+                <span id="kiosk-date" class="text-white/60">---</span>
+              </div>
+
+              <!-- SCREENSAVER -->
+              <div id="slide-screensaver" class="kiosk-slide absolute inset-0 z-20 flex flex-col items-center justify-center overflow-hidden"
+                   style="background:linear-gradient(135deg,#0a0a1a 0%,#0d1f45 50%,#0a0a1a 100%);">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div class="w-64 h-64 rounded-full border border-blue-500/10 animate-[spin_20s_linear_infinite]"></div>
+                  <div class="w-48 h-48 rounded-full border border-indigo-500/15 animate-[spin_14s_linear_infinite_reverse] absolute"></div>
+                  <div class="w-32 h-32 rounded-full border border-blue-400/20 animate-[spin_8s_linear_infinite] absolute"></div>
+                </div>
+                <div class="relative z-10 flex flex-col items-center gap-4 px-6 text-center">
+                  <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-2">
+                    <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div>
+                    <p class="text-5xl font-black text-white font-mono tracking-tight" id="saver-time">--:--</p>
+                    <p class="text-white/40 text-xs mt-1" id="saver-date"></p>
+                  </div>
+                  <p class="text-blue-300/70 text-xs tracking-widest uppercase animate-pulse mt-2">Toca para comenzar</p>
+                </div>
+                <button class="kiosk-btn absolute inset-0 w-full h-full" data-target="slide-welcome" aria-label="Activar kiosk"></button>
+              </div>
+
+              <!-- HOME -->
+              <div id="slide-welcome" class="kiosk-slide hidden absolute inset-0 flex flex-col pt-8"
+                   style="background:linear-gradient(160deg,#0d1f45 0%,#123472 60%,#1a4a9a 100%);">
+                <div class="flex flex-col items-center gap-3 px-6 pt-4 pb-5">
+                  <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="text-center">
+                    <h2 class="text-white font-black text-lg">Bienvenido</h2>
+                    <p class="text-white/50 text-[10px] mt-0.5">¿En qué podemos ayudarte?</p>
+                  </div>
+                </div>
+                <div class="flex-1 px-4 pb-4 grid grid-cols-2 gap-2.5 content-start">
+                  {[
+                    { label:"Información", sub:"Horarios y datos", target:"slide-info", color:"from-blue-600/30 to-blue-800/30", border:"border-blue-500/30", icon:"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+                    { label:"Catálogo", sub:"Nuestros productos", target:"slide-catalog", color:"from-rose-600/30 to-rose-800/30", border:"border-rose-500/30", icon:"M4 6h16M4 10h16M4 14h16M4 18h16" },
+                    { label:"Contacto", sub:"Envíanos un mensaje", target:"slide-contact", color:"from-emerald-600/30 to-emerald-800/30", border:"border-emerald-500/30", icon:"M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+                    { label:"Ubicación", sub:"Cómo llegar", target:"slide-map", color:"from-orange-600/30 to-orange-800/30", border:"border-orange-500/30", icon:"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" },
+                    { label:"QR / Web", sub:"Visítanos en línea", target:"slide-qr", color:"from-violet-600/30 to-violet-800/30", border:"border-violet-500/30", icon:"M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" },
+                    { label:"Idioma", sub:"Language / Langue", target:"slide-lang", color:"from-cyan-600/30 to-cyan-800/30", border:"border-cyan-500/30", icon:"M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" },
+                  ].map(opt => (
+                    <button class={`kiosk-btn ripple-btn bg-gradient-to-br ${opt.color} border ${opt.border} rounded-2xl p-3 flex flex-col gap-2 text-left transition-all duration-200 active:scale-95`} data-target={opt.target}>
+                      <svg class="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={opt.icon}/></svg>
+                      <div>
+                        <p class="text-white text-[10px] font-bold leading-tight">{opt.label}</p>
+                        <p class="text-white/40 text-[8px] leading-tight mt-0.5">{opt.sub}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <div class="px-4 pb-3 flex items-center justify-between">
+                  <span class="text-white/20 text-[8px]">KioskOS v2.1</span>
+                  <div class="flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div><span class="text-white/30 text-[8px]">En línea</span></div>
+                </div>
+              </div>
+
+              <!-- INFO -->
+              <div id="slide-info" class="kiosk-slide hidden absolute inset-0 flex flex-col bg-white pt-8">
+                <div class="bg-[#123472] px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-welcome"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs">Información General</h3>
+                </div>
+                <div class="flex-1 overflow-auto p-3 flex flex-col gap-2.5">
+                  {[
+                    { icon:"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", color:"bg-blue-50 text-blue-600", title:"Horario", body:"Lun–Vie 9:00–18:00 · Sáb 10:00–14:00" },
+                    { icon:"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", color:"bg-orange-50 text-orange-500", title:"Dirección", body:"Av. Insurgentes Sur 1602, CDMX" },
+                    { icon:"M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z", color:"bg-green-50 text-green-600", title:"Teléfono", body:"+52 55 1234 5678" },
+                    { icon:"M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0", color:"bg-indigo-50 text-indigo-600", title:"Wi-Fi", body:"AdagIO_Guest · bienvenido2026" },
+                  ].map(item => (
+                    <div class="bg-gray-50 rounded-2xl p-3 flex gap-2.5">
+                      <div class={`w-8 h-8 rounded-xl ${item.color} flex items-center justify-center flex-shrink-0`}>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}/></svg>
+                      </div>
+                      <div><p class="font-bold text-gray-900 text-[10px]">{item.title}</p><p class="text-gray-500 text-[9px] mt-0.5">{item.body}</p></div>
+                    </div>
+                  ))}
+                  <button class="kiosk-btn ripple-btn mt-1 w-full py-2.5 bg-red-500 text-white text-[10px] font-bold rounded-2xl flex items-center justify-center gap-2" data-target="slide-welcome">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    Llamar ahora
+                  </button>
+                </div>
+              </div>
+
+              <!-- CATALOG -->
+              <div id="slide-catalog" class="kiosk-slide hidden absolute inset-0 flex flex-col bg-gray-50 pt-8">
+                <div class="bg-rose-600 px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-welcome"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs">Catálogo</h3>
+                </div>
+                <div class="flex gap-1.5 px-3 py-2 bg-white border-b border-gray-100 overflow-x-auto flex-shrink-0">
+                  {["Todos","Kiosks","IoT","Redes"].map((f,i) => (
+                    <button class={`cat-filter flex-shrink-0 px-2.5 py-1 rounded-full text-[9px] font-semibold transition-colors ${i===0?'bg-rose-500 text-white':'bg-gray-100 text-gray-500'}`} data-filter={f}>{f}</button>
+                  ))}
+                </div>
+                <div class="flex-1 overflow-auto p-2.5 grid grid-cols-2 gap-2" id="catalog-grid">
+                  {[
+                    { name:'Kiosk Pro 55"', price:'$45,000', cat:'Kiosks', img:'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=200&h=200&fit=crop', badge:'Premium' },
+                    { name:'Kiosk Slim 32"', price:'$22,000', cat:'Kiosks', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop', badge:'Popular' },
+                    { name:'IoT Node Pro', price:'$3,500', cat:'IoT', img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=200&fit=crop', badge:'Nuevo' },
+                    { name:'Sensor Pack X12', price:'$1,200', cat:'IoT', img:'https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?w=200&h=200&fit=crop', badge:null },
+                    { name:'Mesh AP Pro', price:'$2,800', cat:'Redes', img:'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=200&h=200&fit=crop', badge:null },
+                    { name:'NFC Reader', price:'$850', cat:'IoT', img:'https://images.unsplash.com/photo-1616400619175-5beda3a17896?w=200&h=200&fit=crop', badge:'Oferta' },
+                  ].map(item => (
+                    <button class="kiosk-btn ripple-btn catalog-item bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm active:scale-95 transition-transform text-left" data-cat={item.cat} data-name={item.name} data-price={item.price} data-img={item.img} data-target="slide-product">
+                      <div class="relative h-16 bg-gray-100 overflow-hidden">
+                        <img src={item.img} alt={item.name} class="w-full h-full object-cover" loading="lazy" decoding="async"/>
+                        {item.badge && <span class="absolute top-1 left-1 px-1 py-0.5 bg-rose-500 text-white text-[7px] font-bold rounded">{item.badge}</span>}
+                      </div>
+                      <div class="p-1.5">
+                        <p class="text-gray-900 text-[9px] font-bold truncate">{item.name}</p>
+                        <p class="text-rose-600 text-[10px] font-black">{item.price}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <!-- PRODUCT DETAIL -->
+              <div id="slide-product" class="kiosk-slide hidden absolute inset-0 flex flex-col bg-white pt-8">
+                <div class="bg-gray-900 px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-catalog"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs" id="product-title">Producto</h3>
+                </div>
+                <div class="flex-1 overflow-auto">
+                  <div class="h-40 bg-gray-100 relative">
+                    <img id="product-img" src="" alt="" class="w-full h-full object-cover"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-start justify-between mb-2">
+                      <h2 id="product-name" class="text-gray-900 font-black text-sm flex-1"></h2>
+                      <span id="product-price" class="text-rose-600 font-black text-base ml-2"></span>
+                    </div>
+                    <p class="text-gray-500 text-[10px] leading-relaxed mb-3">Solución de alta calidad diseñada para entornos comerciales. Garantía 12 meses, instalación incluida en CDMX.</p>
+                    <div class="grid grid-cols-2 gap-1.5 mb-4">
+                      {["Garantía 12m","Soporte 24/7","Instalación","Envío gratis"].map(f => (
+                        <div class="flex items-center gap-1 text-[9px] text-gray-600">
+                          <svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                          {f}
+                        </div>
+                      ))}
+                    </div>
+                    <button class="kiosk-btn ripple-btn w-full py-2.5 bg-rose-500 text-white text-[10px] font-bold rounded-xl" data-target="slide-contact">Solicitar cotización</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CONTACT -->
+              <div id="slide-contact" class="kiosk-slide hidden absolute inset-0 flex flex-col bg-white pt-8">
+                <div class="bg-emerald-600 px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-welcome"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs">Contáctanos</h3>
+                </div>
+                <div class="flex-1 overflow-auto p-3 flex flex-col gap-2.5">
+                  <div id="contact-form" class="flex flex-col gap-2.5">
+                    <input id="c-name" type="text" placeholder="Tu nombre" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2 text-xs outline-none focus:border-emerald-400"/>
+                    <input id="c-email" type="email" placeholder="tu@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2 text-xs outline-none focus:border-emerald-400"/>
+                    <div class="grid grid-cols-2 gap-1.5" id="subject-options">
+                      {["Cotización","Soporte","Demo","Otro"].map((s,i) => (
+                        <button class={`subject-opt text-[9px] font-semibold py-1.5 rounded-xl border transition-all ${i===0?'bg-emerald-500 text-white border-emerald-500':'bg-gray-50 text-gray-600 border-gray-200'}`} data-val={s}>{s}</button>
+                      ))}
+                    </div>
+                    <textarea id="c-msg" placeholder="Mensaje…" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2 text-xs outline-none focus:border-emerald-400 h-14 resize-none"></textarea>
+                    <button id="kiosk-send" class="kiosk-btn ripple-btn w-full py-2.5 bg-emerald-500 text-white text-[10px] font-bold rounded-xl flex items-center justify-center gap-1.5">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                      Enviar mensaje
+                    </button>
+                  </div>
+                  <div id="contact-success" class="hidden flex-col items-center justify-center py-8 gap-3 text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <div><p class="text-gray-900 font-bold text-xs">¡Mensaje enviado!</p><p class="text-gray-500 text-[10px] mt-0.5">Te respondemos en menos de 24h.</p></div>
+                    <button class="kiosk-btn ripple-btn px-4 py-2 bg-gray-900 text-white text-[10px] font-bold rounded-xl" data-target="slide-welcome">Volver al inicio</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MAP -->
+              <div id="slide-map" class="kiosk-slide hidden absolute inset-0 flex flex-col bg-white pt-8">
+                <div class="bg-orange-500 px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-welcome"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs">Cómo Llegar</h3>
+                </div>
+                <div class="flex-1 overflow-auto">
+                  <div class="relative bg-[#e8f0d8] h-44 overflow-hidden">
+                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 340 180" preserveAspectRatio="xMidYMid slice">
+                      <rect width="340" height="180" fill="#e8f0d8"/>
+                      <rect x="140" y="0" width="14" height="180" fill="#ffffff" opacity="0.9"/>
+                      <rect x="0" y="80" width="340" height="10" fill="#ffffff" opacity="0.9"/>
+                      <rect x="0" y="130" width="340" height="8" fill="#ffffff" opacity="0.7"/>
+                      <rect x="60" y="0" width="6" height="180" fill="#ffffff" opacity="0.5"/>
+                      <rect x="220" y="0" width="5" height="180" fill="#ffffff" opacity="0.5"/>
+                      <rect x="8" y="8" width="50" height="70" rx="3" fill="#b8d490" opacity="0.9"/>
+                      <rect x="68" y="8" width="70" height="30" rx="2" fill="#d4e0b0" opacity="0.8"/>
+                      <rect x="68" y="42" width="70" height="36" rx="2" fill="#c8d9a0" opacity="0.8"/>
+                      <rect x="156" y="8" width="62" height="30" rx="2" fill="#d4e0b0" opacity="0.8"/>
+                      <rect x="226" y="8" width="62" height="70" rx="2" fill="#c8d9a0" opacity="0.8"/>
+                      <circle cx="147" cy="84" r="10" fill="#ef4444" opacity="0.2"/>
+                      <circle cx="147" cy="84" r="6" fill="#ef4444"/>
+                      <circle cx="147" cy="84" r="3" fill="white"/>
+                      <circle cx="147" cy="84" r="12" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.4">
+                        <animate attributeName="r" values="8;18;8" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite"/>
+                      </circle>
+                    </svg>
+                  </div>
+                  <div class="p-3 flex flex-col gap-2">
+                    <div class="flex gap-2.5 bg-orange-50 rounded-xl p-2.5">
+                      <div class="w-7 h-7 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-3.5 h-3.5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      </div>
+                      <div><p class="font-bold text-gray-900 text-[10px]">Av. Insurgentes Sur 1602</p><p class="text-gray-500 text-[9px]">Crédito Constructor, CDMX</p></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                      {[{how:"Metro",detail:"Línea 3",icon:"🚇"},{how:"Metrobús",detail:"L1",icon:"🚌"},{how:"Auto",detail:"Estacionamiento",icon:"🚗"},{how:"A pie",detail:"3 min",icon:"🚶"}].map(t => (
+                        <div class="bg-gray-50 rounded-xl p-2 flex gap-1.5 items-start">
+                          <span class="text-sm">{t.icon}</span>
+                          <div><p class="text-gray-900 text-[9px] font-bold">{t.how}</p><p class="text-gray-400 text-[8px]">{t.detail}</p></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- QR -->
+              <div id="slide-qr" class="kiosk-slide hidden absolute inset-0 flex flex-col pt-8" style="background:linear-gradient(160deg,#1e1b4b 0%,#312e81 100%);">
+                <div class="bg-violet-800 px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-welcome"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs">Visítanos en línea</h3>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center gap-5 p-6">
+                  <div class="bg-white rounded-2xl p-4 shadow-2xl">
+                    <svg class="w-28 h-28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="100" height="100" fill="white"/>
+                      <rect x="5" y="5" width="25" height="25" rx="2" fill="#111"/><rect x="8" y="8" width="19" height="19" rx="1" fill="white"/><rect x="11" y="11" width="13" height="13" rx="1" fill="#111"/>
+                      <rect x="70" y="5" width="25" height="25" rx="2" fill="#111"/><rect x="73" y="8" width="19" height="19" rx="1" fill="white"/><rect x="76" y="11" width="13" height="13" rx="1" fill="#111"/>
+                      <rect x="5" y="70" width="25" height="25" rx="2" fill="#111"/><rect x="8" y="73" width="19" height="19" rx="1" fill="white"/><rect x="11" y="76" width="13" height="13" rx="1" fill="#111"/>
+                      {[[35,5],[41,5],[47,5],[53,5],[59,5],[35,11],[44,11],[50,11],[35,14],[41,14],[50,14],[5,35],[11,35],[17,35],[23,35],[35,35],[41,35],[50,35],[5,41],[14,41],[23,41],[35,41],[47,41],[5,44],[11,44],[20,44],[35,44],[50,44],[5,47],[14,47],[23,47],[38,47],[5,50],[8,50],[17,50],[23,50],[35,50],[41,50],[50,50],[70,56],[76,56],[82,56],[70,62],[76,62],[82,62],[70,68],[73,68],[79,68],[85,68],[70,74],[76,74],[82,74],[70,80],[73,80],[82,80],[88,80],[70,86],[76,86],[79,86],[85,86]].map(([x,y]) => (
+                        <rect x={x} y={y} width="3" height="3" fill="#111"/>
+                      ))}
+                    </svg>
+                  </div>
+                  <div class="text-center">
+                    <p class="text-white font-bold text-sm">adagi0.com</p>
+                    <p class="text-white/40 text-[10px] mt-0.5">Escanea con tu cámara</p>
+                  </div>
+                  <a href="https://adagi0.com" target="_blank" class="kiosk-btn ripple-btn px-5 py-2.5 bg-white text-violet-800 font-black text-xs rounded-2xl active:scale-95 transition-all">Abrir sitio →</a>
+                </div>
+              </div>
+
+              <!-- LANGUAGE -->
+              <div id="slide-lang" class="kiosk-slide hidden absolute inset-0 flex flex-col bg-gray-950 pt-8">
+                <div class="bg-cyan-700 px-4 py-2.5 flex items-center gap-2 flex-shrink-0">
+                  <button class="kiosk-btn ripple-btn w-7 h-7 flex items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0" data-target="slide-welcome"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>
+                  <h3 class="text-white font-bold text-xs">Idioma / Language</h3>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center gap-2.5 p-5">
+                  {[{flag:"🇲🇽",lang:"Español",sub:"México"},{flag:"🇺🇸",lang:"English",sub:"United States"},{flag:"🇫🇷",lang:"Français",sub:"France"},{flag:"🇩🇪",lang:"Deutsch",sub:"Deutschland"}].map((l,i) => (
+                    <button class={`kiosk-btn ripple-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl border transition-all active:scale-95 ${i===0?'bg-cyan-600/20 border-cyan-500/50':'bg-white/5 border-white/10'}`} data-target="slide-welcome">
+                      <span class="text-xl">{l.flag}</span>
+                      <div class="text-left"><p class="text-white font-bold text-xs">{l.lang}</p><p class="text-white/40 text-[9px]">{l.sub}</p></div>
+                      {i===0 && <svg class="w-3.5 h-3.5 text-cyan-400 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+            </div><!-- /screen -->
+          </div><!-- /bezel -->
+
+          <!-- Stand -->
+          <div class="flex flex-col items-center">
+            <div class="w-8 h-10 bg-gradient-to-b from-gray-600 to-gray-700 mx-auto"></div>
+            <div class="w-28 h-2 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 rounded-full shadow-lg"></div>
+            <div class="w-20 h-1.5 bg-blue-500/10 blur-md rounded-full mt-0.5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FEATURES ══════════ -->
+<section id="features" class="py-24 bg-gray-950 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-blue-400 text-xs font-bold uppercase tracking-widest">Características</span>
+      <h2 class="text-4xl font-black text-white mt-3 mb-4">Todo lo que necesitas,<br/>en una sola pantalla</h2>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">Hardware industrial grado A + software propio en la nube. Listo para operar el primer día.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map(f => (
+        <div class="group bg-gray-900 border border-white/5 hover:border-blue-500/30 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center mb-5 group-hover:bg-blue-600/20 transition-colors">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={f.icon}/>
+            </svg>
+          </div>
+          <h3 class="text-white font-bold text-base mb-2">{f.title}</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Specs strip -->
+    <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {[
+        { val: "4K", label: "Resolución máxima", sub: "3840×2160 px" },
+        { val: "500", label: "Brillo (nits)", sub: "Visible bajo luz solar" },
+        { val: "IP65", label: "Protección", sub: "Polvo y agua" },
+        { val: "-20°", label: "Temp. mínima", sub: "Operación outdoor" },
+      ].map(s => (
+        <div class="bg-gray-900 border border-white/5 rounded-2xl p-5 text-center">
+          <p class="text-3xl font-black text-blue-400 mb-1">{s.val}</p>
+          <p class="text-white text-xs font-semibold">{s.label}</p>
+          <p class="text-gray-600 text-xs mt-0.5">{s.sub}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MODELS ══════════ -->
+<section id="models" class="py-24 bg-[#070b14]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-indigo-400 text-xs font-bold uppercase tracking-widest">Modelos disponibles</span>
+      <h2 class="text-4xl font-black text-white mt-3 mb-4">Elige el tamaño perfecto</h2>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">Desde mostradores pequeños hasta pantallas de alto impacto para centros comerciales.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {models.map(m => (
+        <div class={`relative rounded-2xl border p-6 flex flex-col transition-all ${m.highlight ? 'bg-gradient-to-b from-blue-900/40 to-blue-950/40 border-blue-500/50' : 'bg-gray-900 border-white/8'}`}>
+          {m.highlight && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full whitespace-nowrap">Más vendido</span>
+            </div>
+          )}
+          <div class="text-5xl font-black text-white mb-1">{m.size}</div>
+          <p class="text-blue-400 text-sm font-semibold mb-1">{m.type}</p>
+          <!-- Touch badge -->
+          <div class="mb-3">
+            {m.touch
+              ? <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-green-400"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Touch incluido</span>
+              : <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-yellow-500"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{m.note}</span>
+            }
+          </div>
+          <p class="text-gray-500 text-sm flex-1 mb-5">{m.desc}</p>
+          <div class="border-t border-white/5 pt-4">
+            <p class="text-gray-400 text-xs mb-0.5">Desde</p>
+            <p class="text-2xl font-black text-white">{m.price}</p>
+            <p class="text-gray-600 text-xs">MXN + IVA</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="text-center text-gray-600 text-sm mt-8">Rango de pantallas: <span class="text-white">10" a 32"</span> · Precios de hardware. El software se contrata por separado. <a href="#pricing" class="text-blue-400 hover:underline">Ver planes →</a></p>
+  </div>
+</section>
+
+<!-- ══════════ USE CASES ══════════ -->
+<section id="usecases" class="py-24 bg-gray-950 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-rose-400 text-xs font-bold uppercase tracking-widest">Casos de uso</span>
+      <h2 class="text-4xl font-black text-white mt-3 mb-4">¿Para qué sectores?</h2>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">KioskOS se adapta a cualquier industria con plantillas preinstaladas y flujos listos para usar.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {usecases.map(u => (
+        <div class="group bg-gray-900 border border-white/5 hover:border-rose-500/20 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1">
+          <div class="text-2xl mb-3">{u.emoji}</div>
+          <span class="text-[10px] font-bold text-rose-400 uppercase tracking-widest">{u.sector}</span>
+          <h3 class="text-white font-bold text-sm mt-1.5 mb-1.5">{u.title}</h3>
+          <p class="text-gray-500 text-xs leading-relaxed">{u.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ADD-ONS ══════════ -->
+<section id="addons" class="py-24 bg-[#070b14] border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Capacidades habilitables</span>
+      <h2 class="text-4xl font-black text-white mt-3 mb-4">Activa solo lo que necesitas</h2>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">Algunos módulos están incluidos por defecto en todos los planes; otros se habilitan según tu plan o como add-on independiente.</p>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex flex-wrap gap-3 justify-center mb-10">
+      {[
+        { label: "Incluido por defecto", dot: "bg-green-500" },
+        { label: "Add-on (precio adicional)", dot: "bg-blue-500" },
+        { label: "Condicional por modelo", dot: "bg-yellow-500" },
+      ].map(l => (
+        <div class="flex items-center gap-2 px-3 py-1.5 bg-white/4 border border-white/8 rounded-full">
+          <div class={`w-2 h-2 rounded-full ${l.dot}`}></div>
+          <span class="text-gray-400 text-xs">{l.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {addons.map(a => (
+        <div class={`relative bg-gradient-to-br ${a.color} border rounded-2xl p-5 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-0.5`}>
+          <!-- Tag -->
+          <div class="flex items-start justify-between">
+            <div class="w-10 h-10 rounded-xl bg-white/8 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={a.icon}/>
+              </svg>
+            </div>
+            <span class={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
+              a.tag === 'Incluido' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+              a.tag === 'Condicional' ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30' :
+              'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+            }`}>{a.tag}</span>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-sm mb-1">{a.name}</h3>
+            <p class="text-gray-500 text-xs leading-relaxed">{a.desc}</p>
+          </div>
+          <div class="mt-auto pt-2 border-t border-white/6">
+            <p class={`text-xs font-semibold ${a.default ? 'text-green-400' : a.tag === 'Condicional' ? 'text-yellow-400' : 'text-white/60'}`}>{a.price}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-gray-600 text-sm mt-10">Los precios de add-ons son por kiosk/mes y pueden variar según el volumen de despliegue. <a href="#contact-section" class="text-blue-400 hover:underline">Cotizar →</a></p>
+  </div>
+</section>
+
+<!-- ══════════ INTEGRATIONS ══════════ -->
+<section id="integrations" class="py-24 bg-[#070b14] border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Integraciones</span>
+      <h2 class="text-4xl font-black text-white mt-3 mb-4">Conecta con tus sistemas</h2>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">KioskOS se integra con las plataformas que ya usas. Sin migraciones, sin fricciones.</p>
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center mb-12">
+      {integrations.map(i => (
+        <div class={`px-4 py-2.5 rounded-xl border ${i.color} flex items-center gap-2`}>
+          <span class="font-bold text-sm">{i.name}</span>
+          <span class="text-xs opacity-60">{i.cat}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- API callout -->
+    <div class="bg-gray-900 border border-white/5 rounded-2xl p-8 max-w-2xl mx-auto text-center">
+      <div class="w-12 h-12 rounded-xl bg-emerald-600/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+      </div>
+      <h3 class="text-white font-bold text-lg mb-2">API REST & Webhooks</h3>
+      <p class="text-gray-500 text-sm mb-5">¿Usas un sistema no listado? Nuestra API RESTful y soporte de webhooks permiten conectar cualquier backend en horas, no semanas.</p>
+      <a href="#contact-section" class="inline-block px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-xl transition-colors">
+        Hablar con un integrador
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRICING ══════════ -->
+<section id="pricing" class="py-24 bg-gray-950 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-violet-400 text-xs font-bold uppercase tracking-widest">Planes y precios</span>
+      <h2 class="text-4xl font-black text-white mt-3 mb-4">Software que crece contigo</h2>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">Sin contratos de largo plazo. Cancela cuando quieras. Escala cuando lo necesites.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {plans.map(p => (
+        <div class={`relative rounded-2xl border ${p.color} p-7 flex flex-col ${p.badge ? 'bg-gradient-to-b from-blue-900/20 to-gray-900' : 'bg-gray-900'}`}>
+          {p.badge && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full">{p.badge}</span>
+            </div>
+          )}
+          <div class="mb-6">
+            <h3 class="text-white font-black text-xl mb-1">{p.name}</h3>
+            <p class="text-gray-500 text-sm">{p.desc}</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-black text-white">{p.price}</span>
+            <span class="text-gray-500 text-sm">{p.period}</span>
+            {p.period && <p class="text-gray-600 text-xs mt-0.5">MXN + IVA por kiosk</p>}
+          </div>
+          <ul class="flex-1 space-y-2 mb-7">
+            {p.items.map(item => (
+              <li class="flex items-start gap-2.5 text-sm text-gray-300">
+                <svg class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                {item}
+              </li>
+            ))}
+            {p.addons.length > 0 && (
+              <li class="pt-1">
+                <p class="text-[10px] font-bold text-amber-500/70 uppercase tracking-wider mb-1.5">Add-ons disponibles</p>
+                <ul class="space-y-1.5">
+                  {p.addons.map(item => (
+                    <li class="flex items-start gap-2 text-xs text-amber-400/80">
+                      <svg class="w-3.5 h-3.5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            )}
+            {p.missing.map(item => (
+              <li class="flex items-center gap-2.5 text-sm text-gray-700">
+                <svg class="w-4 h-4 text-gray-800 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href="#contact-section" class={`w-full py-3 text-center text-sm font-bold rounded-xl transition-colors ${p.btn}`}>
+            {p.name === 'Enterprise' ? 'Contactar ventas' : 'Comenzar ahora'}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact-section" class="py-24 bg-[#070b14] border-t border-white/5">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-widest">Contacto</span>
+        <h2 class="text-4xl font-black text-white mt-3 mb-4">¿Listo para tu primer kiosk?</h2>
+        <p class="text-gray-400 leading-relaxed mb-8">Nuestro equipo te ayuda a elegir el modelo correcto, diseñar el flujo de tu negocio y poner en marcha tu instalación en tiempo récord.</p>
+        <div class="space-y-4">
+          {[
+            { icon:"M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z", label:"+52 55 1234 5678", sub:"Lun–Vie 9:00–18:00" },
+            { icon:"M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", label:"kiosks@adagi0.com", sub:"Respuesta en < 24h" },
+            { icon:"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z", label:"Av. Insurgentes Sur 1602", sub:"Ciudad de México" },
+          ].map(c => (
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={c.icon}/></svg>
+              </div>
+              <div>
+                <p class="text-white font-semibold text-sm">{c.label}</p>
+                <p class="text-gray-500 text-xs">{c.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="bg-gray-900 border border-white/8 rounded-2xl p-7">
+        <h3 class="text-white font-bold text-lg mb-6">Solicitar información</h3>
+        <div class="space-y-4" id="main-contact-form">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-gray-400 text-xs font-semibold uppercase tracking-wider block mb-1.5">Nombre</label>
+              <input type="text" placeholder="Tu nombre" class="w-full bg-gray-800 border border-white/5 focus:border-blue-500/50 rounded-xl p-3 text-sm text-white outline-none transition-colors placeholder:text-gray-600"/>
+            </div>
+            <div>
+              <label class="text-gray-400 text-xs font-semibold uppercase tracking-wider block mb-1.5">Empresa</label>
+              <input type="text" placeholder="Empresa S.A." class="w-full bg-gray-800 border border-white/5 focus:border-blue-500/50 rounded-xl p-3 text-sm text-white outline-none transition-colors placeholder:text-gray-600"/>
+            </div>
+          </div>
+          <div>
+            <label class="text-gray-400 text-xs font-semibold uppercase tracking-wider block mb-1.5">Correo</label>
+            <input type="email" placeholder="tu@empresa.com" class="w-full bg-gray-800 border border-white/5 focus:border-blue-500/50 rounded-xl p-3 text-sm text-white outline-none transition-colors placeholder:text-gray-600"/>
+          </div>
+          <div>
+            <label class="text-gray-400 text-xs font-semibold uppercase tracking-wider block mb-1.5">¿Cuántos kiosks necesitas?</label>
+            <select class="w-full bg-gray-800 border border-white/5 focus:border-blue-500/50 rounded-xl p-3 text-sm text-white outline-none transition-colors">
+              <option value="">Selecciona…</option>
+              <option>1 kiosk (piloto)</option>
+              <option>2–5 kiosks</option>
+              <option>6–20 kiosks</option>
+              <option>Más de 20 kiosks</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-gray-400 text-xs font-semibold uppercase tracking-wider block mb-1.5">Mensaje</label>
+            <textarea placeholder="Cuéntanos sobre tu proyecto…" rows="3" class="w-full bg-gray-800 border border-white/5 focus:border-blue-500/50 rounded-xl p-3 text-sm text-white outline-none transition-colors resize-none placeholder:text-gray-600"></textarea>
+          </div>
+          <button id="main-send-btn" class="w-full py-3.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+            Enviar solicitud
+          </button>
+        </div>
+        <!-- Success -->
+        <div id="main-contact-success" class="hidden flex-col items-center justify-center py-10 gap-4 text-center">
+          <div class="w-16 h-16 rounded-full bg-blue-600/20 flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div>
+            <p class="text-white font-bold text-lg">¡Solicitud recibida!</p>
+            <p class="text-gray-400 text-sm mt-1">Un especialista te contactará en menos de 24 horas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="bg-gray-950 border-t border-white/5 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <span class="text-white font-black text-lg">Kiosk<span class="text-blue-400">OS</span></span>
+        </div>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-xs">Soluciones de kiosk digital para México y Latinoamérica. Hardware industrial + software en la nube.</p>
+        <p class="text-gray-600 text-xs mt-4">Un producto de <a href="/" class="text-blue-400 hover:underline">AdagIO</a> · CDMX, México</p>
+      </div>
+      <!-- Links -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Producto</h4>
+        <ul class="space-y-2.5">
+          {["Características","Modelos","Integraciones","Precios","Demos interactivos"].map((l, i) => (
+            <li><a href={i === 4 ? demosIndexUrl : `#${["features","models","integrations","pricing"][i]}`} class="text-gray-500 hover:text-white text-sm transition-colors">{l}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Empresa</h4>
+        <ul class="space-y-2.5">
+          {["Acerca de AdagIO","Blog","Casos de éxito","Partners","Contacto"].map(l => (
+            <li><a href="#contact-section" class="text-gray-500 hover:text-white text-sm transition-colors">{l}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-gray-600 text-xs">© 2026 AdagIO · Todos los derechos reservados</p>
+      <div class="flex items-center gap-6">
+        {["Privacidad","Términos","Cookies"].map(l => (
+          <a href="#" class="text-gray-600 hover:text-gray-400 text-xs transition-colors">{l}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes()).padStart(2,'0');
+    const days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    const ts = `${hh}:${mm}`;
+    const ds = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+    ['kiosk-time','saver-time'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = ts; });
+    ['kiosk-date','saver-date'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = ds; });
+  }
+  updateClock();
+  setInterval(updateClock, 10000);
+
+  // Nav scroll style
+  const nav = document.getElementById('kiosk-nav')!;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      nav.style.background = 'rgba(3,7,18,0.85)';
+      nav.style.backdropFilter = 'blur(16px)';
+      nav.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = '';
+      nav.style.borderBottom = '';
     }
+  }, { passive: true });
 
-    document.querySelectorAll<HTMLButtonElement>(".kiosk-btn, .back-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const t = btn.dataset.target;
-        if (t) showSlide(t);
-      });
+  // Kiosk slide navigation
+  let currentSlide = 'slide-screensaver';
+
+  function showSlide(id: string) {
+    document.querySelectorAll<HTMLElement>('.kiosk-slide').forEach(s => {
+      s.style.opacity = '0';
+      s.style.transform = 'scale(0.97)';
+      setTimeout(() => { s.classList.add('hidden'); s.classList.remove('flex'); }, 220);
     });
-
-    document.getElementById("kiosk-send")?.addEventListener("click", () => {
-      document.getElementById("kiosk-sent")?.classList.remove("hidden");
+    const target = document.getElementById(id);
+    if (target) {
       setTimeout(() => {
-        document.getElementById("kiosk-sent")?.classList.add("hidden");
-        showSlide("slide-welcome");
-      }, 2000);
-    });
+        target.classList.remove('hidden');
+        target.classList.add('flex');
+        requestAnimationFrame(() => {
+          target.style.opacity = '0';
+          target.style.transform = 'scale(1.02)';
+          requestAnimationFrame(() => {
+            target.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+            target.style.opacity = '1';
+            target.style.transform = 'scale(1)';
+          });
+        });
+      }, 230);
+    }
+    currentSlide = id;
+    resetIdleTimer();
+  }
 
-    // Initial state
-    showSlide("slide-welcome");
-  </script>
+  // Idle screensaver
+  let idleTimer: ReturnType<typeof setTimeout>;
+  function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    if (currentSlide !== 'slide-screensaver') {
+      idleTimer = setTimeout(() => showSlide('slide-screensaver'), 30000);
+    }
+  }
+
+  // Ripple
+  function addRipple(e: PointerEvent, el: HTMLElement) {
+    const rect = el.getBoundingClientRect();
+    const r = document.createElement('span');
+    const size = Math.max(rect.width, rect.height);
+    r.style.cssText = `position:absolute;border-radius:50%;background:rgba(255,255,255,0.22);width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;transform:scale(0);animation:ripple-anim 0.5s ease-out forwards;pointer-events:none;z-index:99;`;
+    el.style.position = 'relative';
+    el.style.overflow = 'hidden';
+    el.appendChild(r);
+    setTimeout(() => r.remove(), 600);
+  }
+
+  // Wire buttons
+  document.querySelectorAll<HTMLElement>('.kiosk-btn').forEach(btn => {
+    btn.addEventListener('pointerdown', e => addRipple(e as PointerEvent, btn));
+    btn.addEventListener('click', () => { const t = btn.dataset.target; if(t) showSlide(t); });
+  });
+
+  // Catalog filter
+  document.querySelectorAll<HTMLElement>('.cat-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-filter').forEach(b => { b.classList.remove('bg-rose-500','text-white'); b.classList.add('bg-gray-100','text-gray-500'); });
+      btn.classList.add('bg-rose-500','text-white'); btn.classList.remove('bg-gray-100','text-gray-500');
+      const f = btn.dataset.filter;
+      document.querySelectorAll<HTMLElement>('.catalog-item').forEach(c => { c.style.display = (!f||f==='Todos'||c.dataset.cat===f)?'':'none'; });
+    });
+  });
+
+  // Product detail
+  document.querySelectorAll<HTMLElement>('.catalog-item').forEach(card => {
+    card.addEventListener('click', () => {
+      const title = document.getElementById('product-title'); const name = document.getElementById('product-name');
+      const price = document.getElementById('product-price'); const img = document.getElementById('product-img') as HTMLImageElement;
+      if(title) title.textContent = card.dataset.name||''; if(name) name.textContent = card.dataset.name||'';
+      if(price) price.textContent = card.dataset.price||''; if(img){ img.src=card.dataset.img||''; img.alt=card.dataset.name||''; }
+    });
+  });
+
+  // Subject opts
+  document.querySelectorAll<HTMLElement>('.subject-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.subject-opt').forEach(b => { b.classList.remove('bg-emerald-500','text-white','border-emerald-500'); b.classList.add('bg-gray-50','text-gray-600','border-gray-200'); });
+      btn.classList.add('bg-emerald-500','text-white','border-emerald-500'); btn.classList.remove('bg-gray-50','text-gray-600','border-gray-200');
+    });
+  });
+
+  // Kiosk contact form
+  document.getElementById('kiosk-send')?.addEventListener('click', () => {
+    const form = document.getElementById('contact-form')!; const success = document.getElementById('contact-success')!;
+    form.style.opacity='0';
+    setTimeout(() => { form.style.display='none'; success.classList.remove('hidden'); success.classList.add('flex'); success.style.opacity='0'; requestAnimationFrame(()=>{ success.style.transition='opacity 0.3s'; success.style.opacity='1'; }); }, 250);
+    setTimeout(() => { form.style.display=''; form.style.opacity='1'; success.classList.add('hidden'); success.classList.remove('flex'); }, 5000);
+  });
+
+  // Main contact form
+  document.getElementById('main-send-btn')?.addEventListener('click', () => {
+    const form = document.getElementById('main-contact-form')!; const success = document.getElementById('main-contact-success')!;
+    form.style.opacity='0';
+    setTimeout(() => { form.style.display='none'; success.classList.remove('hidden'); success.classList.add('flex'); success.style.opacity='0'; requestAnimationFrame(()=>{ success.style.transition='opacity 0.3s'; success.style.opacity='1'; }); }, 250);
+  });
+
+  // Init
+  showSlide('slide-screensaver');
+  resetIdleTimer();
+</script>
+
+<style>
+  @keyframes ripple-anim { to { transform:scale(3); opacity:0; } }
+  .kiosk-slide { transition: opacity 0.25s ease, transform 0.25s ease; }
+  .kiosk-slide ::-webkit-scrollbar { width:2px; }
+  .kiosk-slide ::-webkit-scrollbar-thumb { background:rgba(0,0,0,0.12); border-radius:2px; }
+  html { scroll-behavior: smooth; }
+</style>
+
 </DemoLayout>

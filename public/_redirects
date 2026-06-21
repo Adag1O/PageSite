@@ -1,38 +1,17 @@
-# Netlify _redirects file for subdomain routing
-# Optimized for better performance and fewer conflicts
+# Netlify _redirects — subdomain asset + page routing
+# Rules evaluated top-to-bottom; first match wins.
 
-# Assets redirects - MUST come before page redirects  
-/background/*      /background/:splat        200
-/Cards/*           /Cards/:splat             200
+# ── Static assets: 302 redirect from subdomain → main domain CDN ─────────
+# Status 200 proxy doesn't work cross-domain with Netlify SSR (the proxy
+# fetches through the SSR function which returns HTML, not the actual file).
+# 302 makes the browser fetch directly from adagi0.com where CDN has them.
+https://*.adagi0.com/_astro/*        https://adagi0.com/_astro/:splat        302!
+https://*.adagi0.com/Cards/*         https://adagi0.com/Cards/:splat         302!
+https://*.adagi0.com/background/*    https://adagi0.com/background/:splat    302!
+https://*.adagi0.com/uploads/*       https://adagi0.com/uploads/:splat       302!
+https://*.adagi0.com/favicon.ico     https://adagi0.com/favicon.ico          302!
+https://*.adagi0.com/favicon.svg     https://adagi0.com/favicon.svg          302!
 
-# _astro assets for subdomains - consolidated
-https://*.adagi0.com/_astro/*      https://adagi0.com/_astro/:splat    200!
-
-# Favicon redirects - consolidated
-https://*.adagi0.com/favicon.ico   https://adagi0.com/favicon.svg      301!
-https://*.adagi0.com/favicon.svg   https://adagi0.com/favicon.svg      200!
-
-# Subdomain redirects (proxy - maintains subdomain visible)
-https://demo.adagi0.com/*          https://adagi0.com/Demos/:splat     200!
-https://demo.adagi0.com            https://adagi0.com/Demos/           200!
-https://demos.adagi0.com/*         https://adagi0.com/Demos/:splat     200!
-https://demos.adagi0.com           https://adagi0.com/Demos/           200!
-
-# Demos route handling
-/Demos/LinkTree                    /Demos/LinkTree                     200
-/Demos/Wedding                     /Demos/Wedding                      200
-/Demos/Video                       /Demos/Video                        200
-/Demos/Ecommerce                   /Demos/Ecommerce                    200
-/Demos/Loteria                     /Demos/Loteria                      200
-/Demos/                            /Demos/                             200
-
-# Assets protection for Demos
-/Demos/*.js                        /Demos/:splat                       200
-/Demos/*.css                       /Demos/:splat                       200
-/Demos/*.png                       /Demos/:splat                       200
-/Demos/*.jpg                       /Demos/:splat                       200
-/Demos/*.svg                       /Demos/:splat                       200
-/Demos/*.avif                      /Demos/:splat                       200
-
-# SPA fallback - should be last
-/Demos/*                           /Demos/index.html                   200
+# ── Subdomain page rewrites (200 keeps subdomain in the URL bar) ──────────
+https://demo.adagi0.com/*            https://adagi0.com/Demos/:splat         200!
+https://demos.adagi0.com/*           https://adagi0.com/Demos/:splat         200!
